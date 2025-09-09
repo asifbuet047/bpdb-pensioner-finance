@@ -9,4 +9,11 @@ class Officer extends Model
 {
     /** @use HasFactory<\Database\Factories\OfficerFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'erp_id',
+        'name',
+        'designation',
+        'role',
+    ];
 }

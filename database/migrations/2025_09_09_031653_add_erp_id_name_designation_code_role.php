@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('officers', function (Blueprint $table) {
-            $table->integer('erp_id',false,true);
-            
+            $table->integer('erp_id', false, true);
+            $table->string('name');
+            $table->enum('designation', ['AD', 'SAD', 'DD']);
+            $table->enum('role', ['ADMIN', 'USER', 'SUPER_ADMIN']);
         });
     }
 
@@ -23,7 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('officers', function (Blueprint $table) {
-            //
+            $table->dropColumn(['erp_id', 'name', 'designation', 'role']);
         });
     }
 };
