@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Officer;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
 class OfficerController extends Controller
@@ -30,5 +29,10 @@ class OfficerController extends Controller
         $newOfficer = Officer::create($validated);
 
         return response()->json(['status' => true, 'message' => 'Officer creation successful', 'data' => $newOfficer], 201);
+    }
+
+    public function showAllOfficer()
+    {
+        return response()->json(['status' => true, 'message' => 'All officer info retrived successfull']);
     }
 }

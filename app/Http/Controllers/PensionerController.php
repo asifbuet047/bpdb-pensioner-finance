@@ -6,7 +6,6 @@ use App\Models\Pensioner;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-use function Pest\Laravel\json;
 
 class PensionerController extends Controller
 {
@@ -38,5 +37,10 @@ class PensionerController extends Controller
             'message' => 'Pensioner created successfully',
             'data' => $pensioner
         ], 201);
+    }
+
+    public function showAllPensioner()
+    {
+        return response()->json(['status' => true, 'message' => 'All pensioner info retrived successfull', 'data' => Pensioner::all()]);
     }
 }
