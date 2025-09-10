@@ -49,8 +49,8 @@ class ApplicationController extends Controller
                 'User-Agent' => 'Mozilla/5.0',
                 'Referer' => 'https://bc.bdpowersectorerp.com:5533/Account/Login'
             ])->post('https://bc.bdpowersectorerp.com:5533/Account/Login', [
-                'username' => 'BPDBAdmin',
-                'password' => 'CompanyAdmin@123',
+                'username' => config('custom.ERP_USERNAME'),
+                'password' => config('custom.ERP_PASSWORD'),
                 '__RequestVerificationToken' => $csrfToken
             ]);
 
