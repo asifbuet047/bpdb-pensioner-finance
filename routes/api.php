@@ -65,8 +65,10 @@ Route::get('/auth', function (Request $request) {
             ]
         ]
     ]);
-    
+
+
+
     return response()->json([
-        'data' => $dataResponse->json()['data']
+        'data' => empty($dataResponse->json()['data'])
     ]);
 });
