@@ -19,9 +19,9 @@ Route::post('/login', [ApplicationController::class, 'loginOfficer'])->name('log
 
 Route::get('/logout', [ApplicationController::class, 'logout'])->name('logout');
 
-Route::get('registration', [ApplicationController::class, 'showRegistrationPage'])->name('registration.page');
+Route::get('/registration', [ApplicationController::class, 'showRegistrationPage'])->name('registration.section');
 
-Route::post('/registration', [ApplicationController::class, 'completeOfficialRegistration'])->name('registration.process');
+Route::post('/registration', [OfficerController::class, 'addOfficerIntoDB'])->name('registration.process');
 
 Route::post('/pensioner', [PensionerController::class, 'addPensionerIntoDB']);
 

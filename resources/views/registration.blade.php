@@ -130,8 +130,8 @@
                                     <label class="form-label" for="password">Password</label>
                                     @if (session()->has('name'))
                                         <input type="password" id="password" name="password"
-                                            class="form-control form-control-lg" value="{{ old('password') }}"
-                                            disabled />
+                                            class="form-control form-control-lg" value="{{ old('password') }}" disabled
+                                            hidden />
                                     @else
                                         <input type="password" id="password" name="password"
                                             class="form-control form-control-lg" />
@@ -143,8 +143,8 @@
                                     <label class="form-label" for="password_confirmation">Confirm password</label>
                                     @if (session()->has('name'))
                                         <input type="password" id="password_confirmation" name="password_confirmation"
-                                            class="form-control form-control-lg" value="{{ old('password') }}"
-                                            disabled />
+                                            class="form-control form-control-lg" value="{{ old('password') }}" disabled
+                                            hidden />
                                     @else
                                         <input type="password" id="password_confirmation" name="password_confirmation"
                                             class="form-control form-control-lg" />
@@ -166,11 +166,21 @@
                                     </div>
                                 @endif
 
-                                <div class="mb-4 row">
-                                    <button class="btn btn-success" onclick="window.location='{{ route('login.page') }}'"
-                                        type="button">Already have an account?
-                                        Login here</button>
-                                </div>
+                                @if (session()->has('name'))
+                                    <div class="mb-4 row" hidden>
+                                        <button class="btn btn-success"
+                                            onclick="window.location='{{ route('login.page') }}'" type="button">Already
+                                            have an account?
+                                            Login here</button>
+                                    </div>
+                                @else
+                                    <div class="mb-4 row">
+                                        <button class="btn btn-success"
+                                            onclick="window.location='{{ route('login.page') }}'" type="button">Already
+                                            have an account?
+                                            Login here</button>
+                                    </div>
+                                @endif
                             </form>
                         </div>
                     </div>
