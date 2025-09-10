@@ -7,9 +7,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ApplicationController::class, 'showHomePage'])->name('home.page');
 
+Route::get('/addpensioner', [ApplicationController::class, 'showAddPensionerSection'])->name('add.pensioner.section');
+
+Route::post('/addpensioner', [PensionerController::class, 'addPensionerIntoDB'])->name('add.pensioner.process');
+
 Route::get('/login', [ApplicationController::class, 'showLoginpage'])->name('login.page');
 
-Route::post('/login', [ApplicationController::class, 'loginOfficer'])->name('login.success');
+Route::post('/login', [ApplicationController::class, 'loginOfficer'])->name('login.process');
 
 Route::get('registration', [ApplicationController::class, 'showRegistrationPage'])->name('registration.page');
 

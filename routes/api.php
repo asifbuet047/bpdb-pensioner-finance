@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
-use function Pest\Laravel\withHeaders;
 
 Route::get('/pensioners', [PensionerController::class, 'showAllPensioner']);
 

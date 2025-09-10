@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Pensioner;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 
 
 class PensionerController extends Controller
 {
     public function addPensionerIntoDB(Request $request)
     {
-        try {
+
+        if ($request->hasCookie('user_token')) {
             $validated = $request->validate([
                 'erp_id'           => 'required|integer|unique:pensioners,erp_id',
                 'name'             => 'required|string|max:255',
@@ -22,21 +22,13 @@ class PensionerController extends Controller
                 'bank_name'        => 'required|string|max:255',
                 'account_number'   => 'required|string|max:255|unique:pensioners,account_number',
             ]);
-        } catch (ValidationException $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Pensioner creation unsuccessful',
-                'data' => []
-            ]);
+
+            $pensioner = Pensioner::create($validated);
+
+            return redirect()->back()->with($validated);
+        } else {
+            return view('login');
         }
-
-        $pensioner = Pensioner::create($validated);
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Pensioner created successfully',
-            'data' => $pensioner
-        ], 201);
     }
 
     public function showAllPensioner()

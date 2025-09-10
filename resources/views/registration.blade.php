@@ -1,5 +1,6 @@
 @extends('layouts.layout')
 
+@section('title', 'Registration')
 
 @section('content')
     <style>
@@ -159,9 +160,7 @@
                                             class="form-control form-control-lg" />
                                     @endif
 
-                                    @error('password')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="password_confirmation">Confirm password</label>
@@ -174,9 +173,7 @@
                                             class="form-control form-control-lg" />
                                     @endif
 
-                                    @error('password_confirmation')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+
                                 </div>
 
                                 @if (session()->has('name'))

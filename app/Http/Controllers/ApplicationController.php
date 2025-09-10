@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
 
+use function Pest\Laravel\withCookie;
+
 class ApplicationController extends Controller
 {
     public function showLoginPage()
@@ -110,5 +112,39 @@ class ApplicationController extends Controller
                 'role' => $request->input('role')
             ]);
         }
+    }
+
+    public function loginOfficer(Request $request)
+    {
+        $validated = $request->validate([
+            'erp_id' => 'required|integer',
+            'password' => [
+                'required',
+                'string',
+                'max:15',
+                'regex:/[@$!%*#?&]/',
+            ]
+        ], [
+            'password.max' => 'Password cannot be longer than 15 characters',
+            'password.regex' => 'Password must contain at least one special character',
+        ]);
+
+        $officer = Officer::where('erp_id', $validated['erp_id'])->first();
+
+        if (!$officer || !Hash::check($validated['password'], $officer->password)) {
+            return redirect()->back()
+                ->withErrors(['erp_id' => 'Invalid ERP ID or password'])
+                ->withInput();
+        } else {
+            return redirect()->back()->with([
+                'erp_id' => $validated['erp_id'],
+                'password' => $validated['password']
+            ])->withCookie(cookie('user_token', $validated['erp_id'], 10, '/', null, true, true));
+        }
+    }
+
+    public function showAddPensionerSection()
+    {
+        return view('addpensioner');
     }
 }
