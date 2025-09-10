@@ -11,6 +11,8 @@ Route::get('/addpensioner', [ApplicationController::class, 'showAddPensionerSect
 
 Route::post('/addpensioner', [PensionerController::class, 'addPensionerIntoDB'])->name('add.pensioner.process');
 
+Route::get('/pensioners', [PensionerController::class, 'showAllPensioner'])->name('show.pensioner.section');
+
 Route::get('/login', [ApplicationController::class, 'showLoginpage'])->name('login.page');
 
 Route::post('/login', [ApplicationController::class, 'loginOfficer'])->name('login.process');

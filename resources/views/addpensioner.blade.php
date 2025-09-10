@@ -143,7 +143,7 @@
 
                                 @if (session()->has('erp_id'))
                                     <div class="mb-4 row">
-                                        <button class="btn btn-success" onclick="location.reload();">Addition
+                                        <button class="btn btn-success">Addition
                                             successful.
                                             Add another pensioner?</button>
                                     </div>

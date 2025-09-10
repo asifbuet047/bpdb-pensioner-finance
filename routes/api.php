@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/pensioners', [PensionerController::class, 'showAllPensioner']);
-
-Route::get('/officers', [OfficerController::class, 'showAllOfficer']);
 
 Route::get('/auth', function (Request $request) {
     $jar = new CookieJar();

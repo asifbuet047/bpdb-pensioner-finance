@@ -31,8 +31,13 @@ class PensionerController extends Controller
         }
     }
 
-    public function showAllPensioner()
+    public function showAllPensioner(Request $request)
     {
-        return response()->json(['status' => true, 'message' => 'All pensioner info retrived successfull', 'data' => Pensioner::all()]);
+        if ($request->hasCookie('user_token')) {
+            $pensioners = Pensioner::orderBy('name')->get();
+            return view('viewpensioner', compact('pensioners'));
+        } else {
+            return view('login');
+        }
     }
 }
