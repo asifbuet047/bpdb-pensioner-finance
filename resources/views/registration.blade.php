@@ -25,9 +25,9 @@
             top: 13px;
         }
     </style>
-    <section class="vh-100 gradient-custom">
-        <div class="container py-5 h-100">
-            <div class="row justify-content-center align-items-center h-100">
+    <section class="gradient-custom">
+        <div class="container py-5">
+            <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-lg-9 col-xl-7">
                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
@@ -121,7 +121,7 @@
                                                 value="ADMIN" checked disabled />
                                         @else
                                             <input class="form-check-input" type="radio" name="role" id="role"
-                                                value="ADMIN" checked {{ old('role') == 'ADMIN' ? 'checked' : '' }} />
+                                                value="ADMIN" {{ old('role') == 'ADMIN' ? 'checked' : '' }} />
                                         @endif
                                         <label class="form-check-label" for="admin">Admin</label>
                                     </div>
