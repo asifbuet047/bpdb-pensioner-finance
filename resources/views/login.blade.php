@@ -76,8 +76,8 @@
 
                                 @if (session()->has('erp_id'))
                                     <div class="mb-4 row">
-                                        <button class="btn btn-success"
-                                            onclick="window.location='{{ route('home.page') }}'">Login successful.
+                                        <button class="btn btn-success" onclick="window.location='{{ route('home.page') }}'"
+                                            type="button">Login successful.
                                             Go to dashboard page</button>
                                     </div>
                                 @else

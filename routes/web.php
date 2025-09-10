@@ -17,6 +17,8 @@ Route::get('/login', [ApplicationController::class, 'showLoginpage'])->name('log
 
 Route::post('/login', [ApplicationController::class, 'loginOfficer'])->name('login.process');
 
+Route::get('/logout', [ApplicationController::class, 'logout'])->name('logout');
+
 Route::get('registration', [ApplicationController::class, 'showRegistrationPage'])->name('registration.page');
 
 Route::post('/registration', [ApplicationController::class, 'completeOfficialRegistration'])->name('registration.process');

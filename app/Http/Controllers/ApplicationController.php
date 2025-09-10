@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Officer;
 use GuzzleHttp\Cookie\CookieJar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
@@ -26,6 +27,13 @@ class ApplicationController extends Controller
         } else {
             return view('login');
         }
+    }
+
+    public function logout()
+    {
+        Cookie::queue(Cookie::forget('user_token'));
+
+        return redirect()->route('login.page');
     }
 
     public function showRegistrationPage(Request $request)
