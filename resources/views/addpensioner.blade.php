@@ -3,19 +3,8 @@
 @section('title', 'Add Pensioner')
 
 @section('content')
-    <style>
-        .card-registration .select-input.form-control[readonly]:not([disabled]) {
-            font-size: 1rem;
-            line-height: 2.15;
-            padding-left: .75em;
-            padding-right: .75em;
-        }
-
-        .card-registration .select-arrow {
-            top: 13px;
-        }
-    </style>
-    <section class="vh-100">
+ 
+    <section style="background-color: #CEF3ED">
         <div class="container py-5">
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-lg-9 col-xl-7">

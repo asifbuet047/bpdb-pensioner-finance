@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <section class="vh-100 py-5">
+    <section class="vh-100 py-5" style="background-color: #CEF3ED">
         <div class="container text-center">
             <h2 class="mb-4 fw-bold">Pensioner Management</h2>
 

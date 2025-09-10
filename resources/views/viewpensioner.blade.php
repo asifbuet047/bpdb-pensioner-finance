@@ -3,11 +3,11 @@
 @section('title', 'All Pensioner')
 
 @section('content')
-    <div class="container py-5">
+    <section class="container-fluid py-5 vh-100" style="background-color: #CEF3ED">
         <h2 class="mb-4 text-center fw-bold text-primary">All Pensioners</h2>
 
-        <div class="table-responsive shadow rounded">
-            <table class="table table-hover align-middle text-center">
+        <div class="table-responsive shadow rounded p-2">
+            <table class="table table-hover align-middle custom-border">
                 <thead class="bg-gradient-primary text-white">
                     <tr>
                         <th scope="col">No</th>
@@ -54,6 +54,6 @@
                 Refresh List
             </a>
         </div>
-    </div>
+    </section>
 
 @endsection

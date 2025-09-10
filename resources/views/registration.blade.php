@@ -3,30 +3,7 @@
 @section('title', 'Registration')
 
 @section('content')
-    <style>
-        .gradient-custom {
-            /* fallback for old browsers */
-            background: #f093fb;
-
-            /* Chrome 10-25, Safari 5.1-6 */
-            background: -webkit-linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
-
-            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            background: linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1))
-        }
-
-        .card-registration .select-input.form-control[readonly]:not([disabled]) {
-            font-size: 1rem;
-            line-height: 2.15;
-            padding-left: .75em;
-            padding-right: .75em;
-        }
-
-        .card-registration .select-arrow {
-            top: 13px;
-        }
-    </style>
-    <section class="gradient-custom">
+    <section class="gradient-custom" style="background-color: #CEF3ED">
         <div class="container py-5">
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-lg-9 col-xl-7">
@@ -179,7 +156,8 @@
                                 @if (session()->has('name'))
                                     <div class="mb-4 row">
                                         <button class="btn btn-success"
-                                            onclick="window.location='{{ route('login.page') }}'">Registration successful.
+                                            onclick="window.location='{{ route('login.page') }}'"
+                                            type="button">Registration successful.
                                             Go to Login page</button>
                                     </div>
                                 @else
@@ -188,7 +166,11 @@
                                     </div>
                                 @endif
 
-
+                                <div class="mb-4 row">
+                                    <button class="btn btn-success" onclick="window.location='{{ route('login.page') }}'"
+                                        type="button">Already have an account?
+                                        Login here</button>
+                                </div>
                             </form>
                         </div>
                     </div>

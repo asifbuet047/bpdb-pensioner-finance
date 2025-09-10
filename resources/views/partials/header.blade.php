@@ -1,5 +1,15 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light py-3" style="background-color: #A2E8DD">
+    <style>
+        .custom-border {
+            border: 3px solid black !important;
+        }
+
+        .custom-border th,
+        .custom-border td {
+            border: 2px solid black !important;
+        }
+    </style>
+    <nav class="navbar navbar-expand-lg navbar-light py-3 custom-border" style="background-color: #A2E8DD">
         <div class="container">
             <a class="navbar-brand fw-bolder" href="/">BPDB Pensioner Management App</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
