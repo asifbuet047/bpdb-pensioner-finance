@@ -18,13 +18,15 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold">
-                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/pensioners">All Pensioner</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/officers">All Officer</a></li>
+                    <li class="nav-item scale-animate"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item scale-animate"><a class="nav-link" href="/pensioners">All Pensioner</a></li>
+                    <li class="nav-item scale-animate"><a class="nav-link" href="/officers">All Officer</a></li>
                     @if (request()->hasCookie('user_token'))
-                        <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
+                        <li class="nav-item scale-animate"><a class="nav-link" href="{{ route('logout') }}">Logout</a>
+                        </li>
                     @else
-                        <li class="nav-item"><a class="nav-link" href="{{ route('login.page') }}">Login</a></li>
+                        <li class="nav-item scale-animate"><a class="nav-link"
+                                href="{{ route('login.page') }}">Login</a></li>
                     @endif
                 </ul>
             </div>

@@ -24,13 +24,13 @@
 
         .gradient-custom {
             /* fallback for old browsers */
-            background: #f093fb;
+            background: #CEF3ED;
 
             /* Chrome 10-25, Safari 5.1-6 */
-            background: -webkit-linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
+            background: -webkit-linear-gradient(to bottom right, #CEF3ED, #DEF7F3);
 
             /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            background: linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1))
+            background: linear-gradient(to bottom right, #CEF3ED, #DEF7F3);
         }
 
         .card-registration .select-input.form-control[readonly]:not([disabled]) {
@@ -42,6 +42,14 @@
 
         .card-registration .select-arrow {
             top: 13px;
+        }
+
+        .scale-animate {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .scale-animate:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
