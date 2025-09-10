@@ -15,5 +15,6 @@ class Officer extends Model
         'name',
         'designation',
         'role',
+        'password',
     ];
 }
