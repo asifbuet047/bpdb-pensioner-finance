@@ -90,7 +90,15 @@ class OfficerController extends Controller
             ]);
         }
     }
-    public function getOfficerFromDB(Request $request) {}
+    public function getOfficerFromDB(Request $request)
+    {
+        if ($request->cookie('user_role') === "SUPER_ADMIN") {
+            $officers = Officer::orderBy('name')->get();
+            return view('viewusers', compact('officers'));
+        } else {
+            return view('login');
+        }
+    }
 
     public function showAllOfficer()
     {

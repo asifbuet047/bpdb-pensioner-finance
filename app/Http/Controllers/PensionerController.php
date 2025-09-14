@@ -11,7 +11,7 @@ class PensionerController extends Controller
     public function addPensionerIntoDB(Request $request)
     {
 
-        if ($request->hasCookie('user_token')) {
+        if ($request->hasCookie('user_id')) {
             $validated = $request->validate([
                 'erp_id'           => 'required|integer|unique:pensioners,erp_id',
                 'name'             => 'required|string|max:255',
@@ -33,7 +33,7 @@ class PensionerController extends Controller
 
     public function showAllPensioner(Request $request)
     {
-        if ($request->hasCookie('user_token')) {
+        if ($request->hasCookie('user_id')) {
             $pensioners = Pensioner::orderBy('name')->get();
             return view('viewpensioner', compact('pensioners'));
         } else {

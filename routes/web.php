@@ -26,3 +26,5 @@ Route::post('/registration', [OfficerController::class, 'addOfficerIntoDB'])->na
 Route::post('/pensioner', [PensionerController::class, 'addPensionerIntoDB']);
 
 Route::post('/officer', [OfficerController::class, 'addOfficerIntoDB']);
+
+Route::get('/officers', [OfficerController::class, 'getOfficerFromDB'])->name('show.officers');
