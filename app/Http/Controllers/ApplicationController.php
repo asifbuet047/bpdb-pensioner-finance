@@ -22,7 +22,7 @@ class ApplicationController extends Controller
 
     public function showHomePage(Request $request)
     {
-        if ($request->hasCookie('user_token')) {
+        if ($request->hasCookie('user_id')) {
             return view('dashboard');
         } else {
             return view('login');
@@ -31,8 +31,9 @@ class ApplicationController extends Controller
 
     public function logout()
     {
-        Cookie::queue(Cookie::forget('user_token'));
-
+        Cookie::queue(Cookie::forget('user_id'));
+        Cookie::queue(Cookie::forget('user_role'));
+        Cookie::queue(Cookie::forget('user_name'));
         return redirect()->route('login.page');
     }
 
@@ -147,7 +148,7 @@ class ApplicationController extends Controller
             return redirect()->back()->with([
                 'erp_id' => $validated['erp_id'],
                 'password' => $validated['password']
-            ])->withCookie(cookie('user_token', $validated['erp_id'], 10, '/', null, true, true));
+            ])->withCookies([cookie('user_id', $validated['erp_id'], 10, '/', null, true, true), cookie('user_role', $officer->role, 10, '/', null, true, true), cookie('user_name', $officer->name, 10, '/', null, true, true)]);
         }
     }
 

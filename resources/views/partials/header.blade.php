@@ -21,9 +21,21 @@
                     <li class="nav-item scale-animate"><a class="nav-link" href="/">Home</a></li>
                     <li class="nav-item scale-animate"><a class="nav-link" href="/pensioners">All Pensioner</a></li>
                     <li class="nav-item scale-animate"><a class="nav-link" href="/officers">All Officer</a></li>
-                    @if (request()->hasCookie('user_token'))
-                        <li class="nav-item scale-animate"><a class="nav-link" href="{{ route('logout') }}">Logout</a>
-                        </li>
+                    @if (request()->hasCookie('user_id') && request()->hasCookie('user_role') && request()->hasCookie('user_name'))
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary dropdown-toggle" type="button"
+                                id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ request()->cookie('user_name') }}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li class="dropdown-item">Yout are <span
+                                        class="fw-bold">{{ request()->cookie('user_role') }}</span>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                            </ul>
+                        </div>
+                        </a>
                     @else
                         <li class="nav-item scale-animate"><a class="nav-link"
                                 href="{{ route('login.page') }}">Login</a></li>
