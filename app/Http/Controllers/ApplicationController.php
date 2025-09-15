@@ -48,7 +48,7 @@ class ApplicationController extends Controller
         $jar = new CookieJar();
 
         $loginPage = Http::withOptions(['cookies' => $jar, 'verify' => false])
-            ->get('https://bc.bdpowersectorerp.com:5533/Account/Login');
+            ->get(config('custom.ERP_LOGIN_URL'));
 
         preg_match('/name="__RequestVerificationToken" type="hidden" value="([^"]+)"/', $loginPage->body(), $matches);
         $csrfToken = $matches[1] ?? null;
@@ -56,10 +56,10 @@ class ApplicationController extends Controller
         $loginResponse = Http::asForm()
             ->withOptions(['cookies' => $jar, 'verify' => false, 'allow_redirects' => false])
             ->withHeaders([
-                'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-                'User-Agent' => 'Mozilla/5.0',
-                'Referer' => 'https://bc.bdpowersectorerp.com:5533/Account/Login'
-            ])->post('https://bc.bdpowersectorerp.com:5533/Account/Login', [
+                'Accept' => config('custom.ERP_ACCEPT_HEADER'),
+                'User-Agent' => config('custom.ERP_USER_AGENT_HEADER'),
+                'Referer' => config('custom.ERP_LOGIN_URL')
+            ])->post(config('custom.ERP_LOGIN_URL'), [
                 'username' => config('custom.ERP_USERNAME'),
                 'password' => config('custom.ERP_PASSWORD'),
                 '__RequestVerificationToken' => $csrfToken
@@ -80,10 +80,10 @@ class ApplicationController extends Controller
         ];
 
         $dataResponse = Http::withOptions(['cookies' => $jar, 'verify' => false])->withHeaders([
-            'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'User-Agent' => 'Mozilla/5.0',
-            'Referer' => 'https://bc.bdpowersectorerp.com:5533'
-        ])->post('https://bc.bdpowersectorerp.com:5533/api/erpemployee/get-all', $data);
+            'Accept' => config('custom.ERP_ACCEPT_HEADER'),
+            'User-Agent' => config('custom.ERP_REFERER_HEADER'),
+            'Referer' => config('custom.ERP_REFERER_HEADER')
+        ])->post(config('custom.ERP_GET_ALL_URL'), $data);
 
         if (empty($dataResponse->json()['data'])) {
             return redirect()->back()->withErrors([
