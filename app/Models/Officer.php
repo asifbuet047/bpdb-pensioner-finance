@@ -17,4 +17,9 @@ class Officer extends Model
         'role',
         'password',
     ];
+
+    public function office()
+    {
+        return $this->belongsTo(Office::class);
+    }
 }
