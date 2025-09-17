@@ -40,4 +40,12 @@ class PensionerController extends Controller
             return view('login');
         }
     }
+
+    public function removePensionerFromDB(Request $request)
+    {
+        if ($request->hasCookie('user_id')) {
+            Pensioner::delete($request->input('id'));
+        } else {
+        }
+    }
 }

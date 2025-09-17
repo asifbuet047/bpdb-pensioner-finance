@@ -17,15 +17,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".pensioner-delete-buttons").forEach((row) => {
         row.addEventListener("click", (e) => {
             let index = e.currentTarget.getAttribute("data-index");
-            const deleteButton = document.getElementById(
-                "pensionerDeleteButton"
-            );
-            console.log(index);
-
             const span = document.getElementById(
                 "pensionerDeleteActionModalSpan"
             );
             span.innerText = index;
+            const deleteButton = document.getElementById(
+                "pensionerDeleteButton"
+            );
+            
+
             let modalElement = document.getElementById(
                 "pensionerDeleteActionModal"
             );
