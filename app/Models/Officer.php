@@ -15,6 +15,7 @@ class Officer extends Model
         'name',
         'designation',
         'role',
+        'office_id',
         'password',
     ];
 

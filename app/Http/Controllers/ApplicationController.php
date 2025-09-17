@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Office;
 use App\Models\Officer;
 use GuzzleHttp\Cookie\CookieJar;
 use Illuminate\Http\Request;
@@ -39,7 +40,8 @@ class ApplicationController extends Controller
 
     public function showRegistrationPage(Request $request)
     {
-        return view('registration');
+        $offices = Office::all();
+        return view('registration', ['offices' => $offices]);
     }
 
     public function completeOfficialRegistration(Request $request)
@@ -94,6 +96,7 @@ class ApplicationController extends Controller
                 'erp_id' => 'required|integer|unique:officers,erp_id',
                 'name' => 'required|string|max:255',
                 'designation' => 'required|in:AD,SAD,DD',
+                'office_id' => 'required|integer|exists:offices,id',
                 'role' => 'required|in:ADMIN,USER,SUPER_ADMIN',
                 'password' => [
                     'required',
@@ -107,17 +110,12 @@ class ApplicationController extends Controller
                 'password.regex' => 'Password must contain at least one special character',
             ]);
 
-            $officer = Officer::create([
-                'name' => $request->input('name'),
-                'erp_id' => $request->input('erp_id'),
-                'designation' => $request->input('designation'),
-                'role' => $request->input('role'),
-                'password' => Hash::make($request->input('password'))
-            ]);
+            $officer = Officer::create($validated);
             return redirect()->back()->with([
                 'name' => $request->input('name'),
                 'erp_id' => $request->input('erp_id'),
                 'designation' => $request->input('designation'),
+                'office' => $request->input('office'),
                 'role' => $request->input('role')
             ]);
         }
