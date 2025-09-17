@@ -29,10 +29,17 @@
                             View All Pensioners
                         </a>
                     </div>
-                    <!-- View All User Button conditional rendering-->
+                    <!-- View All officers Button conditional rendering-->
                     <div class="col-12 col-md-4">
                         <a href="{{ route('show.officers') }}" class="btn btn-primary btn-lg w-100 shadow-lg fw-bold">
                             View All Officers
+                        </a>
+                    </div>
+
+                    <!-- View All Offices Button conditional rendering-->
+                    <div class="col-12 col-md-4">
+                        <a href="{{ route('show.offices') }}" class="btn btn-primary btn-lg w-100 shadow-lg fw-bold">
+                            View All Offices
                         </a>
                     </div>
                 </div>

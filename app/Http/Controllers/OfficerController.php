@@ -94,18 +94,15 @@ class OfficerController extends Controller
             ]);
         }
     }
-    public function getOfficerFromDB(Request $request)
+
+    public function getAllOfficersFromDB(Request $request)
     {
         if ($request->cookie('user_role') === "SUPER_ADMIN") {
             $officers = Officer::orderBy('name')->get();
-            return view('viewusers', compact('officers'));
+            return view('viewofficers', compact('officers'));
         } else {
             return view('login');
         }
     }
-
-    public function showAllOfficer()
-    {
-        return response()->json(['status' => true, 'message' => 'All officer info retrived successfull', 'data' => Officer::all()]);
-    }
+    
 }

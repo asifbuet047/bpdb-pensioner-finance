@@ -31,7 +31,7 @@ class PensionerController extends Controller
         }
     }
 
-    public function showAllPensioner(Request $request)
+    public function getAllPensionersFromDB(Request $request)
     {
         if ($request->hasCookie('user_id')) {
             $pensioners = Pensioner::orderBy('name')->get();
