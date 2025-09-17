@@ -15,7 +15,7 @@
             @if (request()->cookie('user_role') === 'SUPER_ADMIN')
                 <div class="row g-3 justify-content-center">
                     <!-- Add Pensioner Button -->
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-3">
                         <a href="{{ route('add.pensioner.section') }}"
                             class="btn btn-primary btn-lg w-100 shadow-lg text-white fw-bold">
                             Add Pensioner
@@ -23,23 +23,30 @@
                     </div>
 
                     <!-- View All Pensioner Button -->
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-3">
                         <a href="{{ route('show.pensioner.section') }}"
                             class="btn btn-primary btn-lg w-100 shadow-lg fw-bold">
                             View All Pensioners
                         </a>
                     </div>
                     <!-- View All officers Button conditional rendering-->
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-2">
                         <a href="{{ route('show.officers') }}" class="btn btn-primary btn-lg w-100 shadow-lg fw-bold">
                             View All Officers
                         </a>
                     </div>
 
                     <!-- View All Offices Button conditional rendering-->
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-2">
                         <a href="{{ route('show.offices') }}" class="btn btn-primary btn-lg w-100 shadow-lg fw-bold">
                             View All Offices
+                        </a>
+                    </div>
+
+                    <!-- View Add Office Button conditional rendering-->
+                    <div class="col-12 col-md-2">
+                        <a href="{{ route('add.office.section') }}" class="btn btn-primary btn-lg w-100 shadow-lg fw-bold">
+                            Add Office
                         </a>
                     </div>
                 </div>

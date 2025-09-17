@@ -38,12 +38,21 @@ class ApplicationController extends Controller
         return redirect()->route('login.page');
     }
 
-    public function showRegistrationPage(Request $request)
+    public function showAddOfficerSection()
     {
         $offices = Office::all();
-        return view('registration', ['offices' => $offices]);
+        return view('addofficer', ['offices' => $offices]);
     }
 
+    public function showAddofficeSection()
+    {
+        return view('addoffice');
+    }
+
+    public function showAddPensionerSection()
+    {
+        return view('addpensioner');
+    }
 
     public function loginOfficer(Request $request)
     {
@@ -72,10 +81,5 @@ class ApplicationController extends Controller
                 'password' => $validated['password']
             ])->withCookies([cookie('user_id', $validated['erp_id'], 10, '/', null, true, true), cookie('user_role', $officer->role, 10, '/', null, true, true), cookie('user_name', $officer->name, 10, '/', null, true, true)]);
         }
-    }
-
-    public function showAddPensionerSection()
-    {
-        return view('addpensioner');
     }
 }

@@ -184,7 +184,7 @@
                                     </div>
                                 @else
                                     <div class="mb-4 row">
-                                        <input class="btn btn-primary btn-lg" type="submit" />
+                                        <button class="btn btn-primary" type="submit">ADD OFFICER</button>
                                     </div>
                                 @endif
 

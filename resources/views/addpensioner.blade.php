@@ -3,7 +3,7 @@
 @section('title', 'Add Pensioner')
 
 @section('content')
- 
+
     <section style="background-color: #CEF3ED">
         <div class="container py-5">
             <div class="row justify-content-center align-items-center">
@@ -130,15 +130,14 @@
                                 </div>
 
 
-                                @if (session()->has('erp_id'))
+                                @if (session()->has('id'))
                                     <div class="mb-4 row">
-                                        <button class="btn btn-success">Addition
-                                            successful.
-                                            Add another pensioner?</button>
+                                        <button class="btn btn-success" type="button">Addition successful. Add another
+                                            Pensioner?</button>
                                     </div>
                                 @else
                                     <div class="mb-4 row">
-                                        <input class="btn btn-primary btn-lg" type="submit" />
+                                        <button class="btn btn-success" type="submit">ADD PENSIONER</button>
                                     </div>
                                 @endif
 

@@ -65,7 +65,7 @@
                                 @if (!session()->has('erp_id'))
                                     <div class="mb-4 row">
                                         <button class="btn btn-success"
-                                            onclick="window.location='{{ route('registration.section') }}'"
+                                            onclick="window.location='{{ route('add.officer.section') }}'"
                                             type="button">Don't
                                             have an account? Register here</button>
                                     </div>
