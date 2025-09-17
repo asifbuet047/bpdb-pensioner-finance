@@ -7,9 +7,28 @@ document.addEventListener("DOMContentLoaded", () => {
             const officeID = document.getElementById("office_id");
             officeField.value = selectedOfficename;
             officeID.value = selectedOfficeCode;
-            console.log(officeID.value);
 
             let modalElement = document.getElementById("selectModal");
+            let modal = bootstrap.Modal.getInstance(modalElement);
+            modal.hide();
+        });
+    });
+
+    document.querySelectorAll(".pensioner-delete-buttons").forEach((row) => {
+        row.addEventListener("click", (e) => {
+            let index = e.currentTarget.getAttribute("data-index");
+            const deleteButton = document.getElementById(
+                "pensionerDeleteButton"
+            );
+            console.log(index);
+
+            const span = document.getElementById(
+                "pensionerDeleteActionModalSpan"
+            );
+            span.innerText = index;
+            let modalElement = document.getElementById(
+                "pensionerDeleteActionModal"
+            );
             let modal = bootstrap.Modal.getInstance(modalElement);
             modal.hide();
         });

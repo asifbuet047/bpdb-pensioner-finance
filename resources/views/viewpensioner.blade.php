@@ -36,7 +36,9 @@
                             <td>{{ $pensioner->account_number }}</td>
                             <td>
                                 <div class="row">
-                                    <i class="bi bi-trash col-6"></i>
+                                    <i class="bi bi-trash col-6 pensioner-delete-buttons" data-bs-toggle="modal"
+                                        data-bs-target="#pensionerDeleteActionModal"
+                                        data-index="{{ $pensioner->name }}"></i>
                                     <i class="bi bi-pen col-6"></i>
                                 </div>
                             </td>
@@ -50,6 +52,27 @@
                     @endforelse
                 </tbody>
             </table>
+
+            <!--Delete Action Modal -->
+            <div class="modal fade" id="pensionerDeleteActionModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">Are You sure?</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Do You really want to delete <span class="fw-bold" id="pensionerDeleteActionModalSpan"></span>?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                id="pensionerDeleteButton">Yes</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Not now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Action Buttons -->
