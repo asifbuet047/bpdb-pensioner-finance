@@ -58,9 +58,10 @@
                                             placeholder="Your Office" value="{{ session('office') }}" disabled />
                                     @else
                                         <!-- This is actaully not submitted but shown -->
-                                        <input type="text" id="office" class="form-control form-control-lg"
-                                            placeholder="Your Office click to select" value="{{ old('office') }}"
-                                            data-bs-toggle="modal" data-bs-target="#selectModal" readonly />
+                                        <input type="text" id="office" name="office_name"
+                                            class="form-control form-control-lg" placeholder="Your Office click to select"
+                                            value="{{ old('office') }}" data-bs-toggle="modal" data-bs-target="#selectModal"
+                                            readonly />
 
                                         <!-- This is actaully submitted but not shown -->
                                         <input type="hidden" name="office_id" id="office_id" value="" />
@@ -144,25 +145,29 @@
                                         <label class="form-check-label" for="super_admin">Super Admin</label>
                                     </div>
                                 </div>
+
                                 <div class="mb-4">
-                                    <label class="form-label" for="password">Password</label>
+
                                     @if (session()->has('name'))
                                         <input type="password" id="password" name="password"
                                             class="form-control form-control-lg" value="{{ old('password') }}" disabled
                                             hidden />
                                     @else
+                                        <label class="form-label" for="password">Password</label>
                                         <input type="password" id="password" name="password"
                                             class="form-control form-control-lg" />
                                     @endif
 
                                 </div>
+
                                 <div class="mb-4">
-                                    <label class="form-label" for="password_confirmation">Confirm password</label>
+
                                     @if (session()->has('name'))
                                         <input type="password" id="password_confirmation" name="password_confirmation"
                                             class="form-control form-control-lg" value="{{ old('password') }}" disabled
                                             hidden />
                                     @else
+                                        <label class="form-label" for="password_confirmation">Confirm password</label>
                                         <input type="password" id="password_confirmation" name="password_confirmation"
                                             class="form-control form-control-lg" />
                                     @endif
