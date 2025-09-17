@@ -10,10 +10,10 @@
             <table class="table table-hover align-middle custom-border">
                 <thead class="bg-gradient-primary text-white">
                     <tr>
-                        <th scope="col" class="fw-bolder">No</th>
-                        <th scope="col" class="fw-bolder">Office name</th>
-                        <th scope="col" class="fw-bolder">Office name in Bangla</th>
-                        <th scope="col" class="fw-bolder">Office code in ERP</th>
+                        <th scope="col" class="fw-bolder fs-4">No</th>
+                        <th scope="col" class="fw-bolder fs-4">Office name</th>
+                        <th scope="col" class="fw-bolder fs-4">Office name in Bangla</th>
+                        <th scope="col" class="fw-bolder fs-4">Office code in ERP</th>
                     </tr>
                 </thead>
                 <tbody>

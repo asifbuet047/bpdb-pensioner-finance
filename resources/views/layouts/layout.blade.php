@@ -51,6 +51,10 @@
         .scale-animate:hover {
             transform: scale(1.1);
         }
+
+        .hand-pointer:hover {
+            cursor: pointer
+        }
     </style>
 </head>
 

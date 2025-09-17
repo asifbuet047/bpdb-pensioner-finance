@@ -8,7 +8,7 @@
 
         <div class="table-responsive shadow rounded p-2">
             <table class="table table-hover align-middle custom-border">
-                <thead class="bg-gradient-primary text-white">
+                <thead class="bg-gradient-primary text-white fw-bolder fs-4">
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">ERP ID</th>
@@ -19,20 +19,27 @@
                         <th scope="col">Incentive Bonus</th>
                         <th scope="col">Bank Name</th>
                         <th scope="col">Account Number</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($pensioners as $index => $pensioner)
-                        <tr class="{{ $index % 2 == 0 ? 'table-light' : '' }}">
-                            <td class="fw-bold">{{ $index + 1 }}</td>
-                            <td class="fw-bold">{{ $pensioner->erp_id }}</td>
-                            <td class="fw-bold text-primary">{{ $pensioner->name }}</td>
+                        <tr class="{{ $index % 2 == 0 ? 'table-light' : '' }} fw-semibold hand-pointer">
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $pensioner->erp_id }}</td>
+                            <td>{{ $pensioner->name }}</td>
                             <td>{{ $pensioner->register_no }}</td>
                             <td>{{ number_format($pensioner->basic_salary, 2) }}</td>
                             <td>{{ number_format($pensioner->medical_allowance, 2) }}</td>
                             <td>{{ number_format($pensioner->incentive_bonus, 2) }}</td>
                             <td>{{ $pensioner->bank_name }}</td>
                             <td>{{ $pensioner->account_number }}</td>
+                            <td>
+                                <div class="row">
+                                    <i class="bi bi-trash col-6"></i>
+                                    <i class="bi bi-pen col-6"></i>
+                                </div>
+                            </td>
                         </tr>
                     @empty
                         <tr>

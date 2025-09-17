@@ -10,11 +10,11 @@
             <table class="table table-hover align-middle custom-border">
                 <thead class="bg-gradient-primary text-white">
                     <tr>
-                        <th scope="col" class="fw-bolder">No</th>
-                        <th scope="col" class="fw-bolder">ERP ID</th>
-                        <th scope="col" class="fw-bolder">Name</th>
-                        <th scope="col" class="fw-bolder">Designation</th>
-                        <th scope="col" class="fw-bolder">Role</th>
+                        <th scope="col" class="fw-bolder fs-4">No</th>
+                        <th scope="col" class="fw-bolder fs-4">ERP ID</th>
+                        <th scope="col" class="fw-bolder fs-4">Name</th>
+                        <th scope="col" class="fw-bolder fs-4">Designation</th>
+                        <th scope="col" class="fw-bolder fs-4">Role</th>
                     </tr>
                 </thead>
                 <tbody>
