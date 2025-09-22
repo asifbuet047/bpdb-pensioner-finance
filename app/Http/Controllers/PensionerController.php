@@ -35,7 +35,7 @@ class PensionerController extends Controller
     {
         if ($request->hasCookie('user_id')) {
             $pensioners = Pensioner::orderBy('name')->get();
-            return view('viewpensioner', compact('pensioners'));
+            return view('viewpensioner')->with(compact('pensioners'));
         } else {
             return view('login');
         }
@@ -44,13 +44,14 @@ class PensionerController extends Controller
     public function removePensionerFromDB(Request $request)
     {
         if ($request->hasCookie('user_id')) {;
-            $pensioner = Pensioner::find($request->query('id'));
+            $id = (int)$request->input('id');
+            $pensioner = Pensioner::find($id);
             if ($pensioner) {
-                $pensioner->delete(2);
+                $pensioner->delete();
                 $pensioners = Pensioner::orderBy('name')->get();
-                return redirect()->back()->compact('pensioners');
+                return redirect()->route('show.pensioner.section')->with(compact('pensioners'));
             } else {
-                return response()->json(['message' => $request->input('id')]);
+                return response()->json(['message' => $id]);
             }
         } else {
             return view('login');

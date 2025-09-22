@@ -25,7 +25,7 @@
                 <tbody>
                     @forelse ($pensioners as $index => $pensioner)
                         <tr class="{{ $index % 2 == 0 ? 'table-light' : '' }} fw-semibold hand-pointer">
-                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $pensioner->id }}</td>
                             <td>{{ $pensioner->erp_id }}</td>
                             <td>{{ $pensioner->name }}</td>
                             <td>{{ $pensioner->register_no }}</td>
@@ -38,7 +38,7 @@
                                 <div class="row">
                                     <i class="bi bi-trash col-6 pensioner-delete-buttons" data-bs-toggle="modal"
                                         data-bs-target="#pensionerDeleteActionModal" data-name="{{ $pensioner->name }}"
-                                        data-index="{{ $index }}"></i>
+                                        data-index="{{ $pensioner->id }}"></i>
 
                                     <i class="bi bi-pen col-6"></i>
                                 </div>

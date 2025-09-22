@@ -27,15 +27,18 @@ document.addEventListener("DOMContentLoaded", () => {
             );
             deleteButton.addEventListener("click", async () => {
                 console.log(parseInt(index));
-                const response = await fetch(`/api/pensioner/delete/`, {
+                const response = await fetch(`/pensioner/remove`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document
+                            .querySelector('meta[name="csrf-token"]')
+                            .getAttribute("content"),
                     },
-                    body: JSON.stringify({ id: index + 1 }),
+                    body: JSON.stringify({ id: parseInt(index) }),
                 });
                 if (response.redirected) {
-                    console.log("done");
+                    window.location.href = response.redirected;
                 } else {
                 }
             });
