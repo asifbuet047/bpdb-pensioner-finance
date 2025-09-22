@@ -5,4 +5,4 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::post('/pensioner/delete', [PensionerController::class]);
+Route::post('/pensioner/delete', [PensionerController::class, 'removePensionerFromDB']);

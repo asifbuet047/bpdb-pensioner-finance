@@ -43,9 +43,17 @@ class PensionerController extends Controller
 
     public function removePensionerFromDB(Request $request)
     {
-        if ($request->hasCookie('user_id')) {
-            Pensioner::delete($request->input('id'));
+        if ($request->hasCookie('user_id')) {;
+            $pensioner = Pensioner::find($request->query('id'));
+            if ($pensioner) {
+                $pensioner->delete(2);
+                $pensioners = Pensioner::orderBy('name')->get();
+                return redirect()->back()->compact('pensioners');
+            } else {
+                return response()->json(['message' => $request->input('id')]);
+            }
         } else {
+            return view('login');
         }
     }
 }

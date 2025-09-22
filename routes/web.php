@@ -21,6 +21,8 @@ Route::get('/pensioners/all', [PensionerController::class, 'getAllPensionersFrom
 
 Route::post('/pensioner', [PensionerController::class, 'addPensionerIntoDB'])->name('add.pensioner.process');
 
+Route::post('/pensioner/remove', [PensionerController::class, 'removePensionerFromDB'])->name('remove.pensioner.process');
+
 
 Route::get('/officer/new', [ApplicationController::class, 'showAddOfficerSection'])->name('add.officer.section');
 
