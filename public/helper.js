@@ -38,8 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     body: JSON.stringify({ id: parseInt(index) }),
                 });
                 if (response.redirected) {
-                    window.location.href = response.redirected;
-                } else {
+                    window.location.href = "/pensioners/all";
                 }
             });
 

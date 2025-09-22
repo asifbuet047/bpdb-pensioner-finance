@@ -25,7 +25,7 @@
                 <tbody>
                     @forelse ($pensioners as $index => $pensioner)
                         <tr class="{{ $index % 2 == 0 ? 'table-light' : '' }} fw-semibold hand-pointer">
-                            <td>{{ $pensioner->id }}</td>
+                            <td>{{ $index + 1 }}</td>
                             <td>{{ $pensioner->erp_id }}</td>
                             <td>{{ $pensioner->name }}</td>
                             <td>{{ $pensioner->register_no }}</td>
