@@ -104,5 +104,23 @@ class OfficerController extends Controller
             return view('login');
         }
     }
-    
+
+    public function updateOfficerIntoDB(Request $request) {}
+
+    public function removeOfficerFromDB(Request $request)
+    {
+        if ($request->cookie('user_role') === 'SUPER_ADMIN') {;
+            $id = (int)$request->input('id');
+            $officer = Officer::find($id);
+            if ($officer) {
+                $officer->delete();
+                $officers = Officer::orderBy('name')->get();
+                return redirect()->route('show.officers')->with(compact('officers'));
+            } else {
+                return response()->json(['message' => $id]);
+            }
+        } else {
+            return view('login');
+        }
+    }
 }

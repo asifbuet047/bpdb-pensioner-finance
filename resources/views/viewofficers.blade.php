@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'View ALl Officers')
+@section('title', 'View All Officers')
 
 @section('content')
     <section class="container-fluid py-5 vh-100" style="background-color: #CEF3ED">
@@ -15,6 +15,7 @@
                         <th scope="col" class="fw-bolder fs-4">Name</th>
                         <th scope="col" class="fw-bolder fs-4">Designation</th>
                         <th scope="col" class="fw-bolder fs-4">Role</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +26,20 @@
                             <td class="fw-semibold">{{ $officer->name }}</td>
                             <td class="fw-semibold">{{ $officer->designation }}</td>
                             <td class="fw-semibold">{{ $officer->role }}</td>
+                            <td>
+                                <div class="row justify-content-center">
+                                    <div class="col-6 d-flex justify-content-center">
+                                        <i class="bi bi-trash officer-delete-buttons" data-bs-toggle="modal"
+                                            data-bs-target="#officerDeleteActionModal" data-name="{{ $officer->name }}"
+                                            data-index="{{ $officer->id }}"></i>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-center">
+                                        <i class="bi bi-pen officer-update-buttons" data-bs-toggle="modal"
+                                            data-bs-target="#officerUpdateActionModal" data-name="{{ $officer->name }}"
+                                            data-index="{{ $officer->id }}"></i>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     @empty
                         <tr>
@@ -35,6 +50,48 @@
                     @endforelse
                 </tbody>
             </table>
+
+            <!--Delete Action Modal -->
+            <div class="modal fade" id="officerDeleteActionModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">Are You sure?</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Do You really want to delete <span class="fw-bold" id="officerDeleteActionModalSpan"></span>?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                id="officerDeleteButton">Yes</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Not now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Update Action Modal -->
+            <div class="modal fade" id="officerUpdateActionModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">Are You sure?</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Do You really want to update <span class="fw-bold" id="officerUpdateActionModalSpan"></span>?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                id="officerUpdateButton">Yes</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Not now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Action Buttons -->
