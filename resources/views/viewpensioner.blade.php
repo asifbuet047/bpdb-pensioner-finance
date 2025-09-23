@@ -39,8 +39,9 @@
                                     <i class="bi bi-trash col-6 pensioner-delete-buttons" data-bs-toggle="modal"
                                         data-bs-target="#pensionerDeleteActionModal" data-name="{{ $pensioner->name }}"
                                         data-index="{{ $pensioner->id }}"></i>
-
-                                    <i class="bi bi-pen col-6"></i>
+                                    <i class="bi bi-pen col-6 pensioner-update-buttons" data-bs-toggle="modal"
+                                        data-bs-target="#pensionerUpdateActionModal" data-name="{{ $pensioner->name }}"
+                                        data-index="{{ $pensioner->id }}"></i>
                                 </div>
                             </td>
                         </tr>
@@ -88,8 +89,8 @@
                             Do You really want to update <span class="fw-bold" id="pensionerUpdateActionModalSpan"></span>?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-                                id="pensionerDeleteButton">Yes</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                id="pensionerUpdateButton">Yes</button>
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Not now</button>
                         </div>
                     </div>

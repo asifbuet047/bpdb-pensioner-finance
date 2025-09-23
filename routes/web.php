@@ -17,11 +17,16 @@ Route::get('/logout', [ApplicationController::class, 'logout'])->name('logout');
 
 Route::get('/pensioner/new', [ApplicationController::class, 'showAddPensionerSection'])->name('add.pensioner.section');
 
+Route::get('/pensioner/update/{id}', [ApplicationController::class, 'showUpdatePensionerSection'])->name('update.pensioner.section');
+
 Route::get('/pensioners/all', [PensionerController::class, 'getAllPensionersFromDB'])->name('show.pensioner.section');
 
 Route::post('/pensioner', [PensionerController::class, 'addPensionerIntoDB'])->name('add.pensioner.process');
 
 Route::post('/pensioner/remove', [PensionerController::class, 'removePensionerFromDB'])->name('remove.pensioner.process');
+
+Route::post('/pensioner/update', [PensionerController::class, 'updatePensionerIntoDB'])->name('update.pensioner.process');
+
 
 
 Route::get('/officer/new', [ApplicationController::class, 'showAddOfficerSection'])->name('add.officer.section');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Office;
 use App\Models\Officer;
+use App\Models\Pensioner;
 use GuzzleHttp\Cookie\CookieJar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -52,6 +53,17 @@ class ApplicationController extends Controller
     public function showAddPensionerSection()
     {
         return view('addpensioner');
+    }
+
+    public function showUpdatePensionerSection(Request $request)
+    {
+        $id = (int)$request->route('id');
+        $pensioner = Pensioner::find($id);
+        if ($pensioner) {
+            return view('updatepensioner', compact('pensioner'));
+        } else {
+            return response()->json(['id' => $id]);
+        }
     }
 
     public function loginOfficer(Request $request)

@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 "pensionerDeleteButton"
             );
             deleteButton.addEventListener("click", async () => {
-                console.log(parseInt(index));
                 const response = await fetch(`/pensioner/remove`, {
                     method: "POST",
                     headers: {
@@ -44,6 +43,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let modalElement = document.getElementById(
                 "pensionerDeleteActionModal"
+            );
+            let modal = bootstrap.Modal.getInstance(modalElement);
+            modal.hide();
+        });
+    });
+
+    document.querySelectorAll(".pensioner-update-buttons").forEach((row) => {
+        row.addEventListener("click", (e) => {
+            let name = e.currentTarget.getAttribute("data-name");
+            let index = e.currentTarget.getAttribute("data-index");
+            const span = document.getElementById(
+                "pensionerUpdateActionModalSpan"
+            );
+            span.innerText = name;
+            const updateButton = document.getElementById(
+                "pensionerUpdateButton"
+            );
+            updateButton.addEventListener("click", async () => {
+                window.location.href = `/pensioner/update/${index}`;
+            });
+
+            let modalElement = document.getElementById(
+                "pensionerUpdateActionModal"
             );
             let modal = bootstrap.Modal.getInstance(modalElement);
             modal.hide();

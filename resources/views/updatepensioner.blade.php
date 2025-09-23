@@ -22,19 +22,20 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form action="{{ route('add.pensioner.process') }}" method="POST">
+                            <form action="{{ route('update.pensioner.process') }}" method="POST">
                                 @csrf
+
+                                <input type="hidden" name="id" value="{{ $pensioner->id }}" />
 
                                 <div class="mb-4">
                                     <label class="form-label" for="erp_id">ERP ID</label>
                                     @if (session()->has('erp_id'))
                                         <input type="number" id="erp_id" name="erp_id"
-                                            class="form-control form-control-lg" placeholder="Pensioner ERP ID"
-                                            value="{{ session('erp_id') }}" disabled />
+                                            class="form-control form-control-lg" value="{{ session('erp_id') }}" disabled />
                                     @else
                                         <input type="number" id="erp_id" name="erp_id"
-                                            class="form-control form-control-lg" placeholder="Pensioner ERP ID"
-                                            value="{{ old('erp_id') }}" />
+                                            class="form-control form-control-lg" placeholder="{{ $pensioner->erp_id }}"
+                                            value="{{ old('erp_id') ? old('erp_id') : $pensioner->erp_id }}" />
                                     @endif
                                 </div>
 
@@ -46,8 +47,8 @@
                                             value="{{ session('name') }}" disabled />
                                     @else
                                         <input type="text" id="name" name="name"
-                                            class="form-control form-control-lg" placeholder="Pensioner name"
-                                            value="{{ old('name') }}" />
+                                            class="form-control form-control-lg" placeholder="{{ $pensioner->name }}"
+                                            value="{{ old('name') ? old('name') : $pensioner->name }}" />
                                     @endif
                                 </div>
 
@@ -57,10 +58,11 @@
                                         <input type="text" id="register_no" name="register_no"
                                             class="form-control form-control-lg" placeholder="Register no"
                                             value="{{ session('register_no') }}" disabled />
-                                    @else 
+                                    @else
                                         <input type="text" id="register_no" name="register_no"
-                                            class="form-control form-control-lg" placeholder="Register no"
-                                            value="{{ old('register_no') }}" />
+                                            class="form-control form-control-lg"
+                                            placeholder="{{ $pensioner->register_no }}"
+                                            value="{{ old('register_no') ? old('register_no') : $pensioner->register_no }}" />
                                     @endif
                                 </div>
 
@@ -72,8 +74,9 @@
                                             value="{{ session('basic_salary') }}" disabled />
                                     @else
                                         <input type="number" id="basic_salary" name="basic_salary"
-                                            class="form-control form-control-lg" placeholder="Basic salary"
-                                            value="{{ old('basic_salary') }}" />
+                                            class="form-control form-control-lg"
+                                            placeholder="{{ $pensioner->basic_salary }}"
+                                            value="{{ old('basic_salary') ? old('basic_salary') : $pensioner->basic_salary }}" />
                                     @endif
                                 </div>
 
@@ -85,8 +88,9 @@
                                             value="{{ session('medical_allowance') }}" disabled />
                                     @else
                                         <input type="number" id="medical_allowance" name="medical_allowance"
-                                            class="form-control form-control-lg" placeholder="Medical allowance"
-                                            value="{{ old('medical_allowance') }}" />
+                                            class="form-control form-control-lg"
+                                            placeholder="{{ $pensioner->medical_allowance }}"
+                                            value="{{ old('medical_allowance') ? old('medical_allowance') : $pensioner->medical_allowance }}" />
                                     @endif
                                 </div>
 
@@ -98,8 +102,9 @@
                                             value="{{ session('incentive_bonus') }}" disabled />
                                     @else
                                         <input type="number" id="incentive_bonus" name="incentive_bonus"
-                                            class="form-control form-control-lg" placeholder="Incentive bonus"
-                                            value="{{ old('incentive_bonus') }}" />
+                                            class="form-control form-control-lg"
+                                            placeholder="{{ $pensioner->incentive_bonus }}"
+                                            value="{{ old('incentive_bonus') ? old('incentive_bonus') : $pensioner->incentive_bonus }}" />
                                     @endif
                                 </div>
 
@@ -111,8 +116,9 @@
                                             value="{{ session('bank_name') }}" disabled />
                                     @else
                                         <input type="text" id="bank_name" name="bank_name"
-                                            class="form-control form-control-lg" placeholder="Bank name"
-                                            value="{{ old('bank_name') }}" />
+                                            class="form-control form-control-lg"
+                                            placeholder="{{ $pensioner->bank_name }}"
+                                            value="{{ old('bank_name') ? old('bank_name') : $pensioner->bank_name }}" />
                                     @endif
                                 </div>
 
@@ -124,20 +130,20 @@
                                             value="{{ session('account_number') }}" disabled />
                                     @else
                                         <input type="text" id="account_number" name="account_number"
-                                            class="form-control form-control-lg" placeholder="account no"
-                                            value="{{ old('account_number') }}" />
+                                            class="form-control form-control-lg"
+                                            placeholder="{{ $pensioner->account_number }}"
+                                            value="{{ old('account_number') ? old('account_number') : $pensioner->account_number }}" />
                                     @endif
                                 </div>
 
 
                                 @if (session()->has('id'))
                                     <div class="mb-4 row">
-                                        <button class="btn btn-success" type="button">Addition successful. Add another
-                                            Pensioner?</button>
+                                        <button class="btn btn-success" type="button">Update successful</button>
                                     </div>
                                 @else
                                     <div class="mb-4 row">
-                                        <button class="btn btn-success" type="submit">ADD PENSIONER</button>
+                                        <button class="btn btn-success" type="submit">UPDATE PENSIONER</button>
                                     </div>
                                 @endif
 
