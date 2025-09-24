@@ -24,6 +24,8 @@
                             <form action="{{ route('update.officer.process') }}" method="POST">
                                 @csrf
 
+                                <input type="hidden" name="id" value="{{ $officer->id }}" />
+
                                 <div class="mb-4">
                                     <label class="form-label" for="name">Name</label>
                                     @if (session()->has('name'))
@@ -33,7 +35,7 @@
                                     @else
                                         <input type="text" id="name" name="name"
                                             class="form-control form-control-lg" placeholder="Your name"
-                                            value="{{ old('name') }}" />
+                                            value="{{ old('name') ? old('name') : $officer->name }}" />
                                     @endif
                                 </div>
 
@@ -46,7 +48,7 @@
                                     @else
                                         <input type="number" id="erp_id" name="erp_id"
                                             class="form-control form-control-lg" placeholder="Your ERP ID"
-                                            value="{{ old('erp_id') }}" />
+                                            value="{{ old('erp_id') ? old('erp_id') : $officer->erp_id }}" />
                                     @endif
                                 </div>
 
@@ -59,11 +61,12 @@
                                         <!-- This is actaully not submitted but shown -->
                                         <input type="text" id="office" name="office_name"
                                             class="form-control form-control-lg" placeholder="Your Office click to select"
-                                            value="{{ old('office') }}" data-bs-toggle="modal" data-bs-target="#selectModal"
-                                            readonly />
+                                            value="{{ old('office') ? old('office') : $officer->office->officeName }}"
+                                            data-bs-toggle="modal" data-bs-target="#selectModal" readonly />
 
                                         <!-- This is actaully submitted but not shown -->
-                                        <input type="hidden" name="office_id" id="office_id" value="" />
+                                        <input type="hidden" name="office_id" id="office_id"
+                                            value="{{ $officer->office->id }}" />
                                     @endif
                                 </div>
 
@@ -77,7 +80,7 @@
                                         @else
                                             <input class="form-check-input" type="radio" name="designation"
                                                 id="designation" value="AD"
-                                                {{ old('designation') == 'AD' ? 'checked' : '' }} />
+                                                {{ old('designation') == 'AD' || $officer->designation === 'AD' ? 'checked' : '' }} />
                                         @endif
 
                                         <label class="form-check-label" for="ad">AD</label>
@@ -90,7 +93,7 @@
                                         @else
                                             <input class="form-check-input" type="radio" name="designation"
                                                 id="designation" value="SAD"
-                                                {{ old('designation') == 'SAD' ? 'checked' : '' }} />
+                                                {{ old('designation') == 'SAD' || $officer->designation === 'SAD' ? 'checked' : '' }} />
                                         @endif
                                         <label class="form-check-label" for="sad">SAD</label>
                                     </div>
@@ -102,7 +105,7 @@
                                         @else
                                             <input class="form-check-input" type="radio" name="designation"
                                                 id="designation" value="DD"
-                                                {{ old('designation') == 'DD' ? 'checked' : '' }} />
+                                                {{ old('designation') == 'DD' || $officer->designation === 'DD' ? 'checked' : '' }} />
                                         @endif
                                         <label class="form-check-label" for="dd">DD</label>
                                     </div>
@@ -117,7 +120,8 @@
                                                 value="ADMIN" checked disabled />
                                         @else
                                             <input class="form-check-input" type="radio" name="role" id="role"
-                                                value="ADMIN" {{ old('role') == 'ADMIN' ? 'checked' : '' }} />
+                                                value="ADMIN"
+                                                {{ old('role') == 'ADMIN' || $officer->role === 'ADMIN' ? 'checked' : '' }} />
                                         @endif
                                         <label class="form-check-label" for="admin">Admin</label>
                                     </div>
@@ -128,7 +132,8 @@
                                                 value="USER" checked disabled />
                                         @else
                                             <input class="form-check-input" type="radio" name="role" id="role"
-                                                value="USER" {{ old('role') == 'USER' ? 'checked' : '' }} />
+                                                value="USER"
+                                                {{ old('role') == 'USER' || $officer->role === 'USER' ? 'checked' : '' }} />
                                         @endif
                                         <label class="form-check-label" for="user">User</label>
                                     </div>
@@ -139,67 +144,24 @@
                                                 value="SUPER_ADMIN" checked disabled />
                                         @else
                                             <input class="form-check-input" type="radio" name="role" id="role"
-                                                value="SUPER_ADMIN" {{ old('role') == 'SUPER_ADMIN' ? 'checked' : '' }} />
+                                                value="SUPER_ADMIN"
+                                                {{ old('role') == 'SUPER_ADMIN' || $officer->role === 'SUPER_ADMIN' ? 'checked' : '' }} />
                                         @endif
                                         <label class="form-check-label" for="super_admin">Super Admin</label>
                                     </div>
                                 </div>
 
-                                <div class="mb-4">
-
-                                    @if (session()->has('name'))
-                                        <input type="password" id="password" name="password"
-                                            class="form-control form-control-lg" value="{{ old('password') }}" disabled
-                                            hidden />
-                                    @else
-                                        <label class="form-label" for="password">Password</label>
-                                        <input type="password" id="password" name="password"
-                                            class="form-control form-control-lg" />
-                                    @endif
-
-                                </div>
-
-                                <div class="mb-4">
-
-                                    @if (session()->has('name'))
-                                        <input type="password" id="password_confirmation" name="password_confirmation"
-                                            class="form-control form-control-lg" value="{{ old('password') }}" disabled
-                                            hidden />
-                                    @else
-                                        <label class="form-label" for="password_confirmation">Confirm password</label>
-                                        <input type="password" id="password_confirmation" name="password_confirmation"
-                                            class="form-control form-control-lg" />
-                                    @endif
-
-
-                                </div>
 
                                 @if (session()->has('name'))
                                     <div class="mb-4 row">
                                         <button class="btn btn-success"
-                                            onclick="window.location='{{ route('login.page') }}'"
-                                            type="button">Registration successful.
+                                            onclick="window.location='{{ route('login.page') }}'" type="button">Update
+                                            successful.
                                             Go to Login page</button>
                                     </div>
                                 @else
                                     <div class="mb-4 row">
-                                        <button class="btn btn-primary" type="submit">ADD OFFICER</button>
-                                    </div>
-                                @endif
-
-                                @if (session()->has('name'))
-                                    <div class="mb-4 row" hidden>
-                                        <button class="btn btn-success"
-                                            onclick="window.location='{{ route('login.page') }}'" type="button">Already
-                                            have an account?
-                                            Login here</button>
-                                    </div>
-                                @else
-                                    <div class="mb-4 row">
-                                        <button class="btn btn-success"
-                                            onclick="window.location='{{ route('login.page') }}'" type="button">Already
-                                            have an account?
-                                            Login here</button>
+                                        <button class="btn btn-primary" type="submit">UPDATE OFFICER</button>
                                     </div>
                                 @endif
                             </form>
@@ -211,7 +173,7 @@
                                     <div class="modal-content">
 
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Select an Item</h5>
+                                            <h5 class="modal-title">Select an Office</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close">
 
@@ -229,7 +191,8 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($offices as $index => $office)
-                                                        <tr class="selectable-row" data-value="{{ $office->id }}"
+                                                        <tr class="selectable-row hand-pointer"
+                                                            data-value="{{ $office->id }}"
                                                             data-name="{{ $office->officeName }}">
                                                             <td>{{ $office->id }}</td>
                                                             <td>{{ $office->officeName }}</td>

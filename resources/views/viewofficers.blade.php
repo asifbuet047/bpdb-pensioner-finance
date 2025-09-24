@@ -15,6 +15,7 @@
                         <th scope="col" class="fw-bolder fs-4">Name</th>
                         <th scope="col" class="fw-bolder fs-4">Designation</th>
                         <th scope="col" class="fw-bolder fs-4">Role</th>
+                        <th scope="col" class="fw-bolder fs-4">Office</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -26,15 +27,16 @@
                             <td class="fw-semibold">{{ $officer->name }}</td>
                             <td class="fw-semibold">{{ $officer->designation }}</td>
                             <td class="fw-semibold">{{ $officer->role }}</td>
+                            <td class="fw-semibold">{{ $officer->office->officeName }}</td>
                             <td>
                                 <div class="row justify-content-center">
                                     <div class="col-6 d-flex justify-content-center">
-                                        <i class="bi bi-trash officer-delete-buttons" data-bs-toggle="modal"
+                                        <i class="bi bi-trash hand-pointer officer-delete-buttons" data-bs-toggle="modal"
                                             data-bs-target="#officerDeleteActionModal" data-name="{{ $officer->name }}"
                                             data-index="{{ $officer->id }}"></i>
                                     </div>
                                     <div class="col-6 d-flex justify-content-center">
-                                        <i class="bi bi-pen officer-update-buttons" data-bs-toggle="modal"
+                                        <i class="bi bi-pen hand-pointer officer-update-buttons" data-bs-toggle="modal"
                                             data-bs-target="#officerUpdateActionModal" data-name="{{ $officer->name }}"
                                             data-index="{{ $officer->id }}"></i>
                                     </div>

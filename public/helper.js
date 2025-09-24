@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const officeID = document.getElementById("office_id");
             officeField.value = selectedOfficename;
             officeID.value = selectedOfficeCode;
+            console.log(
+                `office name ${selectedOfficename} and id is ${selectedOfficeCode}`
+            );
 
             let modalElement = document.getElementById("selectModal");
             let modal = bootstrap.Modal.getInstance(modalElement);

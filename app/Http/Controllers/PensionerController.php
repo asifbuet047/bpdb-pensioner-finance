@@ -62,6 +62,17 @@ class PensionerController extends Controller
     public function updatePensionerIntoDB(Request $request)
     {
         if ($request->cookie('user_role') === 'SUPER_ADMIN') {;
+            // $validated = $request->validate([
+            //     'erp_id'           => 'required|integer|unique:pensioners,erp_id',
+            //     'name'             => 'required|string|max:255',
+            //     'register_no'      => 'required|string|max:50|unique:pensioners,register_no',
+            //     'basic_salary'     => 'required|integer|min:0',
+            //     'medical_allowance' => 'required|integer|min:0',
+            //     'incentive_bonus'  => 'required|numeric|min:0',
+            //     'bank_name'        => 'required|string|max:255',
+            //     'account_number'   => 'required|string|max:255|unique:pensioners,account_number',
+            // ]);
+
             $editedPensioner = $request->all();
             $exitingPensioner = Pensioner::find($editedPensioner['id']);
             if ($exitingPensioner) {

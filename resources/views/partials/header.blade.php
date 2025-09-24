@@ -20,8 +20,8 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold">
                     <li class="nav-item scale-animate"><a class="nav-link" href="/">Home</a></li>
                     <li class="nav-item scale-animate"><a class="nav-link" href="/pensioners/all">All Pensioner</a></li>
-                    <li class="nav-item scale-animate"><a class="nav-link" href="/officers">All Officer</a></li>
                     @if (request()->cookie('user_role') === 'SUPER_ADMIN')
+                        <li class="nav-item scale-animate"><a class="nav-link" href="/officers">All Officer</a></li>
                         <li class="nav-item scale-animate"><a class="nav-link" href="/offices">All Office</a></li>
                     @endif
                     @if (request()->hasCookie('user_id') && request()->hasCookie('user_role') && request()->hasCookie('user_name'))

@@ -65,6 +65,17 @@ class ApplicationController extends Controller
             return response()->json(['id' => $id]);
         }
     }
+    public function showUpdateOfficerSection(Request $request)
+    {
+        $id = (int)$request->route('id');
+        $officer = Officer::with('office')->find($id);
+        $offices = Office::all();
+        if ($officer) {
+            return view('updateofficer', compact('officer', 'offices'));
+        } else {
+            return response()->json(['id' => $id]);
+        }
+    }
 
     public function loginOfficer(Request $request)
     {

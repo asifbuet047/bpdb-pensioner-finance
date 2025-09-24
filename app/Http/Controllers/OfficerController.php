@@ -97,7 +97,7 @@ class OfficerController extends Controller
 
     public function getAllOfficersFromDB(Request $request)
     {
-        if ($request->cookie('user_role') === "SUPER_ADMIN") {
+        if ($request->hasCookie('user_id')) {
             $officers = Officer::orderBy('name')->get();
             return view('viewofficers', compact('officers'));
         } else {
@@ -105,7 +105,36 @@ class OfficerController extends Controller
         }
     }
 
-    public function updateOfficerIntoDB(Request $request) {}
+    public function updateOfficerIntoDB(Request $request)
+    {
+        if ($request->cookie('user_role') === 'SUPER_ADMIN') {
+            // $validated = $request->validate([
+            //     'erp_id' => 'required|integer|unique:officers,erp_id',
+            //     'name' => 'required|string|max:255',
+            //     'designation' => 'required|in:AD,SAD,DD',
+            //     'office_id' => 'required|integer|exists:offices,id',
+            //     'role' => 'required|in:ADMIN,USER,SUPER_ADMIN',
+            // ]);
+
+            $editedOfficer = $request->all();
+            $exitingOfficer = Officer::find($editedOfficer['id']);
+            if ($exitingOfficer) {
+                $exitingOfficer->name = $editedOfficer['name'];
+                $exitingOfficer->designation = $editedOfficer['designation'];
+                $exitingOfficer->role = $editedOfficer['role'];
+                $exitingOfficer->erp_id = $editedOfficer['erp_id'];
+                $exitingOfficer->office_id = $editedOfficer['office_id'];
+                $exitingOfficer->save();
+
+                $officers = Officer::orderBy('name')->get();
+                return redirect()->route('show.officers')->with(compact('officers'));
+            } else {
+                return response()->json(['message' => $editedOfficer['id']]);
+            }
+        } else {
+            return view('login');
+        }
+    }
 
     public function removeOfficerFromDB(Request $request)
     {
