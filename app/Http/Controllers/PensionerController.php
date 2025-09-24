@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\PensionersExport;
+use App\Exports\PensionersTemplateExport;
 use App\Models\Pensioner;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -98,5 +99,10 @@ class PensionerController extends Controller
     public function downloadPensioners(Request $request)
     {
         return Excel::download(new PensionersExport, 'pensioners.xlsx');
+    }
+
+    public function downloadPensionersTemplate()
+    {
+        return Excel::download(new PensionersTemplateExport, 'penioners.xlsx');
     }
 }

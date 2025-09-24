@@ -22,12 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
             let name = e.currentTarget.getAttribute("data-name");
             let index = e.currentTarget.getAttribute("data-index");
             const span = document.getElementById(
-                "officerDeleteActionModalSpan"
+                "pensionerDeleteActionModalSpan"
             );
             span.innerText = name;
-            const deleteButton = document.getElementById("officerDeleteButton");
+            const deleteButton = document.getElementById(
+                "pensionerDeleteButton"
+            );
             deleteButton.addEventListener("click", async () => {
-                const response = await fetch(`/officer/remove`, {
+                const response = await fetch(`/pensioner/remove`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -38,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     body: JSON.stringify({ id: parseInt(index) }),
                 });
                 if (response.redirected) {
-                    window.location.href = "/officers";
+                    window.location.href = "/pensioners/all";
                 }
             });
 
