@@ -3,7 +3,7 @@
 @section('title', 'Log In')
 
 @section('content')
-    <section class="vh-100 gradient-custom" style="background-color: #CEF3ED">
+    <section class="vh-100 gradient-custom">
         <div class="container py-5">
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-lg-9 col-xl-7">

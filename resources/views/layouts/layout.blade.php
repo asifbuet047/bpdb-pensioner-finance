@@ -84,7 +84,7 @@
     </style>
 </head>
 
-<body>
+<body style="background-color: #FDF0D5">
     @include('partials.header') <!--Add header file-->
 
     <section>@yield('content')</section>

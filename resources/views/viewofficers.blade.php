@@ -3,7 +3,7 @@
 @section('title', 'View All Officers')
 
 @section('content')
-    <section class="container-fluid py-5 vh-100" style="background-color: #CEF3ED">
+    <section class="container-fluid py-5 vh-100">
         <h2 class="mb-4 text-center fw-bold text-primary">All Officers</h2>
 
         <div class="table-responsive shadow rounded p-2">
