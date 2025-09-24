@@ -50,11 +50,36 @@
         }
 
         .scale-animate:hover {
-            transform: scale(1.1);
+            transform: scale(1.03);
         }
 
         .hand-pointer:hover {
             cursor: pointer
+        }
+
+        .info-box {
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            border-radius: .5rem;
+            padding: 30px;
+            margin-bottom: 30px;
+            height: 100%;
+            background-color: #5B9279;
+        }
+
+        .info-box .icon {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            font-size: 60px;
+            opacity: 0.2;
+            transform: translateY(-50%)
+        }
+
+        .info-box a {
+            color: #fff;
+            text-decoration: underline;
         }
     </style>
 </head>

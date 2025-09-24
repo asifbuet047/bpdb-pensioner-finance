@@ -25,6 +25,12 @@ class ApplicationController extends Controller
     public function showHomePage(Request $request)
     {
         if ($request->hasCookie('user_id')) {
+            if ($request->cookie('user_role') === 'SUPER_ADMIN') {
+                $officeCount = Office::count();
+                $officerCount = Officer::count();
+                $pensionerCount = Pensioner::count();
+                return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount'));
+            }
             return view('dashboard');
         } else {
             return view('login');

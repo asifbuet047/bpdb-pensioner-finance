@@ -15,57 +15,89 @@
             @if (request()->cookie('user_role') === 'SUPER_ADMIN')
                 <div class="row g-3 justify-content-center">
                     <!-- Add Pensioner Button -->
-                    <div class="col-12 col-md-3">
-                        <a href="{{ route('add.pensioner.section') }}"
-                            class="btn btn-primary btn-lg w-100 shadow-lg text-white fw-bold">
-                            Add Pensioner
-                        </a>
+                    <div class="col-12 col-md-4 scale-animate">
+                        <div class="info-box">
+                            <div>
+                                <h3>Add Pensioner</h3>
+                                <a href="{{ route('add.pensioner.section') }}">More info <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                            <div class="icon"><i class="bi bi-person-fill-add"></i></div>
+                        </div>
                     </div>
 
                     <!-- View All Pensioner Button -->
-                    <div class="col-12 col-md-3">
-                        <a href="{{ route('show.pensioner.section') }}"
-                            class="btn btn-primary btn-lg w-100 shadow-lg fw-bold">
-                            View All Pensioners
-                        </a>
+                    <div class="col-12 col-md-4 scale-animate">
+                        <div class="info-box">
+                            <div>
+                                <h3>{{ $pensionerCount }} pensioner</h3>
+                                <h3>View All Pensioners</h3>
+                                <a href="{{ route('show.pensioner.section') }}">More info <i
+                                        class="bi bi-arrow-right"></i></a>
+                            </div>
+                            <div class="icon"><i class="bi bi-people-fill"></i></div>
+                        </div>
                     </div>
                     <!-- View All officers Button conditional rendering-->
-                    <div class="col-12 col-md-2">
-                        <a href="{{ route('show.officers') }}" class="btn btn-primary btn-lg w-100 shadow-lg fw-bold">
-                            View All Officers
-                        </a>
+                    <div class="col-12 col-md-4 scale-animate">
+                        <div class="info-box">
+                            <div>
+                                <h3>{{ $officerCount }} officer</h3>
+                                <h3>View All Officers</h3>
+                                <a href="{{ route('show.officers') }}">More info <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                            <div class="icon"><i class="bi bi-person-arms-up"></i></div>
+                        </div>
                     </div>
-
+                </div>
+                <div class="row g-3 mt-3 justify-content-center">
                     <!-- View All Offices Button conditional rendering-->
-                    <div class="col-12 col-md-2">
-                        <a href="{{ route('show.offices') }}" class="btn btn-primary btn-lg w-100 shadow-lg fw-bold">
-                            View All Offices
-                        </a>
+                    <div class="col-12 col-md-6 scale-animate">
+                        <div class="info-box">
+                            <div>
+                                <h3>{{ $officeCount }} office</h3>
+                                <h3>View All Offices</h3>
+                                <a href="{{ route('show.offices') }}">More info <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                            <div class="icon"><i class="bi bi-building"></i></div>
+                        </div>
                     </div>
 
                     <!-- View Add Office Button conditional rendering-->
-                    <div class="col-12 col-md-2">
-                        <a href="{{ route('add.office.section') }}" class="btn btn-primary btn-lg w-100 shadow-lg fw-bold">
-                            Add Office
-                        </a>
+                    <div class="col-12 col-md-6 scale-animate">
+                        <div class="info-box">
+                            <div>
+                                <h3>Add New Office</h3>
+                                <a href="{{ route('add.office.section') }}">More info <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                            <div class="icon"><i class="bi bi-building-add"></i></div>
+                        </div>
                     </div>
                 </div>
             @else
                 <div class="row g-3 justify-content-center">
                     <!-- Add Pensioner Button -->
-                    <div class="col-12 col-md-6">
-                        <a href="{{ route('add.pensioner.section') }}"
-                            class="btn btn-primary btn-lg w-100 shadow-lg text-white fw-bold">
-                            Add Pensioner
-                        </a>
+                    <div class="col-12 col-md-4 scale-animate">
+                        <div class="info-box">
+                            <div>
+                                <h3>Add Pensioner</h3>
+                                <a href="{{ route('add.pensioner.section') }}">More info <i
+                                        class="bi bi-arrow-right"></i></a>
+                            </div>
+                            <div class="icon"><i class="bi bi-person-fill-add"></i></div>
+                        </div>
                     </div>
 
                     <!-- View All Pensioner Button -->
-                    <div class="col-12 col-md-6">
-                        <a href="{{ route('show.pensioner.section') }}"
-                            class="btn btn-primary btn-lg w-100 shadow-lg fw-bold">
-                            View All Pensioners
-                        </a>
+                    <div class="col-12 col-md-4 scale-animate">
+                        <div class="info-box">
+                            <div>
+                                <h3>{{ $pensionerCount }} pensioner</h3>
+                                <h3>View All Pensioners</h3>
+                                <a href="{{ route('show.pensioner.section') }}">More info <i
+                                        class="bi bi-arrow-right"></i></a>
+                            </div>
+                            <div class="icon"><i class="bi bi-people-fill"></i></div>
+                        </div>
                     </div>
                 </div>
             @endif
