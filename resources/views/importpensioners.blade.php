@@ -31,13 +31,15 @@
                                 </div>
 
                                 @if (session('success'))
-                                    <button class="btn btn-primary" disabled>
-                                        <i class="bi bi-upload"></i> Import Pensioners Successful
-                                    </button>
+                                    <div class="mb-3">
+                                        <button class="btn btn-primary w-100" disabled>
+                                            <i class="bi bi-upload"></i> Import Pensioners Successful
+                                        </button>
+                                    </div>
                                 @else
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="bi bi-upload"></i> Import Pensioners
-                                    </button>
+                                    <div class="mb-3"> <button type="submit" class="btn btn-primary w-100">
+                                            <i class="bi bi-upload"></i> Import Pensioners
+                                        </button></div>
                                 @endif
 
                             </form>
