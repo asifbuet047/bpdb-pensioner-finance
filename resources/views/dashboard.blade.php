@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <section class="vh-100 py-5" style="background-color: #CEF3ED">
+    <section class="vh-100 py-5" style="background-color: #FDF0D5">
         <div class="container text-center">
             @if (request()->cookie('user_role') === 'SUPER_ADMIN')
                 <h2 class="mb-4 fw-bold">Pensioner & User Management</h2>
