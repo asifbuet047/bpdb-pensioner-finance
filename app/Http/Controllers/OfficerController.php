@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OfficersExport;
 use App\Models\Officer;
 use GuzzleHttp\Cookie\CookieJar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OfficerController extends Controller
 {
@@ -151,5 +153,10 @@ class OfficerController extends Controller
         } else {
             return view('login');
         }
+    }
+
+    public function downloadOfficers()
+    {
+        return Excel::download(new OfficersExport, 'officers.xlsx');
     }
 }

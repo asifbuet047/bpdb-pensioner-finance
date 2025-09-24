@@ -27,6 +27,8 @@ Route::post('/pensioner/remove', [PensionerController::class, 'removePensionerFr
 
 Route::post('/pensioner/update', [PensionerController::class, 'updatePensionerIntoDB'])->name('update.pensioner.process');
 
+Route::get('/pensioners/download', [PensionerController::class, 'downloadPensioners'])->name('download.pensioners');
+
 
 
 Route::get('/officer/new', [ApplicationController::class, 'showAddOfficerSection'])->name('add.officer.section');
@@ -40,6 +42,8 @@ Route::post('/officer/remove', [OfficerController::class, 'removeOfficerFromDB']
 Route::post('/officer/update', [OfficerController::class, 'updateOfficerIntoDB'])->name('update.officer.process');
 
 Route::get('/officer/update/{id}', [ApplicationController::class, 'showUpdateOfficerSection'])->name('update.officer.section');
+
+Route::get('/officers/download', [OfficerController::class, 'downloadOfficers'])->name('download.officers');
 
 
 Route::get('/office/new', [ApplicationController::class, 'showAddofficeSection'])->name('add.office.section');

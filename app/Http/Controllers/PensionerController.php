@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PensionersExport;
 use App\Models\Pensioner;
 use Illuminate\Http\Request;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class PensionerController extends Controller
 {
@@ -92,5 +93,10 @@ class PensionerController extends Controller
         } else {
             return view('login');
         }
+    }
+
+    public function downloadPensioners(Request $request)
+    {
+        return Excel::download(new PensionersExport, 'pensioners.xlsx');
     }
 }

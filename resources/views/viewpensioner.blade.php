@@ -100,11 +100,14 @@
 
         <!-- Action Buttons -->
         <div class="text-center mt-4">
-            <a class="btn btn-primary btn-lg me-2 shadow-sm">
+            <a class="btn btn-primary btn-lg me-2 shadow-sm" href="{{ route('add.pensioner.section') }}">
                 Add Pensioner
             </a>
-            <a class="btn btn-outline-primary btn-lg shadow-sm">
+            <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('show.pensioner.section') }}">
                 Refresh List
+            </a>
+            <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('download.pensioners') }}">
+                Download
             </a>
         </div>
     </section>

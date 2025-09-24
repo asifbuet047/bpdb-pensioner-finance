@@ -98,11 +98,14 @@
 
         <!-- Action Buttons -->
         <div class="text-center mt-4">
-            <a class="btn btn-primary btn-lg me-2 shadow-sm">
+            <a class="btn btn-primary btn-lg me-2 shadow-sm" href="{{ route('add.officer.section') }}">
                 Add Officer
             </a>
-            <a class="btn btn-outline-primary btn-lg shadow-sm">
+            <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('show.officers') }}">
                 Refresh List
+            </a>
+            <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('download.officers') }}">
+                Downlaod
             </a>
         </div>
     </section>
