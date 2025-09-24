@@ -155,7 +155,7 @@ class OfficerController extends Controller
         }
     }
 
-    public function downloadOfficers()
+    public function exportOfficers()
     {
         return Excel::download(new OfficersExport, 'officers.xlsx');
     }

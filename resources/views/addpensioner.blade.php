@@ -57,7 +57,7 @@
                                         <input type="text" id="register_no" name="register_no"
                                             class="form-control form-control-lg" placeholder="Register no"
                                             value="{{ session('register_no') }}" disabled />
-                                    @else 
+                                    @else
                                         <input type="text" id="register_no" name="register_no"
                                             class="form-control form-control-lg" placeholder="Register no"
                                             value="{{ old('register_no') }}" />
@@ -138,6 +138,13 @@
                                 @else
                                     <div class="mb-4 row">
                                         <button class="btn btn-success" type="submit">ADD PENSIONER</button>
+                                    </div>
+
+                                    <div class="mb-4 row">
+                                        <a class="btn btn-outline-primary btn-lg shadow-sm"
+                                            href="{{ route('import.pentioners.section') }}">
+                                            Import Pensioners
+                                        </a>
                                     </div>
                                 @endif
 

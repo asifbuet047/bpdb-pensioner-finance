@@ -27,9 +27,13 @@ Route::post('/pensioner/remove', [PensionerController::class, 'removePensionerFr
 
 Route::post('/pensioner/update', [PensionerController::class, 'updatePensionerIntoDB'])->name('update.pensioner.process');
 
-Route::get('/pensioners/download', [PensionerController::class, 'downloadPensioners'])->name('download.pensioners');
+Route::get('/pensioners/export', [PensionerController::class, 'exportPensioners'])->name('download.pensioners');
 
-Route::get('/pensioners/download/template', [PensionerController::class, 'downloadPensionersTemplate'])->name('download.template.pensioners');
+Route::get('/pensioners/export/template', [PensionerController::class, 'exportPensionersTemplate'])->name('download.template.pensioners');
+
+Route::post('pensioners/import', [PensionerController::class, 'importPensioner'])->name('import.pensioners');
+
+Route::get('pensioners/import', [PensionerController::class, 'showImportPensionerSection'])->name('import.pentioners.section');
 
 
 
@@ -45,9 +49,9 @@ Route::post('/officer/update', [OfficerController::class, 'updateOfficerIntoDB']
 
 Route::get('/officer/update/{id}', [ApplicationController::class, 'showUpdateOfficerSection'])->name('update.officer.section');
 
-Route::get('/officers/download', [OfficerController::class, 'downloadOfficers'])->name('download.officers');
+Route::get('/officers/export', [OfficerController::class, 'exportOfficers'])->name('download.officers');
 
-Route::get('/officers/download/template', [OfficerController::class, 'downloadOfficers'])->name('download.template.officers');
+Route::get('/officers/export/template', [OfficerController::class, 'downloadOfficers'])->name('download.template.officers');
 
 
 Route::get('/office/new', [ApplicationController::class, 'showAddofficeSection'])->name('add.office.section');

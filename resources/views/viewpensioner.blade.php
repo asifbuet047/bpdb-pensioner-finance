@@ -109,6 +109,9 @@
             <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('download.pensioners') }}">
                 Download
             </a>
+            <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('import.pentioners.section') }}">
+                Import Pensioners
+            </a>
             @if (count($pensioners) === 0)
                 <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('download.template.pensioners') }}">
                     Download Excel template

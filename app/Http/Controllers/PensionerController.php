@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\PensionersExport;
 use App\Exports\PensionersTemplateExport;
+use App\Imports\PensionersImport;
 use App\Models\Pensioner;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -96,13 +97,28 @@ class PensionerController extends Controller
         }
     }
 
-    public function downloadPensioners(Request $request)
+    public function exportPensioners(Request $request)
     {
         return Excel::download(new PensionersExport, 'pensioners.xlsx');
     }
 
-    public function downloadPensionersTemplate()
+    public function exportPensionersTemplate()
     {
         return Excel::download(new PensionersTemplateExport, 'penioners.xlsx');
+    }
+
+    public function importPensioner(Request $request)
+    {
+        $validated = $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        Excel::import(new PensionersImport, $request->file('file'));
+        return back()->with('success', 'Pensioners imported successfully!');
+    }
+
+    public function showImportPensionerSection(Request $request)
+    {
+        return view('importpensioners');
     }
 }

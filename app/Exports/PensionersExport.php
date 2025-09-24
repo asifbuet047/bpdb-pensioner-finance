@@ -20,6 +20,7 @@ class PensionersExport implements FromCollection, WithHeadings
             return [
                 'NO' => $key + 1,
                 'NAME' => $pensioner->name,
+                'ERP_ID' => $pensioner->erp_id,
                 'BASIC_SALARY' => $pensioner->basic_salary,
                 'MEDICAL_ALLOWANCE' => $pensioner->medical_allowance,
                 'INCENTIVE_BONUS' => $pensioner->incentive_bonus,
@@ -34,6 +35,6 @@ class PensionersExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ['NO', 'NAME', 'BASIC_SALARY', 'MEDICAL_ALLOWANCE', 'INCENTIVE_BONUS', 'REGISTER_NO', 'BANK_NAME', 'ACCOUNT_NUMBER'];
+        return ['NO', 'NAME', 'ERP_ID', 'BASIC_SALARY', 'MEDICAL_ALLOWANCE', 'INCENTIVE_BONUS', 'REGISTER_NO', 'BANK_NAME', 'ACCOUNT_NUMBER'];
     }
 }
