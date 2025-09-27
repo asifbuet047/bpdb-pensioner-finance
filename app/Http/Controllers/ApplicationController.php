@@ -30,8 +30,10 @@ class ApplicationController extends Controller
                 $officerCount = Officer::count();
                 $pensionerCount = Pensioner::count();
                 return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount'));
+            } else {
+                $pensionerCount = Pensioner::count();
+                return view('dashboard', compact('pensionerCount'));
             }
-            return view('dashboard');
         } else {
             return view('login');
         }
