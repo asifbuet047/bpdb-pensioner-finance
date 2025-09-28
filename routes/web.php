@@ -35,6 +35,11 @@ Route::post('pensioners/import', [PensionerController::class, 'importPensioner']
 
 Route::get('pensioners/import', [PensionerController::class, 'showImportPensionerSection'])->name('import.pentioners.section');
 
+Route::get('/pensioners/bank', [PensionerController::class, 'showInvoiceBank'])->name('show.invoice.bank');
+
+Route::get('/pensioners/invoice', [PensionerController::class, 'showSelectedBankPensionersForInvoiceGeneration'])->name('show.invoice');
+
+Route::get('pensioners/invoice/generate', [PensionerController::class, 'generateInvoice'])->name('generate.invoice');
 
 
 Route::get('/officer/new', [ApplicationController::class, 'showAddOfficerSection'])->name('add.officer.section');

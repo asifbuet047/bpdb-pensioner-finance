@@ -6,6 +6,7 @@ use App\Exports\PensionersExport;
 use App\Exports\PensionersTemplateExport;
 use App\Imports\PensionersImport;
 use App\Models\Pensioner;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -37,7 +38,6 @@ class PensionerController extends Controller
     public function getAllPensionersFromDB(Request $request)
     {
         if ($request->hasCookie('user_id')) {
-
             $pensioners = Pensioner::orderBy('erp_id')->get();
             return view('viewpensioner')->with(compact('pensioners'));
         } else {
@@ -121,5 +121,56 @@ class PensionerController extends Controller
     public function showImportPensionerSection(Request $request)
     {
         return view('importpensioners');
+    }
+
+
+    public function showInvoiceBank(Request $request)
+    {
+        if ($request->hasCookie('user_id')) {
+            $banks = Pensioner::select('bank_name')->distinct()->pluck('bank_name');
+            return view('viewbanks')->with(compact('banks'));
+        } else {
+            return view('login');
+        }
+    }
+
+    public function showSelectedBankPensionersForInvoiceGeneration(Request $request)
+    {
+        if ($request->hasCookie('user_id')) {
+            if ($request->query('bank_name')) {
+                $banks = Pensioner::select('bank_name')->distinct()->pluck('bank_name')->toArray();
+                $bank_name = $request->query('bank_name');
+                if (in_array($bank_name, $banks)) {
+                    $pensioners = Pensioner::where('bank_name', '=', $bank_name)->get();
+                    return view('viewselectedbankpensioners')->with(compact('pensioners', 'bank_name'));
+                } else {
+                }
+            } else {
+                return view('login');
+            }
+        } else {
+            return view('login');
+        }
+    }
+
+    public function generateInvoice(Request $request)
+    {
+        if ($request->hasCookie('user_id')) {
+            if ($request->query('bank_name')) {
+                $banks = Pensioner::select('bank_name')->distinct()->pluck('bank_name')->toArray();
+                $bank_name = $request->query('bank_name');
+                if (in_array($bank_name, $banks)) {
+                    $pensioners = Pensioner::where('bank_name', '=', $bank_name)->get();
+
+                    $pdf = Pdf::loadView('viewpensionersinvoice', compact('pensioners', 'bank_name'))->setPaper('a4', 'portrait');
+                    return $pdf->download('invoice.pdf');
+                } else {
+                }
+            } else {
+                return view('login');
+            }
+        } else {
+            return view('login');
+        }
     }
 }

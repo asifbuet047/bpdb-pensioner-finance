@@ -1,10 +1,10 @@
 @extends('layouts.layout')
 
-@section('title', 'All Pensioner')
+@section('title', 'Invocie generation')
 
 @section('content')
     <section class="container-fluid py-5">
-        <h2 class="mb-4 text-center fw-bold text-primary">All Pensioners</h2>
+        <h2 class="mb-4 text-center fw-bold text-primary">All Pensioners having account under {{ $bank_name }} bank</h2>
         <div class="table-responsive shadow rounded p-2">
             <table class="table table-hover align-middle custom-border">
                 <thead class="bg-gradient-primary text-white fw-bolder fs-4">
@@ -117,23 +117,9 @@
 
         <!-- Action Buttons -->
         <div class="text-center mt-4">
-            <a class="btn btn-primary btn-lg me-2 shadow-sm" href="{{ route('add.pensioner.section') }}">
-                Add Pensioner
-            </a>
-            <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('show.pensioner.section') }}">
-                Refresh List
-            </a>
-            <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('download.pensioners') }}">
-                Download
-            </a>
-            <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('import.pentioners.section') }}">
-                Import Pensioners
-            </a>
-            <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('download.template.pensioners') }}">
-                Download Excel template
-            </a>
             @if (count($pensioners) > 0)
-                <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('show.invoice.bank') }}">
+                <a class="btn btn-outline-primary btn-lg shadow-sm"
+                    href="{{ route('generate.invoice', ['bank_name' => $bank_name]) }}">
                     Generate Invoice
                 </a>
             @endif
