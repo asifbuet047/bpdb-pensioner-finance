@@ -3,7 +3,7 @@
 @section('title', 'View ALl Offices')
 
 @section('content')
-    <section class="container-fluid py-5 vh-100">
+    <section class="container-fluid py-5">
         <h2 class="mb-4 text-center fw-bold text-primary">All Offices</h2>
 
         <div class="table-responsive shadow rounded p-2">

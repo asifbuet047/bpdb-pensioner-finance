@@ -3,22 +3,39 @@
 @section('title', 'All Pensioner')
 
 @section('content')
-    <section class="container-fluid py-5 vh-100">
+    <section class="container-fluid py-5">
         <h2 class="mb-4 text-center fw-bold text-primary">All Pensioners</h2>
-
         <div class="table-responsive shadow rounded p-2">
             <table class="table table-hover align-middle custom-border">
                 <thead class="bg-gradient-primary text-white fw-bolder fs-4">
                     <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">ERP ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Register No</th>
-                        <th scope="col">Basic Salary</th>
-                        <th scope="col">Medical Allowance</th>
-                        <th scope="col">Incentive Bonus</th>
-                        <th scope="col">Bank Name</th>
-                        <th scope="col">Account Number</th>
+                        <th scope="col">
+                            No
+                        </th>
+                        <th scope="col">
+                            ERp ID
+                        </th>
+                        <th scope="col">
+                            Name
+                        </th>
+                        <th scope="col">
+                            Register No
+                        </th>
+                        <th scope="col">
+                            Basic Salary
+                        </th>
+                        <th scope="col">
+                            Medical Allowance
+                        </th>
+                        <th scope="col">
+                            Incentive Bonus
+                        </th>
+                        <th scope="col">
+                            Bank Name
+                        </th>
+                        <th scope="col">
+                            Account Number
+                        </th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
