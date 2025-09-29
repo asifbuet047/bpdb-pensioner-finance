@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <title>Pensioner List</title>
     <style>
-        body {
-            font-family: DejaVu Sans, sans-serif;
-            font-size: 12px;
-            line-height: 1.4;
+        .custom {
+            font-family: 'Li Kobita Unicode', sans-serif;
+            font-size: 24px;
         }
 
         table {
@@ -33,6 +32,7 @@
 <body>
     <div>
         <h1>Bangladesh Power Development Board</h1>
+        <h2 class="custom">বাংলাদেশ বিদ্যুৎ উন্নয়ন বোর্ড</h2>
         <h3>Regional Account Office (POIN)</h3>
         <h4>Manager</h4>
         <h4>{{ $bank_name }}</h4>
@@ -41,7 +41,7 @@
             pension allowances for the pensioners mentioned above for October 2022, according to the respective
             bank-wise details, are to be transferred via your bank by issuing check no. ___ dated 01/11/2022, and the
             charges for online submission of the mentioned bills shall be debited from the Electricity Development
-            Board’s account.</p>
+            Board's account.</p>
 
     </div>
 

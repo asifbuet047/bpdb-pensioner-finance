@@ -6,7 +6,7 @@ use App\Exports\PensionersExport;
 use App\Exports\PensionersTemplateExport;
 use App\Imports\PensionersImport;
 use App\Models\Pensioner;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -159,11 +159,46 @@ class PensionerController extends Controller
             if ($request->query('bank_name')) {
                 $banks = Pensioner::select('bank_name')->distinct()->pluck('bank_name')->toArray();
                 $bank_name = $request->query('bank_name');
+                $pensioners = Pensioner::where('bank_name', '=', $bank_name)->get();
                 if (in_array($bank_name, $banks)) {
-                    $pensioners = Pensioner::where('bank_name', '=', $bank_name)->get();
 
-                    $pdf = Pdf::loadView('viewpensionersinvoice', compact('pensioners', 'bank_name'))->setPaper('a4', 'portrait');
-                    return $pdf->download('invoice.pdf');
+                    /* $pdf = Pdf::setOptions([
+                        'isHtml5ParserEnabled' => true,
+                        'isRemoteEnabled' => true,
+                        'defaultFont' => 'nikosh',
+                    ]);
+                    $pdf->loadView('viewpensionersinvoice', compact('pensioners', 'bank_name'))->setPaper('a4', 'portrait');
+                    return $pdf->stream('invoice.pdf'); */
+
+
+                    /*  $defaultConfig = (new ConfigVariables())->getDefaults();
+                    $fontDirs = $defaultConfig['fontDir'];
+                    $defaultFontConfig = (new FontVariables())->getDefaults();
+                    $fontData = $defaultFontConfig['fontdata'];
+                    $mpdf = new Mpdf([
+                        'mode' => 'utf-8',
+                        'format' => 'A4',
+                        'fontDir' => array_merge($fontDirs, [
+                            storage_path('fonts'),
+                        ]),
+                        'fontdata' => $fontData + [
+                            'nikosh' => [
+                                'R' => 'Nikosh.ttf',
+                            ],
+                            'siyamrupali' => [
+                                'R' => 'SiyamRupali.ttf',
+                            ]
+                        ],
+                        'default_font' => 'siyamrupali',
+                    ]);
+                    $html = view('viewpensionersinvoice', compact('pensioners', 'bank_name'))->render();
+                    $mpdf->WriteHTML($html);
+                    $mpdf->Output('pensioners.pdf', 'I'); */
+
+                    $pdf = PDF::loadView('viewpensionersinvoice', compact('pensioners', 'bank_name'))
+                        ->setPaper('a4')->setOption('encoding', 'utf-8');
+
+                    return $pdf->inline('invoice.pdf');
                 } else {
                 }
             } else {

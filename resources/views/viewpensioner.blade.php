@@ -5,6 +5,7 @@
 @section('content')
     <section class="container-fluid py-5">
         <h2 class="mb-4 text-center fw-bold text-primary">All Pensioners</h2>
+        <h1 class="mb-4 text-center fw-bold text-primary">বাংলাদেশ বিদ্যুৎ উন্নয়ন বোর্ড</h1>
         <div class="table-responsive shadow rounded p-2">
             <table class="table table-hover align-middle custom-border">
                 <thead class="bg-gradient-primary text-white fw-bolder fs-4">
