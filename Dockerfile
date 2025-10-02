@@ -3,15 +3,7 @@ FROM php:8.2-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    zip \
-    git \
-    unzip \
-    curl \
-    libonig-dev \
-    libxml2-dev \
+    libpng-dev libjpeg-dev libfreetype6-dev zip git unzip curl libonig-dev libxml2-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
 
@@ -24,13 +16,14 @@ WORKDIR /var/www
 # Copy project files
 COPY . .
 
-# Install Laravel dependencies
-RUN composer install --no-dev --optimize-autoloader
+RUN echo "memory_limit=2G" > /usr/local/etc/php/conf.d/memory-limit.ini
 
-# Cache configs
-RUN php artisan config:cache && \
-    php artisan route:cache && \
-    php artisan view:cache || true
+RUN composer install --no-dev --no-scripts --prefer-dist --optimize-autoloader
+RUN php artisan key:generate
+RUN php artisan config:cache
+RUN php artisan route:cache
+RUN php artisan view:cache || true
+
 
 # Expose port
 EXPOSE 8000
