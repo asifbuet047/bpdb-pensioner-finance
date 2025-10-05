@@ -18,6 +18,12 @@ class Pensioner extends Model
         'medical_allowance',
         'incentive_bonus',
         'bank_name',
-        'account_number'
+        'account_number',
+        'office_id'
     ];
+
+    public function office()
+    {
+        return $this->belongsTo(Office::class);
+    }
 }
