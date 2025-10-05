@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\PensionersExport;
 use App\Exports\PensionersTemplateExport;
 use App\Imports\PensionersImport;
+use App\Models\Office;
 use App\Models\Pensioner;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Illuminate\Http\Request;
@@ -17,19 +18,40 @@ class PensionerController extends Controller
 
         if ($request->hasCookie('user_id')) {
             $validated = $request->validate([
-                'erp_id'           => 'required|integer|unique:pensioners,erp_id',
-                'name'             => 'required|string|max:255',
-                'register_no'      => 'required|string|max:50|unique:pensioners,register_no',
-                'basic_salary'     => 'required|integer|min:0',
+                'erp_id' => 'required|integer|unique:pensioners,erp_id',
+                'name' => 'required|string|max:255',
+                'register_no' => 'required|string|max:50|unique:pensioners,register_no',
+                'basic_salary' => 'required|integer|min:0',
                 'medical_allowance' => 'required|integer|min:0',
-                'incentive_bonus'  => 'required|numeric|min:0',
-                'bank_name'        => 'required|string|max:255',
-                'account_number'   => 'required|string|max:255|unique:pensioners,account_number',
+                'incentive_bonus' => 'required|numeric|min:0',
+                'bank_name' => 'required|string|max:255',
+                'account_number' => 'required|string|max:255|unique:pensioners,account_number',
+                'office_id' => 'required|integer|exists:offices,id',
             ]);
 
-            $pensioner = Pensioner::create($validated);
+            $pensioner = Pensioner::create([
+                'erp_id' => $request->input('erp_id'),
+                'name' => $request->input('name'),
+                'register_no' => $request->input('register_no'),
+                'basic_salary' => $request->input('basic_salary'),
+                'medical_allowance' => $request->input('medical_allowance'),
+                'incentive_bonus' => $request->input('incentive_bonus'),
+                'bank_name' => $request->input('bank_name'),
+                'account_number' => $request->input('account_number'),
+                'office_id' => $request->input('office_id')
+            ]);
 
-            return redirect()->back()->with($validated);
+            return redirect()->back()->with([
+                'erp_id' => $request->input('erp_id'),
+                'name' => $request->input('name'),
+                'register_no' => $request->input('register_no'),
+                'basic_salary' => $request->input('basic_salary'),
+                'medical_allowance' => $request->input('medical_allowance'),
+                'incentive_bonus' => $request->input('incentive_bonus'),
+                'bank_name' => $request->input('bank_name'),
+                'account_number' => $request->input('account_number'),
+                'office' => $request->input('office')
+            ]);
         } else {
             return view('login');
         }
@@ -38,7 +60,7 @@ class PensionerController extends Controller
     public function getAllPensionersFromDB(Request $request)
     {
         if ($request->hasCookie('user_id')) {
-            $pensioners = Pensioner::orderBy('erp_id')->get();
+            $pensioners = Pensioner::orderBy('erp_id')->with('office')->get();
             return view('viewpensioner')->with(compact('pensioners'));
         } else {
             return view('login');
@@ -87,6 +109,7 @@ class PensionerController extends Controller
                 $exitingPensioner->incentive_bonus = $editedPensioner['incentive_bonus'];
                 $exitingPensioner->bank_name = $editedPensioner['bank_name'];
                 $exitingPensioner->account_number = $editedPensioner['account_number'];
+                $exitingPensioner->office_id = $editedPensioner['office_id'];
                 $exitingPensioner->save();
                 $pensioners = Pensioner::orderBy('name')->get();
                 return redirect()->route('show.pensioner.section')->with(compact('pensioners'));

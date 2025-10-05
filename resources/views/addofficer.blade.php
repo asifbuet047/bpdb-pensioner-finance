@@ -53,17 +53,15 @@
 
                                 <div class="mb-4">
                                     <label class="form-label" for="office">Office</label>
-                                    @if (session()->has('erp_id'))
+                                    @if (session()->has('office'))
                                         <input type="text" name="office_id" class="form-control form-control-lg"
                                             placeholder="Your Office" value="{{ session('office') }}" disabled />
                                     @else
-                                        <!-- This is actaully not submitted but shown -->
                                         <input type="text" id="office" name="office_name"
                                             class="form-control form-control-lg" placeholder="Your Office click to select"
                                             value="{{ old('office') }}" data-bs-toggle="modal" data-bs-target="#selectModal"
                                             readonly />
 
-                                        <!-- This is actaully submitted but not shown -->
                                         <input type="hidden" name="office_id" id="office_id" value="" />
                                     @endif
                                 </div>

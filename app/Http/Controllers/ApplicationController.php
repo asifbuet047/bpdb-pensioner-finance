@@ -60,15 +60,17 @@ class ApplicationController extends Controller
 
     public function showAddPensionerSection()
     {
-        return view('addpensioner');
+        $offices = Office::all();
+        return view('addpensioner', compact('offices'));
     }
 
     public function showUpdatePensionerSection(Request $request)
     {
         $id = (int)$request->route('id');
-        $pensioner = Pensioner::find($id);
+        $pensioner = Pensioner::with('office')->find($id);
+        $offices = Office::orderBy('officeCode')->get();
         if ($pensioner) {
-            return view('updatepensioner', compact('pensioner'));
+            return view('updatepensioner', compact('pensioner', 'offices'));
         } else {
             return response()->json(['id' => $id]);
         }

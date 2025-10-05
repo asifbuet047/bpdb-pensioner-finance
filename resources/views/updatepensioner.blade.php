@@ -137,6 +137,22 @@
                                 </div>
 
 
+                                <div class="mb-4">
+                                    <label class="form-label" for="office">Office</label>
+                                    @if (session()->has('office'))
+                                        <input type="text" name="office_id" class="form-control form-control-lg"
+                                            placeholder="Your Office" value="{{ session('office') }}" disabled />
+                                    @else
+                                        <input type="text" id="office" name="office_name"
+                                            class="form-control form-control-lg" placeholder="Your Office click to select"
+                                            value="{{ old('office_name') ? old('office_name') : $pensioner->office->officeName }}"
+                                            data-bs-toggle="modal" data-bs-target="#selectModal" readonly />
+
+                                        <input type="hidden" name="office_id" id="office_id" value="" />
+                                    @endif
+                                </div>
+
+
                                 @if (session()->has('id'))
                                     <div class="mb-4 row">
                                         <button class="btn btn-success" type="button">Update successful</button>
@@ -148,6 +164,45 @@
                                 @endif
 
                             </form>
+
+                            <!--Office selection Modal -->
+                            <div class="modal fade" id="selectModal" tabindex="-1" role="dialog"
+                                aria-labelledby="selectModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Select an Item</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close">
+
+                                            </button>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <table class="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>RAO Office Name</th>
+                                                        <th>RAO Office name in Bangla</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($offices as $index => $office)
+                                                        <tr class="selectable-row" data-value="{{ $office->id }}"
+                                                            data-name="{{ $office->officeName }}">
+                                                            <td>{{ $office->id }}</td>
+                                                            <td>{{ $office->officeName }}</td>
+                                                            <td>{{ $office->officeNameInBangla }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

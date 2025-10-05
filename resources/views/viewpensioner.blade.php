@@ -37,6 +37,9 @@
                         <th scope="col">
                             Account Number
                         </th>
+                        <th scope="col">
+                            Office Code
+                        </th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -52,6 +55,7 @@
                             <td>{{ number_format($pensioner->incentive_bonus, 2) }}</td>
                             <td>{{ $pensioner->bank_name }}</td>
                             <td>{{ $pensioner->account_number }}</td>
+                            <td>{{ $pensioner->office->officeCode }}</td>
                             <td>
                                 <div class="row">
                                     <i class="bi bi-trash col-6 pensioner-delete-buttons" data-bs-toggle="modal"
