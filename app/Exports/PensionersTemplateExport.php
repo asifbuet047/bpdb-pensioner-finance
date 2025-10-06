@@ -19,6 +19,6 @@ class PensionersTemplateExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ['NO', 'NAME', 'ERP_ID', 'BASIC_SALARY', 'MEDICAL_ALLOWANCE', 'INCENTIVE_BONUS', 'REGISTER_NO', 'BANK_NAME', 'ACCOUNT_NUMBER'];
+        return ['NO', 'NAME', 'ERP_ID', 'BASIC_SALARY', 'MEDICAL_ALLOWANCE', 'INCENTIVE_BONUS', 'REGISTER_NO', 'BANK_NAME', 'ACCOUNT_NUMBER', 'OFFICE_ID'];
     }
 }
