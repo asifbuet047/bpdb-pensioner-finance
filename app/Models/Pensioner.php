@@ -26,4 +26,9 @@ class Pensioner extends Model
     {
         return $this->belongsTo(Office::class);
     }
+
+    public function pensioner_credentail()
+    {
+        return $this->hasOne(PensionerCredential::class);
+    }
 }
