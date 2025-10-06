@@ -31,7 +31,6 @@
                     @if (request()->cookie('user_role') === 'ADMIN')
                         <li class="nav-item scale-animate"><a class="nav-link" href="/pensioners/all">All Pensioner</a>
                         </li>
-                        <li class="nav-item scale-animate"><a class="nav-link" href="/officers">All Officer</a></li>
                         <li class="nav-item scale-animate"><a class="nav-link" href="/offices">All Office</a></li>
                     @endif
 
