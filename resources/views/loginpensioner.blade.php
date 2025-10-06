@@ -10,7 +10,7 @@
                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 row justify-content-center align-items-center font-bold">
-                                Login Form as Officer</h3>
+                                Login Form as Pensioner</h3>
 
                             @if ($errors->any())
                                 <div class="alert alert-danger">
@@ -60,23 +60,19 @@
                                     <div class="mb-4 row">
                                         <button type="submit" class="btn btn-primary btn-lg">Login</button>
                                     </div>
+                                    <div class="mb-4 row">
+                                        <button class="btn btn-secondary btn-lg">First as Pensioenr? Make Password for
+                                            login</button>
+                                    </div>
                                 @endif
 
                                 @if (!session()->has('erp_id'))
                                     <div class="mb-4 row">
-                                        <button class="btn btn-success"
-                                            onclick="window.location='{{ route('add.officer.section') }}'"
-                                            type="button">Don't
-                                            have an account? Register here</button>
-                                    </div>
-                                    <div class="mb-4 row">
                                         <button class="btn btn-outline-primary btn-lg"
-                                            onclick="window.location='{{ route('login.page', ['type' => 'pensioner']) }}'"
-                                            type="button">Log in as Pensioner</button>
+                                            onclick="window.location='{{ route('login.page', ['type' => 'officer']) }}'"
+                                            type="button">Log in as Officer</button>
                                     </div>
                                 @endif
-
-
                             </form>
                         </div>
                     </div>

@@ -155,7 +155,7 @@
                                 @if (session()->has('name'))
                                     <div class="mb-4 row">
                                         <button class="btn btn-success"
-                                            onclick="window.location='{{ route('login.page') }}'" type="button">Update
+                                            onclick="window.location='{{ route('login.page', ['type' => 'officer']) }}'" type="button">Update
                                             successful.
                                             Go to Login page</button>
                                     </div>

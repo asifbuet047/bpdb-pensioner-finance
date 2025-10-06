@@ -176,7 +176,7 @@
                                 @if (session()->has('name'))
                                     <div class="mb-4 row">
                                         <button class="btn btn-success"
-                                            onclick="window.location='{{ route('login.page') }}'"
+                                            onclick="window.location='{{ route('login.page', ['type' => 'officer']) }}'"
                                             type="button">Registration successful.
                                             Go to Login page</button>
                                     </div>
@@ -189,14 +189,14 @@
                                 @if (session()->has('name'))
                                     <div class="mb-4 row" hidden>
                                         <button class="btn btn-success"
-                                            onclick="window.location='{{ route('login.page') }}'" type="button">Already
+                                            onclick="window.location='{{ route('login.page', ['type' => 'officer']) }}'" type="button">Already
                                             have an account?
                                             Login here</button>
                                     </div>
                                 @else
                                     <div class="mb-4 row">
                                         <button class="btn btn-success"
-                                            onclick="window.location='{{ route('login.page') }}'" type="button">Already
+                                            onclick="window.location='{{ route('login.page', ['type' => 'officer']) }}'" type="button">Already
                                             have an account?
                                             Login here</button>
                                     </div>

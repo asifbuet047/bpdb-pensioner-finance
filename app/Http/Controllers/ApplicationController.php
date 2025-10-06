@@ -11,15 +11,19 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
-
 use function Pest\Laravel\withCookie;
 
 class ApplicationController extends Controller
 {
-    public function showLoginPage()
+    public function showLoginPage(Request $request)
     {
-        return view('login');
+        if ($request->query('type') === 'officer') {
+            return view('login');
+        } else {
+            return view('loginpensioner');
+        }
     }
+
 
 
     public function showHomePage(Request $request)
@@ -44,7 +48,7 @@ class ApplicationController extends Controller
         Cookie::queue(Cookie::forget('user_id'));
         Cookie::queue(Cookie::forget('user_role'));
         Cookie::queue(Cookie::forget('user_name'));
-        return redirect()->route('login.page');
+        return redirect()->route('login.page', ['type' => 'officer']);
     }
 
     public function showAddOfficerSection()

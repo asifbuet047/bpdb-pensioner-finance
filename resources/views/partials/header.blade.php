@@ -41,7 +41,7 @@
                         </a>
                     @else
                         <li class="nav-item scale-animate"><a class="nav-link"
-                                href="{{ route('login.page') }}">Login</a></li>
+                                href="{{ route('login.page', ['type' => 'officer']) }}">Login</a></li>
                     @endif
                 </ul>
             </div>
