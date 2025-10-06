@@ -52,6 +52,20 @@
                                 </div>
 
                                 <div class="mb-4">
+                                    <label class="form-label" for="register_no">Pensioner Designation</label>
+                                    @if (session()->has('register_no'))
+                                        <input type="text" id="designation" name="designation"
+                                            class="form-control form-control-lg" placeholder="Designation"
+                                            value="{{ session('designation') }}" disabled />
+                                    @else
+                                        <input type="text" id="designation" name="designation"
+                                            class="form-control form-control-lg" placeholder="Designation"
+                                            value="{{ old('designation') }}" />
+                                    @endif
+                                </div>
+
+                                
+                                <div class="mb-4">
                                     <label class="form-label" for="register_no">Pensioner register no</label>
                                     @if (session()->has('register_no'))
                                         <input type="text" id="register_no" name="register_no"

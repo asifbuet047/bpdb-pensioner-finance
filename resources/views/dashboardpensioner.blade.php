@@ -28,7 +28,8 @@
 
                         <h4 class="fw-bold mb-1">{{ $pensionerDetails->name }}</h4>
                         <p class="text-muted mb-2">ERP ID: {{ $pensionerDetails->erp_id }}</p>
-                        <p class="text-secondary small">{{ $pensioner->designation }}</p>
+                        <p class="text-secondary small">{{ $pensionerDetails->designation }}</p>
+                        <p class="text-secondary small">{{ $pensionerDetails->office->officeName }}</p>
 
                         <div class="d-flex justify-content-center mt-3 gap-2">
                             <a href="#" class="btn btn-primary btn-sm px-4">Edit Profile</a>

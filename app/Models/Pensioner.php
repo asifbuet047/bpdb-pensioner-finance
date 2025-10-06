@@ -13,6 +13,7 @@ class Pensioner extends Model
     protected $fillable = [
         'erp_id',
         'name',
+        'designation',
         'register_no',
         'basic_salary',
         'medical_allowance',

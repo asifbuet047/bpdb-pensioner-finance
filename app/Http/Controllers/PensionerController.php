@@ -20,6 +20,7 @@ class PensionerController extends Controller
             $validated = $request->validate([
                 'erp_id' => 'required|integer|unique:pensioners,erp_id',
                 'name' => 'required|string|max:255',
+                'designation' => 'required|string',
                 'register_no' => 'required|string|max:50|unique:pensioners,register_no',
                 'basic_salary' => 'required|integer|min:0',
                 'medical_allowance' => 'required|integer|min:0',
@@ -32,6 +33,7 @@ class PensionerController extends Controller
             $pensioner = Pensioner::create([
                 'erp_id' => $request->input('erp_id'),
                 'name' => $request->input('name'),
+                'designation' => $request->input('designation'),
                 'register_no' => $request->input('register_no'),
                 'basic_salary' => $request->input('basic_salary'),
                 'medical_allowance' => $request->input('medical_allowance'),
@@ -44,6 +46,7 @@ class PensionerController extends Controller
             return redirect()->back()->with([
                 'erp_id' => $request->input('erp_id'),
                 'name' => $request->input('name'),
+                'designation' => $request->input('designation'),
                 'register_no' => $request->input('register_no'),
                 'basic_salary' => $request->input('basic_salary'),
                 'medical_allowance' => $request->input('medical_allowance'),

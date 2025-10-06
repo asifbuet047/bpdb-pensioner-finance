@@ -24,7 +24,8 @@ class PensionersImport implements ToModel, WithHeadingRow
             'register_no' => $row['register_no'],
             'bank_name' => $row['bank_name'],
             'account_number' => $row['account_number'],
-            'office_id' => $row['office_id']
+            'office_id' => $row['office_id'],
+            'designation' => $row['designation']
         ]);
     }
 }

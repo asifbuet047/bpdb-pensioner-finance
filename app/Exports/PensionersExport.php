@@ -14,7 +14,7 @@ class PensionersExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        $pensioners = Pensioner::select(['name', 'erp_id', 'basic_salary', 'medical_allowance', 'incentive_bonus', 'register_no', 'bank_name', 'account_number'])->get();
+        $pensioners = Pensioner::select(['name', 'erp_id', 'basic_salary', 'medical_allowance', 'incentive_bonus', 'register_no', 'bank_name', 'account_number', 'office_id'])->get();
 
         $refinedPensioners = $pensioners->map(function ($pensioner, $key) {
             return [
@@ -27,6 +27,7 @@ class PensionersExport implements FromCollection, WithHeadings
                 'REGISTER_NO' => $pensioner->register_no,
                 'BANK_NAME' => $pensioner->bank_name,
                 'ACCOUNT_NUMBER' => $pensioner->account_number,
+                'OFFICE_ID' => $pensioner->office_id
             ];
         });
 

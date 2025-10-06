@@ -154,15 +154,21 @@ class ApplicationController extends Controller
             }
             $pensioner_credential = PensionerCredential::where('pensioner_id', $pensioner->id)->first();
 
-            if (!Hash::check($validated['password'], $pensioner_credential->password)) {
-                return redirect()->back()
-                    ->withErrors(['password' => 'Password mismatch or You do not set password yet'])
-                    ->withInput();
+            if ($pensioner_credential) {
+                if (!Hash::check($validated['password'], $pensioner_credential->password)) {
+                    return redirect()->back()
+                        ->withErrors(['password' => 'Password mismatch'])
+                        ->withInput();
+                } else {
+                    return redirect()->back()->with([
+                        'erp_id' => $validated['erp_id'],
+                        'password' => $validated['password']
+                    ])->withCookies([cookie('user_id', $validated['erp_id'], 10, '/', null, true, true), cookie('user_role', 'user', 10, '/', null, true, true), cookie('user_name', $pensioner->name, 10, '/', null, true, true)]);
+                }
             } else {
-                return redirect()->back()->with([
-                    'erp_id' => $validated['erp_id'],
-                    'password' => $validated['password']
-                ])->withCookies([cookie('user_id', $validated['erp_id'], 10, '/', null, true, true), cookie('user_role', 'user', 10, '/', null, true, true), cookie('user_name', $pensioner->name, 10, '/', null, true, true)]);
+                return redirect()->back()
+                    ->withErrors(['password' => 'You do not set password yet'])
+                    ->withInput();
             }
         }
     }

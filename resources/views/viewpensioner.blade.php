@@ -20,6 +20,9 @@
                             Name
                         </th>
                         <th scope="col">
+                            Desigantion
+                        </th>
+                        <th scope="col">
                             Register No
                         </th>
                         <th scope="col">
@@ -51,6 +54,7 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $pensioner->erp_id }}</td>
                             <td>{{ $pensioner->name }}</td>
+                            <td>{{ $pensioner->designation }}</td>
                             <td>{{ $pensioner->register_no }}</td>
                             <td>{{ number_format($pensioner->basic_salary, 2) }}</td>
                             <td>{{ number_format($pensioner->medical_allowance, 2) }}</td>
@@ -71,7 +75,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="10" class="text-center text-muted fst-italic">
+                            <td colspan="11" class="text-center text-muted fst-italic">
                                 No pensioners found.
                             </td>
                         </tr>
