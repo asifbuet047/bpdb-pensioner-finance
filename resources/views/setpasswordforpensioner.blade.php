@@ -46,7 +46,7 @@
                                     @else
                                         <label class="form-label" for="password">Password</label>
                                         <input type="password" id="password" name="password"
-                                            class="form-control form-control-lg" />
+                                            placeholder="Your login password" class="form-control form-control-lg" />
                                     @endif
 
                                 </div>
@@ -60,7 +60,7 @@
                                     @else
                                         <label class="form-label" for="password_confirmation">Confirm password</label>
                                         <input type="password" id="password_confirmation" name="password_confirmation"
-                                            class="form-control form-control-lg" />
+                                            class="form-control form-control-lg" placeholder="Retype your password" />
                                     @endif
 
 

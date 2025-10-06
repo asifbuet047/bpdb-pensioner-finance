@@ -35,7 +35,7 @@ class PensionerCredentialController extends Controller
                 'password' => Hash::make($validated['password'])
             ]);
 
-            return redirect()->back()->with(['erp_id' => $request->input('erp_id'), 'password' => $request->input('password')]);
+            return redirect()->back()->with(['erp_id' => $request->input('erp_id'), 'password' => $pensioner_credentail['password']]);
         }
     }
 }

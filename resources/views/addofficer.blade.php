@@ -153,7 +153,7 @@
                                     @else
                                         <label class="form-label" for="password">Password</label>
                                         <input type="password" id="password" name="password"
-                                            class="form-control form-control-lg" />
+                                            class="form-control form-control-lg" placeholder="Your login password" />
                                     @endif
 
                                 </div>
@@ -167,7 +167,7 @@
                                     @else
                                         <label class="form-label" for="password_confirmation">Confirm password</label>
                                         <input type="password" id="password_confirmation" name="password_confirmation"
-                                            class="form-control form-control-lg" />
+                                            class="form-control form-control-lg" placeholder="Retype your password" />
                                     @endif
 
 
@@ -189,14 +189,16 @@
                                 @if (session()->has('name'))
                                     <div class="mb-4 row" hidden>
                                         <button class="btn btn-success"
-                                            onclick="window.location='{{ route('login.page', ['type' => 'officer']) }}'" type="button">Already
+                                            onclick="window.location='{{ route('login.page', ['type' => 'officer']) }}'"
+                                            type="button">Already
                                             have an account?
                                             Login here</button>
                                     </div>
                                 @else
                                     <div class="mb-4 row">
                                         <button class="btn btn-success"
-                                            onclick="window.location='{{ route('login.page', ['type' => 'officer']) }}'" type="button">Already
+                                            onclick="window.location='{{ route('login.page', ['type' => 'officer']) }}'"
+                                            type="button">Already
                                             have an account?
                                             Login here</button>
                                     </div>

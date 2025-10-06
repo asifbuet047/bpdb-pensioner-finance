@@ -63,9 +63,7 @@
                                     <div class="mb-4 row">
                                         <button class="btn btn-secondary btn-lg"
                                             onclick="window.location='{{ route('set.password.page') }}'"
-                                            type="button">First as
-                                            Pensioener? Make Password for
-                                            login</button>
+                                            type="button">First as Pensioener? Make Password for login</button>
                                     </div>
                                 @endif
 

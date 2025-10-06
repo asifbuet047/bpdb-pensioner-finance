@@ -156,6 +156,6 @@ class ApplicationController extends Controller
 
     public function showSetPasswordForPensionerPage(Request $request)
     {
-        return view('set.password');
+        return view('setpasswordforpensioner');
     }
 }
