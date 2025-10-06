@@ -41,11 +41,14 @@ class ApplicationController extends Controller
                 return view('dashboard', compact('pensionerCount'));
                 break;
 
-            default:
+            case 'USER':
                 $erp_id = $request->cookie('user_id');
                 $name = $request->cookie('user_name');
                 $pensionerDetails = Pensioner::where('erp_id', $erp_id)->with('office')->first();
                 return view('dashboardpensioner', compact('erp_id', 'name', 'pensionerDetails'));
+                break;
+            default:
+                return view('login');
                 break;
         }
     }
