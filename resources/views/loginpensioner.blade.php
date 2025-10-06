@@ -21,7 +21,7 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form action="{{ route('login.process') }}" method="POST">
+                            <form action="{{ route('login.process', ['type' => 'pensioner']) }}" method="POST">
                                 @csrf
 
                                 <div class="mb-4">
@@ -61,7 +61,7 @@
                                         <button type="submit" class="btn btn-primary btn-lg">Login</button>
                                     </div>
                                     <div class="mb-4 row">
-                                        <button class="btn btn-secondary btn-lg">First as Pensioenr? Make Password for
+                                        <button class="btn btn-secondary btn-lg">First as Pensioener? Make Password for
                                             login</button>
                                     </div>
                                 @endif

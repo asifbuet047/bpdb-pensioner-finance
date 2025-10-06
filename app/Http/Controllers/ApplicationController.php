@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Office;
 use App\Models\Officer;
 use App\Models\Pensioner;
+use App\Models\PensionerCredential;
 use GuzzleHttp\Cookie\CookieJar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -91,32 +92,65 @@ class ApplicationController extends Controller
         }
     }
 
-    public function loginOfficer(Request $request)
+    public function login(Request $request)
     {
-        $validated = $request->validate([
-            'erp_id' => 'required|integer',
-            'password' => [
-                'required',
-                'string',
-                'max:15',
-                'regex:/[@$!%*#?&]/',
-            ]
-        ], [
-            'password.max' => 'Password cannot be longer than 15 characters',
-            'password.regex' => 'Password must contain at least one special character',
-        ]);
+        if ($request->query('type') === 'officer') {
+            $validated = $request->validate([
+                'erp_id' => 'required|integer',
+                'password' => [
+                    'required',
+                    'string',
+                    'max:15',
+                    'regex:/[@$!%*#?&]/',
+                ]
+            ], [
+                'password.max' => 'Password cannot be longer than 15 characters',
+                'password.regex' => 'Password must contain at least one special character',
+            ]);
 
-        $officer = Officer::where('erp_id', $validated['erp_id'])->first();
+            $officer = Officer::where('erp_id', $validated['erp_id'])->first();
 
-        if (!$officer || !Hash::check($validated['password'], $officer->password)) {
-            return redirect()->back()
-                ->withErrors(['erp_id' => 'Invalid ERP ID or password'])
-                ->withInput();
+            if (!$officer || !Hash::check($validated['password'], $officer->password)) {
+                return redirect()->back()
+                    ->withErrors(['erp_id' => 'Invalid ERP ID or password'])
+                    ->withInput();
+            } else {
+                return redirect()->back()->with([
+                    'erp_id' => $validated['erp_id'],
+                    'password' => $validated['password']
+                ])->withCookies([cookie('user_id', $validated['erp_id'], 10, '/', null, true, true), cookie('user_role', $officer->role, 10, '/', null, true, true), cookie('user_name', $officer->name, 10, '/', null, true, true)]);
+            }
         } else {
-            return redirect()->back()->with([
-                'erp_id' => $validated['erp_id'],
-                'password' => $validated['password']
-            ])->withCookies([cookie('user_id', $validated['erp_id'], 10, '/', null, true, true), cookie('user_role', $officer->role, 10, '/', null, true, true), cookie('user_name', $officer->name, 10, '/', null, true, true)]);
+            $validated = $request->validate([
+                'erp_id' => 'required|integer',
+                'password' => [
+                    'required',
+                    'string',
+                    'max:15',
+                ]
+            ], [
+                'password.max' => 'Password cannot be longer than 15 characters',
+            ]);
+
+            $pensioner = Pensioner::where('erp_id', $validated['erp_id'])->first();
+
+            if (!$pensioner) {
+                return redirect()->back()
+                    ->withErrors(['erp_id' => 'Please talk to Your RAO office for registration as pensioner'])
+                    ->withInput();
+            }
+            $pensioner_credential = PensionerCredential::where('pensioner_id', $pensioner->id)->first();
+
+            if (!Hash::check($validated['password'], $pensioner_credential->password)) {
+                return redirect()->back()
+                    ->withErrors(['password' => 'Password mismatch'])
+                    ->withInput();
+            } else {
+                return redirect()->back()->with([
+                    'erp_id' => $validated['erp_id'],
+                    'password' => $validated['password']
+                ])->withCookies([cookie('user_id', $validated['erp_id'], 10, '/', null, true, true), cookie('user_role', 'user', 10, '/', null, true, true), cookie('user_name', $pensioner->name, 10, '/', null, true, true)]);
+            }
         }
     }
 }

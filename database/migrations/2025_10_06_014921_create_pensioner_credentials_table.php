@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pensioner_credentials', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('pensioners_id')->constrained()->onDelete('cascade');
+            $table->foreignId('pensioner_id')->constrained()->onDelete('cascade');
             $table->string('password');
         });
     }

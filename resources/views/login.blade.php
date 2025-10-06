@@ -21,7 +21,7 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form action="{{ route('login.process') }}" method="POST">
+                            <form action="{{ route('login.process', ['type' => 'officer']) }}" method="POST">
                                 @csrf
 
                                 <div class="mb-4">

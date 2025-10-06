@@ -10,7 +10,7 @@ Route::get('/', [ApplicationController::class, 'showHomePage'])->name('home.page
 
 Route::get('/login', [ApplicationController::class, 'showLoginpage'])->name('login.page');
 
-Route::post('/login', [ApplicationController::class, 'loginOfficer'])->name('login.process');
+Route::post('/login', [ApplicationController::class, 'login'])->name('login.process');
 
 Route::get('/logout', [ApplicationController::class, 'logout'])->name('logout');
 

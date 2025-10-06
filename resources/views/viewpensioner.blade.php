@@ -40,7 +40,9 @@
                         <th scope="col">
                             Office Code
                         </th>
-                        <th scope="col"></th>
+                        @if (count($pensioners) > 0)
+                            <th scope="col"></th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -69,7 +71,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="text-center text-muted fst-italic">
+                            <td colspan="10" class="text-center text-muted fst-italic">
                                 No pensioners found.
                             </td>
                         </tr>
