@@ -4,6 +4,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\PensionerController;
+use App\Http\Controllers\PensionerCredentialController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ApplicationController::class, 'showHomePage'])->name('home.page');
@@ -11,6 +12,10 @@ Route::get('/', [ApplicationController::class, 'showHomePage'])->name('home.page
 Route::get('/login', [ApplicationController::class, 'showLoginpage'])->name('login.page');
 
 Route::post('/login', [ApplicationController::class, 'login'])->name('login.process');
+
+Route::get('/set', [ApplicationController::class, 'showSetPasswordForPensionerPage'])->name('set.password.page');
+
+Route::post('/set', [PensionerCredentialController::class, 'addPensionerCredentialIntoDB'])->name('set.password.process');
 
 Route::get('/logout', [ApplicationController::class, 'logout'])->name('logout');
 

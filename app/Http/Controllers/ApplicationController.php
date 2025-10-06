@@ -143,7 +143,7 @@ class ApplicationController extends Controller
 
             if (!Hash::check($validated['password'], $pensioner_credential->password)) {
                 return redirect()->back()
-                    ->withErrors(['password' => 'Password mismatch'])
+                    ->withErrors(['password' => 'Password mismatch or You do not set password yet'])
                     ->withInput();
             } else {
                 return redirect()->back()->with([
@@ -152,5 +152,10 @@ class ApplicationController extends Controller
                 ])->withCookies([cookie('user_id', $validated['erp_id'], 10, '/', null, true, true), cookie('user_role', 'user', 10, '/', null, true, true), cookie('user_name', $pensioner->name, 10, '/', null, true, true)]);
             }
         }
+    }
+
+    public function showSetPasswordForPensionerPage(Request $request)
+    {
+        return view('set.password');
     }
 }

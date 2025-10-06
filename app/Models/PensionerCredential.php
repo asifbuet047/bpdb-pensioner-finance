@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PensionerCredential extends Model
 {
-    protected $fillable = ['password'];
+    protected $fillable = ['password', 'pensioner_id'];
 
     public function pensioner()
     {
