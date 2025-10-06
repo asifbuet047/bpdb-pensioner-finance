@@ -20,7 +20,7 @@
                             ];
                             $avatarUrl =
                                 'https://ui-avatars.com/api/?name=' .
-                                urlencode($pensioner->name) .
+                                urlencode($pensionerDetails->name) .
                                 '&background=0D6EFD&color=fff';
                         @endphp
 
