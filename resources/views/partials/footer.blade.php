@@ -42,7 +42,8 @@
     </div>
 
     <!-- Bottom Bar -->
-    <div class="text-center p-3 bg-secondary">
-        © {{ date('Y') }} Pension Management System | All Rights Reserved
+    <div class="text-center p-3 bg-secondary text-white">
+        © {{ date('Y') }} Pension Management System | Developed by <strong>Asif & Akib</strong> | All Rights
+        Reserved
     </div>
 </footer>

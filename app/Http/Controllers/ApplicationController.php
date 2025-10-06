@@ -29,31 +29,24 @@ class ApplicationController extends Controller
 
     public function showHomePage(Request $request)
     {
-        if ($request->query('type') === 'officer') {
-            if ($request->hasCookie('user_id')) {
-                if ($request->cookie('user_role') === 'SUPER_ADMIN') {
-                    $officeCount = Office::count();
-                    $officerCount = Officer::count();
-                    $pensionerCount = Pensioner::count();
-                    return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount'));
-                } else {
-                    $pensionerCount = Pensioner::count();
-                    return view('dashboard', compact('pensionerCount'));
-                }
-            } else {
-                return view('login');
-            }
-        } else if ($request->query('type') === 'pensioner') {
-            if ($request->hasCookie('user_id')) {
+        switch ($request->cookie('user_role')) {
+            case 'SUPER_ADMIN':
+                $officeCount = Office::count();
+                $officerCount = Officer::count();
+                $pensionerCount = Pensioner::count();
+                return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount'));
+                break;
+            case 'ADMIN':
+                $pensionerCount = Pensioner::count();
+                return view('dashboard', compact('pensionerCount'));
+                break;
+
+            default:
                 $erp_id = $request->cookie('user_id');
                 $name = $request->cookie('user_name');
                 $pensionerDetails = Pensioner::where('erp_id', $erp_id)->with('office')->first();
                 return view('dashboardpensioner', compact('erp_id', 'name', 'pensionerDetails'));
-            } else {
-                return view('login');
-            }
-        } else {
-            return view('login');
+                break;
         }
     }
 
@@ -163,7 +156,7 @@ class ApplicationController extends Controller
                     return redirect()->back()->with([
                         'erp_id' => $validated['erp_id'],
                         'password' => $validated['password']
-                    ])->withCookies([cookie('user_id', $validated['erp_id'], 10, '/', null, true, true), cookie('user_role', 'user', 10, '/', null, true, true), cookie('user_name', $pensioner->name, 10, '/', null, true, true)]);
+                    ])->withCookies([cookie('user_id', $validated['erp_id'], 10, '/', null, true, true), cookie('user_role', 'USER', 10, '/', null, true, true), cookie('user_name', $pensioner->name, 10, '/', null, true, true)]);
                 }
             } else {
                 return redirect()->back()
