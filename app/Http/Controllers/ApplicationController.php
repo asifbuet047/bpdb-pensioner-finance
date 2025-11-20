@@ -6,13 +6,9 @@ use App\Models\Office;
 use App\Models\Officer;
 use App\Models\Pensioner;
 use App\Models\PensionerCredential;
-use GuzzleHttp\Cookie\CookieJar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Validation\ValidationException;
-use function Pest\Laravel\withCookie;
 
 class ApplicationController extends Controller
 {
@@ -127,7 +123,7 @@ class ApplicationController extends Controller
                 return redirect()->back()->with([
                     'erp_id' => $validated['erp_id'],
                     'password' => $validated['password']
-                ])->withCookies([cookie('user_id', $validated['erp_id'], 10, '/', null, true, true), cookie('user_role', $officer->role, 10, '/', null, true, true), cookie('user_name', $officer->name, 10, '/', null, true, true)]);
+                ])->withCookies([cookie('user_id', $validated['erp_id'], 10, '/', null, false, true), cookie('user_role', $officer->role, 10, '/', null, false, true), cookie('user_name', $officer->name, 10, '/', null, false, true)]);
             }
         } else {
             $validated = $request->validate([
