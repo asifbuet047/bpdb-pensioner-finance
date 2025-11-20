@@ -155,7 +155,7 @@ class ApplicationController extends Controller
                     return redirect()->back()->with([
                         'erp_id' => $validated['erp_id'],
                         'password' => $validated['password']
-                    ])->withCookies([cookie('user_id', $validated['erp_id'], 10, '/', null, true, true), cookie('user_role', 'USER', 10, '/', null, true, true), cookie('user_name', $pensioner->name, 10, '/', null, true, true)]);
+                    ])->withCookies([cookie('user_id', $validated['erp_id'], 10, '/', null, false, true), cookie('user_role', 'USER', 10, '/', null, false, true), cookie('user_name', $pensioner->name, 10, '/', null, false, true)]);
                 }
             } else {
                 return redirect()->back()
