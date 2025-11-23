@@ -13,7 +13,10 @@ class Office extends Model
     protected $fillable = [
         'officeName',
         'officeNameInBangla',
-        'officeCode'
+        'officeCode',
+        'address',
+        'mobile_no',
+        'email'
     ];
 
     public function officers()
@@ -24,5 +27,10 @@ class Office extends Model
     public function pensioners()
     {
         return $this->hasMany(Pensioner::class);
+    }
+
+    public function paymentOffices()
+    {
+        return $this->hasMany(PaymentOffice::class);
     }
 }

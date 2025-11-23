@@ -14,6 +14,9 @@
                         <th scope="col" class="fw-bolder fs-4">Office name</th>
                         <th scope="col" class="fw-bolder fs-4">Office name in Bangla</th>
                         <th scope="col" class="fw-bolder fs-4">Office code in ERP</th>
+                        <th scope="col" class="fw-bolder fs-4">Office Address</th>
+                        <th scope="col" class="fw-bolder fs-4">Office contact no</th>
+                        <th scope="col" class="fw-bolder fs-4">Office email</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,6 +26,9 @@
                             <td class="fw-semibold">{{ $office->officeName }}</td>
                             <td class="fw-semibold">{{ $office->officeNameInBangla }}</td>
                             <td class="fw-semibold">{{ $office->officeCode }}</td>
+                            <td class="fw-semibold">{{ $office->address }}</td>
+                            <td class="fw-semibold">{{ $office->mobile_no }}</td>
+                            <td class="fw-semibold">{{ $office->email }}</td>
                         </tr>
                     @empty
                         <tr>
