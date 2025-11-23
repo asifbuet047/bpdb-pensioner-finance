@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('payment_offices', function (Blueprint $table) {
-            $table->foreignId('office_id')->constrained()->onDelete('cascade');
+        Schema::table('offices', function (Blueprint $table) {
+            $table->unsignedBigInteger('officeCode', false)->unique();
         });
     }
 
@@ -21,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('payment_office', function (Blueprint $table) {
-            $table->dropForeign(['office_id']);
-            $table->dropColumn(['office_id']);
+        Schema::table('offices', function (Blueprint $table) {
+            $table->dropUnique('officeCode');
         });
     }
 };

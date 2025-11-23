@@ -59,7 +59,7 @@
                 </div>
                 <div class="row g-3 mt-3 justify-content-center">
                     <!-- View All Offices Button conditional rendering-->
-                    <div class="col-12 col-md-6 scale-animate">
+                    <div class="col-12 col-md-4 scale-animate">
                         <div class="info-box" style="background: linear-gradient(135deg, #f7971e, #ffd200);">
                             <div>
                                 <h3>{{ $officeCount }} office</h3>
@@ -70,10 +70,21 @@
                         </div>
                     </div>
 
+                    <!-- View All Payment Offices Button conditional rendering-->
+                    <div class="col-12 col-md-4 scale-animate">
+                        <div class="info-box" style="background: linear-gradient(135deg, #ff6fd8, #3813c2);">
+                            <div>
+                                <h3>{{ $paymentofficeCount }}payment office</h3>
+                                <h3>View All Payment Offices</h3>
+                                <a href="{{ route('show.offices') }}">More info <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                            <div class="icon"><i class="bi bi-building"></i></div>
+                        </div>
+                    </div>
+
                     <!-- View Add Office Button conditional rendering-->
-                    <div class="col-12 col-md-6 scale-animate">
-                        <div class="info-box" style="background: linear-gradient(135deg, #6a11cb, #2575fc);
-">
+                    <div class="col-12 col-md-4 scale-animate">
+                        <div class="info-box" style="background: linear-gradient(135deg, #6a11cb, #2575fc);">
                             <div>
                                 <h3>Add New Office</h3>
                                 <a href="{{ route('add.office.section') }}">More info <i class="bi bi-arrow-right"></i></a>
