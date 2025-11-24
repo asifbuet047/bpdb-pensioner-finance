@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('offices', function (Blueprint $table) {
-            $table->unsignedBigInteger('officeCode', false)->unique();
+            $table->integer('payment_office_code');
+            $table->boolean('is_payment_office');
         });
     }
 
@@ -22,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('offices', function (Blueprint $table) {
-            $table->dropUnique('officeCode');
+            $table->dropColumn('payment_office_code');
+            $table->dropColumn('is_payment_office');
         });
     }
 };

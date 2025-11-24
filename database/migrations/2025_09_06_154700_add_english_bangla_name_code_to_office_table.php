@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('offices', function (Blueprint $table) {
-            $table->string('nameInEnglish');
-            $table->string('nameInBangla');
-            $table->integer('code', false, true)->unique();
+            $table->string('name_in_english');
+            $table->string('name_in_bangla');
         });
     }
 
@@ -24,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('offices', function (Blueprint $table) {
-            $table->dropColumn(['nameInEnglish', 'nameInBangla', 'code']);
+            $table->dropColumn(['name_in_english', 'name_in_bangla']);
         });
     }
 };

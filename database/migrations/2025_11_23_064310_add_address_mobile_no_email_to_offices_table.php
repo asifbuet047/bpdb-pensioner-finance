@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::table('offices', function (Blueprint $table) {
             $table->string('address');
             $table->string('mobile_no', 15);
-            $table->string('email')->unique();
+            $table->string('email');
+            $table->integer('office_code', false, true)->unique();
         });
     }
 
@@ -26,8 +27,9 @@ return new class extends Migration
         Schema::table('offices', function (Blueprint $table) {
             $table->dropColumn('address');
             $table->dropColumn('mobile_no');
-            $table->dropUnique(['email']);
             $table->dropColumn('email');
+            $table->dropUnique(['office_code']);
+            $table->dropColumn('office_code');
         });
     }
 };

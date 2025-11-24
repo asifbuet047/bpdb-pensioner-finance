@@ -11,12 +11,14 @@ class Office extends Model
     use HasFactory;
 
     protected $fillable = [
-        'officeName',
-        'officeNameInBangla',
-        'officeCode',
+        'name_in_english',
+        'name_in_bangla',
+        'office_code',
         'address',
         'mobile_no',
-        'email'
+        'email',
+        'is_payment_office',
+        'payment_office_code'
     ];
 
     public function officers()
@@ -27,10 +29,5 @@ class Office extends Model
     public function pensioners()
     {
         return $this->hasMany(Pensioner::class);
-    }
-
-    public function paymentOffices()
-    {
-        return $this->hasMany(PaymentOffice::class);
     }
 }

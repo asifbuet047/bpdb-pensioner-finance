@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::dropIfExists('job_batchs');
+        Schema::dropIfExists('personal_access_tokens');
     }
 
     /**
@@ -19,8 +20,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('job_batchs', function (Blueprint $table) {
-            //
-        });
+        Schema::table('job_batchs', function (Blueprint $table) {});
     }
 };
