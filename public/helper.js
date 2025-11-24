@@ -1,3 +1,5 @@
+import { offices } from "./offices.js";
+
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".selectable-row").forEach((row) => {
         row.addEventListener("click", (e) => {
@@ -127,5 +129,61 @@ document.addEventListener("DOMContentLoaded", () => {
             let modal = bootstrap.Modal.getInstance(modalElement);
             modal.hide();
         });
+    });
+
+    const input = document.getElementById("officeSearch");
+    const list = document.getElementById("autocompleteList");
+    let controller;
+    input.addEventListener("input", async function () {
+        const query = this.value.trim();
+
+        list.innerHTML = "";
+        if (query.length < 2) return;
+
+        if (controller) controller.abort();
+        controller = new AbortController();
+
+        try {
+            const res = await fetch(
+                `/search-offices?q=${encodeURIComponent(query)}`,
+                {
+                    signal: controller.signal,
+                }
+            );
+            const data = await res.json();
+
+            list.innerHTML = "";
+
+            if (data.length === 0) {
+                list.innerHTML = `<li class="list-group-item">No results found</li>`;
+                return;
+            }
+
+            // build list items
+            data.forEach((item) => {
+                const li = document.createElement("li");
+                li.classList.add("list-group-item");
+                li.textContent = item.name_in_english;
+                li.style.cursor = "pointer";
+
+                // when clicked → fill input
+                li.addEventListener("click", () => {
+                    input.value = item.name_in_english;
+                    list.innerHTML = "";
+                });
+
+                list.appendChild(li);
+                list.classList.add("show");
+            });
+        } catch (e) {
+            if (e.name !== "AbortError") console.error(e);
+        }
+    });
+
+    // hide list when clicking outside
+    document.addEventListener("click", function (e) {
+        if (!input.contains(e.target) && !list.contains(e.target)) {
+            list.innerHTML = "";
+        }
     });
 });

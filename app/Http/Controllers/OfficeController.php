@@ -40,4 +40,12 @@ class OfficeController extends Controller
     public function removeOfficeFromDB(Request $request) {}
 
     public function updateOfficeIntoDB(Request $request) {}
+
+    public function search(Request $request)
+    {
+        $q = $request->get('q');
+        return Office::where('name_in_english', 'LIKE', "%{$q}%")
+            ->limit(10)
+            ->get(['id', 'name_in_english']);
+    }
 }

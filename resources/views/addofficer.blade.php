@@ -57,12 +57,11 @@
                                         <input type="text" name="office_id" class="form-control form-control-lg"
                                             placeholder="Your Office" value="{{ session('office') }}" disabled />
                                     @else
-                                        <input type="text" id="office" name="office_name"
-                                            class="form-control form-control-lg" placeholder="Your Office click to select"
-                                            value="{{ old('office') }}" data-bs-toggle="modal" data-bs-target="#selectModal"
-                                            readonly />
-
-                                        <input type="hidden" name="office_id" id="office_id" value="" />
+                                        <div class="autocomplete-wrapper">
+                                            <input id="officeSearch" class="form-control form-control-lg"
+                                                placeholder="Start typing office name..." autocomplete="off" />
+                                            <ul id="autocompleteList" class="list-group autocomplete-list"></ul>
+                                        </div>
                                     @endif
                                 </div>
 
@@ -231,10 +230,10 @@
                                                 <tbody>
                                                     @foreach ($offices as $index => $office)
                                                         <tr class="selectable-row" data-value="{{ $office->id }}"
-                                                            data-name="{{ $office->officeName }}">
+                                                            data-name="{{ $office->name_in_english }}">
                                                             <td>{{ $office->id }}</td>
-                                                            <td>{{ $office->officeName }}</td>
-                                                            <td>{{ $office->officeNameInBangla }}</td>
+                                                            <td>{{ $office->name_in_english }}</td>
+                                                            <td>{{ $office->name_in_bangla }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -243,6 +242,8 @@
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                 </div>

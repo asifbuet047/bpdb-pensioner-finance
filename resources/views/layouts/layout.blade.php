@@ -81,6 +81,33 @@
             color: #fff;
             text-decoration: underline;
         }
+
+        .autocomplete-wrapper {
+            position: relative;
+        }
+
+        .autocomplete-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 2000;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .autocomplete-item.active {
+            background: #f1f1f1;
+        }
+
+        .autocomplete-item {
+            cursor: pointer;
+        }
+
+        .autocomplete-list.show {
+            display: block;
+        }
     </style>
 </head>
 
@@ -93,7 +120,7 @@
     @include('partials.footer') <!--Add footer file-->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('helper.js') }}"></script>
+    <script type="module" src="{{ asset('helper.js') }}"></script>
 </body>
 
 </html>

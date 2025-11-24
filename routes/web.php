@@ -63,6 +63,8 @@ Route::get('/officers/export', [OfficerController::class, 'exportOfficers'])->na
 
 Route::get('/officers/export/template', [OfficerController::class, 'downloadOfficers'])->name('download.template.officers');
 
+Route::get('/search-offices', [OfficeController::class, 'search']);
+
 
 Route::get('/office/new', [ApplicationController::class, 'showAddofficeSection'])->name('add.office.section');
 
