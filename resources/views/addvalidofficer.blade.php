@@ -70,7 +70,7 @@
                                     @if (session()->has('role'))
                                         <label class="form-label" for="role">Role</label>
                                         <input type="text" name="role" class="form-control form-control-lg"
-                                            value="{{ session('designation') }}" disabled />
+                                            value="{{ session('role') }}" disabled />
                                     @endif
                                 </div>
 

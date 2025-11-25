@@ -81,7 +81,7 @@ class OfficerController extends Controller
             $erp_id = $dataResponse->json()['data'][0]['code'];
             $designation_id = Designation::where('designation_code', '=', $dataResponse->json()['data'][0]['designationCode'])->value('id') ?? 0;
             $office_id = Office::where('office_code', '=', $dataResponse->json()['data'][0]['officeCode'])->value('id') ?? 0;
-            $role_id = Role::where('role_name', '=', 'initiator')->value('id') ?? 0;
+            $role_id = 5;
 
             if ($designation_id == 0) {
                 return redirect()->back()->withErrors([
