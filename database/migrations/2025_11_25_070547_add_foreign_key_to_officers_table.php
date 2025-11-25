@@ -9,15 +9,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('officers', function (Blueprint $table) {
-            $table->foreignId('office_id')->constrained()->onDelete('cascade');
+            $table->foreignId('designation_id')->constrained()->onDelete('cascade');
+            $table->foreignId('role_id')->constrained()->onDelete('cascade');
         });
     }
 
     public function down(): void
     {
         Schema::table('officers', function (Blueprint $table) {
-            $table->dropForeign(['office_id']);
-            $table->dropColumn(['office_id']);
+            $table->dropForeign(['designation_id', 'role_id']);
+            $table->dropColumn(['designation_id', 'role_id']);
         });
     }
 };

@@ -23,4 +23,9 @@ class Officer extends Model
     {
         return $this->belongsTo(Office::class);
     }
+
+    public function designation()
+    {
+        return $this->belongsTo(Designation::class);
+    }
 }
