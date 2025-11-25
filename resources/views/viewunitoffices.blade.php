@@ -4,7 +4,7 @@
 
 @section('content')
     <section class="container-fluid py-5">
-        <h2 class="mb-4 text-center fw-bold text-primary">All Unit Offices under RAO {{ $payment_office_code }}</h2>
+        <h2 class="mb-4 text-center fw-bold text-primary">All Unit Offices under RAO {{ $code }}</h2>
 
         <div class="table-responsive shadow rounded p-2">
             <table class="table table-hover align-middle custom-border">

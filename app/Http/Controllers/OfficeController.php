@@ -51,9 +51,9 @@ class OfficeController extends Controller
     public function getAllUnitOfficesFromDB(Request $request)
     {
         if ($request->cookie('user_role') === "SUPER_ADMIN") {
-            $payment_office_code = $request->query('code');
-            $offices = Office::where('payment_office_code', '=', $payment_office_code)->orderBy('office_code')->get();
-            return view('viewoffices', compact('offices', 'payment_office_code'));
+            $code = $request->query('code');
+            $offices = Office::where('payment_office_code', '=', $code)->orderBy('office_code')->get();
+            return view('viewunitoffices', compact('offices', 'code'));
         } else {
             return view('login');
         }

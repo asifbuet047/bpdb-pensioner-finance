@@ -23,7 +23,9 @@
                     @forelse ($offices as $index => $office)
                         <tr class="{{ $index % 2 == 0 ? 'table-light' : '' }}">
                             <td class="fw-semibold">{{ $index + 1 }}</td>
-                            <td class="fw-semibold rao-office-item">{{ $office->name_in_english }}</td>
+                            <td class="fw-semibold rao-office-item"><a
+                                    href="{{ route('show.unit.offices', ['code' => $office->office_code]) }}">{{ $office->name_in_english }}</a>
+                            </td>
                             <td class="fw-semibold">{{ $office->name_in_bangla }}</td>
                             <td class="fw-semibold">{{ $office->office_code }}</td>
                             <td class="fw-semibold">{{ $office->address }}</td>
