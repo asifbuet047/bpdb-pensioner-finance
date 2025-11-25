@@ -71,7 +71,7 @@
                     </div>
 
                     <!-- View All Payment Offices Button conditional rendering-->
-                    <div class="col-12 col-md-4 scale-animate">
+                    {{-- <div class="col-12 col-md-4 scale-animate">
                         <div class="info-box" style="background: linear-gradient(135deg, #ff6fd8, #3813c2);">
                             <div>
                                 <h3>{{ $paymentofficeCount }}payment office</h3>
@@ -80,7 +80,7 @@
                             </div>
                             <div class="icon"><i class="bi bi-building"></i></div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- View Add Office Button conditional rendering-->
                     <div class="col-12 col-md-4 scale-animate">

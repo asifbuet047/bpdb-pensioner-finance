@@ -1,24 +1,6 @@
 import { offices } from "./offices.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".selectable-row").forEach((row) => {
-        row.addEventListener("click", (e) => {
-            let selectedOfficeCode = e.currentTarget.getAttribute("data-value");
-            let selectedOfficename = e.currentTarget.getAttribute("data-name");
-            const officeField = document.getElementById("office");
-            const officeID = document.getElementById("office_id");
-            officeField.value = selectedOfficename;
-            officeID.value = selectedOfficeCode;
-            console.log(
-                `office name ${selectedOfficename} and id is ${selectedOfficeCode}`
-            );
-
-            let modalElement = document.getElementById("selectModal");
-            let modal = bootstrap.Modal.getInstance(modalElement);
-            modal.hide();
-        });
-    });
-
     document.querySelectorAll(".pensioner-delete-buttons").forEach((row) => {
         row.addEventListener("click", (e) => {
             let name = e.currentTarget.getAttribute("data-name");
@@ -133,14 +115,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const input = document.getElementById("officeSearch");
     const list = document.getElementById("autocompleteList");
+    const office_id = document.getElementById("office_id");
     let controller;
     input.addEventListener("input", async function () {
         const query = this.value.trim();
 
         list.innerHTML = "";
-        if (query.length < 2) return;
+        if (query.length < 2) {
+            return;
+        }
 
-        if (controller) controller.abort();
+        if (controller) {
+            controller.abort();
+        }
         controller = new AbortController();
 
         try {
@@ -150,6 +137,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     signal: controller.signal,
                 }
             );
+            setTimeout(() => {
+                controller.abort();
+            }, 2000);
+
             const data = await res.json();
 
             list.innerHTML = "";
@@ -159,16 +150,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // build list items
             data.forEach((item) => {
                 const li = document.createElement("li");
                 li.classList.add("list-group-item");
                 li.textContent = item.name_in_english;
                 li.style.cursor = "pointer";
 
-                // when clicked → fill input
                 li.addEventListener("click", () => {
                     input.value = item.name_in_english;
+                    office_id.value = item.id;
                     list.innerHTML = "";
                 });
 
@@ -176,11 +166,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 list.classList.add("show");
             });
         } catch (e) {
-            if (e.name !== "AbortError") console.error(e);
+            if (e.name !== "AbortError") {
+                console.error(e);
+            }
         }
     });
 
-    // hide list when clicking outside
     document.addEventListener("click", function (e) {
         if (!input.contains(e.target) && !list.contains(e.target)) {
             list.innerHTML = "";

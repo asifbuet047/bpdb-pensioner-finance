@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Office;
 use App\Models\Officer;
-use App\Models\PaymentOffice;
 use App\Models\Pensioner;
 use App\Models\PensionerCredential;
 use Illuminate\Http\Request;
@@ -31,8 +30,7 @@ class ApplicationController extends Controller
                 $officeCount = Office::count();
                 $officerCount = Officer::count();
                 $pensionerCount = Pensioner::count();
-                $paymentofficeCount = PaymentOffice::count();
-                return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentofficeCount'));
+                return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount'));
                 break;
             case 'ADMIN':
                 $pensionerCount = Pensioner::count();

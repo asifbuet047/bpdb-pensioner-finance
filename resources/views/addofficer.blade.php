@@ -61,6 +61,7 @@
                                             <input id="officeSearch" class="form-control form-control-lg"
                                                 placeholder="Start typing office name..." autocomplete="off" />
                                             <ul id="autocompleteList" class="list-group autocomplete-list"></ul>
+                                            <input type="hidden" name="office_id" id="office_id" value="" />
                                         </div>
                                     @endif
                                 </div>
@@ -120,16 +121,6 @@
                                         <label class="form-check-label" for="admin">Admin</label>
                                     </div>
 
-                                    {{-- <div class="form-check form-check-inline">
-                                        @if (session()->has('role') && session('role') == 'USER')
-                                            <input class="form-check-input" type="radio" name="role" id="role"
-                                                value="USER" checked disabled />
-                                        @else
-                                            <input class="form-check-input" type="radio" name="role" id="role"
-                                                value="USER" {{ old('role') == 'USER' ? 'checked' : '' }} />
-                                        @endif
-                                        <label class="form-check-label" for="user">User</label>
-                                    </div> --}}
 
                                     <div class="form-check form-check-inline">
                                         @if (session()->has('role') && session('role') == 'SUPER_ADMIN')
@@ -205,7 +196,7 @@
                             </form>
 
                             <!--Office selection Modal -->
-                            <div class="modal fade" id="selectModal" tabindex="-1" role="dialog"
+                            {{-- <div class="modal fade" id="selectModal" tabindex="-1" role="dialog"
                                 aria-labelledby="selectModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
@@ -241,7 +232,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
 
                         </div>

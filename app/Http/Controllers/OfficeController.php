@@ -30,7 +30,7 @@ class OfficeController extends Controller
     public function getAllOfficesFromDB(Request $request)
     {
         if ($request->cookie('user_role') === "SUPER_ADMIN") {
-            $offices = Office::orderBy('officeCode')->get();
+            $offices = Office::orderBy('office_code')->get();
             return view('viewoffices', compact('offices'));
         } else {
             return view('login');

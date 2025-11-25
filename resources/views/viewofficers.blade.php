@@ -27,7 +27,7 @@
                             <td class="fw-semibold">{{ $officer->name }}</td>
                             <td class="fw-semibold">{{ $officer->designation }}</td>
                             <td class="fw-semibold">{{ $officer->role }}</td>
-                            <td class="fw-semibold">{{ $officer->office->officeName }}</td>
+                            <td class="fw-semibold">{{ $officer->office->name_in_english }}</td>
                             <td>
                                 <div class="row justify-content-center">
                                     <div class="col-6 d-flex justify-content-center">

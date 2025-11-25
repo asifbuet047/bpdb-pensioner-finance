@@ -23,9 +23,9 @@
                     @forelse ($offices as $index => $office)
                         <tr class="{{ $index % 2 == 0 ? 'table-light' : '' }}">
                             <td class="fw-semibold">{{ $index + 1 }}</td>
-                            <td class="fw-semibold">{{ $office->officeName }}</td>
-                            <td class="fw-semibold">{{ $office->officeNameInBangla }}</td>
-                            <td class="fw-semibold">{{ $office->officeCode }}</td>
+                            <td class="fw-semibold">{{ $office->name_in_english }}</td>
+                            <td class="fw-semibold">{{ $office->name_in_bangla }}</td>
+                            <td class="fw-semibold">{{ $office->office_code  }}</td>
                             <td class="fw-semibold">{{ $office->address }}</td>
                             <td class="fw-semibold">{{ $office->mobile_no }}</td>
                             <td class="fw-semibold">{{ $office->email }}</td>
