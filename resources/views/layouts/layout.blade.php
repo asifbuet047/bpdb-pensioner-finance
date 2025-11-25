@@ -108,6 +108,16 @@
         .autocomplete-list.show {
             display: block;
         }
+
+        .rao-office-item {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .rao-office-item:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
     </style>
 </head>
 

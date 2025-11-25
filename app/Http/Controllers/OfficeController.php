@@ -37,6 +37,30 @@ class OfficeController extends Controller
         }
     }
 
+    public function getAllPaymentOfficesFromDB(Request $request)
+    {
+        if ($request->cookie('user_role') === "SUPER_ADMIN") {
+
+            $offices = Office::where('is_payment_office', true)->orderBy('office_code')->get();
+            return view('viewpaymentoffices', compact('offices'));
+        } else {
+            return view('login');
+        }
+    }
+
+    public function getAllUnitOfficesFromDB(Request $request)
+    {
+        if ($request->cookie('user_role') === "SUPER_ADMIN") {
+            $payment_office_code = $request->query('code');
+            $offices = Office::where('payment_office_code', '=', $payment_office_code)->orderBy('office_code')->get();
+            return view('viewoffices', compact('offices', 'payment_office_code'));
+        } else {
+            return view('login');
+        }
+    }
+
+
+
     public function removeOfficeFromDB(Request $request) {}
 
     public function updateOfficeIntoDB(Request $request) {}

@@ -70,4 +70,8 @@ Route::get('/office/new', [ApplicationController::class, 'showAddofficeSection']
 
 Route::get('/offices', [OfficeController::class, 'getAllOfficesFromDB'])->name('show.offices');
 
+Route::get('/paymentoffices', [OfficeController::class, 'getAllPaymentOfficesFromDB'])->name('show.payment.offices');
+
+Route::get('/unitoffices', [OfficeController::class, 'getAllUnitOfficesFromDB'])->name('show.unit.offices');
+
 Route::post('/office', [OfficeController::class, 'addOfficeIntoDB'])->name('add.office.process');

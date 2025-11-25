@@ -5,7 +5,6 @@
 @section('content')
     <section class="container-fluid py-5">
         <h2 class="mb-4 text-center fw-bold text-primary">All Offices</h2>
-
         <div class="table-responsive shadow rounded p-2">
             <table class="table table-hover align-middle custom-border">
                 <thead class="bg-gradient-primary text-white">
@@ -25,7 +24,7 @@
                             <td class="fw-semibold">{{ $index + 1 }}</td>
                             <td class="fw-semibold">{{ $office->name_in_english }}</td>
                             <td class="fw-semibold">{{ $office->name_in_bangla }}</td>
-                            <td class="fw-semibold">{{ $office->office_code  }}</td>
+                            <td class="fw-semibold">{{ $office->office_code }}</td>
                             <td class="fw-semibold">{{ $office->address }}</td>
                             <td class="fw-semibold">{{ $office->mobile_no }}</td>
                             <td class="fw-semibold">{{ $office->email }}</td>

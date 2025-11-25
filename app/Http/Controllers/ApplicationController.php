@@ -30,7 +30,8 @@ class ApplicationController extends Controller
                 $officeCount = Office::count();
                 $officerCount = Officer::count();
                 $pensionerCount = Pensioner::count();
-                return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount'));
+                $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
+                return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount'));
                 break;
             case 'ADMIN':
                 $pensionerCount = Pensioner::count();
