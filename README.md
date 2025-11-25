@@ -41,5 +41,8 @@ It allows officers to issue **payslips**, manage accounts, and generate reports 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/pensioner-management.git
-cd pensioner-management
+1. git clone https://github.com/your-username/pensioner-management.git
+2. cd pensioner-management
+3. cp .env.example .env
+4. php artisan key:generate
+5. php artisan migrate:fresh --seed
