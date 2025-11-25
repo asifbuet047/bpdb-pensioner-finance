@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Exports\OfficersExport;
+use App\Models\Designation;
+use App\Models\Office;
 use App\Models\Officer;
+use App\Models\Role;
 use GuzzleHttp\Cookie\CookieJar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -62,10 +65,6 @@ class OfficerController extends Controller
         } else {
             $validated = $request->validate([
                 'erp_id' => 'required|integer|unique:officers,erp_id',
-                'name' => 'required|string|max:255',
-                'designation' => 'required|in:AD,SAD,DD',
-                'office_id' => 'required|integer|exists:offices,id',
-                'role' => 'required|in:ADMIN,USER,SUPER_ADMIN',
                 'password' => [
                     'required',
                     'string',
@@ -79,20 +78,20 @@ class OfficerController extends Controller
             ]);
 
             $officer = Officer::create([
-                'name' => $request->input('name'),
-                'erp_id' => $request->input('erp_id'),
-                'designation' => $request->input('designation'),
-                'role' => $request->input('role'),
-                'office_id' => $request->input('office_id'),
+                'name' => $dataResponse->json()['data'][0]['name'],
+                'erp_id' => $dataResponse->json()['data'][0]['code'],
+                'designation_id' => Designation::where('designation_code', '=', $dataResponse->json()['data'][0]['designationCode'])->value('id'),
+                'office_id' => Office::where('office_code', '=', $dataResponse->json()['data'][0]['officeCode'])->value('id'),
+                'role_id' => Role::where('role_name', '=', 'initiator')->value('id'),
                 'password' => Hash::make($request->input('password'))
             ]);
 
             return redirect()->back()->with([
-                'name' => $request->input('name'),
-                'erp_id' => $request->input('erp_id'),
-                'designation' => $request->input('designation'),
-                'office' => $request->input('office_name'),
-                'role' => $request->input('role')
+                'name' => $dataResponse->json()['data'][0]['name'],
+                'erp_id' => $dataResponse->json()['data'][0]['code'],
+                'designation' => $dataResponse->json()['data'][0]['designation'],
+                'office' => $dataResponse->json()['data'][0]['officeName'],
+                'role' => Role::where('role_name', '=', 'initiator')->value('id')
             ]);
         }
     }

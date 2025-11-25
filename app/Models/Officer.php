@@ -13,8 +13,8 @@ class Officer extends Model
     protected $fillable = [
         'erp_id',
         'name',
-        'designation',
-        'role',
+        'designation_id',
+        'role_id',
         'office_id',
         'password',
     ];

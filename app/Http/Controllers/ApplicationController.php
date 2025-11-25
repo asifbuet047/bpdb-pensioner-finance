@@ -61,7 +61,7 @@ class ApplicationController extends Controller
     public function showAddOfficerSection()
     {
         $offices = Office::all();
-        return view('addofficer', ['offices' => $offices]);
+        return view('addvalidofficer');
     }
 
     public function showAddofficeSection()
