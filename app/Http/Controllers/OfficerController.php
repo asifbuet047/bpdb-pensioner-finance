@@ -77,12 +77,25 @@ class OfficerController extends Controller
                 'password.regex' => 'Password must contain at least one special character',
             ]);
 
+            $name = $dataResponse->json()['data'][0]['name'];
+            $erp_id = $dataResponse->json()['data'][0]['code'];
+            $designation_id = Designation::where('designation_code', '=', $dataResponse->json()['data'][0]['designationCode'])->value('id') ?? 0;
+            $office_id = Office::where('office_code', '=', $dataResponse->json()['data'][0]['officeCode'])->value('id') ?? 0;
+            $role_id = Role::where('role_name', '=', 'initiator')->value('id') ?? 0;
+
+            if ($designation_id == 0) {
+                return redirect()->back()->withErrors([
+                    'cause' => $dataResponse->json()['data'][0]['designation'] . ' is not finance cadre in BPDB'
+                ])->withInput();
+            }
+
+
             $officer = Officer::create([
-                'name' => $dataResponse->json()['data'][0]['name'],
-                'erp_id' => $dataResponse->json()['data'][0]['code'],
-                'designation_id' => Designation::where('designation_code', '=', $dataResponse->json()['data'][0]['designationCode'])->value('id'),
-                'office_id' => Office::where('office_code', '=', $dataResponse->json()['data'][0]['officeCode'])->value('id'),
-                'role_id' => Role::where('role_name', '=', 'initiator')->value('id'),
+                'name' => $name,
+                'erp_id' => $erp_id,
+                'designation_id' => $designation_id,
+                'office_id' => $office_id,
+                'role_id' => $role_id,
                 'password' => Hash::make($request->input('password'))
             ]);
 
@@ -91,7 +104,7 @@ class OfficerController extends Controller
                 'erp_id' => $dataResponse->json()['data'][0]['code'],
                 'designation' => $dataResponse->json()['data'][0]['designation'],
                 'office' => $dataResponse->json()['data'][0]['officeName'],
-                'role' => Role::where('role_name', '=', 'initiator')->value('id')
+                'role' => 'initiator'
             ]);
         }
     }

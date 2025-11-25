@@ -52,17 +52,24 @@
 
                                     @if (session()->has('office'))
                                         <label class="form-label" for="office">Office</label>
-                                        <input type="text" name="office_id" class="form-control form-control-lg"
+                                        <input type="text" name="office" class="form-control form-control-lg"
                                             value="{{ session('office') }}" disabled />
                                     @endif
                                 </div>
 
 
                                 <div class="mb-4">
-
                                     @if (session()->has('designation'))
-                                        <label class="form-label" for="office">Designation</label>
+                                        <label class="form-label" for="designation">Designation</label>
                                         <input type="text" name="designation" class="form-control form-control-lg"
+                                            value="{{ session('designation') }}" disabled />
+                                    @endif
+                                </div>
+
+                                <div class="mb-4">
+                                    @if (session()->has('role'))
+                                        <label class="form-label" for="role">Role</label>
+                                        <input type="text" name="role" class="form-control form-control-lg"
                                             value="{{ session('designation') }}" disabled />
                                     @endif
                                 </div>
