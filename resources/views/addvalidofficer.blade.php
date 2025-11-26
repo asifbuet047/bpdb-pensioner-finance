@@ -102,7 +102,7 @@
                                 @if (session()->has('name'))
                                     <div class="mb-4 row">
                                         <button class="btn btn-success"
-                                            onclick="window.location='{{ route('login.page', ['type' => 'officer']) }}'"
+                                            onclick="window.location='{{ route('login.page', ['type' => 'officer', 'designation' => session('designation'), 'role' => session('role')]) }}'"
                                             type="button">Registration successful.
                                             Go to Login page</button>
                                     </div>

@@ -124,7 +124,7 @@ class ApplicationController extends Controller
                 return redirect()->back()->with([
                     'erp_id' => $validated['erp_id'],
                     'password' => $validated['password']
-                ])->withCookies([cookie('user_id', $officer->erp_id, 10, '/', null, false, true), cookie('user_role', $officer->role_id, 10, '/', null, false, true), cookie('user_designation', $officer->designation_id, 10, '/', null, false, true)]);
+                ])->withCookies([cookie('user_id', $officer->erp_id, 10, '/', null, false, true), cookie('user_name', $officer->name, 10, '/', null, false, true), cookie('user_role', $officer->role_id, 10, '/', null, false, true), cookie('user_designation', $officer->designation_id, 10, '/', null, false, true)]);
             }
         } else {
             $validated = $request->validate([
@@ -156,7 +156,7 @@ class ApplicationController extends Controller
                     return redirect()->back()->with([
                         'erp_id' => $validated['erp_id'],
                         'password' => $validated['password']
-                    ])->withCookies([cookie('user_id', $pensioner->erp_id, 10, '/', null, false, true), cookie('user_role', 'pensioner', 10, '/', null, false, true), cookie('user_designation', $pensioner->designation, 10, '/', null, false, true)]);
+                    ])->withCookies([cookie('user_id', $pensioner->erp_id, 10, '/', null, false, true), cookie('user_name', $pensioner->name, 10, '/', null, false, true), cookie('user_role', 'pensioner', 10, '/', null, false, true), cookie('user_designation', $pensioner->designation, 10, '/', null, false, true)]);
                 }
             } else {
                 return redirect()->back()
