@@ -111,9 +111,11 @@ class OfficerController extends Controller
 
     public function getAllOfficersFromDB(Request $request)
     {
-        if ($request->hasCookie('user_id')) {
-            $officers = Officer::orderBy('name')->get();
-            return view('viewofficers', compact('officers'));
+        if ($request->hasCookie('user_role')) {
+            if ($request->cookie('user_role') === "5") {
+                $officers = Officer::with(['office', 'designation', 'role'])->orderBy('name')->get();
+                return view('viewofficers', compact('officers'));
+            }
         } else {
             return view('login');
         }

@@ -25,8 +25,8 @@
                             <td class="fw-semibold">{{ $index + 1 }}</td>
                             <td class="fw-semibold">{{ $officer->erp_id }}</td>
                             <td class="fw-semibold">{{ $officer->name }}</td>
-                            <td class="fw-semibold">{{ $officer->designation }}</td>
-                            <td class="fw-semibold">{{ $officer->role }}</td>
+                            <td class="fw-semibold">{{ $officer->designation->designation_english }}</td>
+                            <td class="fw-semibold">{{ $officer->role->role_name }}</td>
                             <td class="fw-semibold">{{ $officer->office->name_in_english }}</td>
                             <td>
                                 <div class="row justify-content-center">

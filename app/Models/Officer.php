@@ -28,4 +28,9 @@ class Officer extends Model
     {
         return $this->belongsTo(Designation::class);
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }
