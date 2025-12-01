@@ -25,36 +25,38 @@ class ApplicationController extends Controller
 
     public function showHomePage(Request $request)
     {
-        switch ($request->cookie('user_role')) {
-            case 5:
-                $officeCount = Office::count();
-                $officerCount = Officer::count();
-                $pensionerCount = Pensioner::count();
-                $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
-                return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount'));
-                break;
-            case '4':
-                $pensionerCount = Pensioner::count();
-                return view('dashboard', compact('pensionerCount'));
-                break;
-
-            case 'USER':
-                $erp_id = $request->cookie('user_id');
-                $name = $request->cookie('user_name');
-                $pensionerDetails = Pensioner::where('erp_id', $erp_id)->with('office')->first();
-                return view('dashboardpensioner', compact('erp_id', 'name', 'pensionerDetails'));
-                break;
-            default:
-                return view('login');
-                break;
+        if ($request->cookie('user_type') === 'officer') {
+            switch ($request->cookie('user_role')) {
+                case "5": //Super_Admin
+                    $officeCount = Office::count();
+                    $officerCount = Officer::count();
+                    $pensionerCount = Pensioner::count();
+                    $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
+                    return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount'));
+                    break;
+                case "4": //Admin
+                    $pensionerCount = Pensioner::count();
+                    return view('dashboard', compact('pensionerCount'));
+                    break;
+                default:
+                    return view('login');
+                    break;
+            }
+        } else {
+            $erp_id = $request->cookie('user_id');
+            $name = $request->cookie('user_name');
+            $pensionerDetails = Pensioner::where('erp_id', $erp_id)->with('office')->first();
+            return view('dashboardpensioner', compact('erp_id', 'name', 'pensionerDetails'));
         }
     }
 
     public function logout()
     {
         Cookie::queue(Cookie::forget('user_id'));
-        Cookie::queue(Cookie::forget('user_role'));
+        Cookie::queue(Cookie::forget('user_type'));
         Cookie::queue(Cookie::forget('user_name'));
+        Cookie::queue(Cookie::forget('user_role'));
+        Cookie::queue(Cookie::forget('user_designation'));
         return redirect()->route('login.page', ['type' => 'officer']);
     }
 
@@ -124,7 +126,7 @@ class ApplicationController extends Controller
                 return redirect()->back()->with([
                     'erp_id' => $validated['erp_id'],
                     'password' => $validated['password']
-                ])->withCookies([cookie('user_id', $officer->erp_id, 10, '/', null, false, true), cookie('user_name', $officer->name, 10, '/', null, false, true), cookie('user_role', $officer->role_id, 10, '/', null, false, true), cookie('user_designation', $officer->designation_id, 10, '/', null, false, true)]);
+                ])->withCookies([cookie('user_id', $officer->erp_id, 10, '/', null, false, true), cookie('user_type', 'officer', 10, '/', null, false, true), cookie('user_name', $officer->name, 10, '/', null, false, true), cookie('user_role', $officer->role_id, 10, '/', null, false, true), cookie('user_designation', $officer->designation_id, 10, '/', null, false, true)]);
             }
         } else {
             $validated = $request->validate([
@@ -156,7 +158,7 @@ class ApplicationController extends Controller
                     return redirect()->back()->with([
                         'erp_id' => $validated['erp_id'],
                         'password' => $validated['password']
-                    ])->withCookies([cookie('user_id', $pensioner->erp_id, 10, '/', null, false, true), cookie('user_name', $pensioner->name, 10, '/', null, false, true), cookie('user_role', 'pensioner', 10, '/', null, false, true), cookie('user_designation', $pensioner->designation, 10, '/', null, false, true)]);
+                    ])->withCookies([cookie('user_id', $pensioner->erp_id, 10, '/', null, false, true), cookie('user_type', 'pensioner', 10, '/', null, false, true), cookie('user_name', $pensioner->name, 10, '/', null, false, true), cookie('user_designation', $pensioner->designation, 10, '/', null, false, true)]);
                 }
             } else {
                 return redirect()->back()

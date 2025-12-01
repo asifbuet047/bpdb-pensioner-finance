@@ -121,7 +121,7 @@ class OfficerController extends Controller
 
     public function updateOfficerIntoDB(Request $request)
     {
-        if ($request->cookie('user_role') === 'SUPER_ADMIN') {
+        if ($request->cookie('user_role') === "5") {
             // $validated = $request->validate([
             //     'erp_id' => 'required|integer|unique:officers,erp_id',
             //     'name' => 'required|string|max:255',
@@ -152,7 +152,7 @@ class OfficerController extends Controller
 
     public function removeOfficerFromDB(Request $request)
     {
-        if ($request->cookie('user_role') === 'SUPER_ADMIN') {;
+        if ($request->cookie('user_role') === "5") {;
             $id = (int)$request->input('id');
             $officer = Officer::find($id);
             if ($officer) {
