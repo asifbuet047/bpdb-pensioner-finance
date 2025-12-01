@@ -41,7 +41,8 @@
                                 {{ request()->cookie('user_name') }}
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li class="dropdown-item">You are <span class="fw-bold">{{ $odesignation }}</span>
+                                <li class="dropdown-item">You are <span
+                                        class="fw-bold">{{ $designation->description_english }}</span>
                                 </li>
                                 <li class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
