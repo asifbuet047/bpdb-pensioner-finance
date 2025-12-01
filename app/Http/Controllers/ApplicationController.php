@@ -25,9 +25,9 @@ class ApplicationController extends Controller
 
     public function showHomePage(Request $request)
     {
-        if ($request->cookie('user_type') === 'officer') {
+        if ($request->query('type') === 'officer') {
             switch ($request->cookie('user_role')) {
-                case "5": //Super_Admin
+                case "super_admin": //Super_Admin
                     $officeCount = Office::count();
                     $officerCount = Officer::count();
                     $pensionerCount = Pensioner::count();
@@ -35,7 +35,7 @@ class ApplicationController extends Controller
                     $designation = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
                     return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation'));
                     break;
-                case "4": //Admin
+                case "admin": //Admin
                     $pensionerCount = Pensioner::count();
                     return view('dashboard', compact('pensionerCount'));
                     break;
@@ -43,7 +43,7 @@ class ApplicationController extends Controller
                     return view('login');
                     break;
             }
-        } else if ($request->cookie('user_type') === 'pensioner') {
+        } else if ($request->query('type') === 'pensioner') {
             $erp_id = $request->cookie('user_id');
             $name = $request->cookie('user_name');
             $pensionerDetails = Pensioner::where('erp_id', $erp_id)->with('office')->first();
@@ -119,7 +119,7 @@ class ApplicationController extends Controller
                 'password.regex' => 'Password must contain at least one special character',
             ]);
 
-            $officer = Officer::where('erp_id', $validated['erp_id'])->first();
+            $officer = Officer::with(['designation', 'office', 'role'])->where('erp_id', $validated['erp_id'])->first();
 
             if (!$officer || !Hash::check($validated['password'], $officer->password)) {
                 return redirect()->back()
@@ -129,7 +129,7 @@ class ApplicationController extends Controller
                 return redirect()->back()->with([
                     'erp_id' => $validated['erp_id'],
                     'password' => $validated['password']
-                ])->withCookies([cookie('user_id', $officer->erp_id, 10, '/', null, false, true), cookie('user_type', 'officer', 10, '/', null, false, true), cookie('user_name', $officer->name, 10, '/', null, false, true), cookie('user_role', $officer->role_id, 10, '/', null, false, true), cookie('user_designation', $officer->designation_id, 10, '/', null, false, true)]);
+                ])->withCookies([cookie('user_id', $officer->erp_id, 10, '/', null, false, true), cookie('user_type', 'officer', 10, '/', null, false, true), cookie('user_name', $officer->name, 10, '/', null, false, true), cookie('user_role', $officer->role->role_name, 10, '/', null, false, true), cookie('user_designation', $officer->designation->description_bangla, 10, '/', null, false, true)]);
             }
         } else {
             $validated = $request->validate([
