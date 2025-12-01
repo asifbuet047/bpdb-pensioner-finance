@@ -112,7 +112,7 @@ class OfficerController extends Controller
     public function getAllOfficersFromDB(Request $request)
     {
         if ($request->hasCookie('user_role')) {
-            if ($request->cookie('user_role') === "5") {
+            if ($request->cookie('user_role') === "super_admin") {
                 $officers = Officer::with(['office', 'designation', 'role'])->orderBy('name')->get();
                 return view('viewofficers', compact('officers'));
             }
@@ -123,7 +123,7 @@ class OfficerController extends Controller
 
     public function updateOfficerIntoDB(Request $request)
     {
-        if ($request->cookie('user_role') === "5") {
+        if ($request->cookie('user_role') === "super_admin") {
             // $validated = $request->validate([
             //     'erp_id' => 'required|integer|unique:officers,erp_id',
             //     'name' => 'required|string|max:255',
@@ -154,7 +154,7 @@ class OfficerController extends Controller
 
     public function removeOfficerFromDB(Request $request)
     {
-        if ($request->cookie('user_role') === "5") {;
+        if ($request->cookie('user_role') === "super_admin") {;
             $id = (int)$request->input('id');
             $officer = Officer::find($id);
             if ($officer) {

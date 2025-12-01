@@ -72,7 +72,7 @@ class PensionerController extends Controller
 
     public function removePensionerFromDB(Request $request)
     {
-        if ($request->cookie('user_role') === 'SUPER_ADMIN') {;
+        if ($request->cookie('user_role') === 'super_admin') {;
             $id = (int)$request->input('id');
             $pensioner = Pensioner::find($id);
             if ($pensioner) {
@@ -90,7 +90,7 @@ class PensionerController extends Controller
 
     public function updatePensionerIntoDB(Request $request)
     {
-        if ($request->cookie('user_role') === 'SUPER_ADMIN') {;
+        if ($request->cookie('user_role') === 'super_admin') {;
             // $validated = $request->validate([
             //     'erp_id'           => 'required|integer|unique:pensioners,erp_id',
             //     'name'             => 'required|string|max:255',

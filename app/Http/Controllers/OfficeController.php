@@ -9,7 +9,7 @@ class OfficeController extends Controller
 {
     public function addOfficeIntoDB(Request $request)
     {
-        if ($request->cookie('user_role') === "5") {
+        if ($request->cookie('user_role') === "super_admin") {
             $validated = $request->validate([
                 'office_name'              => 'required|string|max:255',
                 'office_name_bangla'       => 'required|string|max:255',
@@ -29,7 +29,7 @@ class OfficeController extends Controller
 
     public function getAllOfficesFromDB(Request $request)
     {
-        if ($request->cookie('user_role') === "5") {
+        if ($request->cookie('user_role') === "super_admin") {
             $offices = Office::orderBy('office_code')->get();
             return view('viewoffices', compact('offices'));
         } else {
@@ -39,7 +39,7 @@ class OfficeController extends Controller
 
     public function getAllPaymentOfficesFromDB(Request $request)
     {
-        if ($request->cookie('user_role') === "5") {
+        if ($request->cookie('user_role') === "super_admin") {
 
             $offices = Office::where('is_payment_office', true)->orderBy('office_code')->get();
             return view('viewpaymentoffices', compact('offices'));
@@ -50,7 +50,7 @@ class OfficeController extends Controller
 
     public function getAllUnitOfficesFromDB(Request $request)
     {
-        if ($request->cookie('user_role') === "5") {
+        if ($request->cookie('user_role') === "super_admin") {
             $code = $request->query('code');
             $offices = Office::where('payment_office_code', '=', $code)->orderBy('office_code')->get();
             return view('viewunitoffices', compact('offices', 'code'));

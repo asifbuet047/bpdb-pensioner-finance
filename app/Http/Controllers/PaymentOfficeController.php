@@ -9,7 +9,7 @@ class PaymentOfficeController extends Controller
 {
     public function getAllPaymentofficeFromDB(Request $request)
     {
-        if ($request->cookie('user_role') === "5") {
+        if ($request->cookie('user_role') === "super_admin") {
             $paymentoffices = Office::where('is_payment_office', true)->orderBy('officeCode')->get();
             return view('viewpaymentoffices', compact('paymentoffices'));
         } else {
