@@ -25,15 +25,15 @@ class ApplicationController extends Controller
 
     public function showHomePage(Request $request)
     {
-        if ($request->cookie('user_type') === 'officer') {
+        if ($request->cookie('user_type') == "officer") {
             switch ($request->cookie('user_role')) {
                 case "5": //Super_Admin
                     $officeCount = Office::count();
                     $officerCount = Officer::count();
                     $pensionerCount = Pensioner::count();
                     $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
-                    $officer = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
-                    return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'officer'));
+
+                    return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount'));
                     break;
                 case "4": //Admin
                     $pensionerCount = Pensioner::count();
