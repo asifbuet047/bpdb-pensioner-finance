@@ -25,7 +25,7 @@ class ApplicationController extends Controller
 
     public function showHomePage(Request $request)
     {
-        if ($request->query('type') === 'officer') {
+        if ($request->cookie('user_type') === 'officer') {
             switch ($request->cookie('user_role')) {
                 case "super_admin": //Super_Admin
                     $officeCount = Office::count();
@@ -43,7 +43,7 @@ class ApplicationController extends Controller
                     return view('login');
                     break;
             }
-        } else if ($request->query('type') === 'pensioner') {
+        } else if ($request->cookie('user_type') === 'pensioner') {
             $erp_id = $request->cookie('user_id');
             $name = $request->cookie('user_name');
             $pensionerDetails = Pensioner::where('erp_id', $erp_id)->with('office')->first();
