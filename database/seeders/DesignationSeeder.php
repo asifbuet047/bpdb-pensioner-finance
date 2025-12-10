@@ -85,6 +85,9 @@ class DesignationSeeder extends Seeder
                 'order_number' => 10,
             ],
         ];
+
+        
+
         foreach ($designations as $designation) {
             Designation::create($designation);
         }

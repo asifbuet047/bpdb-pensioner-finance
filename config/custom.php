@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'ERP_USERNAME' => 'BPDBAdmin',
-    'ERP_PASSWORD' => 'CompanyAdmin@123',
+    'ERP_USERNAME' => 'PDB_17',
+    'ERP_PASSWORD' => 'pdb123@',
     'ERP_LOGIN_URL' => 'https://bc1.bdpowersectorerp.com:5533/Account/Login',
     'ERP_ACCEPT_HEADER' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     'ERP_USER_AGENT_HEADER' => 'Mozilla/5.0',
