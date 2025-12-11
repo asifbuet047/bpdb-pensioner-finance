@@ -131,7 +131,7 @@ class OfficerController extends Controller
             'Accept'        => 'application/json',
             'User-Agent' => config('custom.ERP_USER_AGENT_HEADER'),
         ])->get(config('custom.BC_EMPLOYEE_INFO_URL'), [
-            '$filter' => "No eq '" . $request->query('erp_id') . "'",
+            '$filter' => "No eq '" . $validated['erp_id'] . "'",
             '$top' => '1'
         ])->json();
 
@@ -140,12 +140,12 @@ class OfficerController extends Controller
             $name = $response['value'][0]['First_Name'];
             $erp_id = $response['value'][0]['No'];
             $designation_id = Designation::where('description_english', 'LIKE', "%{$response['value'][0]['Designation']}%")->value('id') ?? 0;
-            $office_id = Office::where('office_code', 'LIKE', "%{$response['value'][0]['Office_Name']}%")->value('id') ?? 0;
+            $office_id = Office::where('is_payment_office', true)->where('name_in_english', 'LIKE', "%{$response['value'][0]['Office_Name']}%")->value('id') ?? 0;
             $role_id = Role::where('role_name', '=', 'initiator')->value('id');
 
-            if ($designation_id == 0) {
+            if (($designation_id == 0 || ($office_id == 0))) {
                 return redirect()->back()->withErrors([
-                    'cause' => $response['value'][0]['First_Name'] . ' having erp no' . $response->json()['data'][0]['designation'] . ' is not finance cadre in BPDB'
+                    'cause' => $response['value'][0]['First_Name'] . ' having erp no ' . $response['value'][0]['No'] . ' and posted as ' . $response['value'][0]['Designation'] . ' in office of ' . $response['value'][0]['Office_Name'] . ' is not finance cadre in BPDB ',
                 ])->withInput();
             }
 
