@@ -15,7 +15,7 @@ class PayscaleSeeder extends Seeder
         $path = resource_path('assets/payscale_2015.csv');
 
         if (!File::exists($path)) {
-            $this->command->error('payscale_2015.csv file is not found');
+            $this->command->error('payscale_2015.csv file is not found in asset folder');
             return;
         }
 
@@ -31,22 +31,19 @@ class PayscaleSeeder extends Seeder
                     continue;
                 }
 
-                $sl_no = trim($row[0] ?? '');
-                $bank_name  = trim($row[1] ?? '');
-                $branch_name = trim($row[2] ?? '');
-                $routing_number = trim($row[3] ?? '');
-                $branch_address = trim($row[4] ?? '');
+                $grade  = trim($row[0] ?? '');
+                $step = trim($row[1] ?? '');
+                $basic_salary = trim($row[2] ?? '');
 
-                if (empty($routing_number)) {
+                if (empty($grade)) {
                     continue;
                 }
 
                 Payscale::updateOrCreate(
                     [
-                        'bank_name' => $bank_name,
-                        'branch_name' => $branch_name,
-                        'routing_number' => $routing_number,
-                        'branch_address' => $branch_address,
+                        'grade' => $grade,
+                        'step' => $step,
+                        'basic' => $basic_salary,
                     ]
                 );
             }
@@ -54,10 +51,10 @@ class PayscaleSeeder extends Seeder
             fclose($handle);
             DB::commit();
 
-            $this->command->info('All bangladesh banks seeded successfully.');
-        } catch (Throwable $e) {
+            $this->command->info('Payscale 2015 is seeded successfully.');
+        } catch (Throwable $error) {
             DB::rollBack();
-            $this->command->error('CSV seeding failed: ' . $e->getMessage());
+            $this->command->error('CSV seeding failed: ' . $error->getMessage());
         }
     }
 }

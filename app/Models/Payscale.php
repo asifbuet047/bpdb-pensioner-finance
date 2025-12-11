@@ -9,4 +9,6 @@ class Payscale extends Model
 {
     /** @use HasFactory<\Database\Factories\PayscaleFactory> */
     use HasFactory;
+
+    protected $fillable = ['grade', 'step', 'basic'];
 }
