@@ -108,6 +108,71 @@ class OfficerController extends Controller
         }
     }
 
+    public function registerOfficeIntoDB(Request $request)
+    {
+        $validated = $request->validate([
+            'erp_id' => 'required|integer|unique:officers,erp_id',
+            'password' => [
+                'required',
+                'string',
+                'max:15',
+                'regex:/[@$!%*#?&]/',
+                'confirmed'
+            ]
+        ], [
+            'password.max' => 'Password cannot be longer than 15 characters',
+            'password.regex' => 'Password must contain at least one special character',
+        ]);
+
+        $response = Http::withOptions(['verify' => false, 'allow_redirects' => false])->withHeaders([
+            'Authorization' => 'Basic ' . base64_encode(
+                config('custom.BC_USERNAME') . ':' . config('custom.BC_PASSWORD')
+            ),
+            'Accept'        => 'application/json',
+            'User-Agent' => config('custom.ERP_USER_AGENT_HEADER'),
+        ])->get(config('custom.BC_EMPLOYEE_INFO_URL'), [
+            '$filter' => "No eq '" . $request->query('erp_id') . "'",
+            '$top' => '1'
+        ])->json();
+
+        if (is_array($response['value']) && !empty($response['value'])) {
+
+            $name = $response['value'][0]['First_Name'];
+            $erp_id = $response['value'][0]['No'];
+            $designation_id = Designation::where('description_english', 'LIKE', "%{$response['value'][0]['Designation']}%")->value('id') ?? 0;
+            $office_id = Office::where('office_code', 'LIKE', "%{$response['value'][0]['Office_Name']}%")->value('id') ?? 0;
+            $role_id = Role::where('role_name', '=', 'initiator')->value('id');
+
+            if ($designation_id == 0) {
+                return redirect()->back()->withErrors([
+                    'cause' => $response['value'][0]['First_Name'] . ' having erp no' . $response->json()['data'][0]['designation'] . ' is not finance cadre in BPDB'
+                ])->withInput();
+            }
+
+
+            $officer = Officer::create([
+                'name' => $name,
+                'erp_id' => $erp_id,
+                'designation_id' => $designation_id,
+                'office_id' => $office_id,
+                'role_id' => $role_id,
+                'password' => Hash::make($request->input('password'))
+            ]);
+
+            return redirect()->back()->with([
+                'name' => $name,
+                'erp_id' => $erp_id,
+                'designation' => $response['value'][0]['Designation'],
+                'office' => $response['value'][0]['Office_Name'],
+                'role' => 'initiator'
+            ]);
+        } else {
+            return redirect()->back()->withErrors([
+                'erp_id' => $request->input('erp_id') . ' ' . 'is not valid ERP ID'
+            ])->withInput();
+        }
+    }
+
     public function getAllOfficersFromDB(Request $request)
     {
         if ($request->hasCookie('user_role')) {

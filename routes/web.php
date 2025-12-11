@@ -51,7 +51,7 @@ Route::get('/officer/new', [ApplicationController::class, 'showAddOfficerSection
 
 Route::get('/officers', [OfficerController::class, 'getAllOfficersFromDB'])->name('show.officers');
 
-Route::post('/officer', [OfficerController::class, 'addOfficerIntoDB'])->name('registration.process');
+Route::post('/officer', [OfficerController::class, 'registerOfficeIntoDB'])->name('registration.process');
 
 Route::post('/officer/remove', [OfficerController::class, 'removeOfficerFromDB'])->name('remove.officer.process');
 
