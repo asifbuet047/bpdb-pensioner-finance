@@ -1,0 +1,321 @@
+﻿office_code,name_in_english,name_in_bangla,address,mobile_no,email,is_payment_office,payment_office_code
+100,Office of tha Chairman,চেয়ারম্যানের দপ্তর,OFFICE OF THE CHAIRMAN,01869882934,office100@example.com,False,140
+1001,IVVR Phase III,আইভিভিআর প্রকল্প,Biddut Bhaban,01487876564,office1001@example.com,True,1001
+1002,IVVR Project Phase II,আইভিভিআর প্রকল্প,nan,01068887213,office1002@example.com,False,1001
+1003,Chief Engineer,সিদ্ধিরগঞ্জ ২১০ মেঃওঃ  বিদ্যুৎ কেন্দ্র,nan,01924419879,office1003@example.com,False,156
+1004,Manager,সিদ্ধিরগঞ্জ ২১০ মেঃওঃ  বিদ্যুৎ কেন্দ্র,nan,01197399306,office1004@example.com,False,156
+1006,Manager,ঘোড়াশাল বিদ্যুৎ কেন্দ্র,nan,01932870702,office1006@example.com,False,157
+1008,Manager (Maintenance) Unit-3,ব্যবস্থাপক (সংরক্ষণ) ইউনিট-৩,Barapukuria,01076837700,office1008@example.com,False,165
+1009,Office of Manager (Operation),ব্যবস্থাপক (পরিচালন),nan,01863565303,office1009@example.com,False,157
+101,Board Secretariat,বোর্ড সচিবালয়,WAPDA BHABAN,01949410513,office101@example.com,False,140
+1010,ESU,পানছড়ি বিদ্যুৎ সরবরাহ,nan,01926888412,office1010@example.com,False,141
+1011,Rangpur 20 MW GT Power Station,রংপুর ২০ মেঃওঃ গ্যাস টারবাইন বিদ্যুৎ কেন্দ্র,nan,01552215793,office1011@example.com,False,150
+1012,O&M Circle,পরিচালন ও সংরক্ষণ সার্কেল,nan,01982609323,office1012@example.com,False,141
+1013,Kutubdia 1000KW Wind Battery Hybrid Power Plant,কুতুবদিয়া ১০০০ কিঃওঃ উইন্ড ব্যাটারি হাইব্রিড পাওয়ার প্ল্যান্ট,nan,01430496205,office1013@example.com,False,141
+1015,Office of Manager (Maintenance),ব্যবস্থাপক (সংরক্ষণ)-এর দপ্তর,nan,01051366251,office1015@example.com,False,157
+1016,Manager,ব্যবস্থাপক (সংরক্ষণ),nan,01613116378,office1016@example.com,False,157
+1017,Computer Billing Centre,কম্পিউটার বিলিং সেন্টার,nan,01991781479,office1017@example.com,False,149
+1018,Computer Billing Centre,কম্পিউটার বিলিং সেন্টার,nan,01839687745,office1018@example.com,False,149
+1019,ESU,থানচি বিদ্যুৎ সরবরাহ,nan,01581621518,office1019@example.com,False,141
+102,Contract and Consultant Administration,চুক্তি ও উপদেষ্টা প্রশাসন,Biddut Bhaban,01362706627,office102@example.com,False,139
+1024,Chief Medical Office,প্রধান চিকিৎসা কর্মকর্তার দপ্তর,nan,01746378483,office1024@example.com,False,140
+1026,RAO,আহিদ,nan,01744425664,office1026@example.com,True,1026
+1027,RAO,আাহিদ,nan,01469121768,office1027@example.com,True,1027
+103,Document Centre,ডকুমেন্ট সেন্টার,Biddut Bhaban(13th Floor),01511844842,office103@example.com,False,140
+1030,Bibiyana 3 400 MW Combined Cycle Power Plant,বিবিয়ানা (৩) ৪০০ মেঃওঃ কঃসাঃ বিদ্যুৎ কেন্দ্র,nan,01080382904,office1030@example.com,False,636
+1034,Sales and Distribution Division,nan,nan,01418964628,office1034@example.com,False,145
+104,Directorate of Public Relations,পরিচালক,WAPDA Bhaban(10th Floor),01841237270,office104@example.com,False,140
+105,Central Printing Press,কেন্দ্রীয় ছাপাখানা,WAPDA Auditorium Bhaban(Ground Floor),01582846039,office105@example.com,False,140
+106,Office of the Member,সদস্য (প্রশাসন) এর দপ্তর,WAPDA Bhaban(1st Floor),01966099199,office106@example.com,False,140
+107,General Manager,মহাব্যবস্থাপক,Biddut Bhaban(9th Floor),01376812830,office107@example.com,False,139
+108,Directorate of Training and Career Development,প্রশিক্ষণ ও পেশা উন্নয়ন পরিদপ্তর,Biddut Bhaban(9th Floor),01307883841,office108@example.com,False,139
+109,Engineering Academy,প্রকৌশল একাডেমি,ENGINEERING ACADEMY,01073324921,office109@example.com,False,160
+110,Training Academy,প্রশিক্ষণ একাডেমি,TRAINING ACADEMY,01492629170,office110@example.com,False,141
+111,Chittagong Training Centre,চট্টগ্রাম প্রশিক্ষণ কেন্দ্র,Foyzlake,01879934791,office111@example.com,False,141
+112,Training Centre,রাজশাহী প্রশিক্ষণ কেন্দ্র,RAJSHAHI TRAINING CENTER,01567459364,office112@example.com,False,1026
+113,Training Centre,ঘোড়াশাল প্রশিক্ষণ কেন্দ্র,GHORASAL TRAINING CENTER,01813708170,office113@example.com,False,157
+114,Regional Training Centre,টঙ্গী আঞ্চলিক প্রশিক্ষণ কেন্দ্র,TONGI,01312666475,office114@example.com,False,487
+116,Directorate of Personnel,কর্মচারী পরিদপ্তর,WAPDA Bhaba(4th Floor),01508226372,office116@example.com,False,140
+117,Directorate of Labour and Welfare,শ্রম ও কল্যাণ পরিদপ্তর,WAPDA Bhaban(9th/10th Floor),01302027046,office117@example.com,False,140
+118,Trustee Board,ট্রাস্ট্রি বোর্ড,1 No. Abdul Goni Road,01527257356,office118@example.com,False,140
+119,Directorate of Enquiry and Descipline,তদন্ত ও শৃঙ্খলা পরিদপ্তর,Wapda Bhaban (9th Fl),01496462451,office119@example.com,False,140
+120,Directorate of Estate and Transport,সম্পত্তি ও যানবাহন পরিদপ্তর,Wapda Bhaban (1st Fl),01727584703,office120@example.com,False,140
+121,Directorate of Organization and Method,সংগঠন ও পদ্ধতি পরিদপ্তর,Biddyut Bhaban (9th Fl),01168004358,office121@example.com,False,139
+122,Directorate of Security and Investigation,নিরাপত্তা ও অনুসন্ধান পরিদপ্তর,Wapda Bhaban (1st Fl),01969475845,office122@example.com,False,140
+133,Office of the Member,সদস্য (অর্থ) এর দপ্তর,Wapda Building (1st fl),01533110688,office133@example.com,False,140
+134,Controller,নিয়ন্ত্রক,Biddut Bhabon,01787926544,office134@example.com,False,140
+135,Directorate of Finance,অর্থ পরিদপ্তর,Biddut Bhabon (6th Flour),01357803802,office135@example.com,False,140
+136,Directorate of Audit,অডিট পরিদপ্তর,Biddut Bhabon (13th Flour) 1 No Abdul Goni Road,01386934836,office136@example.com,False,140
+137,Directorate of Purchase, ক্রয় পরিদপ্তর,Wapda Building (9th Fl.),01554026938,office137@example.com,False,140
+138,Directorate of Accounts,হিসাব পরিদপ্তর,Biddut Bhabon(7th Flour) 1 No. Abdul Goni Road,01303742800,office138@example.com,False,139
+139,RAO,আহিদ,Biddut Bhabon (7th FLOUR) 1 No. Abdul Goni Road,01291062961,office139@example.com,True,139
+140,COOAC,কেন্দ্রীয় উপরিখাত দপ্তর হিসাব সেল (কোয়াক),153,01723748918,office140@example.com,True,140
+141,RAO,আহিদ,Biddut Bhabon,01687824183,office141@example.com,True,141
+142,RAO,আহিদ,Biddut bhabon (4th Flour) Agrabad,01665524993,office142@example.com,True,142
+143,RAO,আহিদ,RAO Tangail,01176339378,office143@example.com,True,143
+144,RAO,আহিদ,137,01606775045,office144@example.com,True,144
+145,RAO,আহিদ,Resonal Accounting Office,01916719007,office145@example.com,True,145
+147,RAO,আহিদ,BPDB,01232509147,office147@example.com,True,147
+148,RAO,আহিদ,BPDB,01795558055,office148@example.com,True,148
+149,RAO,আহিদ,RAO,01347571901,office149@example.com,True,149
+150,RAO,আহিদ,Rao,01829105301,office150@example.com,True,150
+152,Deputy Director (Accts),আহিদ,Dapdapia,01646260888,office152@example.com,True,152
+154,RAO,আহিদ,ROWJAN,01907980096,office154@example.com,True,154
+156,RAO,আহিদ,SIDDHIRGANJ,01946657153,office156@example.com,True,156
+157,RAO,আহিদ,Palash,01461391939,office157@example.com,True,157
+158,RAO,আহিদ,RAO,01787176400,office158@example.com,True,158
+159,RAO,আহিদ,SIKALBAHA,01237776805,office159@example.com,True,159
+160,RAO,আহিদ,Kaptai,01990761063,office160@example.com,True,160
+161,RAO,আহিদ,Beramara,01615978236,office161@example.com,True,161
+162,RAO,আহিদ,Rao,01321914552,office162@example.com,False,160
+163,RAO,আহিদ,FENCHUGONJ,01407583793,office163@example.com,True,163
+164,RAO,আহিদ,BAGHABARI,01354384321,office164@example.com,True,164
+165,RAO,আহিদ,BARAPUKURIA,01455745314,office165@example.com,True,165
+166,Office of the Member,সদস্য (উৎপাদন) এর দপ্তর,WAPDA Bhaban,01368230994,office166@example.com,False,140
+167,Chief Engineer,প্রধান প্রকৌশলী (উৎপাদন) এর দপ্তর,WAPDA Bhaban(2nd Floor),01661037942,office167@example.com,False,140
+169,Tongi 80 MW Power Station,টঙ্গী ৮০ মেঃওঃ গ্যাস টারবাইন বিদ্যুৎ কেন্দ্র,Tongi,01169639357,office169@example.com,False,487
+170,Shahjibazar 60 MW Power Station,শাহজিবাজার ৬০ মেঃওঃ বিদ্যুৎ কেন্দ্র,Shahjibazar,01019720697,office170@example.com,False,158
+171,Fenchuganj 90 MW CCPS,ফেঞ্চুগঞ্জ ৯০ মেঃওঃ সিসিপিপি বিদ্যুৎ কেন্দ্র,Fenchuganj,01178334499,office171@example.com,False,163
+172,Sylhet 225 MW Combined Cycle Power Station,সিলেট ২২৫ মেঃওঃ বিদ্যুৎ কেন্দ্র,Kumargaon,01871517125,office172@example.com,False,149
+173,Sylhet 20 MW Power Station,সিলেট ২০ মেঃওঃ বিদ্যুৎ কেন্দ্র,Kumargaon,01995172842,office173@example.com,False,149
+174,Katakhali 50 MW Peaking Power Station,কাটাখালী ৫০ মেঃওঃ পিকিং বিদ্যুৎ কেন্দ্র,Katakhali,01409007299,office174@example.com,False,1026
+175,Santahar 50 MW Peaking Power Station,সান্তাহার ৫০ মেঃওঃ পিকিং বিদ্যুৎ কেন্দ্র,Shanataher,01908596590,office175@example.com,False,1026
+176,Syedpur 20 MW GT Power Station,সৈয়দপুর ২০ মেঃওঃ বিদ্যুৎ কেন্দ্র,Sayedpur,01514356681,office176@example.com,False,150
+177,Office of the  Rangpur Gas Turbine Power Station,রংপুর ২০ মেঃওঃ বিদ্যুৎ কেন্দ্র,Rangpur,01333426870,office177@example.com,False,150
+178,Baghabari Power Station,বাঘাবাড়ী বিদ্যুৎ কেন্দ্র,Baghabari,01706391657,office178@example.com,False,164
+179,Baghabari 50 MW Peaking Power Plant,বাঘাবাড়ী ৫০ মেঃওঃ পিকিং বিদ্যুৎ কেন্দ্র,Baghabari,01352375222,office179@example.com,False,164
+180,Bheramara 20 MW Power Station, ভেড়ামারা ২০ মেঃওঃ বিদ্যুৎ কেন্দ্র,Bheramara,01392324586,office180@example.com,False,161
+181,Bera 70 MW Power Station,বেড়া ৭০ মেঃওঃ পিকিং বিদ্যুৎ কেন্দ্র,Bhera,01754695022,office181@example.com,False,164
+184,Bhola Diesel Power Station,ভোলা ডিজেল বিদ্যুৎ কেন্দ্র,Bhola,01037936611,office184@example.com,False,1027
+185,Titas(Daudkandi) 50 MW Peaking Power Plant,তিতাস ৫০ মেঃওঃ পিকিং বিদ্যুৎ কেন্দ্র,Titas,01401294951,office185@example.com,False,156
+186,Chandpur 150 MW Power Station,চাঁদপুর ১৫০ মেঃওঃ বিদ্যুৎ কেন্দ্র,Bpdb,01555107121,office186@example.com,False,568
+187,Chief Engineer,প্রধান প্রকৌশলীর দপ্তর,Rowzan,01426126003,office187@example.com,False,154
+188,Hathazari 100 MW Peaking Power Plant,হাটহাজারি ১০০ মেঃওঃ পিকিং বিদ্যুৎ কেন্দ্র,Hathazari,01860713527,office188@example.com,False,154
+189,Dohazari-Kalias 100 MW Peaking Power Plant,দোহাজারী-কালিয়াইশ ১০০ মেঃওঃ পিকিং বিদ্যুৎ কেন্দ্র,Dohajari,01990299829,office189@example.com,False,159
+190,Kornafuly Hydro Power Station,কর্ণফুলী পানি বিদ্যুৎ কেদ্র,Kaptai,01141578172,office190@example.com,False,160
+191,Shikalbaha 60 MW Power Station,শিকলবাহা ৬০ মেঃওঃ বিদ্যুৎ কেন্দ্র,Sikalbaha,01030316825,office191@example.com,False,159
+192,Shikalbaha 150 MW Peaking Power Station,শিকলবাহা ১৫০ মেঃওঃ পিকিং বিদ্যুৎ কেন্দ্র,Sikalbaha,01245160311,office192@example.com,False,159
+193,Chief Engineer,প্রধান প্রকৌশলীর দপ্তর,Palash,01688067147,office193@example.com,False,157
+194,Khulna Power Station,খুলনা বিদ্যুৎ কেন্দ্র,GOALPARA,01499108799,office194@example.com,False,160
+195,Gopalganj 100 MW Peaking Power Station,গোপালগঞ্জ ১০০ মেঃওঃ পিকিং বিদ্যুৎ কেন্দ্র,Gopalgonj.,01545606480,office195@example.com,False,160
+196,Faridpur 50 MW Peaking Power Station,ফরিদপুর ৫০ মেঃওঃ পিকিং বিদ্যুৎ কেন্দ্র,Faridpur,01633838545,office196@example.com,False,160
+197,Manager(Maintenance),nan,Khulna Power Station,01233342108,office197@example.com,False,162
+198,Chief Engineer,প্রধান প্রকৌশলীর দপ্তর,Barapukuria,01413142060,office198@example.com,False,165
+199,Office of the Member,সদস্য (বিতরণ) এর দপ্তর,Wapda Buidling (1st Fl),01511436984,office199@example.com,False,140
+200,OFFICE OF THE O&M CIRCLE-2,তত্ত্বাবধায়ক প্রকৌশলীর দপ্তর,Wapda Bhaban (1st Fl),01520287796,office200@example.com,False,145
+201,Chief Engineer,প্রধান প্রকৌশলীর দপ্তর,Biddhut Bhaban,01884188644,office201@example.com,False,141
+202,Manager(Operation),nan,Khulna Power Station,01597377954,office202@example.com,False,162
+203,Computer Centre,কম্পিউটার সেন্টার,Biddyut Bhaban,01371356587,office203@example.com,False,142
+204,O&M Circle,পরিচালন ও সংরক্ষণ সার্কেল,Biddyut Bhaban,01364842342,office204@example.com,False,142
+205,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,BFICD Road,01876052851,office205@example.com,False,142
+206,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Riazuddin Bazar,01201605188,office206@example.com,False,142
+207,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Neval Avenue,01974080834,office207@example.com,False,142
+209,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Sayed Shah Road,01670089906,office209@example.com,False,142
+210,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Riazudin Bazar,01359521973,office210@example.com,False,142
+211,O&M Circle,পরিচালন ও সংরক্ষণ সার্কেল,Biddyut Bhaban (4th Floor),01600172883,office211@example.com,False,142
+212,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Agrabad Commercial Area,01702054000,office212@example.com,False,142
+213,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Baiozid Bostami road,01503021810,office213@example.com,False,142
+214,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,A.K.Khan Gate,01644985857,office214@example.com,False,142
+215,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Newmuring,01523472906,office215@example.com,False,142
+216,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Nayerhat,01335003989,office216@example.com,False,142
+217,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,P.C Road,01781555612,office217@example.com,False,142
+218,O&M Circle,পওস সার্কেল,Biddhut Bhaban(3rd floor),01053501712,office218@example.com,False,141
+219,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Fouzderhat,01475142462,office219@example.com,False,141
+220,ESU,সন্দ্বীপ বিদ্যুৎ সরবরাহ,Shandip,01269332387,office220@example.com,False,141
+221,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Shitakunda,01245218332,office221@example.com,False,141
+222,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Hathazari,01114944307,office222@example.com,False,141
+223,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,A.K.khan Gate,01807249669,office223@example.com,False,141
+224,O&M Circle,পওস সার্কেল,Biddyut Bhaban (2nd floor) Agrabad,01975062282,office224@example.com,False,141
+225,Distribution Division,বিতরণ বিভাগ,Patiya,01669807201,office225@example.com,False,141
+226,ESU,সাতকানিয়া বিদ্যুৎ সরবরাহ,Satkania,01547509881,office226@example.com,False,141
+227,ESU,দোহাজারী বিদ্যুৎ সরবরাহ,Dohazari,01303470840,office227@example.com,False,141
+228,Distribution Division,বিতরণ বিভাগ,Biddyut Bhaban,01387513478,office228@example.com,False,141
+229,Sales & Distribution Division Chokoria coxs Bazar,বিক্রয় ও বিতরণ বিভাগ-চকরিয়া বিউবো,Chokoria,01276149134,office229@example.com,False,141
+230,ESU,রামু বিদ্যুৎ সরবরাহ,Ramu,01479728526,office230@example.com,False,141
+231,ESU,লামা বিদ্যুৎ সরবরাহ,Lama,01858500545,office231@example.com,False,141
+232,ESU,কুতুবদিয়া বিদ্যুৎ সরবরাহ,Kutubdia,01499624565,office232@example.com,False,141
+233,O&M Circle,পরিচালন ও সংরক্ষণ সার্কেল,Vedvedi,01945205224,office233@example.com,False,141
+234,Distribution Division,বিতরণ বিভাগ,Vedvedi,01786135104,office234@example.com,False,141
+235,ESU,কাপ্তাই বিদ্যুৎ সরবরাহ,Kaptai,01479838773,office235@example.com,False,160
+236,ESU,বেতবুনিয়া বিদ্যুৎ সরবরাহ,Betbunia,01197952714,office236@example.com,False,141
+237,ESU,মারিশ্যা বিদ্যুৎ সরবরাহ,Marishwa,01662699582,office237@example.com,False,141
+238,Distribution Division,বিতরণ বিভাগ,Khagrachari,01276301352,office238@example.com,False,141
+239,ESU,রামগড় বিদ্যুৎ সরবরাহ,Ramgarh,01172416090,office239@example.com,False,141
+240,ESU,মাটিরাঙ্গা বিদ্যুৎ সরবরাহ,Matiranga,01807731519,office240@example.com,False,141
+241,ESU,মানিকছড়ি বিদ্যুৎ সরবরাহ,Manikchari,01190412125,office241@example.com,False,141
+242,ESU,মহালছড়ি বিদ্যুৎ সরবরাহ,Mahalchari,01947110011,office242@example.com,False,141
+243,ESU,দিঘীনালা বিদ্যুৎ সরবরাহ,Dighinala,01458688236,office243@example.com,False,141
+244,Distribution Division,বিতরণ বিভাগ,Bandarban,01407976924,office244@example.com,False,141
+249,Chief Engineer,প্রধান প্রকৌশলীর দপ্তর,Biddyut Bhaban,01480067489,office249@example.com,False,147
+250,Computer Centre,কম্পিউটার সেন্টার,Jangalia,01878740727,office250@example.com,False,147
+251,O&M Circle,পরিচালন ও সংরক্ষণ সার্কেল,Biddyut Bhaban,01134314521,office251@example.com,False,147
+252,Sales and Distribution Division-1,বিক্রয় ও বিতরণ বিভাগ-১,Shashangasa,01784720841,office252@example.com,False,147
+253,ESU,বুড়িচং বিদ্যুৎ সরবরাহ,Palpara,01303504885,office253@example.com,False,147
+254,Sales and Distribution Division-2,বিক্রয় ও বিতরণ বিভাগ-২,Balutupa,01519016623,office254@example.com,False,147
+255,ESU,চৌদ্দগ্রাম বিদ্যুৎ সরবরাহ,Chouddagram,01170835511,office255@example.com,False,147
+256,Sales and Distribution Division-3,বিক্রয় ও বিতরণ বিভাগ-৩,Jangali,01943210720,office256@example.com,False,147
+257,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Daulatganj,01758827001,office257@example.com,False,147
+258,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Sales & Distribution Division,01385794851,office258@example.com,False,568
+259,Sales and Distribution Division-1,বিক্রয় ও বিতরণ বিভাগ-১, Brahmanbaria,01145400289,office259@example.com,False,147
+260,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Ashuganj,01180483430,office260@example.com,False,147
+261,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Sarail,01212238640,office261@example.com,False,147
+262,O&M Circle,পরিচালন ও সংরক্ষণ সার্কেল,Noakhali,01716702602,office262@example.com,False,148
+263,Distribution Division,বিতরণ বিভাগ,Noakhali,01440861415,office263@example.com,False,148
+264,Distribution Division,বিতরণ বিভাগ,Feni,01862286614,office264@example.com,False,148
+265,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Laxmipur,01862068361,office265@example.com,False,148
+266,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Chowmuhuni,01481009279,office266@example.com,False,148
+267,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Bashurhat,01004987818,office267@example.com,False,148
+268,Sales and Distribution Division, বিক্রয় ও বিতরণ বিভাগ,Hatia,01888307463,office268@example.com,False,148
+270,Chief Engineer,প্রধান প্রকৌশলীর দপ্তর,Biddut Bhaban,01893447786,office270@example.com,False,149
+271,O&M Circle,পরিচালন ও সংরক্ষণ সার্কেল,Biddut Bhaban,01287011833,office271@example.com,False,149
+272,Sales and Distribution Division-1,বিক্রয় ও বিতরণ বিভাগ-১,Ambarkhana,01749121222,office272@example.com,False,149
+273,Sales and Distribution Division-2,বিক্রয় ও বিতরণ বিভাগ-২,Purba Mirabazar,01956310343,office273@example.com,False,149
+274,Sales and Distribution Division-3,বিক্রয় ও বিতরণ বিভাগ-৩,Kalapara,01921804399,office274@example.com,False,149
+275,Sales and Distribution Division-4,বিক্রয় ও বিতরণ বিভাগ-৪,Akhalia,01609789320,office275@example.com,False,149
+276,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Sunamganj,01872262488,office276@example.com,False,149
+277,Derai ESU,দিরাই বিদ্যুৎ সরবরাহ,Derai,01162429913,office277@example.com,False,149
+278,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Chatak,01718128557,office278@example.com,False,149
+279,O&M Circle,পরিচালন ও সংরক্ষণ সার্কেল,MOULAVI BAZAR SADAR,01061174251,office279@example.com,False,149
+280,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Moulavi Bazar,01445255544,office280@example.com,False,149
+281,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Hobiganj,01925630760,office281@example.com,False,158
+282,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Chatalgaon,01728403801,office282@example.com,False,149
+284,ESU,জগন্নাথপুর বিদ্যুৎ সরবরাহ,Jagannathpur,01586550034,office284@example.com,False,149
+285,ESU,জৈন্তাপুর বিদ্যুৎ সরবরাহ,Jaintapur,01578734362,office285@example.com,False,149
+346,Chief Engineer,প্রধান প্রকৌশলীর দপ্তর,Kawatkhali,01484868246,office346@example.com,False,144
+347,Commercial Operation,বাণিজ্যিক পরিচালন,Mymensingh,01452600427,office347@example.com,False,144
+348,O&M Circle-1,পরিচালন ও সংরক্ষণ সার্কেল-১,Mymensingh,01862843904,office348@example.com,False,144
+349,Sales and Distribution Division-1,বিক্রয় ও বিতরণ বিভাগ-১ (উত্তর),Kewatkhali,01112688507,office349@example.com,False,144
+350,ESU,ফুলবাড়ীয়া বিদ্যুৎ সরবরাহ,Fulbaria,01902043362,office350@example.com,False,144
+351,ESU,মুক্তাগাছা বিদ্যুৎ সরবরাহ,Muktagacha,01048146085,office351@example.com,False,144
+352,ESU,ঈশ্বরগঞ্জ বিদ্যুৎ সরবরাহ,Iswarganj,01133082913,office352@example.com,False,145
+353,ESU,গৌরীপুর বিদ্যুৎ সরবরাহ,Gouripur,01542587856,office353@example.com,False,145
+354,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Fulpur,01947859688,office354@example.com,False,145
+355,ESU,হালুয়াঘাট বিদ্যুৎ সরবরাহ,Haluaghat,01903581913,office355@example.com,False,145
+356,Sales and Distribution Division-2,বিক্রয় ও বিতরণ বিভাগ-২ (দক্ষিণ),22 J.C. Guho Road,01335737563,office356@example.com,False,144
+357,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Trishal,01836376827,office357@example.com,False,144
+358,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Bhaluka,01306991282,office358@example.com,False,144
+359,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,GAFFARGAON,01107401051,office359@example.com,False,144
+360,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,NETROKONA,01005557866,office360@example.com,False,145
+361,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Rathkhola,01815749336,office361@example.com,False,145
+362,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,BAJITPUR,01453439180,office362@example.com,False,145
+363,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,BHAIRAB,01572004737,office363@example.com,False,145
+364,ESU,শিমুলকান্দি বিদ্যুৎ সরবরাহ,SHIMULKANDI,01798338343,office364@example.com,False,145
+365,ESU,কুলিয়ারচর বিদ্যুৎ সরবরাহ,KULIARCHAR,01895973850,office365@example.com,False,145
+366,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,SHERPUR,01100651918,office366@example.com,False,145
+367,ESU,নকলা বিদ্যুৎ সরবরাহ,NAKLA,01688697209,office367@example.com,False,145
+368,ESU,শ্রীবর্দী বিদ্যুৎ সরবরাহ,SREEBORDI,01516750607,office368@example.com,False,145
+369,ESU,নালিতাবাড়ূী বিদ্যুৎ সরবরাহ,NALITABARI,01992080081,office369@example.com,False,145
+370,ESU,ঝিনাইগাতী বিদ্যুৎ সরবরাহ,JHINAIGATI,01268433489,office370@example.com,False,145
+371,O&M Circle,পরিচালন ও সংরক্ষণ সার্কেল,Bailla,01625480640,office371@example.com,False,143
+372,Sales and Distribution Division-1,বিক্রয় ও বিতরণ বিভাগ-১,TANGAIL,01159174001,office372@example.com,False,143
+373,Sales and Distribution Division-2,বিক্রয় ও বিতরণ বিভাগ-২,TANGAIL,01865653935,office373@example.com,False,143
+374,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,SAKHIPUR,01463847053,office374@example.com,False,143
+375,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,BHUAPUR,01530442627,office375@example.com,False,143
+376,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,GHATAIL,01909008281,office376@example.com,False,143
+377,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,KALIHATI,01723865732,office377@example.com,False,143
+378,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,JAMALPUR,01622654828,office378@example.com,False,144
+379,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,SARISHABARI,01508899843,office379@example.com,False,144
+380,General Manager,মহাব্যবস্থাপক এর দপ্তর,Bidyut Bhaban,01453315216,office380@example.com,False,139
+381,Energy Auditing Unit,এনার্জি অডিটিং ইউনিট,Bidyut Bhaban,01931634879,office381@example.com,False,140
+382,Energy Auditing Unit Division,এনার্জি অডিটিং ইউনিট বিভাগ,Energy Auditing Unit,01592618524,office382@example.com,False,139
+383,Energy Auditing Unit Division-1,এনার্জি অডিটিং ইউনিট বিভাগ-১,Energy Auditing Unit Division-1,01780110055,office383@example.com,False,141
+384,Energy Auditing Unit Division-2,এনার্জি অডিটিং ইউনিট বিভাগ-২,Energy Auditing Unit Division-2,01380431733,office384@example.com,False,141
+385,Energy Auditing Unit Division-3,এনার্জি অডিটিং ইউনিট বিভাগ-৩,Energy Auditing Unit Division-3,01616482707,office385@example.com,False,141
+386,Energy Auditing Unit Division,এনার্জি অডিটিং ইউনিট বিভাগ,Jangalia,01875069446,office386@example.com,False,147
+387,Energy Auditing Unit Division,এনার্জি অডিটিং ইউনিট বিভাগ,Rajshahi,01992352113,office387@example.com,False,1026
+388,Energy Auditing Unit Division,এনার্জি অডিটিং ইউনিট বিভাগ,Rangpur,01342444914,office388@example.com,False,150
+389,Energy Auditing Unit Division,এনার্জি অডিটিং ইউনিট বিভাগ,Bogra,01717616763,office389@example.com,False,150
+390,Energy Auditing Unit Division,এনার্জি অডিটিং ইউনিট বিভাগ,Mymensingh,01520295774,office390@example.com,False,144
+391,Energy Auditing Unit Division,এনার্জি অডিটিং ইউনিট বিভাগ,Sylhet,01170806498,office391@example.com,False,149
+392,Energy Auditing Unit Division,এনার্জি অডিটিং ইউনিট বিভাগ,Khulna,01919745373,office392@example.com,False,160
+393,Energy Auditing Unit Division,এনার্জি অডিটিং ইউনিট বিভাগ,Jessore,01735340205,office393@example.com,False,160
+394,Energy Auditing Unit Division,এনার্জি অডিটিং ইউনিট বিভাগ,PDB,01681760430,office394@example.com,False,152
+395,Computer Centre,ঢাকা কম্পিউটার কেন্দ্র,WAPDA Bhaban (4th fl),01265046384,office395@example.com,False,140
+396,Consumer Affairs,কঞ্জিউমার এ্যাফেয়ার্স,Biddyut Bhaban,01753062675,office396@example.com,False,139
+397,Chief Engineer,প্রধান প্রকৌশলীর দপ্তর,Biddyut Bhaban,01349222246,office397@example.com,False,139
+398,Energy Auditing Unit-2,এনার্জি অডিটিং ইউনিট বিভাগ-২,Biddyut Bhaban,01257845338,office398@example.com,False,139
+412,Office of the Member,সদস্য (পরিকল্পনা ও উন্নয়ন),Wapda Bhaban,01372627619,office412@example.com,False,140
+413,Chief Engineer,প্রধান প্রকৌশলীর দপ্তর,Biddyut Bhaban,01278954343,office413@example.com,False,140
+414,Directorate of Civil Works,পূর্তকর্ম পরিদপ্তর,Biddyut Bhaban,01031764341,office414@example.com,False,139
+415,Civil Construction Division 1,পূর্ত নির্মাণ বিভাগ-১,Bidyut Bhaban,01215494298,office415@example.com,False,140
+416,Civil Construction Division 2,পূর্ত নির্মাণ বিভাগ-২,Bidyut Bhaban,01388540579,office416@example.com,False,139
+417,Regional Civil Construction Division,আঞ্চলিক পূর্ত নির্মাণ বিভাগ,OFFICE OF THE XEN,01505089028,office417@example.com,False,141
+419,PC Pole Construction Plant,পিসি পোল নির্মাণ প্ল্যান্ট,OFFICE OF THE XEN,01232844514,office419@example.com,False,139
+420,PC Pole Construction Plant,পিসি পোল নির্মাণ প্ল্যান্ট,OFFICE OF THE XEN,01035702493,office420@example.com,False,142
+421,Directorate of Design & Inspection III,নক্সা ও পরিদর্শন-৩ পরিদপ্তর,OFFICE OF THE DIRECTOR,01578941416,office421@example.com,False,140
+422,Chief Engineer,প্রধান প্রকৌশলী,Biddyut Bhaban,01934965783,office422@example.com,False,139
+423,Office of System Protection and Testing Commissioning,সিস্টেম প্রটেকশন অ্যান্ড টেস্টিং কমিশনিং দপ্তর,Biddyut Bhaban,01762875902,office423@example.com,False,140
+424,Directorate of Electrical Equipment,বৈদ্যুতিক সরঞ্জাম পরিদপ্তর,Bidyut Bhaban,01889836673,office424@example.com,False,140
+425,Central Store,কেন্দ্রীয় ভান্ডার,TONGI,01944423440,office425@example.com,False,487
+426,Deputy Director,কেন্দ্রীয় ভান্ডার,FOUZDARHAT,01246858651,office426@example.com,False,141
+427,Deputy Director,কেন্দ্রীয় ভান্ডার,KHULNA,01344528836,office427@example.com,False,160
+428,Deputy Director,কেন্দ্রীয় ভান্ডার,ISHWARDI,01819087601,office428@example.com,False,161
+429,Generation Diesel,জেনারেশন ডিজেল,১২০/সি,01792873286,office429@example.com,False,140
+430,Directorate of Clearance & Movement,শুল্কমুক্তি ও স্থানান্তর পরিদপ্তর,AGRABAD,01893330641,office430@example.com,False,141
+431,Central Equipment Repairing Shop,কেন্দ্রীয় সরঞ্জাম মেরামত কারখানা,TONGI,01431713274,office431@example.com,False,487
+432,Chief Engineer,প্রধান প্রকৌশলী,WAPDA BHABAN,01602357211,office432@example.com,False,140
+433,Directorate of Programme,কার্যক্রম পরিদপ্তর,Biddyut Bhaban,01597495154,office433@example.com,False,140
+434,Directorate of System Planning,বিদ্যুৎ পরিকল্পনা পরিদপ্তর,WAPDA BHABAN,01005215794,office434@example.com,False,140
+435,Directorate of Project Planning,প্রকল্প পরিকল্পনা পরিদপ্তর,WAPDA BHABAN,01138699951,office435@example.com,False,140
+436,Directorate of Design & Inspection I,নক্সা ও পরিদর্শন-১ পরিদপ্তর,9/B,01612140882,office436@example.com,False,140
+437,Directorate of Design & Inspection II,নক্সা ও পরিদর্শন-২ পরিদপ্তর,9 B Motijheel C/A. Dhaka-1000,01603090111,office437@example.com,False,140
+438,Directorate of Renewable Energy and Research & Development,নবায়নযোগ্য জ্বালানি এবং গবেষণা ও উন্নয়ন পরিদপ্তর,Biddyut Bhaban,01008586204,office438@example.com,False,140
+439,Chief Engineer,প্রধান প্রকৌশলী,Biddyut Bhaban,01556343733,office439@example.com,False,139
+453,Bibiyana South,বিবিয়ানা (দক্ষিণ) ৪০০ মেঃওঃ কঃসাঃ বিদ্যুৎ কেন্দ্র,BPDB,01400635809,office453@example.com,False,636
+457,Office of the Member,সদস্য (কোম্পানি এ্যাফেয়াস),Wapda Building (1st Fl),01905146376,office457@example.com,False,140
+458,Chief Engineer,প্রধান প্রকৌশলী,Biddyut Bhaban,01554680720,office458@example.com,False,140
+459,Chief Engineer,প্রধান প্রকৌশলী,Biddyut Bhaban,01500723682,office459@example.com,False,139
+460,IPP Cell 1,আইপিপি সেল-১,Biddyut Bhaban,01394904576,office460@example.com,False,139
+461,IPP Cell 2,আইপিপি সেল-২,Bidduyt Bhaban,01440658534,office461@example.com,False,139
+462,IPP Cell 3,আইপিপি সেল-৩,Bidduth Bhaban,01249144455,office462@example.com,False,140
+464,Commercial Operation,বাণিজ্যিক পরিচালন,Biddyut Bhaban,01509035891,office464@example.com,False,141
+468,Zonal Repairing Shop,আঞ্চলিক মেরামত কারখানা,Tongi,01158698374,office468@example.com,False,487
+469,Deputy Director,শুল্কমুক্তি ও স্থানান্তর,Dupty Director Clearing & Movement,01821438110,office469@example.com,False,140
+470,Deputy Director,শুল্কমুক্তি ও স্থানান্তর,BPDB,01180551804,office470@example.com,False,141
+471,Deputy Director,শুল্কমুক্তি ও স্থানান্তর,BPDB,01316602199,office471@example.com,False,160
+474,Siddhirganj Power Station High School,সিদ্ধিরগঞ্জ বিদ্যুৎ কেন্দ্র উচ্চ বিদ্যালয়,Siddirgong,01642700593,office474@example.com,False,156
+486,Zonal Repairing Shop,আঞ্চলিক মেরামত কারখানা,Monsurabad,01314310899,office486@example.com,False,141
+487,RAO,আহিদ,Tongi 80MW GTPS,01462413418,office487@example.com,True,487
+495,Manager,ব্যবস্থাপক (পরিচালন) এর দপ্তর,Ghorasal,01028565294,office495@example.com,False,157
+496,Manager,ব্যবস্থাপক (সংরক্ষণ) এর দপ্তর,Ghorasal,01904357854,office496@example.com,False,157
+497,Manager,ব্যবস্থাপক (পরিচালন) এর দপ্তর,Ghorasal,01852365512,office497@example.com,False,157
+498,Manager,ব্যবস্থাপক (সংরক্ষণ) এর দপ্তর,Ghorasal,01351543448,office498@example.com,False,157
+500,Manager,ব্যবস্থাপক (পরিচালন) এর দপ্তর,Siddirgong,01407550952,office500@example.com,False,156
+519,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Tangail,01965295552,office519@example.com,False,145
+535,Manager (Operation) Unit-3,ব্যবস্থাপক (পরিচালন) এর দপ্তর,BARAPUKURIA,01970058444,office535@example.com,False,165
+549,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,Chittagong,01120505850,office549@example.com,False,141
+564,Directorate of Coal Power Generation,কোল পাওয়ার জেনারেশন পরিদপ্তর,Dhaka,01670137179,office564@example.com,False,139
+565,Directorate of SBU,এসবিইউ পরিদপ্তর,Dhaka,01725082841,office565@example.com,False,139
+568,RAO,আহিদ,Chandpur,01555567722,office568@example.com,True,568
+569,Shahjibazar 330 MW Combined Cycle Power Plant,শাহজীবাজার ৩৩০ মেঃ ওঃ কম্বাইন্ড সাইকেল বিদ্যুৎ কেন্দ্র,Hobigonj,01918739120,office569@example.com,False,158
+576,SCADA,স্ক্যাডা,Chittagong,01080071505,office576@example.com,False,142
+577,Shikalbaha 225 MW Duel Fuel Combined Cycle Power Plant,শিকলবাহা ২২৫ মেঃওঃ ডুয়েল ফুয়েল কম্বাইন্ড সাইকেল বিদ্যুৎ কেন্দ্র,Chittagong,01482484484,office577@example.com,False,159
+579,Pre-Paid Metering Project,প্রি-পেইড মিটারিং প্রকল্প,Comilla,01951813144,office579@example.com,False,149
+580,Chapainababganj 100 MW HFO Based Power Station,চাঁপাইনবাবগঞ্জ ১০০ মেঃওঃ এইচ.এফ.ও পাওয়ার প্ল্যান্ট,Chapainababganj,01193977957,office580@example.com,False,1026
+582,Manager,ব্যবস্থাপক (পরিচালন) এর দপ্তর,Narshindhi,01356164713,office582@example.com,False,157
+583,Bhola 225 MW Combined Cycle Power Station,ভোলা ২২৫ মেঃওঃ কম্বাইন্ড সাইকেল বিদ্যুৎ কেন্দ্র,Bhola,01697494936,office583@example.com,False,1027
+586,Manager,ব্যবস্থাপক (পরিচালন) এর দপ্তর,Narshindhi,01601198222,office586@example.com,False,157
+587,Barishal 40 MW GT Power Station,বরিশাল ৪০ মেঃওঃ গ্যাস টারবাইন বিদ্যুৎ কেন্দ্র,Barishal,01091708730,office587@example.com,False,152
+591,Manager (Maintenance) Unit 1-2,ব্যবস্থাপক (সংরক্ষণ),DINAJPUR,01980539057,office591@example.com,False,165
+594,ESU,রুমা বিদ্যুৎ সরবরাহ,nan,01544628071,office594@example.com,False,141
+595,ESU,রোয়াংছড়ি বিদ্যুৎ সরবরাহ,nan,01667350482,office595@example.com,False,141
+597,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ-৫,nan,01785257368,office597@example.com,False,149
+598,Sales and Distribution Division 3,বিক্রয় ও বিতরণ বিভাগ-৩,nan,01129360369,office598@example.com,False,145
+599,Manager (Operation) Unit 1-2,ব্যবস্থাপক (পরিচালন),Dinajpur,01522353041,office599@example.com,False,165
+602,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ-৩,Tangail,01001252802,office602@example.com,False,143
+604,Regional Civil Construction Division,আঞ্চলিক পূর্ত নির্মাণ বিভাগ,nan,01945783671,office604@example.com,False,139
+605,PC Pole Construction Plant,পিসি পোল নির্মাণ প্ল্যান্ট,nan,01351425710,office605@example.com,False,150
+608,ESU Zury (Residential Engineer),জুড়ী বিদ্যুৎ সরবরাহ,nan,01419109877,office608@example.com,False,149
+635,O&M Circle,পরিচালন ও সংরক্ষণ সার্কেল,Bojrapur,01654196048,office635@example.com,False,144
+636,RAO,আহিদ,Parkul,01768412335,office636@example.com,True,636
+734,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ,nan,01522819568,office734@example.com,False,142
+742,Executive Engineer,সিদ্ধিরগঞ্জ ৫০ মেঃওঃ তাপ বিদ্যুৎ কেন্দ্র,nan,01271473787,office742@example.com,False,156
+743,Siddhirganj 210 MW Power Station Contruction Prooject,সিদ্ধিরগঞ্জ ২১০ মেঃওঃ বিদ্যুৎ কেন্দ্র নির্মাণ প্রকল্প,nan,01506101814,office743@example.com,False,156
+744,Syedpur Diesel Power Station,সৈয়দপুর ডিজেল বিদ্যুৎ কেন্দ্র,nan,01382730019,office744@example.com,False,150
+779,Khulna 330 MW Combined Cycle Power Station,খুলনা ৩৩০ মেঃওঃ কম্বাইন্ড সাইকেল বিদ্যুৎ কেন্দ্র,Khulna.,01062366943,office779@example.com,False,162
+781,Shahjibazar 100 MW GT Power Station,শাহজীবাজার ১০০ মেঃ ওঃ গ্যাস টারবাইন বিদ্যুৎ কেন্দ্র,Shahjibazar,01700967259,office781@example.com,False,158
+782,Manager (Operation) Unit 3-4,ব্যবস্থাপক (পরিচালন) এর দপ্তর,nan,01469175782,office782@example.com,False,157
+988,Superintending Engineer - Rangamati,পরিচালন ও সংরক্ষণ সার্কেল,nan,01552362518,office988@example.com,False,141
+989,Office of the Manager (Maintenance) 210 MW,ব্যবস্থাপক (সংরক্ষণ) এর দপ্তর,nan,01769516729,office989@example.com,False,154
+996,Sales and Distribution Division,বিক্রয় ও বিতরণ বিভাগ-২,nan,01240460069,office996@example.com,False,147
+999,Directorate of Pre-Paid Metering System,প্রি-পেইড মিটারিং সিস্টেম পরিদপ্তর,Dhaka,01489052711,office999@example.com,False,139

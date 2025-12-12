@@ -11,9 +11,9 @@ class Office extends Model
     use HasFactory;
 
     protected $fillable = [
+        'office_code',
         'name_in_english',
         'name_in_bangla',
-        'office_code',
         'address',
         'mobile_no',
         'email',
