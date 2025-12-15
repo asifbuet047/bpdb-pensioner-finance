@@ -119,6 +119,15 @@
             text-decoration: underline;
             cursor: pointer;
         }
+
+        .custom-border {
+            border: 3px solid black !important;
+        }
+
+        .custom-border th,
+        .custom-border td {
+            border: 2px solid black !important;
+        }
     </style>
 </head>
 

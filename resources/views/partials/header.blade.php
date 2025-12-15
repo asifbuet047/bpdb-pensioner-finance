@@ -1,14 +1,4 @@
 <header>
-    <style>
-        .custom-border {
-            border: 3px solid black !important;
-        }
-
-        .custom-border th,
-        .custom-border td {
-            border: 2px solid black !important;
-        }
-    </style>
     <nav class="navbar navbar-expand-lg navbar-light py-3 custom-border" style="background-color: #A2E8DD">
         <div class="container">
             <a class="navbar-brand fw-bolder" href="{{ route('home.page') }}">BPDB
@@ -22,13 +12,13 @@
                     <li class="nav-item scale-animate"><a class="nav-link" href="{{ route('home.page') }}">Home</a>
                     </li>
 
-                    @if (request()->cookie('user_role') === '5')
+                    @if (request()->cookie('user_role') === 'super_admin')
                         <li class="nav-item scale-animate"><a class="nav-link" href="/pensioners/all">All Pensioner</a>
                         </li>
                         <li class="nav-item scale-animate"><a class="nav-link" href="/officers">All Officer</a></li>
                         <li class="nav-item scale-animate"><a class="nav-link" href="/offices">All Office</a></li>
                     @endif
-                    @if (request()->cookie('user_role') === '4')
+                    @if (request()->cookie('user_role') === 'admin')
                         <li class="nav-item scale-animate"><a class="nav-link" href="/pensioners/all">All Pensioner</a>
                         </li>
                         <li class="nav-item scale-animate"><a class="nav-link" href="/offices">All Office</a></li>
@@ -44,6 +34,29 @@
                                 <li class="dropdown-item">You are <span
                                         class="fw-bold">{{ request()->cookie('user_designation') }}</span>
                                 </li>
+                                <li class="dropdown-divider"></li>
+                                @if (request()->cookie('user_role') === 'super_admin')
+                                    <li class="dropdown-item">Your role <span class="fw-bold">{{ 'SUPER ADMIN' }}</span>
+                                    </li>
+                                @endif
+                                @if (request()->cookie('user_role') === 'admin')
+                                    <li class="dropdown-item">Your role <span class="fw-bold">{{ 'ADMIN' }}</span>
+                                    </li>
+                                @endif
+                                @if (request()->cookie('user_role') === 'approver')
+                                    <li class="dropdown-item">Your role <span class="fw-bold">{{ 'APPROVER' }}</span>
+                                    </li>
+                                @endif
+                                @if (request()->cookie('user_role') === 'certificer')
+                                    <li class="dropdown-item">Your role <span class="fw-bold">{{ 'CERTIFIER' }}</span>
+                                    </li>
+                                @endif
+                                @if (request()->cookie('user_role') === 'initiator')
+                                    <li class="dropdown-item">Your role <span class="fw-bold">{{ 'INITIATOR' }}</span>
+                                    </li>
+                                @endif
+
+
                                 <li class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                             </ul>

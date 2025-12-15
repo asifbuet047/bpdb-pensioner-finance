@@ -80,6 +80,11 @@ class ApplicationController extends Controller
         return view('addpensioner', compact('offices'));
     }
 
+    public function showOfficerSearchSection()
+    {
+        return view('searchofficer');
+    }
+
     public function showUpdatePensionerSection(Request $request)
     {
         $id = (int)$request->route('id');
@@ -121,15 +126,19 @@ class ApplicationController extends Controller
 
             $officer = Officer::with(['designation', 'office', 'role'])->where('erp_id', $validated['erp_id'])->first();
 
-            if (!$officer || !Hash::check($validated['password'], $officer->password)) {
+            if (!$officer) {
                 return redirect()->back()
-                    ->withErrors(['erp_id' => 'Invalid ERP ID or password'])
+                    ->withErrors(['erp_id' => 'Your ERP no as Officer is not register in our database. Please register first then log in'])
+                    ->withInput();
+            } else if (!Hash::check($validated['password'], $officer->password)) {
+                return redirect()->back()
+                    ->withErrors(['erp_id' => 'Password mismatched please try again'])
                     ->withInput();
             } else {
                 return redirect()->back()->with([
                     'erp_id' => $validated['erp_id'],
                     'password' => $validated['password']
-                ])->withCookies([cookie('user_id', $officer->erp_id, 10, '/', null, false, true), cookie('user_type', 'officer', 10, '/', null, false, true), cookie('user_name', $officer->name, 10, '/', null, false, true), cookie('user_role', $officer->role->role_name, 10, '/', null, false, true), cookie('user_designation', $officer->designation->description_bangla, 10, '/', null, false, true)]);
+                ])->withCookies([cookie('user_id', $officer->erp_id, 10, '/', null, false, true), cookie('user_type', 'officer', 10, '/', null, false, true), cookie('user_name', $officer->name, 10, '/', null, false, true), cookie('user_role', $officer->role->role_name, 10, '/', null, false, true), cookie('user_designation', $officer->designation->description_english, 10, '/', null, false, true)]);
             }
         } else {
             $validated = $request->validate([
@@ -155,7 +164,7 @@ class ApplicationController extends Controller
             if ($pensioner_credential) {
                 if (!Hash::check($validated['password'], $pensioner_credential->password)) {
                     return redirect()->back()
-                        ->withErrors(['password' => 'Password mismatch'])
+                        ->withErrors(['password' => 'Password mismatched please try again'])
                         ->withInput();
                 } else {
                     return redirect()->back()->with([

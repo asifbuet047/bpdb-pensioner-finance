@@ -1,5 +1,3 @@
-import { offices } from "./offices.js";
-
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".pensioner-delete-buttons").forEach((row) => {
         row.addEventListener("click", (e) => {
@@ -63,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         row.addEventListener("click", (e) => {
             let name = e.currentTarget.getAttribute("data-name");
             let index = e.currentTarget.getAttribute("data-index");
+            console.log(name);
             const span = document.getElementById(
                 "officerDeleteActionModalSpan"
             );
@@ -113,64 +112,64 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    const input = document.getElementById("officeSearch");
-    const list = document.getElementById("autocompleteList");
-    const office_id = document.getElementById("office_id");
-    let controller;
-    input.addEventListener("input", async function () {
-        const query = this.value.trim();
+    // const input = document.getElementById("officeSearch");
+    // const list = document.getElementById("autocompleteList");
+    // const office_id = document.getElementById("office_id");
+    // let controller;
+    // input.addEventListener("input", async function () {
+    //     const query = this.value.trim();
 
-        list.innerHTML = "";
-        if (query.length < 2) {
-            return;
-        }
+    //     list.innerHTML = "";
+    //     if (query.length < 2) {
+    //         return;
+    //     }
 
-        if (controller) {
-            controller.abort();
-        }
-        controller = new AbortController();
+    //     if (controller) {
+    //         controller.abort();
+    //     }
+    //     controller = new AbortController();
 
-        try {
-            const res = await fetch(
-                `/search-offices?q=${encodeURIComponent(query)}`,
-                {
-                    signal: controller.signal,
-                }
-            );
-            setTimeout(() => {
-                controller.abort();
-            }, 2000);
+    //     try {
+    //         const res = await fetch(
+    //             `/search-offices?q=${encodeURIComponent(query)}`,
+    //             {
+    //                 signal: controller.signal,
+    //             }
+    //         );
+    //         setTimeout(() => {
+    //             controller.abort();
+    //         }, 2000);
 
-            const data = await res.json();
+    //         const data = await res.json();
 
-            list.innerHTML = "";
+    //         list.innerHTML = "";
 
-            if (data.length === 0) {
-                list.innerHTML = `<li class="list-group-item">No results found</li>`;
-                return;
-            }
+    //         if (data.length === 0) {
+    //             list.innerHTML = `<li class="list-group-item">No results found</li>`;
+    //             return;
+    //         }
 
-            data.forEach((item) => {
-                const li = document.createElement("li");
-                li.classList.add("list-group-item");
-                li.textContent = item.name_in_english;
-                li.style.cursor = "pointer";
+    //         data.forEach((item) => {
+    //             const li = document.createElement("li");
+    //             li.classList.add("list-group-item");
+    //             li.textContent = item.name_in_english;
+    //             li.style.cursor = "pointer";
 
-                li.addEventListener("click", () => {
-                    input.value = item.name_in_english;
-                    office_id.value = item.id;
-                    list.innerHTML = "";
-                });
+    //             li.addEventListener("click", () => {
+    //                 input.value = item.name_in_english;
+    //                 office_id.value = item.id;
+    //                 list.innerHTML = "";
+    //             });
 
-                list.appendChild(li);
-                list.classList.add("show");
-            });
-        } catch (e) {
-            if (e.name !== "AbortError") {
-                console.error(e);
-            }
-        }
-    });
+    //             list.appendChild(li);
+    //             list.classList.add("show");
+    //         });
+    //     } catch (e) {
+    //         if (e.name !== "AbortError") {
+    //             console.error(e);
+    //         }
+    //     }
+    // });
 
     document.addEventListener("click", function (e) {
         if (!input.contains(e.target) && !list.contains(e.target)) {

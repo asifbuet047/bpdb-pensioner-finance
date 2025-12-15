@@ -53,6 +53,10 @@ Route::get('/officers', [OfficerController::class, 'getAllOfficersFromDB'])->nam
 
 Route::post('/officer', [OfficerController::class, 'registerOfficeIntoDB'])->name('registration.process');
 
+Route::post('/officer/search', [OfficerController::class, 'getSpecificOfficerFromDB'])->name('get.specific.officers');
+
+Route::get('/officer/search', [ApplicationController::class, 'showOfficerSearchSection'])->name('search.officer.section');
+
 Route::post('/officer/remove', [OfficerController::class, 'removeOfficerFromDB'])->name('remove.officer.process');
 
 Route::post('/officer/update', [OfficerController::class, 'updateOfficerIntoDB'])->name('update.officer.process');

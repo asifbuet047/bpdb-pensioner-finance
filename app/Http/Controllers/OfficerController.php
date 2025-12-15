@@ -143,9 +143,14 @@ class OfficerController extends Controller
             $office_id = Office::where('is_payment_office', true)->where('name_in_english', 'LIKE', "%{$response['value'][0]['Office_Name']}%")->value('id') ?? 0;
             $role_id = Role::where('role_name', '=', 'initiator')->value('id');
 
-            if (($designation_id == 0 || ($office_id == 0))) {
+            if ($designation_id == 0) {
                 return redirect()->back()->withErrors([
                     'cause' => $response['value'][0]['First_Name'] . ' having erp no ' . $response['value'][0]['No'] . ' and posted as ' . $response['value'][0]['Designation'] . ' in office of ' . $response['value'][0]['Office_Name'] . ' is not finance cadre in BPDB ',
+                ])->withInput();
+            }
+            if ($office_id == 0) {
+                return redirect()->back()->withErrors([
+                    'cause' => $response['value'][0]['First_Name'] . ' having erp no ' . $response['value'][0]['No'] . ' and posted as ' . $response['value'][0]['Designation'] . ' in office of ' . $response['value'][0]['Office_Name'] . ' is not valid payment office (RAO) in BPDB ',
                 ])->withInput();
             }
 
@@ -178,6 +183,18 @@ class OfficerController extends Controller
         if ($request->hasCookie('user_role')) {
             if ($request->cookie('user_role') === "super_admin") {
                 $officers = Officer::with(['office', 'designation', 'role'])->orderBy('name')->get();
+                return view('viewofficers', compact('officers'));
+            }
+        } else {
+            return view('login');
+        }
+    }
+
+    public function getSpecificOfficerFromDB(Request $request)
+    {
+        if ($request->hasCookie('user_role')) {
+            if ($request->cookie('user_role') === 'super_admin') {
+                $officers = Officer::with(['office', 'designation', 'role'])->where('erp_id', 'LIKE', "%{$request->input('erp_id')}%")->orderBy('erp_id')->get();
                 return view('viewofficers', compact('officers'));
             }
         } else {

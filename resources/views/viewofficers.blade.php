@@ -63,7 +63,8 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            Do You really want to delete <span class="fw-bold" id="officerDeleteActionModalSpan"></span>?
+                            Do You really want to delete <span class="fw-bold"
+                                id="officerDeleteActionModalSpan"></span>?
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
@@ -100,6 +101,9 @@
         <div class="text-center mt-4">
             <a class="btn btn-primary btn-lg me-2 shadow-sm" href="{{ route('add.officer.section') }}">
                 Add Officer
+            </a>
+            <a class="btn btn-outline-primary btn-lg me-2 shadow-sm" href="{{ route('search.officer.section') }}">
+                Search specific Officer
             </a>
             <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('show.officers') }}">
                 Refresh List
