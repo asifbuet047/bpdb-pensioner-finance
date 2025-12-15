@@ -27,7 +27,7 @@ class ApplicationController extends Controller
     {
         if ($request->cookie('user_type') === 'officer') {
             switch ($request->cookie('user_role')) {
-                case "super_admin": //Super_Admin
+                case "super_admin":
                     $officeCount = Office::count();
                     $officerCount = Officer::count();
                     $pensionerCount = Pensioner::count();
@@ -35,9 +35,34 @@ class ApplicationController extends Controller
                     $designation = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
                     return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation'));
                     break;
-                case "admin": //Admin
+                case "admin":
                     $pensionerCount = Pensioner::count();
                     return view('dashboard', compact('pensionerCount'));
+                    break;
+                case "approver":
+                    $officeCount = Office::count();
+                    $officerCount = Officer::count();
+                    $pensionerCount = Pensioner::count();
+                    $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
+                    $designation = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
+                    return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation'));
+                    break;
+                case "certifier":
+                    $officeCount = Office::count();
+                    $officerCount = Officer::count();
+                    $pensionerCount = Pensioner::count();
+                    $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
+                    $designation = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
+                    return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation'));
+                    break;
+                case "initiator":
+                    $officeCount = Office::count();
+                    $officerCount = Officer::count();
+                    $initiatorOfficeCode = Officer::where('erp_id', '=', $request->cookie('user_id'))->first()->value('office_id');
+                    $pensionerCount = Pensioner::where('office_id', '=', $request->cookie('user_office_id'));
+                    $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
+                    $designation = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
+                    return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation'));
                     break;
                 default:
                     return view('login');
@@ -136,7 +161,7 @@ class ApplicationController extends Controller
                 return redirect()->back()->with([
                     'erp_id' => $validated['erp_id'],
                     'password' => $validated['password']
-                ])->withCookies([cookie('user_id', $officer->erp_id, 10, '/', null, false, true), cookie('user_type', 'officer', 10, '/', null, false, true), cookie('user_name', $officer->name, 10, '/', null, false, true), cookie('user_role', $officer->role->role_name, 10, '/', null, false, true), cookie('user_designation', $officer->designation->description_english, 10, '/', null, false, true)]);
+                ])->withCookies([cookie('user_id', $officer->erp_id, 10, '/', null, false, true), cookie('user_type', 'officer', 10, '/', null, false, true), cookie('user_name', $officer->name, 10, '/', null, false, true), cookie('user_role', $officer->role->role_name, 10, '/', null, false, true), cookie('user_designation', $officer->designation->description_english, 10, '/', null, false, true), cookie('user_office_id', $officer->office->id, 10, '/', null, false, true)]);
             }
         } else {
             $validated = $request->validate([
