@@ -65,7 +65,6 @@ class ApplicationController extends Controller
 
     public function showAddOfficerSection()
     {
-        $offices = Office::all();
         return view('addvalidofficer');
     }
 
@@ -98,13 +97,12 @@ class ApplicationController extends Controller
     }
     public function showUpdateOfficerSection(Request $request)
     {
-        $id = (int)$request->route('id');
-        $officer = Officer::with('office')->find($id);
-        $offices = Office::all();
-        if ($officer) {
-            return view('updateofficer', compact('officer', 'offices'));
+        if ($request->cookie('user_role') === 'super_admin') {
+            $id = (int)$request->route('id');
+            $officer = Officer::with(['role', 'designation', 'office'])->find($id);
+            return view('updateofficer', compact('officer'));
         } else {
-            return response()->json(['id' => $id]);
+            return view('login');
         }
     }
 

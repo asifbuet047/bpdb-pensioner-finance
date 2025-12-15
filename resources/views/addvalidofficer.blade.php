@@ -76,12 +76,7 @@
 
                                 <div class="mb-4">
 
-                                    @if (session()->has('name'))
-                                        <label class="form-label" for="password">Password</label>
-                                        <input type="password" id="password" name="password"
-                                            class="form-control form-control-lg" value="{{ old('password') }}" disabled
-                                            hidden />
-                                    @else
+                                    @if (!session()->has('name'))
                                         <label class="form-label" for="password">Password</label>
                                         <input type="password" id="password" name="password"
                                             class="form-control form-control-lg" placeholder="Your login password" />

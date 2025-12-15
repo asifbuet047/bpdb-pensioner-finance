@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".officer-delete-buttons").forEach((row) => {
         row.addEventListener("click", (e) => {
             let name = e.currentTarget.getAttribute("data-name");
-            let index = e.currentTarget.getAttribute("data-index");
+            let index = e.currentTarget.getAttribute("data-db-id");
             console.log(name);
             const span = document.getElementById(
                 "officerDeleteActionModalSpan"
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".officer-update-buttons").forEach((row) => {
         row.addEventListener("click", (e) => {
             let name = e.currentTarget.getAttribute("data-name");
-            let index = e.currentTarget.getAttribute("data-index");
+            let index = e.currentTarget.getAttribute("data-db-id");
             const span = document.getElementById(
                 "officerUpdateActionModalSpan"
             );
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             let modalElement = document.getElementById(
-                "pensionerUpdateActionModal"
+                "officerUpdateActionModal"
             );
             let modal = bootstrap.Modal.getInstance(modalElement);
             modal.hide();
@@ -171,9 +171,9 @@ document.addEventListener("DOMContentLoaded", () => {
     //     }
     // });
 
-    document.addEventListener("click", function (e) {
-        if (!input.contains(e.target) && !list.contains(e.target)) {
-            list.innerHTML = "";
-        }
-    });
+    // document.addEventListener("click", function (e) {
+    //     if (!list.contains(e.target)) {
+    //         list.innerHTML = "";
+    //     }
+    // });
 });

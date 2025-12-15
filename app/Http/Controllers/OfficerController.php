@@ -205,26 +205,13 @@ class OfficerController extends Controller
     public function updateOfficerIntoDB(Request $request)
     {
         if ($request->cookie('user_role') === "super_admin") {
-            // $validated = $request->validate([
-            //     'erp_id' => 'required|integer|unique:officers,erp_id',
-            //     'name' => 'required|string|max:255',
-            //     'designation' => 'required|in:AD,SAD,DD',
-            //     'office_id' => 'required|integer|exists:offices,id',
-            //     'role' => 'required|in:ADMIN,USER,SUPER_ADMIN',
-            // ]);
-
             $editedOfficer = $request->all();
-            $exitingOfficer = Officer::find($editedOfficer['id']);
+            $exitingOfficer = Officer::with(['role'])->find($editedOfficer['id']);
             if ($exitingOfficer) {
-                $exitingOfficer->name = $editedOfficer['name'];
-                $exitingOfficer->designation = $editedOfficer['designation'];
-                $exitingOfficer->role = $editedOfficer['role'];
-                $exitingOfficer->erp_id = $editedOfficer['erp_id'];
-                $exitingOfficer->office_id = $editedOfficer['office_id'];
+                $exitingOfficer->role_id = Role::where('role_name', '=', $editedOfficer['role'])->value('id');
                 $exitingOfficer->save();
-
-                $officers = Officer::orderBy('name')->get();
-                return redirect()->route('show.officers')->with(compact('officers'));
+                $officers = Officer::with(['office', 'designation', 'role'])->orderBy('name')->get();
+                return view('viewofficers', compact('officers'));
             } else {
                 return response()->json(['message' => $editedOfficer['id']]);
             }
