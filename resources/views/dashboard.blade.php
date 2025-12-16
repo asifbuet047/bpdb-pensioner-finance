@@ -5,16 +5,15 @@
 @section('content')
     <section class="py-5">
         <div class="container text-center">
-            @if (request()->cookie('user_role') === 'super_admin')
+            @if ($officer_role === 'super_admin')
                 <h2 class="mb-4 fw-bold">Pensioner & User Management</h2>
             @else
                 <h2 class="mb-4 fw-bold">Pensioner Management</h2>
             @endif
 
 
-            @if (request()->cookie('user_role') === 'super_admin')
+            @if ($officer_role === 'super_admin')
                 <div class="row g-3 justify-content-center">
-
                     @if (request()->cookie('user_role') === 'initiator' || request()->cookie('user_role') === 'super_admin')
                         <!-- Add Pensioner Button -->
                         <div class="col-12 col-md-4 scale-animate">

@@ -12,51 +12,55 @@
                     <li class="nav-item scale-animate"><a class="nav-link" href="{{ route('home.page') }}">Home</a>
                     </li>
 
-                    @if (request()->cookie('user_role') === 'super_admin')
+                    @if (isset($officer_role) && $officer_role === 'super_admin')
                         <li class="nav-item scale-animate"><a class="nav-link" href="/pensioners/all">All Pensioner</a>
                         </li>
                         <li class="nav-item scale-animate"><a class="nav-link" href="/officers">All Officer</a></li>
                         <li class="nav-item scale-animate"><a class="nav-link" href="/offices">All Office</a></li>
                     @endif
-                    @if (request()->cookie('user_role') === 'admin')
+                    @if (isset($officer_role) && $officer_role === 'admin')
                         <li class="nav-item scale-animate"><a class="nav-link" href="/pensioners/all">All Pensioner</a>
                         </li>
                         <li class="nav-item scale-animate"><a class="nav-link" href="/offices">All Office</a></li>
                     @endif
+                    @if (isset($officer_role) && $officer_role === 'initiator')
+                        <li class="nav-item scale-animate"><a class="nav-link" href="/pensioners/all">All Pensioners</a>
+                        </li>
+                        <li class="nav-item scale-animate"><a class="nav-link" href="/offices">All Offices</a></li>
+                        <li class="nav-item scale-animate"><a class="nav-link" href="/offices">All Officers</a></li>
+                    @endif
 
-                    @if (request()->hasCookie('user_id') && request()->hasCookie('user_role') && request()->hasCookie('user_name'))
+                    @if (isset($officer_name))
                         <div class="dropdown">
                             <button class="btn btn-outline-primary dropdown-toggle" type="button"
                                 id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ request()->cookie('user_name') }}
+                                {{ $officer_name }}
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <li class="dropdown-item">You are <span
-                                        class="fw-bold">{{ request()->cookie('user_designation') }}</span>
+                                        class="fw-bold">{{ $officer_designation }}</span>
                                 </li>
                                 <li class="dropdown-divider"></li>
-                                @if (request()->cookie('user_role') === 'super_admin')
+                                @if ($officer_role === 'super_admin')
                                     <li class="dropdown-item">Your role <span class="fw-bold">{{ 'SUPER ADMIN' }}</span>
                                     </li>
                                 @endif
-                                @if (request()->cookie('user_role') === 'admin')
+                                @if ($officer_role === 'admin')
                                     <li class="dropdown-item">Your role <span class="fw-bold">{{ 'ADMIN' }}</span>
                                     </li>
                                 @endif
-                                @if (request()->cookie('user_role') === 'approver')
+                                @if ($officer_role === 'approver')
                                     <li class="dropdown-item">Your role <span class="fw-bold">{{ 'APPROVER' }}</span>
                                     </li>
                                 @endif
-                                @if (request()->cookie('user_role') === 'certificer')
+                                @if ($officer_role === 'certificer')
                                     <li class="dropdown-item">Your role <span class="fw-bold">{{ 'CERTIFIER' }}</span>
                                     </li>
                                 @endif
-                                @if (request()->cookie('user_role') === 'initiator')
+                                @if ($officer_role === 'initiator')
                                     <li class="dropdown-item">Your role <span class="fw-bold">{{ 'INITIATOR' }}</span>
                                     </li>
                                 @endif
-
-
                                 <li class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                             </ul>

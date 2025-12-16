@@ -25,8 +25,15 @@ class ApplicationController extends Controller
 
     public function showHomePage(Request $request)
     {
-        if ($request->cookie('user_type') === 'officer') {
-            switch ($request->cookie('user_role')) {
+        $erp_id = $request->cookie('user_id');
+        $user_type = $request->cookie('user_type');
+        if ($user_type === 'officer') {
+            $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            switch ($officer_role) {
                 case "super_admin":
                     $officeCount = Office::count();
                     $officerCount = Officer::count();
@@ -58,17 +65,15 @@ class ApplicationController extends Controller
                 case "initiator":
                     $officeCount = Office::count();
                     $officerCount = Officer::count();
-                    $initiatorOfficeCode = Officer::where('erp_id', '=', $request->cookie('user_id'))->first()->value('office_id');
-                    $pensionerCount = Pensioner::where('office_id', '=', $request->cookie('user_office_id'));
+                    $pensionerCount = Pensioner::count();
                     $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
-                    $designation = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
-                    return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation'));
+                    return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
                     break;
                 default:
                     return view('login');
                     break;
             }
-        } else if ($request->cookie('user_type') === 'pensioner') {
+        } else if ($user_type === 'pensioner') {
             $erp_id = $request->cookie('user_id');
             $name = $request->cookie('user_name');
             $pensionerDetails = Pensioner::where('erp_id', $erp_id)->with('office')->first();
@@ -82,9 +87,6 @@ class ApplicationController extends Controller
     {
         Cookie::queue(Cookie::forget('user_id'));
         Cookie::queue(Cookie::forget('user_type'));
-        Cookie::queue(Cookie::forget('user_name'));
-        Cookie::queue(Cookie::forget('user_role'));
-        Cookie::queue(Cookie::forget('user_designation'));
         return redirect()->route('login.page', ['type' => 'officer']);
     }
 
@@ -98,10 +100,62 @@ class ApplicationController extends Controller
         return view('addoffice');
     }
 
-    public function showAddPensionerSection()
+    public function showAddPensionerByErpSection(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            if ($officer_role === 'initiator') {
+                $officer_name = $officer->name;
+                $officer_office = $officer->office->name_in_english;
+                $officer_designation = $officer->designation->description_english;
+                return view('addpensionerbyerp', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            } else {
+                return view('login');
+            }
+        } else {
+            return view('login');
+        }
+    }
+
+    public function showAddPensionerByFillingFormSection(Request $request)
     {
         $offices = Office::all();
-        return view('addpensioner', compact('offices'));
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            if ($officer_role === 'initiator') {
+                $officer_name = $officer->name;
+                $officer_office = $officer->office->name_in_english;
+                $officer_designation = $officer->designation->description_english;
+                return view('addpensionerbyform', compact('offices', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            } else {
+                return view('login');
+            }
+        } else {
+            return view('login');
+        }
+    }
+
+    public function showAddPensionerVariantSection(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            if ($officer_role === 'initiator') {
+                $officer_name = $officer->name;
+                $officer_office = $officer->office->name_in_english;
+                $officer_designation = $officer->designation->description_english;
+                return view('addpensioner', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            } else {
+                return view('login');
+            }
+        } else {
+            return view('login');
+        }
     }
 
     public function showOfficerSearchSection()
@@ -161,7 +215,7 @@ class ApplicationController extends Controller
                 return redirect()->back()->with([
                     'erp_id' => $validated['erp_id'],
                     'password' => $validated['password']
-                ])->withCookies([cookie('user_id', $officer->erp_id, 10, '/', null, false, true), cookie('user_type', 'officer', 10, '/', null, false, true), cookie('user_name', $officer->name, 10, '/', null, false, true), cookie('user_role', $officer->role->role_name, 10, '/', null, false, true), cookie('user_designation', $officer->designation->description_english, 10, '/', null, false, true), cookie('user_office_id', $officer->office->id, 10, '/', null, false, true)]);
+                ])->withCookies([cookie('user_id', $officer->erp_id, 10, '/', null, false, true), cookie('user_type', 'officer', 10, '/', null, false, true)]);
             }
         } else {
             $validated = $request->validate([

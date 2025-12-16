@@ -20,7 +20,13 @@ Route::post('/set', [PensionerCredentialController::class, 'addPensionerCredenti
 Route::get('/logout', [ApplicationController::class, 'logout'])->name('logout');
 
 
-Route::get('/pensioner/new', [ApplicationController::class, 'showAddPensionerSection'])->name('add.pensioner.section');
+Route::get('/pensioner/new', [ApplicationController::class, 'showAddPensionerVariantSection'])->name('add.pensioner.section');
+
+Route::get('/pensioner/add/erp', [ApplicationController::class, 'showAddPensionerByErpSection'])->name('add.pensioner.erp.section');
+
+Route::post('/pensioner/add/erp', [PensionerController::class, 'searchPensionerByErp'])->name('search.pensioner.erp.process');
+
+Route::get('/pensioner/add/form', [ApplicationController::class, 'showAddPensionerByFillingFormSection'])->name('add.pensioner.form.section');
 
 Route::get('/pensioner/update/{id}', [ApplicationController::class, 'showUpdatePensionerSection'])->name('update.pensioner.section');
 
