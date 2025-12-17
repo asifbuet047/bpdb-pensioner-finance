@@ -111,7 +111,7 @@ class ApplicationController extends Controller
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
             $officer_role = $officer->role->role_name;
-            if ($officer_role === 'initiator') {
+            if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
                 $officer_name = $officer->name;
                 $officer_office = $officer->office->name_in_english;
                 $officer_designation = $officer->designation->description_english;
@@ -131,7 +131,7 @@ class ApplicationController extends Controller
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
             $officer_role = $officer->role->role_name;
-            if ($officer_role === 'initiator') {
+            if (($officer_role === 'initiator') || ($officer_role === 'super_admin')) {
                 $officer_name = $officer->name;
                 $officer_office = $officer->office->name_in_english;
                 $officer_designation = $officer->designation->description_english;
@@ -150,7 +150,7 @@ class ApplicationController extends Controller
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
             $officer_role = $officer->role->role_name;
-            if ($officer_role === 'initiator') {
+            if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
                 $officer_name = $officer->name;
                 $officer_office = $officer->office->name_in_english;
                 $officer_designation = $officer->designation->description_english;
@@ -169,7 +169,7 @@ class ApplicationController extends Controller
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
             $officer_role = $officer->role->role_name;
-            if ($officer_role === 'initiator') {
+            if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
                 $officer_name = $officer->name;
                 $officer_office = $officer->office->name_in_english;
                 $officer_designation = $officer->designation->description_english;
@@ -188,7 +188,7 @@ class ApplicationController extends Controller
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
             $officer_role = $officer->role->role_name;
-            if ($officer_role === 'initiator') {
+            if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
                 $officer_name = $officer->name;
                 $officer_office = $officer->office->name_in_english;
                 $officer_designation = $officer->designation->description_english;

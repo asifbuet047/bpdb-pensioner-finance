@@ -71,7 +71,7 @@ class PensionerController extends Controller
             'erp_id' => [
                 'required',
                 'digits:9',
-                'unique:officers,erp_id',
+                'unique:pensioners,erp_id',
             ],
         ], [
             'erp_id.digits' => 'ERP ID must be exactly 9 digits.',
@@ -124,74 +124,62 @@ class PensionerController extends Controller
         ])->json();
 
         if (is_array($pensioner_info['value']) && !empty($pensioner_info['value'])) {
-            if (is_array($pensioner_parent_info['value']) && !empty($pensioner_parent_info['value'])) {
-                if (is_array($pensioner_spouses_info['value']) && !empty($pensioner_spouses_info['value'])) {
-                    if (is_array($pensioner_bank_info['value']) && !empty($pensioner_bank_info['value'])) {
-                        $pensioner_information = $pensioner_info['value'][0];
-                        $pensioner_parent_information = $pensioner_parent_info['value'][0];
-                        $pensioner_spouse_inforamtion = $pensioner_spouses_info['value'][0];
-                        $pensioner_bank_information = $pensioner_bank_info['value'][0];
-                        $pensioner_info = [
-                            // ERP / Identity
-                            'erp_id' => $pensioner_information['No'],
-                            'name' => $pensioner_information['First_Name'],
-                            'name_bangla' => $pensioner_information['Name_in_Bangla'],
-                            'register_no' => $pensioner_information['Employee_Code'],
+            $pensioner_information = $pensioner_info['value'][0];
+            $pensioner_parent_information = $pensioner_parent_info['value'][0] ?? null;
+            $pensioner_spouse_inforamtion = $pensioner_spouses_info['value'][0] ?? null;
+            $pensioner_bank_information = $pensioner_bank_info['value'][0] ?? null;
+            $pensioner_info = [
+                // ERP / Identity
+                'erp_id' => $pensioner_information['No'],
+                'name' => $pensioner_information['First_Name'],
+                'name_bangla' => $pensioner_information['Name_in_Bangla'],
+                'register_no' => $pensioner_information['Employee_Code'],
 
-                            // Office & Designation
-                            'designation' => $pensioner_information['Designation'],
-                            'office_id' => Office::where('name_in_english', 'LIKE', "%{$pensioner_information['Office_Name']}%")->value('id') ?? 0,
-                            'office' => $pensioner_information['Office_Name'],
+                // Office & Designation
+                'designation' => $pensioner_information['Designation'],
+                'office_id' => Office::where('name_in_english', 'LIKE', "%{$pensioner_information['Office_Name']}%")->value('id') ?? 0,
+                'office' => $pensioner_information['Office_Name'],
 
-                            // Dates
-                            'birth_date' => $pensioner_information['Birth_Date'],
-                            'joining_date' => $pensioner_information['Employment_Date'],
-                            'prl_start_date' => $pensioner_information['Retirement_Date'],
-                            'prl_end_date' => $pensioner_information['Retirement_Date'],
+                // Dates
+                'birth_date' => $pensioner_information['Birth_Date'],
+                'joining_date' => $pensioner_information['Employment_Date'],
+                'prl_start_date' => $pensioner_information['Retirement_Date'],
+                'prl_end_date' => $pensioner_information['Retirement_Date'],
 
-                            // Contact
-                            'phone_number' => $pensioner_information['Phone_No'],
-                            'email' => $pensioner_information['E_Mail'],
-                            'nid' => $pensioner_information['NID'],
+                // Contact
+                'phone_number' => $pensioner_information['Phone_No'],
+                'email' => $pensioner_information['E_Mail'],
+                'nid' => $pensioner_information['NID'],
 
-                            // Financial 
-                            'last_basic_salary' => Payscale::where('grade', 'LIKE', "%{$pensioner_information['Grade_Code']}%")
-                                ->whereRaw(
-                                    'LOWER(step) LIKE ?',
-                                    ['%' . strtolower($pensioner_information['Pay_Grade_Step']) . '%']
-                                )
-                                ->value('basic'),
-                            // Bank info (NOT in response)
-                            'bank_name' => $pensioner_bank_information['EmpBankName'] ?? '',
-                            'bank_branch_name' => $pensioner_bank_information['EmpBranchName'] ?? '',
-                            'bank_routing_number' => $pensioner_bank_information['Bank_Routing_Number'] ?? '',
-                            'account_number' => $pensioner_bank_information['Bank_Account_No'] ?? '',
+                // Financial 
+                'last_basic_salary' => Payscale::where('grade', 'LIKE', "%{$pensioner_information['Grade_Code']}%")
+                    ->whereRaw(
+                        'LOWER(step) LIKE ?',
+                        ['%' . strtolower($pensioner_information['Pay_Grade_Step']) . '%']
+                    )
+                    ->value('basic') ?? 0,
+                // Bank info (NOT in response)
+                'bank_name' => $pensioner_bank_information['EmpBankName'] ?? '',
+                'bank_branch_name' => $pensioner_bank_information['EmpBranchName'] ?? '',
+                'bank_routing_number' => $pensioner_bank_information['Bank_Routing_Number'] ?? '',
+                'account_number' => $pensioner_bank_information['Bank_Account_No'] ?? '',
 
-                            // Family info (partially available)
-                            'father_name' => $pensioner_parent_information['Fathers_Name'] ?? '',
-                            'mother_name' => $pensioner_parent_information['Mothers_Name'] ?? '',
-                            'spouse_name' => $pensioner_spouse_inforamtion['Spouse_Name'] ?? '',
+                // Family info (partially available)
+                'father_name' => $pensioner_parent_information['Fathers_Name'] ?? '',
+                'mother_name' => $pensioner_parent_information['Mothers_Name'] ?? '',
+                'spouse_name' => $pensioner_spouse_inforamtion['Spouse_Name'] ?? '',
 
-                            // Pension flags
-                            'is_self_pension' => true,
-                            'status' => 'pending',
-                            'verified' => false,
-                            'biometric_verified' => false,
-                            'biometric_verification_type' => 'fingerprint',
+                // Pension flags
+                'is_self_pension' => 'self',
+                'status' => 'pending',
+                'verified' => 'verified',
+                'biometric_verified' => 'biometric verified',
+                'biometric_verification_type' => 'fingerprint',
 
-                            'pension_payment_order' => '',
-                        ];
+                'pension_payment_order' => '',
+            ];
 
-                        return view('addpensionerbyerp', compact('pensioner_info'));
-                    } else {
-                        # code...
-                    }
-                } else {
-                    # code...
-                }
-            } else {
-                # code...
-            }
+            return view('addpensionerbyerp', compact('pensioner_info'));
         } else {
             return redirect()->back()->withErrors([
                 'erp_id' => $request->input('erp_id') . ' ' . 'is not valid ERP ID'
