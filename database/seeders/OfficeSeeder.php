@@ -39,7 +39,7 @@ class OfficeSeeder extends Seeder
                 $address = trim($row[3] ?? '');
                 $mobile_no = trim($row[4] ?? '');
                 $email = trim($row[5] ?? '');
-                $is_payment_office = $row[6] === 'True' ? true : false;
+                $is_payment_office = $row[6] === 'TRUE' ? true : false;
                 $payment_office_code = trim($row[7] ?? '');
 
                 if (empty($office_code)) {

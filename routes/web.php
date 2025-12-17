@@ -24,6 +24,10 @@ Route::get('/pensioner/new', [ApplicationController::class, 'showAddPensionerVar
 
 Route::get('/pensioner/add/erp', [ApplicationController::class, 'showAddPensionerByErpSection'])->name('add.pensioner.erp.section');
 
+Route::get('/pensioner/search', [ApplicationController::class, 'showPensionerSearchSection'])->name('search.pensioner.section');
+
+Route::post('/pensioner/search', [PensionerController::class, 'searchPensionerByErp'])->name('get.specific.pensioner');
+
 Route::post('/pensioner/add/erp', [PensionerController::class, 'searchPensionerByErp'])->name('search.pensioner.erp.process');
 
 Route::get('/pensioner/add/form', [ApplicationController::class, 'showAddPensionerByFillingFormSection'])->name('add.pensioner.form.section');

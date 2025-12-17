@@ -20,7 +20,7 @@
                         style="background: linear-gradient(135deg, #6a11cb, #2575fc);">
                         <div>
                             <h3 class="mb-3">Add Pensioner by ERP</h3>
-                            <a href="{{ route('add.pensioner.erp.section') }}"
+                            <a href="{{ route('search.pensioner.section') }}"
                                 class="text-white fw-bold text-decoration-none">
                                 More info <i class="bi bi-arrow-right"></i>
                             </a>

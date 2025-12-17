@@ -29,49 +29,55 @@ class ApplicationController extends Controller
         $user_type = $request->cookie('user_type');
         if ($user_type === 'officer') {
             $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
-            $officer_role = $officer->role->role_name;
-            $officer_name = $officer->name;
-            $officer_office = $officer->office->name_in_english;
-            $officer_designation = $officer->designation->description_english;
-            switch ($officer_role) {
-                case "super_admin":
-                    $officeCount = Office::count();
-                    $officerCount = Officer::count();
-                    $pensionerCount = Pensioner::count();
-                    $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
-                    $designation = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
-                    return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation'));
-                    break;
-                case "admin":
-                    $pensionerCount = Pensioner::count();
-                    return view('dashboard', compact('pensionerCount'));
-                    break;
-                case "approver":
-                    $officeCount = Office::count();
-                    $officerCount = Officer::count();
-                    $pensionerCount = Pensioner::count();
-                    $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
-                    $designation = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
-                    return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation'));
-                    break;
-                case "certifier":
-                    $officeCount = Office::count();
-                    $officerCount = Officer::count();
-                    $pensionerCount = Pensioner::count();
-                    $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
-                    $designation = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
-                    return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation'));
-                    break;
-                case "initiator":
-                    $officeCount = Office::count();
-                    $officerCount = Officer::count();
-                    $pensionerCount = Pensioner::count();
-                    $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
-                    return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
-                    break;
-                default:
-                    return view('login');
-                    break;
+            if ($officer) {
+                $officer_role = $officer->role->role_name;
+                $officer_name = $officer->name;
+                $officer_office = $officer->office->name_in_english;
+                $officer_designation = $officer->designation->description_english;
+                switch ($officer_role) {
+                    case "super_admin":
+                        $officeCount = Office::count();
+                        $officerCount = Officer::count();
+                        $pensionerCount = Pensioner::count();
+                        $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
+                        $designation = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
+                        return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation'));
+                        break;
+                    case "admin":
+                        $pensionerCount = Pensioner::count();
+                        return view('dashboard', compact('pensionerCount'));
+                        break;
+                    case "approver":
+                        $officeCount = Office::count();
+                        $officerCount = Officer::count();
+                        $pensionerCount = Pensioner::count();
+                        $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
+                        $designation = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
+                        return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation'));
+                        break;
+                    case "certifier":
+                        $officeCount = Office::count();
+                        $officerCount = Officer::count();
+                        $pensionerCount = Pensioner::count();
+                        $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
+                        $designation = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
+                        return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation'));
+                        break;
+                    case "initiator":
+                        $officeCount = Office::count();
+                        $officerCount = Officer::count();
+                        $pensionerCount = Pensioner::count();
+                        $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
+                        return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                        break;
+                    default:
+                        return view('login');
+                        break;
+                }
+            } else {
+                Cookie::queue(Cookie::forget('user_id'));
+                Cookie::queue(Cookie::forget('user_type'));
+                return view('login');
             }
         } else if ($user_type === 'pensioner') {
             $erp_id = $request->cookie('user_id');
@@ -158,9 +164,42 @@ class ApplicationController extends Controller
         }
     }
 
-    public function showOfficerSearchSection()
+    public function showOfficerSearchSection(Request $request)
     {
-        return view('searchofficer');
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            if ($officer_role === 'initiator') {
+                $officer_name = $officer->name;
+                $officer_office = $officer->office->name_in_english;
+                $officer_designation = $officer->designation->description_english;
+                return view('searchofficer', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            } else {
+                return view('login');
+            }
+        } else {
+            return view('login');
+        }
+    }
+
+    public function showPensionerSearchSection(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            if ($officer_role === 'initiator') {
+                $officer_name = $officer->name;
+                $officer_office = $officer->office->name_in_english;
+                $officer_designation = $officer->designation->description_english;
+                return view('searchpensioner', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            } else {
+                return view('login');
+            }
+        } else {
+            return view('login');
+        }
     }
 
     public function showUpdatePensionerSection(Request $request)

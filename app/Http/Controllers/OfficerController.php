@@ -180,10 +180,18 @@ class OfficerController extends Controller
 
     public function getAllOfficersFromDB(Request $request)
     {
-        if ($request->hasCookie('user_role')) {
-            if ($request->cookie('user_role') === "super_admin") {
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            if ($officer_role === 'super_admin') {
+                $officer_name = $officer->name;
+                $officer_office = $officer->office->name_in_english;
+                $officer_designation = $officer->designation->description_english;
                 $officers = Officer::with(['office', 'designation', 'role'])->orderBy('name')->get();
                 return view('viewofficers', compact('officers'));
+            } else {
+                return view('login');
             }
         } else {
             return view('login');
@@ -192,10 +200,18 @@ class OfficerController extends Controller
 
     public function getSpecificOfficerFromDB(Request $request)
     {
-        if ($request->hasCookie('user_role')) {
-            if ($request->cookie('user_role') === 'super_admin') {
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            if ($officer_role === 'super_admin') {
+                $officer_name = $officer->name;
+                $officer_office = $officer->office->name_in_english;
+                $officer_designation = $officer->designation->description_english;
                 $officers = Officer::with(['office', 'designation', 'role'])->where('erp_id', 'LIKE', "%{$request->input('erp_id')}%")->orderBy('erp_id')->get();
                 return view('viewofficers', compact('officers'));
+            } else {
+                return view('login');
             }
         } else {
             return view('login');

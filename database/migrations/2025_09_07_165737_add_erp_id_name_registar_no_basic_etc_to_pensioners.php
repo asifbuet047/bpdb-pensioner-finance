@@ -15,7 +15,7 @@ return new class extends Migration
             $table->integer('erp_id', false, true);
             $table->string('name');
             $table->string('register_no', 50);
-            $table->integer('basic_salary', false, true);
+            $table->integer('last_basic_salary', false, true);
             $table->integer('medical_allowance', false, true);
             $table->float('incentive_bonus');
             $table->string('bank_name');
