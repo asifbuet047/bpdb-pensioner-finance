@@ -40,8 +40,7 @@ class ApplicationController extends Controller
                         $officerCount = Officer::count();
                         $pensionerCount = Pensioner::count();
                         $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
-                        $designation = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
-                        return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation'));
+                        return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
                         break;
                     case "admin":
                         $pensionerCount = Pensioner::count();

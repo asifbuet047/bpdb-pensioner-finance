@@ -8,9 +8,6 @@ use Illuminate\Database\Seeder;
 
 class DesignationSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $designations = [
@@ -86,7 +83,7 @@ class DesignationSeeder extends Seeder
             ],
         ];
 
-        
+
 
         foreach ($designations as $designation) {
             Designation::create($designation);
