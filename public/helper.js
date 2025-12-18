@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
         row.addEventListener("click", (e) => {
             let name = e.currentTarget.getAttribute("data-name");
             let index = e.currentTarget.getAttribute("data-db-id");
-            console.log(name);
             const span = document.getElementById(
                 "officerDeleteActionModalSpan"
             );

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Office;
+use App\Models\Officer;
 use Illuminate\Http\Request;
 
 class OfficeController extends Controller
@@ -29,9 +30,19 @@ class OfficeController extends Controller
 
     public function getAllOfficesFromDB(Request $request)
     {
-        if ($request->cookie('user_role') === "super_admin") {
-            $offices = Office::orderBy('office_code')->get();
-            return view('viewoffices', compact('offices'));
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            if ($officer_role === 'super_admin') {
+                $offices = Office::orderBy('office_code')->get();
+                return view('viewoffices', compact('offices', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            } else {
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            }
         } else {
             return view('login');
         }
@@ -39,10 +50,19 @@ class OfficeController extends Controller
 
     public function getAllPaymentOfficesFromDB(Request $request)
     {
-        if ($request->cookie('user_role') === "super_admin") {
-
-            $offices = Office::where('is_payment_office', true)->orderBy('office_code')->get();
-            return view('viewpaymentoffices', compact('offices'));
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            if ($officer_role === 'super_admin') {
+                $offices = Office::where('is_payment_office', true)->orderBy('office_code')->get();
+                return view('viewpaymentoffices', compact('offices', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            } else {
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            }
         } else {
             return view('login');
         }
@@ -50,10 +70,20 @@ class OfficeController extends Controller
 
     public function getAllUnitOfficesFromDB(Request $request)
     {
-        if ($request->cookie('user_role') === "super_admin") {
-            $code = $request->query('code');
-            $offices = Office::where('payment_office_code', '=', $code)->orderBy('office_code')->get();
-            return view('viewunitoffices', compact('offices', 'code'));
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            if ($officer_role === 'super_admin') {
+                $code = $request->query('code');
+                $offices = Office::where('payment_office_code', '=', $code)->orderBy('office_code')->get();
+                return view('viewunitoffices', compact('offices', 'code', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            } else {
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            }
         } else {
             return view('login');
         }

@@ -21,7 +21,20 @@
                     @if (isset($officer_role) && $officer_role === 'admin')
                         <li class="nav-item scale-animate"><a class="nav-link" href="/pensioners/all">All Pensioner</a>
                         </li>
+                        <li class="nav-item scale-animate"><a class="nav-link" href="/officers">All Officer</a></li>
                         <li class="nav-item scale-animate"><a class="nav-link" href="/offices">All Office</a></li>
+                    @endif
+                    @if (isset($officer_role) && $officer_role === 'approver')
+                        <li class="nav-item scale-animate"><a class="nav-link" href="/pensioners/all">All Pensioners</a>
+                        </li>
+                        <li class="nav-item scale-animate"><a class="nav-link" href="/offices">All Offices</a></li>
+                        <li class="nav-item scale-animate"><a class="nav-link" href="/offices">All Officers</a></li>
+                    @endif
+                    @if (isset($officer_role) && $officer_role === 'certifier')
+                        <li class="nav-item scale-animate"><a class="nav-link" href="/pensioners/all">All Pensioners</a>
+                        </li>
+                        <li class="nav-item scale-animate"><a class="nav-link" href="/offices">All Offices</a></li>
+                        <li class="nav-item scale-animate"><a class="nav-link" href="/offices">All Officers</a></li>
                     @endif
                     @if (isset($officer_role) && $officer_role === 'initiator')
                         <li class="nav-item scale-animate"><a class="nav-link" href="/pensioners/all">All Pensioners</a>
@@ -41,8 +54,12 @@
                                         class="fw-bold">{{ $officer_designation }}</span>
                                 </li>
                                 <li class="dropdown-divider"></li>
+                                <li class="dropdown-item">Your office <span class="fw-bold">{{ $officer_office }}</span>
+                                </li>
+                                <li class="dropdown-divider"></li>
                                 @if ($officer_role === 'super_admin')
-                                    <li class="dropdown-item">Your role <span class="fw-bold">{{ 'SUPER ADMIN' }}</span>
+                                    <li class="dropdown-item">Your role is <span
+                                            class="fw-bold">{{ 'SUPER ADMIN' }}</span>
                                     </li>
                                 @endif
                                 @if ($officer_role === 'admin')
@@ -53,7 +70,7 @@
                                     <li class="dropdown-item">Your role <span class="fw-bold">{{ 'APPROVER' }}</span>
                                     </li>
                                 @endif
-                                @if ($officer_role === 'certificer')
+                                @if ($officer_role === 'certifier')
                                     <li class="dropdown-item">Your role <span class="fw-bold">{{ 'CERTIFIER' }}</span>
                                     </li>
                                 @endif

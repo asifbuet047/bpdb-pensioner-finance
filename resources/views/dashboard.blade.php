@@ -91,7 +91,38 @@
                         </div>
                     </div>
                 </div>
-            @else
+            @endif
+
+            @if (isset($officer_role) && $officer_role === 'initiator')
+                <div class="row g-3 justify-content-center">
+                    <!-- Add Pensioner Button -->
+                    <div class="col-12 col-md-4 scale-animate">
+                        <div class="info-box" style="background: linear-gradient(135deg, #6a11cb, #2575fc);">
+                            <div>
+                                <h3>Add Pensioner</h3>
+                                <a href="{{ route('add.pensioner.section') }}">More info <i
+                                        class="bi bi-arrow-right"></i></a>
+                            </div>
+                            <div class="icon"><i class="bi bi-person-fill-add"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- View All Pensioner Button -->
+                    <div class="col-12 col-md-4 scale-animate">
+                        <div class="info-box" style="background: linear-gradient(135deg, #ff7e5f, #feb47b);">
+                            <div>
+                                <h3>{{ $pensionerCount }} pensioner</h3>
+                                <h3>View All Pensioners</h3>
+                                <a href="{{ route('show.pensioner.section') }}">More info <i
+                                        class="bi bi-arrow-right"></i></a>
+                            </div>
+                            <div class="icon"><i class="bi bi-people-fill"></i></div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            @if (isset($officer_role) && $officer_role === 'certifier')
                 <div class="row g-3 justify-content-center">
                     <!-- Add Pensioner Button -->
                     <div class="col-12 col-md-4 scale-animate">

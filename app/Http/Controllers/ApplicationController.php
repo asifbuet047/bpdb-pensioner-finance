@@ -60,14 +60,11 @@ class ApplicationController extends Controller
                         $pensionerCount = Pensioner::count();
                         $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
                         $designation = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
-                        return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation'));
+                        return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
                         break;
                     case "initiator":
-                        $officeCount = Office::count();
-                        $officerCount = Officer::count();
                         $pensionerCount = Pensioner::count();
-                        $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
-                        return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                        return view('dashboard', compact('pensionerCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
                         break;
                     default:
                         return view('login');
@@ -111,13 +108,13 @@ class ApplicationController extends Controller
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
             $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
             if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
-                $officer_name = $officer->name;
-                $officer_office = $officer->office->name_in_english;
-                $officer_designation = $officer->designation->description_english;
                 return view('addpensionerbyerp', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
             } else {
-                return view('login');
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
             }
         } else {
             return view('login');
@@ -131,13 +128,13 @@ class ApplicationController extends Controller
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
             $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
             if (($officer_role === 'initiator') || ($officer_role === 'super_admin')) {
-                $officer_name = $officer->name;
-                $officer_office = $officer->office->name_in_english;
-                $officer_designation = $officer->designation->description_english;
                 return view('addpensionerbyform', compact('offices', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
             } else {
-                return view('login');
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
             }
         } else {
             return view('login');
@@ -150,13 +147,13 @@ class ApplicationController extends Controller
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
             $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
             if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
-                $officer_name = $officer->name;
-                $officer_office = $officer->office->name_in_english;
-                $officer_designation = $officer->designation->description_english;
                 return view('addpensioner', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
             } else {
-                return view('login');
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
             }
         } else {
             return view('login');
@@ -169,13 +166,13 @@ class ApplicationController extends Controller
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
             $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
             if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
-                $officer_name = $officer->name;
-                $officer_office = $officer->office->name_in_english;
-                $officer_designation = $officer->designation->description_english;
                 return view('searchofficer', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
             } else {
-                return view('login');
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
             }
         } else {
             return view('login');
@@ -188,13 +185,13 @@ class ApplicationController extends Controller
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
             $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
             if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
-                $officer_name = $officer->name;
-                $officer_office = $officer->office->name_in_english;
-                $officer_designation = $officer->designation->description_english;
                 return view('searchpensioner', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
             } else {
-                return view('login');
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
             }
         } else {
             return view('login');
@@ -203,21 +200,45 @@ class ApplicationController extends Controller
 
     public function showUpdatePensionerSection(Request $request)
     {
-        $id = (int)$request->route('id');
-        $pensioner = Pensioner::with('office')->find($id);
-        $offices = Office::orderBy('officeCode')->get();
-        if ($pensioner) {
-            return view('updatepensioner', compact('pensioner', 'offices'));
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            if ($officer_role === 'initiator') {
+                $id = (int)$request->route('id');
+                $pensioner = Pensioner::with('office')->find($id);
+                $offices = Office::orderBy('officeCode')->get();
+                if ($pensioner) {
+                    return view('updatepensioner', compact('pensioner', 'offices', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                } else {
+                    return response()->json(['id' => $id]);
+                }
+            } else {
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            }
         } else {
-            return response()->json(['id' => $id]);
+            return view('login');
         }
     }
     public function showUpdateOfficerSection(Request $request)
     {
-        if ($request->cookie('user_role') === 'super_admin') {
-            $id = (int)$request->route('id');
-            $officer = Officer::with(['role', 'designation', 'office'])->find($id);
-            return view('updateofficer', compact('officer'));
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            if ($officer_role === 'super_admin') {
+                $id = (int)$request->route('id');
+                $officer = Officer::with(['role', 'designation', 'office'])->find($id);
+                return view('updateofficer', compact('officer', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            } else {
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            }
         } else {
             return view('login');
         }

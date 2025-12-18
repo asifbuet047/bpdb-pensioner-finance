@@ -50,6 +50,22 @@
             transition: transform 0.3s ease-in-out;
         }
 
+        .scale-animate-infinite {
+            animation: scaleSoft 4s ease-in-out infinite;
+        }
+
+        @keyframes scaleSoft {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
         .scale-animate:hover {
             transform: scale(1.03);
         }

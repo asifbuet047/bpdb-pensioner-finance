@@ -13,7 +13,9 @@ use App\Models\Payscale;
 use App\Models\Pensioner;
 use App\Models\Role;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -67,123 +69,171 @@ class PensionerController extends Controller
 
     public function searchPensionerByErp(Request $request)
     {
-        $validated = $request->validate([
-            'erp_id' => [
-                'required',
-                'digits:9',
-                'unique:pensioners,erp_id',
-            ],
-        ], [
-            'erp_id.digits' => 'ERP ID must be exactly 9 digits.',
-            'erp_id.required' => 'ERP ID is required.',
-            'erp_id.unique' => 'This ERP ID already exists means Pensioner is already registered into system',
-        ]);
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
 
-        $pensioner_info = Http::withOptions(['verify' => false, 'allow_redirects' => false])->withHeaders([
-            'Authorization' => 'Basic ' . base64_encode(
-                config('custom.BC_USERNAME') . ':' . config('custom.BC_PASSWORD')
-            ),
-            'Accept' => 'application/json',
-            'User-Agent' => config('custom.ERP_USER_AGENT_HEADER'),
-        ])->get(config('custom.BC_EMPLOYEE_INFO_URL'), [
-            '$filter' => "No eq '" . $validated['erp_id'] . "'",
-            '$top' => '1'
-        ])->json();
+                $validated = $request->validate([
+                    'erp_id' => [
+                        'required',
+                        'digits:9',
+                        function ($attribute, $value, $fail) {
+                            $existsInPensioners = DB::table('pensioners')
+                                ->where('erp_id', $value)
+                                ->exists();
 
-        $pensioner_parent_info = Http::withOptions(['verify' => false, 'allow_redirects' => false])->withHeaders([
-            'Authorization' => 'Basic ' . base64_encode(
-                config('custom.BC_USERNAME') . ':' . config('custom.BC_PASSWORD')
-            ),
-            'Accept' => 'application/json',
-            'User-Agent' => config('custom.ERP_USER_AGENT_HEADER'),
-        ])->get(config('custom.BC_EMPLOYEE_PARENT_INFO_URL'), [
-            '$filter' => "Employee_Id eq '" . $validated['erp_id'] . "'",
-            '$top' => '1'
-        ])->json();
+                            $existsInOfficers = DB::table('officers')
+                                ->where('erp_id', $value)
+                                ->exists();
 
-        $pensioner_spouses_info = Http::withOptions(['verify' => false, 'allow_redirects' => false])->withHeaders([
-            'Authorization' => 'Basic ' . base64_encode(
-                config('custom.BC_USERNAME') . ':' . config('custom.BC_PASSWORD')
-            ),
-            'Accept' => 'application/json',
-            'User-Agent' => config('custom.ERP_USER_AGENT_HEADER'),
-        ])->get(config('custom.BC_EMPLOYEE_SPOUSES_INFO_URL'), [
-            '$filter' => "Employee_Id eq '" . $validated['erp_id'] . "'",
-            '$top' => '1'
-        ])->json();
+                            if ($existsInPensioners) {
+                                $fail('This Pensioners ERP ID already exists in the pensioner database.');
+                            }
+                            if ($existsInOfficers) {
+                                $fail('This Officer ERP ID is already posted as Payment Officer.');
+                                $fail('Release this Officer from Payment role then try again.');
+                            }
+                        },
+                    ],
+                ], [
+                    'erp_id.digits' => 'ERP ID must be exactly 9 digits.',
+                    'erp_id.required' => 'ERP ID is required.',
+                ]);
 
-        $pensioner_bank_info = Http::withOptions(['verify' => false, 'allow_redirects' => false])->withHeaders([
-            'Authorization' => 'Basic ' . base64_encode(
-                config('custom.BC_USERNAME') . ':' . config('custom.BC_PASSWORD')
-            ),
-            'Accept' => 'application/json',
-            'User-Agent' => config('custom.ERP_USER_AGENT_HEADER'),
-        ])->get(config('custom.BC_EMPLOYEE_BANK_INFO_URL'), [
-            '$filter' => "No eq '" . $validated['erp_id'] . "'",
-            '$top' => '1'
-        ])->json();
+                $pensioner_info = Http::withOptions(['verify' => false, 'allow_redirects' => false])->withHeaders([
+                    'Authorization' => 'Basic ' . base64_encode(
+                        config('custom.BC_USERNAME') . ':' . config('custom.BC_PASSWORD')
+                    ),
+                    'Accept' => 'application/json',
+                    'User-Agent' => config('custom.ERP_USER_AGENT_HEADER'),
+                ])->get(config('custom.BC_EMPLOYEE_INFO_URL'), [
+                    '$filter' => "No eq '" . $validated['erp_id'] . "'",
+                    '$top' => '1'
+                ])->json();
 
-        if (is_array($pensioner_info['value']) && !empty($pensioner_info['value'])) {
-            $pensioner_information = $pensioner_info['value'][0];
-            $pensioner_parent_information = $pensioner_parent_info['value'][0] ?? null;
-            $pensioner_spouse_inforamtion = $pensioner_spouses_info['value'][0] ?? null;
-            $pensioner_bank_information = $pensioner_bank_info['value'][0] ?? null;
-            $pensioner_info = [
-                // ERP / Identity
-                'erp_id' => $pensioner_information['No'],
-                'name' => $pensioner_information['First_Name'],
-                'name_bangla' => $pensioner_information['Name_in_Bangla'],
-                'register_no' => $pensioner_information['Employee_Code'],
+                $pensioner_parent_info = Http::withOptions(['verify' => false, 'allow_redirects' => false])->withHeaders([
+                    'Authorization' => 'Basic ' . base64_encode(
+                        config('custom.BC_USERNAME') . ':' . config('custom.BC_PASSWORD')
+                    ),
+                    'Accept' => 'application/json',
+                    'User-Agent' => config('custom.ERP_USER_AGENT_HEADER'),
+                ])->get(config('custom.BC_EMPLOYEE_PARENT_INFO_URL'), [
+                    '$filter' => "Employee_Id eq '" . $validated['erp_id'] . "'",
+                    '$top' => '1'
+                ])->json();
 
-                // Office & Designation
-                'designation' => $pensioner_information['Designation'],
-                'office_id' => Office::where('name_in_english', 'LIKE', "%{$pensioner_information['Office_Name']}%")->value('id') ?? 0,
-                'office' => $pensioner_information['Office_Name'],
+                $pensioner_spouses_info = Http::withOptions(['verify' => false, 'allow_redirects' => false])->withHeaders([
+                    'Authorization' => 'Basic ' . base64_encode(
+                        config('custom.BC_USERNAME') . ':' . config('custom.BC_PASSWORD')
+                    ),
+                    'Accept' => 'application/json',
+                    'User-Agent' => config('custom.ERP_USER_AGENT_HEADER'),
+                ])->get(config('custom.BC_EMPLOYEE_SPOUSES_INFO_URL'), [
+                    '$filter' => "Employee_Id eq '" . $validated['erp_id'] . "'",
+                    '$top' => '1'
+                ])->json();
 
-                // Dates
-                'birth_date' => $pensioner_information['Birth_Date'],
-                'joining_date' => $pensioner_information['Employment_Date'],
-                'prl_start_date' => $pensioner_information['Retirement_Date'],
-                'prl_end_date' => $pensioner_information['Retirement_Date'],
+                $pensioner_bank_info = Http::withOptions(['verify' => false, 'allow_redirects' => false])->withHeaders([
+                    'Authorization' => 'Basic ' . base64_encode(
+                        config('custom.BC_USERNAME') . ':' . config('custom.BC_PASSWORD')
+                    ),
+                    'Accept' => 'application/json',
+                    'User-Agent' => config('custom.ERP_USER_AGENT_HEADER'),
+                ])->get(config('custom.BC_EMPLOYEE_BANK_INFO_URL'), [
+                    '$filter' => "No eq '" . $validated['erp_id'] . "'",
+                    '$top' => '1'
+                ])->json();
 
-                // Contact
-                'phone_number' => $pensioner_information['Phone_No'],
-                'email' => $pensioner_information['E_Mail'],
-                'nid' => $pensioner_information['NID'],
+                if (is_array($pensioner_info['value']) && !empty($pensioner_info['value'])) {
+                    $pensioner_information = $pensioner_info['value'][0];
+                    if (Carbon::parse($pensioner_information['Employment_Date'])->diff(Carbon::now())->y <= 25) {
+                        return redirect()->back()->withErrors(['error' => 'Pensioner named ' . $pensioner_information['First_Name'] . ' having ERP no ' . $pensioner_information['No'] . ' age is not elligible for pension']);
+                    }
+                    $pensioner_payment_office_code = Office::where('name_in_english', 'LIKE', "%{$pensioner_information['Office_Name']}%")->value('payment_office_code');
+                    $officer_office_code = $officer->office->office_code;
+                    if ($pensioner_payment_office_code == $officer_office_code) {
+                        $pensioner_parent_information = $pensioner_parent_info['value'][0] ?? null;
+                        $pensioner_spouse_inforamtion = $pensioner_spouses_info['value'][0] ?? null;
+                        $pensioner_bank_information = $pensioner_bank_info['value'][0] ?? null;
+                        $pensioner_info = [
+                            // ERP / Identity
+                            'erp_id' => $pensioner_information['No'],
+                            'name' => $pensioner_information['First_Name'],
+                            'name_bangla' => $pensioner_information['Name_in_Bangla'],
+                            'register_no' => $pensioner_information['Employee_Code'],
 
-                // Financial 
-                'last_basic_salary' => Payscale::where('grade', 'LIKE', "%{$pensioner_information['Grade_Code']}%")
-                    ->whereRaw(
-                        'LOWER(step) LIKE ?',
-                        ['%' . strtolower($pensioner_information['Pay_Grade_Step']) . '%']
-                    )
-                    ->value('basic') ?? 0,
-                // Bank info (NOT in response)
-                'bank_name' => $pensioner_bank_information['EmpBankName'] ?? '',
-                'bank_branch_name' => $pensioner_bank_information['EmpBranchName'] ?? '',
-                'bank_routing_number' => $pensioner_bank_information['Bank_Routing_Number'] ?? '',
-                'account_number' => $pensioner_bank_information['Bank_Account_No'] ?? '',
+                            // Office & Designation
+                            'designation' => $pensioner_information['Designation'],
+                            'office_id' => Office::where('name_in_english', 'LIKE', "%{$pensioner_information['Office_Name']}%")->value('id') ?? 0,
+                            'office' => $pensioner_information['Office_Name'],
 
-                // Family info (partially available)
-                'father_name' => $pensioner_parent_information['Fathers_Name'] ?? '',
-                'mother_name' => $pensioner_parent_information['Mothers_Name'] ?? '',
-                'spouse_name' => $pensioner_spouse_inforamtion['Spouse_Name'] ?? '',
+                            // Dates
+                            'birth_date' => $pensioner_information['Birth_Date'],
+                            'joining_date' => $pensioner_information['Employment_Date'],
+                            'prl_start_date' => $pensioner_information['Retirement_Date'],
+                            'prl_end_date' => $pensioner_information['Retirement_Date'],
+                            'service_life' => Carbon::parse($pensioner_information['Employment_Date'])->diffForHumans([
+                                'parts' => 4
+                            ]),
 
-                // Pension flags
-                'is_self_pension' => 'self',
-                'status' => 'pending',
-                'verified' => 'verified',
-                'biometric_verified' => 'biometric verified',
-                'biometric_verification_type' => 'fingerprint',
+                            // Contact
+                            'phone_number' => $pensioner_information['Phone_No'],
+                            'email' => $pensioner_information['E_Mail'],
+                            'nid' => $pensioner_information['NID'],
 
-                'pension_payment_order' => '',
-            ];
+                            // Financial 
+                            'last_basic_salary' => Payscale::where('grade', 'LIKE', "%{$pensioner_information['Grade_Code']}%")
+                                ->whereRaw(
+                                    'LOWER(step) LIKE ?',
+                                    ['%' . strtolower($pensioner_information['Pay_Grade_Step']) . '%']
+                                )
+                                ->value('basic') ?? 0,
+                            // Bank info (NOT in response)
+                            'bank_name' => $pensioner_bank_information['EmpBankName'] ?? '',
+                            'bank_branch_name' => $pensioner_bank_information['EmpBranchName'] ?? '',
+                            'bank_routing_number' => $pensioner_bank_information['Bank_Routing_Number'] ?? '',
+                            'account_number' => $pensioner_bank_information['Bank_Account_No'] ?? '',
 
-            return view('addpensionerbyerp', compact('pensioner_info'));
+                            // Family info (partially available)
+                            'father_name' => $pensioner_parent_information['Fathers_Name'] ?? '',
+                            'mother_name' => $pensioner_parent_information['Mothers_Name'] ?? '',
+                            'spouse_name' => $pensioner_spouse_inforamtion['Spouse_Name'] ?? '',
+
+                            // Pension flags
+                            'is_self_pension' => 'self',
+                            'status' => 'pending',
+                            'verified' => 'verified',
+                            'biometric_verified' => 'biometric verified',
+                            'biometric_verification_type' => 'fingerprint',
+
+                            'pension_payment_order' => '',
+                        ];
+
+                        if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
+                            return view('addpensionerbyerp', compact('pensioner_info', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                        } else {
+                            return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                        }
+                    } else {
+                        return redirect()->back()->withErrors([
+                            ['error' => 'Pensioner named ' . $pensioner_information['First_Name'] . ' having ERP no ' . $pensioner_information['No'] . ' under office of ' . $pensioner_information['Office_Name'] . ' is not under Your juridiction']
+                        ])->withInput();
+                    }
+                } else {
+                    return redirect()->back()->withErrors([
+                        'erp_id' => $request->input('erp_id') . ' ' . 'is not valid ERP ID'
+                    ])->withInput();
+                }
+            } else {
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            }
         } else {
-            return redirect()->back()->withErrors([
-                'erp_id' => $request->input('erp_id') . ' ' . 'is not valid ERP ID'
-            ])->withInput();
+            return view('login');
         }
     }
 
