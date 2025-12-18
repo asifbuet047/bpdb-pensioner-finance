@@ -13,14 +13,39 @@ class Pensioner extends Model
     protected $fillable = [
         'erp_id',
         'name',
-        'designation',
+        'name_bangla',
         'register_no',
-        'basic_salary',
-        'medical_allowance',
-        'incentive_bonus',
-        'bank_name',
+        'last_basic_salary',
         'account_number',
-        'office_id'
+        'office_id',
+        'designation',
+        'pension_payment_order',
+        'father_name',
+        'mother_name',
+        'spouse_name',
+        'birth_date',
+        'joining_date',
+        'prl_start_date',
+        'prl_end_date',
+        'is_self_pension',
+        'phone_number',
+        'email',
+        'nid',
+        'bank_routing_number',
+        'status',
+        'verified',
+        'biometric_verified',
+        'biometric_verification_type',
+    ];
+
+    protected $casts = [
+        'birth_date' => 'date',
+        'joining_date' => 'date',
+        'prl_start_date' => 'date',
+        'prl_end_date' => 'date',
+        'is_self_pension' => 'boolean',
+        'verified' => 'boolean',
+        'biometric_verified' => 'boolean',
     ];
 
     public function office()

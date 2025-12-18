@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Add Pensioner by ERP no')
+@section('title', 'Add Pensioner by ERP')
 
 @section('content')
 
@@ -22,23 +22,29 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form action="{{ route('search.pensioner.erp.process') }}" method="POST">
-                                @csrf
 
+                            <form action="{{ route('add.pensioner.process') }}" method="POST">
+                                @csrf
                                 @foreach ($pensioner_info as $key => $value)
                                     <div class="mb-4">
                                         <label class="form-label" for="{{ $key }}">
                                             Pensioner's {{ ucwords(str_replace('_', ' ', $key)) }}
                                         </label>
+                                        @if ($key === 'office' || $key === 'bank_name' || $key === 'bank_branch_name' || $key === 'service_life')
+                                            <input type="text" id="{{ $key }}"
+                                                class="form-control form-control-lg"
+                                                placeholder="Pensioner {{ ucwords(str_replace('_', ' ', $key)) }}"
+                                                value="{{ $value }}" {{ isset($success) ? 'disabled' : '' }}>
+                                        @else
+                                            <input type="text" id="{{ $key }}" name="{{ $key }}"
+                                                class="form-control form-control-lg"
+                                                placeholder="Pensioner {{ ucwords(str_replace('_', ' ', $key)) }}"
+                                                value="{{ $value }}" {{ isset($success) ? 'disabled' : '' }}>
+                                        @endif
 
-                                        <input type="text" id="{{ $key }}" name="{{ $key }}"
-                                            class="form-control form-control-lg"
-                                            placeholder="Pensioner {{ ucwords(str_replace('_', ' ', $key)) }}"
-                                            value="{{ $value }}">
                                     </div>
                                 @endforeach
-
-                                @if (session()->has('id'))
+                                @if (isset($success))
                                     <div class="mb-4 row">
                                         <button class="btn btn-success" type="button">Addition successful. Add another
                                             Pensioner?</button>
@@ -55,7 +61,6 @@
                                         </a>
                                     </div>
                                 @endif
-
                             </form>
                         </div>
                     </div>

@@ -26,9 +26,7 @@ Route::get('/pensioner/add/erp', [ApplicationController::class, 'showAddPensione
 
 Route::get('/pensioner/search', [ApplicationController::class, 'showPensionerSearchSection'])->name('search.pensioner.section');
 
-Route::post('/pensioner/search', [PensionerController::class, 'searchPensionerByErp'])->name('get.specific.pensioner');
-
-Route::post('/pensioner/add/erp', [PensionerController::class, 'searchPensionerByErp'])->name('search.pensioner.erp.process');
+Route::post('/pensioner/search', [PensionerController::class, 'searchPensionerByErp'])->name('search.pensioner.erp.process');
 
 Route::get('/pensioner/add/form', [ApplicationController::class, 'showAddPensionerByFillingFormSection'])->name('add.pensioner.form.section');
 
@@ -61,7 +59,7 @@ Route::get('/officer/new', [ApplicationController::class, 'showAddOfficerSection
 
 Route::get('/officers', [OfficerController::class, 'getAllOfficersFromDB'])->name('show.officers');
 
-Route::post('/officer', [OfficerController::class, 'registerOfficeIntoDB'])->name('registration.process');
+Route::post('/officer', [OfficerController::class, 'registerOfficerIntoDB'])->name('registration.process');
 
 Route::post('/officer/search', [OfficerController::class, 'getSpecificOfficerFromDB'])->name('get.specific.officers');
 

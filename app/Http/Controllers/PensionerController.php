@@ -17,51 +17,73 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PensionerController extends Controller
 {
     public function addPensionerIntoDB(Request $request)
     {
-        if ($request->hasCookie('user_id')) {
-            $validated = $request->validate([
-                'erp_id' => 'required|integer|unique:pensioners,erp_id',
-                'name' => 'required|string|max:255',
-                'designation' => 'required|string',
-                'register_no' => 'required|string|max:50|unique:pensioners,register_no',
-                'basic_salary' => 'required|integer|min:0',
-                'medical_allowance' => 'required|integer|min:0',
-                'incentive_bonus' => 'required|numeric|min:0',
-                'bank_name' => 'required|string|max:255',
-                'account_number' => 'required|string|max:255|unique:pensioners,account_number',
-                'office_id' => 'required|integer|exists:offices,id',
-            ]);
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
+                $pensioner_info = $request->validate([
+                    'erp_id' => [
+                        'required',
+                        'integer',
+                        'min:1',
+                        Rule::unique('pensioners', 'erp_id'),
+                    ],
+                    'name' => 'required|string|max:255',
+                    'name_bangla' => 'required|string|max:255',
+                    'register_no' => 'required|string|max:50',
+                    'last_basic_salary' => 'required|integer|min:0',
+                    'account_number' => 'required|string|max:255',
+                    'office_id' => [
+                        'required',
+                        'integer',
+                        Rule::exists('offices', 'id'),
+                    ],
+                    'designation' => 'required|string|max:255',
+                    'pension_payment_order' => 'required|integer|min:1',
+                    'father_name' => 'required|string|max:255',
+                    'mother_name' => 'required|string|max:255',
+                    'spouse_name' => 'required|string|max:255',
+                    'birth_date' => 'required|date|before:today',
+                    'joining_date' => 'required|date|after:birth_date',
+                    'prl_start_date' => 'required|date|after_or_equal:joining_date',
+                    'prl_end_date' => 'required|date|after:prl_start_date',
+                    'is_self_pension' => 'required|boolean',
+                    'phone_number' => 'required|string|max:20',
+                    'email' => 'required|email|max:255',
+                    'nid' => 'required|string|max:20',
+                    'bank_routing_number' => 'required|string|max:20',
+                    'status' => [
+                        'required',
+                        Rule::in(['pending', 'approved']),
+                    ],
+                    'verified' => 'required|boolean',
+                    'biometric_verified' => 'required|boolean',
+                    'biometric_verification_type' => [
+                        'required',
+                        Rule::in(['face', 'fingerprint']),
+                    ],
+                ]);
 
-            $pensioner = Pensioner::create([
-                'erp_id' => $request->input('erp_id'),
-                'name' => $request->input('name'),
-                'designation' => $request->input('designation'),
-                'register_no' => $request->input('register_no'),
-                'basic_salary' => $request->input('basic_salary'),
-                'medical_allowance' => $request->input('medical_allowance'),
-                'incentive_bonus' => $request->input('incentive_bonus'),
-                'bank_name' => $request->input('bank_name'),
-                'account_number' => $request->input('account_number'),
-                'office_id' => $request->input('office_id')
-            ]);
-
-            return redirect()->back()->with([
-                'erp_id' => $request->input('erp_id'),
-                'name' => $request->input('name'),
-                'designation' => $request->input('designation'),
-                'register_no' => $request->input('register_no'),
-                'basic_salary' => $request->input('basic_salary'),
-                'medical_allowance' => $request->input('medical_allowance'),
-                'incentive_bonus' => $request->input('incentive_bonus'),
-                'bank_name' => $request->input('bank_name'),
-                'account_number' => $request->input('account_number'),
-                'office' => $request->input('office')
-            ]);
+                Pensioner::create($pensioner_info);
+                $success = true;
+                if ($pensioner_info) {
+                    return view('addpensionerbyerp', compact('success', 'pensioner_info', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                } else {
+                }
+            } else {
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            }
         } else {
             return view('login');
         }
@@ -77,7 +99,6 @@ class PensionerController extends Controller
             $officer_office = $officer->office->name_in_english;
             $officer_designation = $officer->designation->description_english;
             if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
-
                 $validated = $request->validate([
                     'erp_id' => [
                         'required',
@@ -173,18 +194,18 @@ class PensionerController extends Controller
                             'office' => $pensioner_information['Office_Name'],
 
                             // Dates
-                            'birth_date' => $pensioner_information['Birth_Date'],
-                            'joining_date' => $pensioner_information['Employment_Date'],
-                            'prl_start_date' => $pensioner_information['Retirement_Date'],
-                            'prl_end_date' => $pensioner_information['Retirement_Date'],
+                            'birth_date' => $pensioner_information['Birth_Date'] ?? '',
+                            'joining_date' => $pensioner_information['Employment_Date'] ?? '',
+                            'prl_start_date' => $pensioner_information['Retirement_Date'] ?? '',
+                            'prl_end_date' => $pensioner_information['Retirement_Date'] ?? '',
                             'service_life' => Carbon::parse($pensioner_information['Employment_Date'])->diffForHumans([
                                 'parts' => 4
                             ]),
 
                             // Contact
-                            'phone_number' => $pensioner_information['Phone_No'],
-                            'email' => $pensioner_information['E_Mail'],
-                            'nid' => $pensioner_information['NID'],
+                            'phone_number' => $pensioner_information['Phone_No'] ?? '',
+                            'email' => $pensioner_information['E_Mail'] ?? '',
+                            'nid' => $pensioner_information['NID'] ?? '',
 
                             // Financial 
                             'last_basic_salary' => Payscale::where('grade', 'LIKE', "%{$pensioner_information['Grade_Code']}%")
@@ -214,11 +235,7 @@ class PensionerController extends Controller
                             'pension_payment_order' => '',
                         ];
 
-                        if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
-                            return view('addpensionerbyerp', compact('pensioner_info', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
-                        } else {
-                            return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
-                        }
+                        return view('addpensionerbyerp', compact('pensioner_info', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
                     } else {
                         return redirect()->back()->withErrors([
                             ['error' => 'Pensioner named ' . $pensioner_information['First_Name'] . ' having ERP no ' . $pensioner_information['No'] . ' under office of ' . $pensioner_information['Office_Name'] . ' is not under Your juridiction']

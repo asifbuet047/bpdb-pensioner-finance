@@ -7,6 +7,7 @@ use App\Models\Designation;
 use App\Models\Office;
 use App\Models\Officer;
 use App\Models\Role;
+use Carbon\Carbon;
 use GuzzleHttp\Cookie\CookieJar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -108,7 +109,7 @@ class OfficerController extends Controller
         }
     }
 
-    public function registerOfficeIntoDB(Request $request)
+    public function registerOfficerIntoDB(Request $request)
     {
         $validated = $request->validate([
             'erp_id' => 'required|integer|unique:officers,erp_id',
@@ -136,12 +137,18 @@ class OfficerController extends Controller
         ])->json();
 
         if (is_array($response['value']) && !empty($response['value'])) {
-
             $name = $response['value'][0]['First_Name'];
             $erp_id = $response['value'][0]['No'];
             $designation_id = Designation::where('description_english', 'LIKE', "%{$response['value'][0]['Designation']}%")->value('id') ?? 0;
             $office_id = Office::where('is_payment_office', true)->where('name_in_english', 'LIKE', "%{$response['value'][0]['Office_Name']}%")->value('id') ?? 0;
             $role_id = Role::where('role_name', '=', 'initiator')->value('id');
+            $officers_age = Carbon::parse($response['value'][0]['Birth_Date'])->diff(Carbon::now())->y;
+
+            if ($officers_age >= 59) {
+                return redirect()->back()->withErrors([
+                    'cause' => $response['value'][0]['First_Name'] . ' having erp no ' . $response['value'][0]['No'] . ' and posted as ' . $response['value'][0]['Designation'] . ' in office of ' . $response['value'][0]['Office_Name'] . ' age is 59 or above can not register as payment office in this system ',
+                ])->withInput();
+            }
 
             if ($designation_id == 0) {
                 return redirect()->back()->withErrors([

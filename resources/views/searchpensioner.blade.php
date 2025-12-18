@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Search Specific officer')
+@section('title', 'Search Specific Pensionar')
 
 @section('content')
     <section class="vh-100 gradient-custom">
@@ -20,7 +20,7 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form action="{{ route('get.specific.pensioner') }}" method="POST">
+                            <form action="{{ route('search.pensioner.erp.process') }}" method="POST">
                                 @csrf
                                 <div class="mb-4">
                                     <label class="form-label" for="erp_id">ERP ID</label>

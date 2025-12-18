@@ -33,6 +33,7 @@ class ApplicationController extends Controller
                 $officer_role = $officer->role->role_name;
                 $officer_name = $officer->name;
                 $officer_office = $officer->office->name_in_english;
+                $officer_office_code = $officer->office->office_code;
                 $officer_designation = $officer->designation->description_english;
                 switch ($officer_role) {
                     case "super_admin":
