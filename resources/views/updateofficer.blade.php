@@ -64,6 +64,10 @@
                                     @else
                                         <select name="role" class="form-select shadow-sm">
                                             @switch($officer->role->role_name)
+                                                @case('super_admin')
+                                                    <option value="super_admin" selected>Super Admin</option>
+                                                @break
+
                                                 @case('initiator')
                                                     <option value="initiator" selected>Initiator</option>
                                                     <option value="certifier">Certifier</option>
@@ -109,7 +113,13 @@
                                     </div>
                                 @else
                                     <div class="mb-4 row">
-                                        <button class="btn btn-primary" type="submit">UPDATE OFFICER</button>
+                                        @if ($officer->role->role_name === 'super_admin')
+                                            <button class="btn btn-primary" type="submit" disabled>You can't update this
+                                                officers role</button>
+                                        @else
+                                            <button class="btn btn-primary" type="submit">UPDATE OFFICER</button>
+                                        @endif
+
                                     </div>
                                 @endif
                             </form>

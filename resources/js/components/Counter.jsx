@@ -4,26 +4,28 @@ export default function Counter() {
     const [count, setCount] = useState(0);
 
     return (
-        <div className="flex items-center justify-center bg-gray-100">
-            <div className="rounded-xl bg-white p-6 shadow-md w-64 text-center">
-                <p className="text-lg font-semibold text-gray-700 mb-4">
-                    Count: <span className="text-blue-600">{count}</span>
-                </p>
+        <div className="d-flex justify-content-center mt-4">
+            <div className="card shadow-sm" style={{ width: "18rem" }}>
+                <div className="card-body text-center">
+                    <h5 className="card-title mb-3">Counter</h5>
 
-                <div className="flex justify-center gap-4">
-                    <button
-                        onClick={() => setCount(count + 1)}
-                        className="px-4 py-2 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600 transition"
-                    >
-                        +
-                    </button>
+                    <p className="fs-4 fw-bold mb-4">{count}</p>
 
-                    <button
-                        onClick={() => setCount(count - 1)}
-                        className="px-4 py-2 rounded-lg bg-red-500 text-white font-medium hover:bg-red-600 transition"
-                    >
-                        -
-                    </button>
+                    <div className="d-flex justify-content-center gap-2">
+                        <button
+                            className="btn btn-outline-danger"
+                            onClick={() => setCount(count - 1)}
+                        >
+                            −
+                        </button>
+
+                        <button
+                            className="btn btn-primary"
+                            onClick={() => setCount(count + 1)}
+                        >
+                            +
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

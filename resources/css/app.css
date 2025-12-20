@@ -1,6 +1,130 @@
-@import "tailwindcss";
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+}
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+.card-registration .select-arrow {
+    top: 13px;
+}
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #cef3ed;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to bottom right, #cef3ed, #def7f3);
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to bottom right, #cef3ed, #def7f3);
+}
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+}
+
+.card-registration .select-arrow {
+    top: 13px;
+}
+
+.scale-animate {
+    transition: transform 0.3s ease-in-out;
+}
+
+.scale-animate-infinite {
+    animation: scaleSoft 4s ease-in-out infinite;
+}
+
+@keyframes scaleSoft {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.scale-animate:hover {
+    transform: scale(1.03);
+}
+
+.hand-pointer:hover {
+    cursor: pointer;
+}
+
+.info-box {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    border-radius: 0.5rem;
+    padding: 30px;
+    margin-bottom: 30px;
+    height: 100%;
+    background-color: #5b9279;
+}
+
+.info-box .icon {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    font-size: 60px;
+    opacity: 0.2;
+    transform: translateY(-50%);
+}
+
+.info-box a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.autocomplete-wrapper {
+    position: relative;
+}
+
+.autocomplete-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+}
+
+.autocomplete-item.active {
+    background: #f1f1f1;
+}
+
+.autocomplete-item {
+    cursor: pointer;
+}
+
+.autocomplete-list.show {
+    display: block;
+}
+
+.rao-office-item {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.rao-office-item:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.custom-border {
+    border: 3px solid black !important;
+}
+
+.custom-border th,
+.custom-border td {
+    border: 2px solid black !important;
+}
