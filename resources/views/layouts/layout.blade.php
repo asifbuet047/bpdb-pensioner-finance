@@ -145,9 +145,11 @@
             border: 2px solid black !important;
         }
     </style>
+    @vite('resources/css/app.css')
 </head>
 
 <body style="background-color: #FDF0D5">
+
     @include('partials.header') <!--Add header file-->
 
     <section>@yield('content')</section>

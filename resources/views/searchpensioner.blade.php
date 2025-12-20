@@ -2,7 +2,11 @@
 
 @section('title', 'Search Specific Pensionar')
 
+@viteReactRefresh
+@vite('resources/js/app.jsx')
+
 @section('content')
+    <div id="app"></div>
     <section class="vh-100 gradient-custom">
         <div class="container py-5">
             <div class="row justify-content-center align-items-center">

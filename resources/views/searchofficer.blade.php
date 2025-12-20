@@ -2,6 +2,7 @@
 
 @section('title', 'Search Specific officer')
 
+
 @section('content')
     <section class="vh-100 gradient-custom">
         <div class="container py-5">
