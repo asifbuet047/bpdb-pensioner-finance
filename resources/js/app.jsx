@@ -1,8 +1,8 @@
 import "../css/app.css";
 import { createRoot } from "react-dom/client";
-import Custom from "./components/Custom";
+import Counter from "./components/Counter";
 
 const el = document.getElementById("app");
 if (el) {
-    createRoot(el).render(<Custom />);
+    createRoot(el).render(<Counter />);
 }
