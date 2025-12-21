@@ -191,14 +191,19 @@ class OfficerController extends Controller
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
             $officer_role = $officer->role->role_name;
-            if ($officer_role === 'super_admin') {
-                $officer_name = $officer->name;
-                $officer_office = $officer->office->name_in_english;
-                $officer_designation = $officer->designation->description_english;
-                $officers = Officer::with(['office', 'designation', 'role'])->orderBy('name')->get();
-                return view('viewofficers', compact('officers', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
-            } else {
-                return view('login');
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            switch ($officer_role) {
+                case 'super_admin':
+                    $officers = Officer::with(['office', 'designation', 'role'])->orderBy('name')->get();
+                    return view('viewofficers', compact('officers', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    break;
+                default:
+                    $officer_office_id = $officer->office->id;
+                    $officers = Officer::with(['office', 'designation', 'role'])->where('office_id', $officer_office_id)->get();
+                    return view('viewofficers', compact('officers', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    break;
             }
         } else {
             return view('login');

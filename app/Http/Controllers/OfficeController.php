@@ -37,11 +37,15 @@ class OfficeController extends Controller
             $officer_name = $officer->name;
             $officer_office = $officer->office->name_in_english;
             $officer_designation = $officer->designation->description_english;
-            if ($officer_role === 'super_admin') {
-                $offices = Office::orderBy('office_code')->get();
-                return view('viewoffices', compact('offices', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
-            } else {
-                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            switch ($officer_role) {
+                case 'super_admin':
+                    $offices = Office::orderBy('office_code')->get();
+                    return view('viewoffices', compact('offices', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                    break;
+                default:
+                    $offices = Office::where('payment_office_code', $officer->office->office_code)->get();
+                    return view('viewoffices', compact('offices', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                    break;
             }
         } else {
             return view('login');

@@ -20,10 +20,7 @@
                             Name
                         </th>
                         <th scope="col">
-                            Desigantion
-                        </th>
-                        <th scope="col">
-                            Register No
+                            Office name
                         </th>
                         <th scope="col">
                             Basic Salary
@@ -32,17 +29,18 @@
                             Medical Allowance
                         </th>
                         <th scope="col">
-                            Incentive Bonus
+                            Bank Name
                         </th>
                         <th scope="col">
-                            Bank Name
+                            Branch Name
+                        </th>
+                        <th scope="col">
+                            Routing number
                         </th>
                         <th scope="col">
                             Account Number
                         </th>
-                        <th scope="col">
-                            Office Code
-                        </th>
+
                         @if (count($pensioners) > 0)
                             <th scope="col"></th>
                         @endif
@@ -54,14 +52,13 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $pensioner->erp_id }}</td>
                             <td>{{ $pensioner->name }}</td>
-                            <td>{{ $pensioner->designation }}</td>
-                            <td>{{ $pensioner->register_no }}</td>
-                            <td>{{ number_format($pensioner->basic_salary, 2) }}</td>
+                            <td>{{ $pensioner->office_name }}</td>
+                            <td>{{ number_format($pensioner->last_basic_salary, 2) }}</td>
                             <td>{{ number_format($pensioner->medical_allowance, 2) }}</td>
-                            <td>{{ number_format($pensioner->incentive_bonus, 2) }}</td>
                             <td>{{ $pensioner->bank_name }}</td>
+                            <td>{{ $pensioner->branch_name }}</td>
+                            <td>{{ $pensioner->bank_routing_number }}</td>
                             <td>{{ $pensioner->account_number }}</td>
-                            <td>{{ $pensioner->office->officeCode }}</td>
                             <td>
                                 <div class="row">
                                     <i class="bi bi-trash col-6 pensioner-delete-buttons" data-bs-toggle="modal"

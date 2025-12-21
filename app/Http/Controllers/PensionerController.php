@@ -65,7 +65,7 @@ class PensionerController extends Controller
                     'bank_routing_number' => 'required|string|max:20',
                     'status' => [
                         'required',
-                        Rule::in(['pending', 'approved']),
+                        Rule::in(['initiated', 'certified', 'approved']),
                     ],
                     'verified' => 'required|boolean',
                     'biometric_verified' => 'required|boolean',
@@ -197,7 +197,7 @@ class PensionerController extends Controller
                             'birth_date' => $pensioner_information['Birth_Date'] ?? '',
                             'joining_date' => $pensioner_information['Employment_Date'] ?? '',
                             'prl_start_date' => $pensioner_information['Retirement_Date'] ?? '',
-                            'prl_end_date' => $pensioner_information['Retirement_Date'] ?? '',
+                            'prl_end_date' => Carbon::parse($pensioner_information['Retirement_Date'])->addYear()->toDateString() ?? '',
                             'service_life' => Carbon::parse($pensioner_information['Employment_Date'])->diffForHumans([
                                 'parts' => 4
                             ]),
@@ -226,10 +226,10 @@ class PensionerController extends Controller
                             'spouse_name' => $pensioner_spouse_inforamtion['Spouse_Name'] ?? '',
 
                             // Pension flags
-                            'is_self_pension' => 'self',
+                            'is_self_pension' => true,
                             'status' => 'pending',
-                            'verified' => 'verified',
-                            'biometric_verified' => 'biometric verified',
+                            'verified' => true,
+                            'biometric_verified' => false,
                             'biometric_verification_type' => 'fingerprint',
 
                             'pension_payment_order' => '',
@@ -260,14 +260,23 @@ class PensionerController extends Controller
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
             $officer_role = $officer->role->role_name;
-            if ($officer_role === 'initiator') {
-                $officer_name = $officer->name;
-                $officer_office = $officer->office->name_in_english;
-                $officer_designation = $officer->designation->description_english;
-                $pensioners = Pensioner::orderBy('erp_id')->with('office')->get();
-                return view('viewpensioner')->with(compact('pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
-            } else {
-                return view('login');
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            switch ($officer_role) {
+                case 'super_admin':
+                    $pensioners = Pensioner::orderBy('erp_id')->with('office')->get();
+                    return view('viewpensioner')->with(compact('pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    break;
+                case 'initiator':
+                    $officer_office_code = $officer->office->office_code;
+                    $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
+                    $pensioners = Pensioner::whereIn('office_id', $office_ids)->get();
+                    return view('viewpensioner')->with(compact('pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    break;
+                default:
+                    return view('login');
+                    break;
             }
         } else {
             return view('login');

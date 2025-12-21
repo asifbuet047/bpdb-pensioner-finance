@@ -17,7 +17,7 @@ class OfficerSeeder extends Seeder
                 'name' => 'Nur Ahammad Akib',
                 'password' => Hash::make('Admin@123'),
                 'office_id' => 211,
-                'designation_id' => 1,
+                'designation_id' => 5,
                 'role_id' => 5,
             ],
             [
@@ -25,8 +25,26 @@ class OfficerSeeder extends Seeder
                 'name' => 'Md. Asifuzzaman Asif',
                 'password' => Hash::make('Admin@123'),
                 'office_id' => 211,
-                'designation_id' => 1,
+                'designation_id' => 5,
                 'role_id' => 5,
+
+            ],
+            [
+                'erp_id' => 140012234,
+                'name' => 'Mohammed Salim',
+                'password' => Hash::make('admin@123'),
+                'office_id' => 30,
+                'designation_id' => 4,
+                'role_id' => 1,
+
+            ],
+            [
+                'erp_id' => 140036565,
+                'name' => 'Bimal Kumar Singha',
+                'password' => Hash::make('admin@123'),
+                'office_id' => 29,
+                'designation_id' => 4,
+                'role_id' => 1,
 
             ],
         ];

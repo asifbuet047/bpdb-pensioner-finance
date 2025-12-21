@@ -56,16 +56,24 @@ class ApplicationController extends Controller
                         return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation'));
                         break;
                     case "certifier":
-                        $officeCount = Office::count();
-                        $officerCount = Officer::count();
-                        $pensionerCount = Pensioner::count();
-                        $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
-                        $designation = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
-                        return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                        $officer_office_id = $officer->office->id;
+                        $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
+                        $pensionerCount = Pensioner::whereIn('office_id', $office_ids)->get()->count();
+                        $officers = Officer::where('office_id', $officer_office_id)->get();
+                        $officerCount = $officers->count();
+                        $unitOffices = Office::where('payment_office_code', $officer->office->office_code)->get();
+                        $unitofficeCount = $unitOffices->count();
+                        return view('dashboard', compact('pensionerCount', 'officerCount', 'unitofficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
                         break;
                     case "initiator":
-                        $pensionerCount = Pensioner::count();
-                        return view('dashboard', compact('pensionerCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                        $officer_office_id = $officer->office->id;
+                        $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
+                        $pensionerCount = Pensioner::whereIn('office_id', $office_ids)->get()->count();
+                        $officers = Officer::where('office_id', $officer_office_id)->get();
+                        $officerCount = $officers->count();
+                        $unitOffices = Office::where('payment_office_code', $officer->office->office_code)->get();
+                        $unitofficeCount = $unitOffices->count();
+                        return view('dashboard', compact('pensionerCount', 'officerCount', 'unitofficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
                         break;
                     default:
                         return view('login');
@@ -132,8 +140,56 @@ class ApplicationController extends Controller
             $officer_name = $officer->name;
             $officer_office = $officer->office->name_in_english;
             $officer_designation = $officer->designation->description_english;
+            $latest_erp = (int)Officer::latest()->first()->value('erp_id');
             if (($officer_role === 'initiator') || ($officer_role === 'super_admin')) {
-                return view('addpensionerbyform', compact('offices', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                $offices = Office::get();
+                $pensioner_info = [
+                    // ERP / Identity
+                    'erp_id' => $latest_erp + 1,
+                    'name' => '',
+                    'name_bangla' => '',
+                    'register_no' => '',
+
+                    // Office & Designation
+                    'designation' => '',
+                    'office_id' => '',
+                    'office' => '',
+
+                    // Dates
+                    'birth_date' =>  '',
+                    'joining_date' =>  '',
+                    'prl_start_date' =>  '',
+                    'prl_end_date' =>  '',
+                    'service_life' => '',
+
+                    // Contact
+                    'phone_number' => '',
+                    'email' => '',
+                    'nid' =>  '',
+
+                    // Financial 
+                    'last_basic_salary' => '',
+                    // Bank info (NOT in response)
+                    'bank_name' => '',
+                    'bank_branch_name' => '',
+                    'bank_routing_number' => '',
+                    'account_number' =>  '',
+
+                    // Family info (partially available)
+                    'father_name' => '',
+                    'mother_name' => '',
+                    'spouse_name' => '',
+
+                    // Pension flags
+                    'is_self_pension' => '',
+                    'status' => '',
+                    'verified' => '',
+                    'biometric_verified' => '',
+                    'biometric_verification_type' => '',
+
+                    'pension_payment_order' => '',
+                ];
+                return view('addpensionerbyform', compact('offices', 'pensioner_info', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
             } else {
                 return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
             }

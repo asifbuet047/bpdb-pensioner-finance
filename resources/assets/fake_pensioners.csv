@@ -1,71 +1,16 @@
-NO,NAME,ERP_ID,BASIC_SALARY,MEDICAL_ALLOWANCE,INCENTIVE_BONUS,REGISTER_NO,BANK_NAME,ACCOUNT_NUMBER,OFFICE_ID,DESIGNATION
-1,tariq,140010000,45000,1500,2500,3/7,DBBL,101245789,5,engineer
-2,nadia,140010001,52000,2000,1800,4/9,EBL,101245790,11,director
-3,rifat,140010002,39000,1200,2200,5/6,MTB,101245791,3,foreman
-4,sadia,140010003,61000,3000,3500,6/8,BRAC,101245792,18,assistant director
-5,jamil,140010004,47000,1700,2700,7/5,IFIC,101245793,1,executive engineer
-6,mahir,140010005,55000,2500,3000,8/2,SCB,101245794,9,engineer
-7,lamia,140010006,48000,1800,2200,9/3,DBBL,101245795,14,director
-8,raiyan,140010007,62000,3200,4000,10/1,EBL,101245796,7,foreman
-9,tamim,140010008,53000,2100,2700,11/6,BRAC,101245797,19,assistant director
-10,ayesha,140010009,47000,1600,1900,12/7,IFIC,101245798,10,executive engineer
-11,saif,140010010,51000,1900,2300,13/8,SCB,101245799,16,engineer
-12,maliha,140010011,44000,1400,2100,14/9,DBBL,101245800,21,director
-13,emon,140010012,58000,2800,2900,15/3,EBL,101245801,8,foreman
-14,nazmul,140010013,49500,1750,2600,16/4,BRAC,101245802,12,assistant director
-15,meher,140010014,47000,1600,2400,17/5,IFIC,101245803,2,executive engineer
-16,robin,140010015,52000,2000,3100,18/6,SCB,101245804,17,engineer
-17,samia,140010016,49000,1800,2700,19/7,DBBL,101245805,6,director
-18,farhan,140010017,51000,1900,2600,20/8,SCB,101245806,15,foreman
-19,shaila,140010018,48000,1700,2400,21/9,DBBL,101245807,20,assistant director
-20,kamal,140010019,53000,2100,2800,22/3,EBL,101245808,4,executive engineer
-21,nazifa,140010020,47000,1600,2000,23/4,BRAC,101245809,13,engineer
-22,arif,140010021,49000,1800,2500,24/5,IFIC,101245810,11,director
-23,maisha,140010022,52000,2000,2700,25/6,SCB,101245811,9,foreman
-24,rahat,140010023,49500,1750,2300,26/7,DBBL,101245812,5,assistant director
-25,shuvo,140010024,58000,2800,3100,27/8,EBL,101245813,22,executive engineer
-26,nabila,140010025,46000,1500,2200,28/9,BRAC,101245814,7,engineer
-27,emonul,140010026,54000,2200,2900,29/3,IFIC,101245815,1,director
-28,labiba,140010027,50000,1900,2600,30/4,SCB,101245816,18,foreman
-29,rashed,140010028,47000,1600,2400,31/5,DBBL,101245817,3,assistant director
-30,tonmoy,140010029,51000,2000,2700,32/6,EBL,101245818,10,executive engineer
-31,sharmin,140010030,48000,1700,2500,33/7,BRAC,101245819,19,engineer
-32,imran,140010031,53000,2100,2800,34/8,IFIC,101245820,4,director
-33,mehzabin,140010032,47000,1600,2000,35/9,SCB,101245821,15,foreman
-34,rafi,140010033,49000,1800,2500,36/3,DBBL,101245822,13,assistant director
-35,priya,140010034,52000,2000,2700,37/4,EBL,101245823,21,executive engineer
-36,farzana,140010035,49500,1750,2300,38/5,BRAC,101245824,8,engineer
-37,shihab,140010036,51000,1900,2600,39/6,SCB,101245825,16,director
-38,mahmuda,140010037,48000,1700,2400,40/7,DBBL,101245826,6,foreman
-39,rony,140010038,53000,2100,2800,41/8,EBL,101245827,14,assistant director
-40,sharifa,140010039,47000,1600,2000,42/9,BRAC,101245828,12,executive engineer
-41,kamrul,140010040,49000,1800,2500,43/3,IFIC,101245829,2,engineer
-42,shamima,140010041,52000,2000,2700,44/4,SCB,101245830,17,director
-43,raihan,140010042,49500,1750,2300,45/5,DBBL,101245831,20,foreman
-44,nafisa,140010043,58000,2800,3100,46/6,EBL,101245832,11,assistant director
-45,monira,140010044,46000,1500,2200,47/7,BRAC,101245833,5,executive engineer
-46,hasib,140010045,54000,2200,2900,48/8,IFIC,101245834,9,engineer
-47,sharika,140010046,50000,1900,2600,49/9,SCB,101245835,15,director
-48,raquib,140010047,47000,1600,2400,50/3,DBBL,101245836,18,foreman
-49,mahmud,140010048,51000,2000,2700,51/4,EBL,101245837,22,assistant director
-50,rumana,140010049,48000,1700,2500,52/5,BRAC,101245838,10,executive engineer
-51,adnan,140010050,53000,2100,2800,53/6,IFIC,101245839,3,engineer
-52,shaila2,140010051,47000,1600,2000,54/7,SCB,101245840,19,director
-53,shuvo2,140010052,49000,1800,2500,55/8,DBBL,101245841,4,foreman
-54,elita,140010053,52000,2000,2700,56/9,EBL,101245842,7,assistant director
-55,shahriar,140010054,49500,1750,2300,57/3,BRAC,101245843,12,executive engineer
-56,maisha2,140010055,51000,1900,2600,58/4,SCB,101245844,8,engineer
-57,kamal2,140010056,48000,1700,2400,59/5,DBBL,101245845,16,director
-58,nazifa2,140010057,53000,2100,2800,60/6,EBL,101245846,1,foreman
-59,arif2,140010058,47000,1600,2000,61/7,BRAC,101245847,13,assistant director
-60,rahat2,140010059,49000,1800,2500,62/8,IFIC,101245848,9,executive engineer
-61,nabila2,140010060,52000,2000,2700,63/9,SCB,101245849,6,engineer
-62,emonul2,140010061,49500,1750,2300,64/3,DBBL,101245850,5,director
-63,labiba2,140010062,58000,2800,3100,65/4,EBL,101245851,17,foreman
-64,rashed2,140010063,46000,1500,2200,66/5,BRAC,101245852,2,assistant director
-65,tonmoy2,140010064,54000,2200,2900,67/6,IFIC,101245853,20,executive engineer
-66,sharmin2,140010065,50000,1900,2600,68/7,SCB,101245854,11,engineer
-67,imran2,140010066,47000,1600,2400,69/8,DBBL,101245855,15,director
-68,mehzabin2,140010067,51000,2000,2700,70/9,EBL,101245856,18,foreman
-69,rafi2,140010068,48000,1700,2500,71/3,BRAC,101245857,22,assistant director
-70,priya2,140010069,53000,2100,2800,72/4,IFIC,101245858,14,executive engineer
+erp_id,name,register_no,last_basic_salary,account_number,office_id,designation,pension_payment_order,name_bangla,father_name,mother_name,spouse_name,birth_date,joining_date,prl_start_date,prl_end_date,is_self_pension,phone_number,email,nid,bank_routing_number,status,verified,biometric_verified,biometric_verification_type
+140010001,Md. Anwar Hossain,BPDB-REG-005,40000,1.23457E+12,30,Senior Technician,50005,মোঃ আনোয়ার হোসেন,Md. Sultan Ahmed,Halima Begum,Nasima Anwar,12-11-63,15-01-89,12-11-21,11-11-22,1,1755667788,anwar.hossain@example.com,1.23E+12,135180253,initiated,0,0,fingerprint
+140010002,Md. Rezaul Karim,BPDB-REG-006,44000,1.23457E+12,30,Assistant Engineer,50006,মোঃ রেজাউল করিম,Md. Fazlul Karim,Rowshan Ara,Fatema Rezaul,25-08-62,10-06-86,25-08-20,24-08-21,1,1866778899,rezaul.karim@example.com,1.23E+12,290670679,certified,1,0,face
+140010003,Md. Jalal Uddin,BPDB-REG-007,36000,1.23457E+12,30,Line Foreman,50007,মোঃ জালাল উদ্দিন,Md. Shamsul Haque,Sakina Begum,Shirin Jalal,18-03-64,05-09-91,18-03-22,17-03-23,1,1977889900,jalal.uddin@example.com,1.23E+12,200791030,approved,1,1,fingerprint
+140010004,Begum Salma Khatun,BPDB-REG-008,31000,1.23457E+12,30,Accounts Assistant,50008,বেগম সালমা খাতুন,Md. Abdul Mannan,Jamila Begum,Late Md. Rahman,02-12-65,14-02-93,02-12-23,01-12-24,0,1688990011,salma.khatun@example.com,1.23E+12,200641935,initiated,0,0,face
+140010005,Md. Habibur Rahman,BPDB-REG-009,47000,1.23457E+12,30,Deputy Manager,50009,মোঃ হাবিবুর রহমান,Md. Noor Alam,Afsana Begum,Rehana Habib,30-05-61,01-04-85,30-05-19,29-05-20,1,1799001122,habibur.rahman@example.com,1.23E+12,245151219,certified,1,1,face
+140010006,Md. Shahidul Islam,BPDB-REG-010,39000,1.23457E+12,30,Store Keeper,50010,মোঃ শহিদুল ইসলাম,Md. Azizul Haque,Momena Begum,Rokeya Shahid,14-07-64,20-11-90,14-07-22,13-07-23,1,1800112233,shahidul.islam@example.com,1.23E+12,245090109,approved,1,1,fingerprint
+140010007,Md. Kamal Hossain,BPDB-REG-011,41000,1.23457E+12,30,Junior Engineer,50011,মোঃ কামাল হোসেন,Md. Abdul Latif,Sufia Khatun,Shirin Kamal,09-02-63,01-10-88,09-02-21,08-02-22,1,1722334466,kamal.hossain@example.com,1.23E+12,245761333,initiated,0,0,fingerprint
+140010008,Md. Mostafizur Rahman,BPDB-REG-012,45500,1.23457E+12,29,Manager,50012,মোঃ মোস্তাফিজুর রহমান,Md. Abdul Hamid,Rokeya Begum,Nargis Rahman,17-10-61,15-07-84,17-10-19,16-10-20,1,1833445577,mostafiz.rahman@example.com,1.23E+12,250882236,certified,1,1,face
+140010009,Begum Nasrin Akter,BPDB-REG-013,30500,1.23457E+12,29,Record Keeper,50013,বেগম নাসরিন আক্তার,Md. Abul Kashem,Shamsun Nahar,Late Md. Selim,26-05-65,01-03-93,26-05-23,25-05-24,0,1655667799,nasrin.akter@example.com,1.23E+12,250276705,initiated,0,0,face
+140010010,Md. Saiful Islam,BPDB-REG-014,39500,1.23457E+12,29,Store Supervisor,50014,মোঃ সাইফুল ইসলাম,Md. Rafiqul Islam,Aklima Begum,Ferdausi Saiful,08-12-64,20-05-90,08-12-22,07-12-23,1,1944556688,saiful.islam@example.com,1.23E+12,250091001,approved,1,1,fingerprint
+140010011,Md. Rafiqul Alam,BPDB-REG-015,43000,1.23457E+12,29,Senior Engineer,50015,মোঃ রফিকুল আলম,Md. Abdul Gafur,Salma Begum,Rehana Rafique,21-06-62,12-08-86,21-06-20,20-06-21,1,1767788990,rafiqul.alam@example.com,1.23E+12,175511037,certified,1,1,face
+140010012,Md. Aminul Islam,BPDB-REG-016,37000,1.23457E+12,29,Field Supervisor,50016,মোঃ আমিনুল ইসলাম,Md. Abdur Rob,Hasina Begum,Parvin Amin,03-01-64,18-02-90,03-01-22,02-01-23,1,1711223344,aminul.islam@example.com,1.23E+12,175275478,approved,1,1,fingerprint
+140010013,Begum Farida Yasmin,BPDB-REG-017,32000,1.23457E+12,29,Accounts Clerk,50017,বেগম ফরিদা ইয়াসমিন,Md. Jalaluddin,Afroza Begum,Late Md. Karim,11-09-65,05-04-93,11-09-23,10-09-24,0,1699001123,farida.yasmin@example.com,1.23E+12,175790766,initiated,0,0,face
+140010014,Md. Delwar Hossain,BPDB-REG-018,48000,1.23457E+12,29,Deputy Chief Engineer,50018,মোঃ দেলোয়ার হোসেন,Md. Abdul Mannaf,Rabeya Khatun,Nasima Delwar,29-03-60,01-07-83,29-03-18,28-03-19,1,1788334455,delwar.hossain@example.com,1.23E+12,175156405,approved,1,1,fingerprint
+140010015,Md. Zahirul Haque,BPDB-REG-019,35000,1.23457E+12,29,Technical Officer,50019,মোঃ জহিরুল হক,Md. Nurul Amin,Latifa Begum,Shamima Zahir,16-11-63,10-12-89,16-11-21,15-11-22,1,1744556677,zahirul.haque@example.com,1.23E+12,175156526,certified,1,0,face
