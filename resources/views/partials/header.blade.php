@@ -9,6 +9,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold">
+                    <li class="nav-item scale-animate list-unstyled d-flex justify-content-center align-items-center">
+                        <div id="react-app"></div>
+                    </li>
                     <li class="nav-item scale-animate"><a class="nav-link" href="{{ route('home.page') }}">Home</a>
                     </li>
 

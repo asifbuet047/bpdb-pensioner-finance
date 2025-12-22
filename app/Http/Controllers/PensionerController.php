@@ -256,6 +256,7 @@ class PensionerController extends Controller
 
     public function getAllPensionersFromDB(Request $request)
     {
+        $pensioners_type = $request->query('type', 'initiated');
         $erp_id = $request->cookie('user_id');
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
@@ -265,17 +266,55 @@ class PensionerController extends Controller
             $officer_designation = $officer->designation->description_english;
             switch ($officer_role) {
                 case 'super_admin':
-                    $pensioners = Pensioner::orderBy('erp_id')->with('office')->get();
-                    return view('viewpensioner')->with(compact('pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
-                    break;
+                    $officer_office_code = $officer->office->office_code;
+                    $pensioners = Pensioner::where('status', $pensioners_type)->orderBy('erp_id')->get();
+                    return view('viewpensioner', compact('pensioners', 'pensioners_type', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
                 case 'initiator':
                     $officer_office_code = $officer->office->office_code;
                     $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
-                    $pensioners = Pensioner::whereIn('office_id', $office_ids)->get();
-                    return view('viewpensioner')->with(compact('pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    $pensioners = Pensioner::whereIn('office_id', $office_ids)->where('status', $pensioners_type)->orderBy('erp_id')->get();
+                    return view('viewpensioner', compact('pensioners', 'pensioners_type', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
                     break;
                 default:
                     return view('login');
+                    break;
+            }
+        } else {
+            return view('login');
+        }
+        if ($request->hasCookie('user_id')) {
+        } else {
+            return view('login');
+        }
+    }
+
+    public function showPensionersVariantSection(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            $officer_office_code = $officer->office->office_code;
+            switch ($officer_role) {
+                case 'super_admin':
+                    $initiatedPensionersCount = Pensioner::where('status', 'initiated')->count();
+                    $certifiedPensionersCount = Pensioner::where('status', 'certified')->count();
+                    $approvedPensionersCount = Pensioner::where('status', 'approved')->count();
+                    return view('showpensionersvariant', compact('initiatedPensionersCount', 'certifiedPensionersCount', 'approvedPensionersCount', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    break;
+                case 'initiator':
+                    $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
+                    $initiatedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'initiated')->get()->count();
+                    $certifiedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'certified')->get()->count();
+                    $approvedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'approved')->count();
+                    return view('showpensionersvariant', compact('initiatedPensionersCount', 'certifiedPensionersCount', 'approvedPensionersCount', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    break;
+
+                default:
+
                     break;
             }
         } else {

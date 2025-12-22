@@ -37,7 +37,7 @@
                             <div>
                                 <h3>{{ $pensionerCount }} pensioner</h3>
                                 <h3>View All Pensioners</h3>
-                                <a href="{{ route('show.pensioner.section') }}">More info <i
+                                <a href="{{ route('show.pensioners.variant.section') }}">More info <i
                                         class="bi bi-arrow-right"></i></a>
                             </div>
                             <div class="icon"><i class="bi bi-people-fill"></i></div>
@@ -171,7 +171,7 @@
                             <div>
                                 <h3>{{ $pensionerCount }} pensioner</h3>
                                 <h3>View All Pensioners</h3>
-                                <a href="{{ route('show.pensioner.section') }}">More info <i
+                                <a href="{{ route('show.pensioners.variant.section') }}">More info <i
                                         class="bi bi-arrow-right"></i></a>
                             </div>
                             <div class="icon"><i class="bi bi-people-fill"></i></div>
@@ -237,7 +237,7 @@
                         <div>
                             <h3>{{ $pensionerCount }} pensioner</h3>
                             <h3>View All Pensioners</h3>
-                            <a href="{{ route('show.pensioner.section') }}">More info <i
+                            <a href="{{ route('show.pensioners.variant.section') }}">More info <i
                                     class="bi bi-arrow-right"></i></a>
                         </div>
                         <div class="icon"><i class="bi bi-people-fill"></i></div>

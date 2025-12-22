@@ -4,7 +4,7 @@
 
 @section('content')
     <section class="container-fluid py-5">
-        <h2 class="mb-4 text-center fw-bold text-primary">All Pensioners</h2>
+        <h2 class="mb-4 text-center fw-bold text-primary">All {{ $pensioners_type }} Pensioners</h2>
         <h1 class="mb-4 text-center fw-bold text-primary">বাংলাদেশ বিদ্যুৎ উন্নয়ন বোর্ড</h1>
         <div class="table-responsive shadow rounded p-2">
             <table class="table table-hover align-middle custom-border">
@@ -29,21 +29,11 @@
                             Medical Allowance
                         </th>
                         <th scope="col">
-                            Bank Name
+                            Status
                         </th>
                         <th scope="col">
-                            Branch Name
+                            Actions
                         </th>
-                        <th scope="col">
-                            Routing number
-                        </th>
-                        <th scope="col">
-                            Account Number
-                        </th>
-
-                        @if (count($pensioners) > 0)
-                            <th scope="col"></th>
-                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -55,10 +45,21 @@
                             <td>{{ $pensioner->office_name }}</td>
                             <td>{{ number_format($pensioner->last_basic_salary, 2) }}</td>
                             <td>{{ number_format($pensioner->medical_allowance, 2) }}</td>
-                            <td>{{ $pensioner->bank_name }}</td>
-                            <td>{{ $pensioner->branch_name }}</td>
-                            <td>{{ $pensioner->bank_routing_number }}</td>
-                            <td>{{ $pensioner->account_number }}</td>
+                            @switch($pensioner->status)
+                                @case('initiated')
+                                    <td>{{ 'Pending' }}</td>
+                                @break
+
+                                @case('certified')
+                                    <td>{{ 'Pending' }}</td>
+                                @break
+
+                                @case('approved')
+                                    <td>{{ 'Approved' }}</td>
+                                @break
+
+                                @default
+                            @endswitch
                             <td>
                                 <div class="row">
                                     <i class="bi bi-trash col-6 pensioner-delete-buttons" data-bs-toggle="modal"
@@ -70,82 +71,82 @@
                                 </div>
                             </td>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="11" class="text-center text-muted fst-italic">
-                                No pensioners found.
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                        @empty
+                            <tr>
+                                <td colspan="11" class="text-center text-muted fst-italic">
+                                    No pensioners found.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
 
-            <!--Delete Action Modal -->
-            <div class="modal fade" id="pensionerDeleteActionModal" data-bs-backdrop="static" data-bs-keyboard="false"
-                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5">Are You sure?</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!--Delete Action Modal -->
+                <div class="modal fade" id="pensionerDeleteActionModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5">Are You sure?</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Do You really want to delete <span class="fw-bold" id="pensionerDeleteActionModalSpan"></span>?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                    id="pensionerDeleteButton">Yes</button>
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Not now</button>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            Do You really want to delete <span class="fw-bold" id="pensionerDeleteActionModalSpan"></span>?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-                                id="pensionerDeleteButton">Yes</button>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Not now</button>
+                    </div>
+                </div>
+
+                <!--Update Action Modal -->
+                <div class="modal fade" id="pensionerUpdateActionModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5">Are You sure?</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Do You really want to update <span class="fw-bold" id="pensionerUpdateActionModalSpan"></span>?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                    id="pensionerUpdateButton">Yes</button>
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Not now</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!--Update Action Modal -->
-            <div class="modal fade" id="pensionerUpdateActionModal" data-bs-backdrop="static" data-bs-keyboard="false"
-                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5">Are You sure?</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Do You really want to update <span class="fw-bold" id="pensionerUpdateActionModalSpan"></span>?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                                id="pensionerUpdateButton">Yes</button>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Not now</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="text-center mt-4">
-            <a class="btn btn-primary btn-lg me-2 shadow-sm" href="{{ route('add.pensioner.section') }}">
-                Add Pensioner
-            </a>
-            <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('show.pensioner.section') }}">
-                Refresh List
-            </a>
-            <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('download.pensioners') }}">
-                Download
-            </a>
-            <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('import.pentioners.section') }}">
-                Import Pensioners
-            </a>
-            <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('download.template.pensioners') }}">
-                Download Excel template
-            </a>
-            @if (count($pensioners) > 0)
-                <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('show.invoice.bank') }}">
-                    Generate Invoice
+            <!-- Action Buttons -->
+            <div class="text-center mt-4">
+                <a class="btn btn-primary btn-lg me-2 shadow-sm" href="{{ route('add.pensioner.section') }}">
+                    Add Pensioner
                 </a>
-            @endif
-        </div>
-    </section>
+                <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('show.pensioner.section') }}">
+                    Refresh List
+                </a>
+                <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('download.pensioners') }}">
+                    Download
+                </a>
+                <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('import.pentioners.section') }}">
+                    Import Pensioners
+                </a>
+                <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('download.template.pensioners') }}">
+                    Download Excel template
+                </a>
+                @if (count($pensioners) > 0)
+                    <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('show.invoice.bank') }}">
+                        Generate Invoice
+                    </a>
+                @endif
+            </div>
+        </section>
 
-@endsection
+    @endsection

@@ -34,6 +34,8 @@ Route::get('/pensioner/update/{id}', [ApplicationController::class, 'showUpdateP
 
 Route::get('/pensioners/all', [PensionerController::class, 'getAllPensionersFromDB'])->name('show.pensioner.section');
 
+Route::get('/pensioners', [PensionerController::class, 'showPensionersVariantSection'])->name('show.pensioners.variant.section');
+
 Route::post('/pensioner', [PensionerController::class, 'addPensionerIntoDB'])->name('add.pensioner.process');
 
 Route::post('/pensioner/remove', [PensionerController::class, 'removePensionerFromDB'])->name('remove.pensioner.process');
