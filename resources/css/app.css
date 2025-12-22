@@ -128,3 +128,53 @@
 .custom-border td {
     border: 2px solid black !important;
 }
+
+.custom-button-fill {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #1e40af;
+    background: transparent;
+    color: #000000;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 0;
+    transition: color 0.3s ease;
+}
+
+.custom-button-fill::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background: #1e40af;
+    z-index: -1;
+    transition: width 0.35s ease;
+}
+
+.custom-button-fill:hover {
+    color: #ffffff;
+}
+
+.custom-button-fill:hover::before {
+    width: 100%;
+}
+
+.custom-button-fill:not(:disabled):hover {
+    color: #ffffff;
+}
+
+.custom-button-fill:not(:disabled):hover::before {
+    width: 100%;
+}
+
+.custom-button-fill:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

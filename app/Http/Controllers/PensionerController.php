@@ -269,6 +269,14 @@ class PensionerController extends Controller
                     $officer_office_code = $officer->office->office_code;
                     $pensioners = Pensioner::where('status', $pensioners_type)->orderBy('erp_id')->get();
                     return view('viewpensioner', compact('pensioners', 'pensioners_type', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+
+                case 'certifier':
+                    $officer_office_code = $officer->office->office_code;
+                    $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
+                    $pensioners = Pensioner::whereIn('office_id', $office_ids)->where('status', $pensioners_type)->orderBy('erp_id')->get();
+                    return view('viewpensioner', compact('pensioners', 'pensioners_type', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+
+                    break;
                 case 'initiator':
                     $officer_office_code = $officer->office->office_code;
                     $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
@@ -305,10 +313,18 @@ class PensionerController extends Controller
                     $approvedPensionersCount = Pensioner::where('status', 'approved')->count();
                     return view('showpensionersvariant', compact('initiatedPensionersCount', 'certifiedPensionersCount', 'approvedPensionersCount', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
                     break;
+                case 'certifier':
+                    $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
+                    $initiatedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'initiated')->count();
+                    $certifiedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'certified')->count();
+                    $approvedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'approved')->count();
+                    return view('showpensionersvariant', compact('initiatedPensionersCount', 'certifiedPensionersCount', 'approvedPensionersCount', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+
+                    break;
                 case 'initiator':
                     $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
-                    $initiatedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'initiated')->get()->count();
-                    $certifiedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'certified')->get()->count();
+                    $initiatedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'initiated')->count();
+                    $certifiedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'certified')->count();
                     $approvedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'approved')->count();
                     return view('showpensionersvariant', compact('initiatedPensionersCount', 'certifiedPensionersCount', 'approvedPensionersCount', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
                     break;

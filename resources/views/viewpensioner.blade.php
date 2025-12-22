@@ -61,14 +61,8 @@
                                 @default
                             @endswitch
                             <td>
-                                <div class="row">
-                                    <i class="bi bi-trash col-6 pensioner-delete-buttons" data-bs-toggle="modal"
-                                        data-bs-target="#pensionerDeleteActionModal" data-name="{{ $pensioner->name }}"
-                                        data-index="{{ $pensioner->id }}"></i>
-                                    <i class="bi bi-pen col-6 pensioner-update-buttons" data-bs-toggle="modal"
-                                        data-bs-target="#pensionerUpdateActionModal" data-name="{{ $pensioner->name }}"
-                                        data-index="{{ $pensioner->id }}"></i>
-                                </div>
+                                <div class="react-pensionar-action-buttons" data-officer-role="{{ $officer_role }}"
+                                    data-pensioners-type="{{ $pensioners_type }}"></div>
                             </td>
                         </tr>
                         @empty
