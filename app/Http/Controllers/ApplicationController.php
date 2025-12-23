@@ -68,12 +68,12 @@ class ApplicationController extends Controller
                     case "initiator":
                         $officer_office_id = $officer->office->id;
                         $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
-                        $pensionerCount = Pensioner::whereIn('office_id', $office_ids)->get()->count();
                         $officers = Officer::where('office_id', $officer_office_id)->get();
                         $officerCount = $officers->count();
                         $unitOffices = Office::where('payment_office_code', $officer->office->office_code)->get();
                         $unitofficeCount = $unitOffices->count();
-                        return view('dashboard', compact('pensionerCount', 'officerCount', 'unitofficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                        $floatedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'floated')->count();
+                        return view('dashboard', compact('floatedPensionersCount', 'officerCount', 'unitofficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
                         break;
                     default:
                         return view('login');
@@ -331,7 +331,7 @@ class ApplicationController extends Controller
                 return redirect()->back()->with([
                     'erp_id' => $validated['erp_id'],
                     'password' => $validated['password']
-                ])->withCookies([cookie('user_id', $officer->erp_id, 10, '/', null, false, true), cookie('user_type', 'officer', 10, '/', null, false, true)]);
+                ])->withCookies([cookie('user_id', $officer->erp_id, 60, '/', null, false, true), cookie('user_type', 'officer', 60, '/', null, false, true)]);
             }
         } else {
             $validated = $request->validate([

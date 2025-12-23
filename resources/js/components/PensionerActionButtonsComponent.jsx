@@ -3,184 +3,77 @@ import EditIcon from "@mui/icons-material/Edit";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
-import { Tooltip } from "@mui/material";
+import Tooltip from "@mui/material/Tooltip";
+
+const ACTIONS = {
+    delete: {
+        icon: <DeleteIcon fontSize="small" />,
+        title: "Delete Pensioner",
+    },
+    edit: { icon: <EditIcon fontSize="small" />, title: "Edit Pensioner" },
+    forward: { icon: <ArrowForwardIcon fontSize="small" />, title: "Forward" },
+    forwardApproval: {
+        icon: <ArrowForwardIcon fontSize="small" />,
+        title: "Forward for Approval",
+    },
+    back: {
+        icon: <ArrowBackIcon fontSize="small" />,
+        title: "Return Pensioner",
+    },
+    backToCertifier: {
+        icon: <ArrowBackIcon fontSize="small" />,
+        title: "Return Pensioner to Certifier",
+    },
+    approve: { icon: <DoneOutlineIcon fontSize="small" />, title: "Approve" },
+};
+
+const RULES = {
+    initiator: {
+        initiated: ["delete", "edit", "forward"],
+        certified: ["back", "forwardApproval"],
+        approved: ["backToCertifier", "approve"],
+    },
+    certifier: {
+        initiated: ["delete", "edit", "forward"],
+        certified: ["back", "forwardApproval"],
+        approved: ["backToCertifier", "approve"],
+    },
+    approver: {
+        initiated: ["delete", "edit", "forward"],
+        certifier: ["back", "forwardApproval"],
+        approved: ["backToCertifier", "approve"],
+    },
+};
 
 export default function PensionerActionButtonsComponent({
     officerRole,
     pensionersType,
 }) {
-    switch (officerRole) {
-        case "initiator":
-            return (
-                <div className="d-flex gap-2 justify-content-center">
-                    {pensionersType == "initiated" && (
-                        <>
-                            <button className="custom-button-fill">
-                                <Tooltip title="Delete Pensioner">
-                                    <DeleteIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
+    const actions = RULES[officerRole]?.[pensionersType] || [];
 
-                            <button className="custom-button-fill">
-                                <Tooltip title="Edit Pensioner">
-                                    <EditIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
+    return (
+        <div className="d-flex gap-2 justify-content-center">
+            {actions.map((key) => {
+                const { icon, title } = ACTIONS[key];
 
-                            <button className="custom-button-fill">
-                                <Tooltip title="Forward">
-                                    <ArrowForwardIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-                        </>
-                    )}
-                    {pensionersType == "certified" && (
-                        <>
-                            <button className="custom-button-fill" disabled>
-                                <Tooltip title="Return Pensioner">
-                                    <ArrowBackIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
+                const disabled =
+                    officerRole !== "initiator" ||
+                    pensionersType !== "initiated";
 
-                            <button className="custom-button-fill" disabled>
-                                <Tooltip title="Forward for Approval">
-                                    <ArrowForwardIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-                        </>
-                    )}
-                    {pensionersType == "approved" && (
-                        <>
-                            <button className="custom-button-fill" disabled>
-                                <Tooltip title="Return Pensioner to Certifier">
-                                    <ArrowBackIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-
-                            <button className="custom-button-fill" disabled>
-                                <Tooltip title="Approve">
-                                    <DoneOutlineIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-                        </>
-                    )}
-                </div>
-            );
-
-        case "certificer":
-            return (
-                <div className="d-flex gap-2 justify-content-center">
-                    {pensionersType == "initiated" && (
-                        <>
-                            <button className="custom-button-fill" disabled>
-                                <Tooltip title="Delete Pensioner">
-                                    <DeleteIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-
-                            <button className="custom-button-fill" disabled>
-                                <Tooltip title="Edit Pensioner">
-                                    <EditIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-
-                            <button className="custom-button-fill" disabled>
-                                <Tooltip title="Forward">
-                                    <ArrowForwardIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-                        </>
-                    )}
-                    {pensionersType == "certified" && (
-                        <>
-                            <button className="custom-button-fill">
-                                <Tooltip title="Return Pensioner">
-                                    <ArrowBackIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-
-                            <button className="custom-button-fill">
-                                <Tooltip title="Forward for Approval">
-                                    <ArrowForwardIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-                        </>
-                    )}
-                    {pensionersType == "approved" && (
-                        <>
-                            <button className="custom-button-fill" disabled>
-                                <Tooltip title="Return Pensioner to Certifier">
-                                    <ArrowBackIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-
-                            <button className="custom-button-fill" disabled>
-                                <Tooltip title="Approve">
-                                    <DoneOutlineIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-                        </>
-                    )}
-                </div>
-            );
-        case "approver":
-            return (
-                <div className="d-flex gap-2 justify-content-center">
-                    {pensionersType == "initiated" && (
-                        <>
-                            <button className="custom-button-fill" disabled>
-                                <Tooltip title="Delete Pensioner">
-                                    <DeleteIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-
-                            <button className="custom-button-fill" disabled>
-                                <Tooltip title="Edit Pensioner">
-                                    <EditIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-
-                            <button className="custom-button-fill" disabled>
-                                <Tooltip title="Forward">
-                                    <ArrowForwardIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-                        </>
-                    )}
-                    {pensionersType == "certifier" && (
-                        <>
-                            <button className="custom-button-fill" disabled>
-                                <Tooltip title="Return Pensioner">
-                                    <ArrowBackIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-
-                            <button className="custom-button-fill" disabled>
-                                <Tooltip title="Forward for Approval">
-                                    <ArrowForwardIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-                        </>
-                    )}
-                    {pensionersType == "approved" && (
-                        <>
-                            <button className="custom-button-fill">
-                                <Tooltip title="Return Pensioner to Certifier">
-                                    <ArrowBackIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-
-                            <button className="custom-button-fill">
-                                <Tooltip title="Approve">
-                                    <DoneOutlineIcon fontSize="small" />
-                                </Tooltip>
-                            </button>
-                        </>
-                    )}
-                </div>
-            );
-
-        default:
-            return <div></div>;
-    }
+                return (
+                    <button
+                        key={key}
+                        className="custom-button-fill"
+                        disabled={
+                            disabled &&
+                            key !== "back" &&
+                            key !== "forwardApproval"
+                        }
+                    >
+                        <Tooltip title={title}>{icon}</Tooltip>
+                    </button>
+                );
+            })}
+        </div>
+    );
 }

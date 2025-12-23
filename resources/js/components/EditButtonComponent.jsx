@@ -1,10 +1,10 @@
-import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import { Tooltip, Snackbar, Alert } from "@mui/material";
 import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import axios from "axios";
 
-export default function DeleteButtonComponent({ pensionerId }) {
+export default function EditButtonComponent({ pensionerId }) {
     const modalInstance = useRef(null);
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -25,28 +25,28 @@ export default function DeleteButtonComponent({ pensionerId }) {
         modalInstance.current?.hide();
     };
 
-    const handleDelete = async () => {
+    const handleUpdate = async () => {
         try {
-            const response = await axios.delete(`/pensioner/${pensionerId}`, {
+            const response = await axios.get(`/api/pensioner/${pensionerId}`, {
                 withCredentials: true,
             });
 
             if (response.data.success) {
                 closeModal();
                 setSnackbarMessage(
-                    response.data.message || "Pensioner deleted successfully"
+                    response.data.message || "Pensioner retrived successfully"
                 );
                 setSnackbarSeverity("success");
                 setSnackbarOpen(true);
                 setTimeout(() => {
-                    window.location.reload();
+                    window.location.href = `/pensioner/${pensionerId}`;
                 }, 1200);
             }
         } catch (error) {
             closeModal();
 
             setSnackbarMessage(
-                error.response?.data?.message || "Failed to delete pensioner"
+                error.response?.data?.message || "Failed to update pensioner"
             );
             setSnackbarSeverity("error");
             setSnackbarOpen(true);
@@ -60,8 +60,8 @@ export default function DeleteButtonComponent({ pensionerId }) {
                 className="custom-button-fill"
                 onClick={openModal}
             >
-                <Tooltip title="Delete Pensioner">
-                    <DeleteIcon fontSize="small" />
+                <Tooltip title="Update Pensioner">
+                    <EditIcon fontSize="small" />
                 </Tooltip>
             </button>
 
@@ -75,7 +75,7 @@ export default function DeleteButtonComponent({ pensionerId }) {
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Confirm Delete</h5>
+                                <h5 className="modal-title">Confirm Update</h5>
                                 <button
                                     type="button"
                                     className="btn-close"
@@ -84,7 +84,7 @@ export default function DeleteButtonComponent({ pensionerId }) {
                             </div>
 
                             <div className="modal-body">
-                                Are you sure you want to delete this pensioner?
+                                Are you sure you want to update this pensioner?
                             </div>
 
                             <div className="modal-footer">
@@ -96,9 +96,9 @@ export default function DeleteButtonComponent({ pensionerId }) {
                                 </button>
                                 <button
                                     className="btn btn-danger"
-                                    onClick={handleDelete}
+                                    onClick={handleUpdate}
                                 >
-                                    Yes, Delete
+                                    Yes, Update
                                 </button>
                             </div>
                         </div>

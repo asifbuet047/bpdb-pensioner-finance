@@ -46,6 +46,10 @@
                             <td>{{ number_format($pensioner->last_basic_salary, 2) }}</td>
                             <td>{{ number_format($pensioner->medical_allowance, 2) }}</td>
                             @switch($pensioner->status)
+                                @case('floated')
+                                    <td>{{ 'Pending' }}</td>
+                                @break
+
                                 @case('initiated')
                                     <td>{{ 'Pending' }}</td>
                                 @break
@@ -61,8 +65,45 @@
                                 @default
                             @endswitch
                             <td>
-                                <div class="react-pensionar-action-buttons" data-officer-role="{{ $officer_role }}"
-                                    data-pensioners-type="{{ $pensioners_type }}"></div>
+                                {{-- <div class="row">
+                                    <i class="bi bi-trash col-6 pensioner-delete-buttons" data-bs-toggle="modal"
+                                        data-bs-target="#pensionerDeleteActionModal" data-name="{{ $pensioner->name }}"
+                                        data-index="{{ $pensioner->id }}"></i>
+                                    <i class="bi bi-pen col-6 pensioner-update-buttons" data-bs-toggle="modal"
+                                        data-bs-target="#pensionerUpdateActionModal" data-name="{{ $pensioner->name }}"
+                                        data-index="{{ $pensioner->id }}"></i>
+                                </div> --}}
+
+                                @if ($officer_role === 'initiator')
+                                    @if ($pensioners_type === 'floated')
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <div class="pensioner-delete-button" data-pensioner-id="{{ $pensioner->id }}">
+                                            </div>
+                                            <div class="pensioner-update-button" data-pensioner-id="{{ $pensioner->id }}">
+                                            </div>
+                                            <div class="pensioner-forward-button" data-pensioner-id="{{ $pensioner->id }}">
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endif
+                                @if ($officer_role === 'certifier')
+                                    @if ($pensioners_type === 'initiated')
+                                        <div
+                                            class="d-flex
+                                                justify-content-center gap-2">
+                                            <div id="pensioner-return-button"></div>
+                                            <div id="pensioner-forward-button"></div>
+                                        </div>
+                                    @endif
+                                @endif
+                                @if ($officer_role === 'approver')
+                                    @if ($pensioners_type === 'certified')
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <div id="pensioner-return-button"></div>
+                                            <div id="pensioner-approve-button"></div>
+                                        </div>
+                                    @endif
+                                @endif
                             </td>
                         </tr>
                         @empty

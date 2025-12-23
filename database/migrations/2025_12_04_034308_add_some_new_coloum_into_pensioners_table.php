@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('nid', 20);
             $table->string('bank_branch_name');
             $table->string('bank_routing_number', 20);
-            $table->enum('status', ['initiated', 'certified', 'approved']);
+            $table->enum('status', ['floated', 'initiated', 'certified', 'approved']);
             $table->boolean('verified');
             $table->boolean('biometric_verified');
             $table->enum('biometric_verification_type', ['face', 'fingerprint']);
