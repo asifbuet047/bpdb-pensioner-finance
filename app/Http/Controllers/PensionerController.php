@@ -11,6 +11,7 @@ use App\Models\Office;
 use App\Models\Officer;
 use App\Models\Payscale;
 use App\Models\Pensioner;
+use App\Models\Pensionerworkflow;
 use App\Models\Role;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Carbon\Carbon;
@@ -259,7 +260,6 @@ class PensionerController extends Controller
 
     public function getAllPensionersFromDB(Request $request)
     {
-        $pensioners_type = $request->query('type', 'initiated');
         $erp_id = $request->cookie('user_id');
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
@@ -270,21 +270,21 @@ class PensionerController extends Controller
             switch ($officer_role) {
                 case 'super_admin':
                     $officer_office_code = $officer->office->office_code;
-                    $pensioners = Pensioner::where('status', $pensioners_type)->orderBy('erp_id')->get();
+                    $pensioners = Pensioner::orderBy('erp_id')->get();
                     return view('viewpensioner', compact('pensioners', 'pensioners_type', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
 
                 case 'certifier':
                     $officer_office_code = $officer->office->office_code;
                     $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
-                    $pensioners = Pensioner::whereIn('office_id', $office_ids)->where('status', $pensioners_type)->orderBy('erp_id')->get();
-                    return view('viewpensioner', compact('pensioners', 'pensioners_type', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    $pensioners = Pensioner::whereIn('office_id', $office_ids)->orderBy('id')->get();
+                    return view('viewpensioner', compact('pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
 
                     break;
                 case 'initiator':
                     $officer_office_code = $officer->office->office_code;
                     $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
-                    $pensioners = Pensioner::whereIn('office_id', $office_ids)->where('status', $pensioners_type)->orderBy('erp_id')->get();
-                    return view('viewpensioner', compact('pensioners', 'pensioners_type', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    $pensioners = Pensioner::whereIn('office_id', $office_ids)->orderBy('id')->get();
+                    return view('viewpensioner', compact('pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
                     break;
                 default:
                     return view('login');
@@ -396,6 +396,170 @@ class PensionerController extends Controller
         ], 200);
     }
 
+
+    public function initiatePensionerWorkflow(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $workflow_type = $request->input('workflow', 'forward');
+        $id = $request->input('id', '1');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        $officer_office_code = $officer->office->office_code;
+        $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
+        $pensioner = Pensioner::whereIn('office_id', $office_ids)->where('id', $id)->first();
+
+        if (!$erp_id) {
+            return response()->json(['message' => 'please login'], 401);
+        }
+
+        if (!$officer) {
+            return response()->json(['message' => 'no valid officer'], 402);
+        }
+
+        if (!$pensioner) {
+            return response()->json(['message' => 'Pensioner is not under Your RAO office'], 403);
+        }
+
+        switch ($workflow_type) {
+            case 'forward':
+                if ($pensioner->status === 'floated') {
+                    if ($officer->role->role_name !== 'initiator') {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Officer is not initiator'
+                        ], 403);
+                    }
+
+                    Pensionerworkflow::create([
+                        'pensioner_id' => $pensioner->id,
+                        'officer_id'   => $officer->id,
+                        'status_from'  => 'floated',
+                        'status_to'    => 'initiated',
+                    ]);
+
+                    $pensioner->update(['status' => 'initiated']);
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => $pensioner->name . ' is successfully initiated'
+                    ], 200);
+                }
+
+                if ($pensioner->status === 'initiated') {
+
+                    if ($officer->role->role_name !== 'certifier') {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Officer is not certifier'
+                        ], 403);
+                    }
+
+                    Pensionerworkflow::create([
+                        'pensioner_id' => $pensioner->id,
+                        'officer_id'   => $officer->id,
+                        'status_from'  => 'initiated',
+                        'status_to'    => 'certified',
+                    ]);
+
+                    $pensioner->update(['status' => 'certified']);
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => $pensioner->name . ' is successfully certified'
+                    ], 200);
+                }
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid pensioner status for forward workflow'
+                ], 422);
+                break;
+
+            case 'return':
+                if ($pensioner->status === 'initiated') {
+                    if ($officer->role->role_name !== 'certifier') {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Officer is not certifier'
+                        ], 403);
+                    }
+
+                    Pensionerworkflow::create([
+                        'pensioner_id' => $pensioner->id,
+                        'officer_id'   => $officer->id,
+                        'status_from'  => 'initiated',
+                        'status_to'    => 'floated',
+                    ]);
+
+                    $pensioner->update(['status' => 'floated']);
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => $pensioner->name . ' is successfully floated'
+                    ], 200);
+                }
+
+                if ($pensioner->status === 'certified') {
+                    if ($officer->role->role_name !== 'approver') {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Officer is not approver'
+                        ], 403);
+                    }
+
+                    Pensionerworkflow::create([
+                        'pensioner_id' => $pensioner->id,
+                        'officer_id'   => $officer->id,
+                        'status_from'  => 'certified',
+                        'status_to'    => 'initiated',
+                    ]);
+
+                    $pensioner->update(['status' => 'initiated']);
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => $pensioner->name . ' is successfully initiated'
+                    ], 200);
+                }
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid pensioner status for return workflow'
+                ], 422);
+
+                break;
+            case 'approve':
+                if ($pensioner->status !== 'certified') {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Pensioner current status is not certified'
+                    ], 422);
+                }
+
+                if ($officer->role->role_name !== 'approver') {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Officer is not approver'
+                    ], 403);
+                }
+
+                Pensionerworkflow::create([
+                    'pensioner_id' => $pensioner->id,
+                    'officer_id'   => $officer->id,
+                    'status_from'  => 'certified',
+                    'status_to'    => 'approved',
+                ]);
+
+                $pensioner->update(['status' => 'approved']);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => $pensioner->name . ' is successfully approved'
+                ], 200);
+
+                break;
+        }
+    }
+
     public function isPensionerExits(Request $request, $id)
     {
 
@@ -408,16 +572,14 @@ class PensionerController extends Controller
         if (!$erp_id) {
             return response()->json(['message' => 'please login'], 401);
         }
-        $officer = Officer::with('role')
-            ->where('erp_id', $erp_id)
-            ->first();
+
         if (!$officer) {
             return response()->json(['message' => 'no valid officer'], 402);
         }
         if ($officer->role->role_name !== 'initiator') {
             return response()->json(['message' => 'Forbidden request'], 403);
         }
-        $pensioner = Pensioner::find($id);
+
         if (!$pensioner) {
             return response()->json(['message' => 'Pensioner is not under Your RAO office'], 404);
         }

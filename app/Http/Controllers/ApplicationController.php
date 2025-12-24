@@ -58,7 +58,7 @@ class ApplicationController extends Controller
                     case "certifier":
                         $officer_office_id = $officer->office->id;
                         $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
-                        $pensionerCount = Pensioner::whereIn('office_id', $office_ids)->get()->count();
+                        $pensionerCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'floated')->count();
                         $officers = Officer::where('office_id', $officer_office_id)->get();
                         $officerCount = $officers->count();
                         $unitOffices = Office::where('payment_office_code', $officer->office->office_code)->get();

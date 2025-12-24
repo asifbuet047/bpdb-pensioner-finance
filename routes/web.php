@@ -44,9 +44,9 @@ Route::get('/api/pensioner/{id}', [PensionerController::class, 'isPensionerExits
 
 Route::get('/pensioner/update/{id}', [PensionerController::class, 'getSpecificPensionerFromDB']);
 
-Route::put('/pensioner/update/{id}', [PensionerController::class, 'updatePensionerIntoDB'])->name('update.pensioner.process');
-
 Route::post('/pensioner/update', [PensionerController::class, 'updatePensionerIntoDB'])->name('update.pensioner.process');
+
+Route::post('/api/pensioner/workflow', [PensionerController::class, 'initiatePensionerWorkflow']);
 
 Route::get('/pensioners/export', [PensionerController::class, 'exportPensioners'])->name('download.pensioners');
 

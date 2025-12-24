@@ -4,8 +4,13 @@ import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import axios from "axios";
 
-export default function DeleteButtonComponent({ pensionerId }) {
+export default function DeleteButtonComponent({
+    pensionerId,
+    pensionerName,
+    buttonStatus,
+}) {
     const modalInstance = useRef(null);
+    const button_status = buttonStatus === "true";
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -33,9 +38,7 @@ export default function DeleteButtonComponent({ pensionerId }) {
 
             if (response.data.success) {
                 closeModal();
-                setSnackbarMessage(
-                    response.data.message || "Pensioner deleted successfully"
-                );
+                setSnackbarMessage(response.data.message);
                 setSnackbarSeverity("success");
                 setSnackbarOpen(true);
                 setTimeout(() => {
@@ -59,6 +62,7 @@ export default function DeleteButtonComponent({ pensionerId }) {
                 type="button"
                 className="custom-button-fill"
                 onClick={openModal}
+                disabled={button_status}
             >
                 <Tooltip title="Delete Pensioner">
                     <DeleteIcon fontSize="small" />
@@ -84,7 +88,9 @@ export default function DeleteButtonComponent({ pensionerId }) {
                             </div>
 
                             <div className="modal-body">
-                                Are you sure you want to delete this pensioner?
+                                Are you sure you want to delete this pensioner
+                                name is
+                                <div className="fw-bold">{pensionerName}?</div>
                             </div>
 
                             <div className="modal-footer">

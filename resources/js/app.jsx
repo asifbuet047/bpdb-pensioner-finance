@@ -27,19 +27,31 @@ if (el) {
 
 document.querySelectorAll(".pensioner-update-button").forEach((el) => {
     createRoot(el).render(
-        <EditButtonComponent pensionerId={el.dataset.pensionerId} />
+        <EditButtonComponent
+            pensionerId={el.dataset.pensionerId}
+            pensionerName={el.dataset.pensionerName}
+            buttonStatus={el.dataset.buttonStatus}
+        />
     );
 });
 
 document.querySelectorAll(".pensioner-delete-button").forEach((el) => {
     createRoot(el).render(
-        <DeleteButtonComponent pensionerId={el.dataset.pensionerId} />
+        <DeleteButtonComponent
+            pensionerId={el.dataset.pensionerId}
+            pensionerName={el.dataset.pensionerName}
+            buttonStatus={el.dataset.buttonStatus}
+        />
     );
 });
 
 document.querySelectorAll(".pensioner-forward-button").forEach((el) => {
     createRoot(el).render(
-        <ForwardButtonComponent pensionerId={el.dataset.pensionerId} />
+        <ForwardButtonComponent
+            pensionerId={el.dataset.pensionerId}
+            pensionerName={el.dataset.pensionerName}
+            buttonStatus={el.dataset.buttonStatus}
+        />
     );
 });
 

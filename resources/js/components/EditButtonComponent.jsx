@@ -4,8 +4,13 @@ import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import axios from "axios";
 
-export default function EditButtonComponent({ pensionerId }) {
+export default function EditButtonComponent({
+    pensionerId,
+    pensionerName,
+    buttonStatus,
+}) {
     const modalInstance = useRef(null);
+    const button_status = buttonStatus === "true";
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -57,6 +62,7 @@ export default function EditButtonComponent({ pensionerId }) {
                 type="button"
                 className="custom-button-fill"
                 onClick={openModal}
+                disabled={button_status}
             >
                 <Tooltip title="Update Pensioner">
                     <EditIcon fontSize="small" />
@@ -82,7 +88,9 @@ export default function EditButtonComponent({ pensionerId }) {
                             </div>
 
                             <div className="modal-body">
-                                Are you sure you want to update this pensioner?
+                                Are you sure you want to update this pensioner
+                                name is
+                                <div className="fw-bold">{pensionerName}?</div>
                             </div>
 
                             <div className="modal-footer">

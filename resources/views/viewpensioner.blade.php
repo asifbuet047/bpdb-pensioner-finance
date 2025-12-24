@@ -4,7 +4,7 @@
 
 @section('content')
     <section class="container-fluid py-5">
-        <h2 class="mb-4 text-center fw-bold text-primary">All {{ $pensioners_type }} Pensioners</h2>
+        <h2 class="mb-4 text-center fw-bold text-primary">All Pensioners</h2>
         <h1 class="mb-4 text-center fw-bold text-primary">বাংলাদেশ বিদ্যুৎ উন্নয়ন বোর্ড</h1>
         <div class="table-responsive shadow rounded p-2">
             <table class="table table-hover align-middle custom-border">
@@ -45,64 +45,123 @@
                             <td>{{ $pensioner->office_name }}</td>
                             <td>{{ number_format($pensioner->last_basic_salary, 2) }}</td>
                             <td>{{ number_format($pensioner->medical_allowance, 2) }}</td>
-                            @switch($pensioner->status)
-                                @case('floated')
-                                    <td>{{ 'Pending' }}</td>
+                            @switch($officer_role)
+                                @case('initiator')
+                                    @if ($pensioner->status === 'floated')
+                                        <td>{{ 'Pending' }}</td>
+                                    @endif
+                                    @if ($pensioner->status === 'initiated')
+                                        <td>{{ 'on Certifier desk' }}</td>
+                                    @endif
+                                    @if ($pensioner->status === 'certified')
+                                        <td>{{ 'on Approver desk' }}</td>
+                                    @endif
+                                    @if ($pensioner->status === 'approved')
+                                        <td>{{ 'Approved' }}</td>
+                                    @endif
                                 @break
 
-                                @case('initiated')
-                                    <td>{{ 'Pending' }}</td>
+                                @case('certifier')
+                                    @if ($pensioner->status === 'floated')
+                                        <td>{{ 'On Initiator desk' }}</td>
+                                    @endif
+                                    @if ($pensioner->status === 'initiated')
+                                        <td>{{ 'Pending' }}</td>
+                                    @endif
+                                    @if ($pensioner->status === 'certified')
+                                        <td>{{ 'on Approver desk' }}</td>
+                                    @endif
+                                    @if ($pensioner->status === 'approved')
+                                        <td>{{ 'Approved' }}</td>
+                                    @endif
                                 @break
 
-                                @case('certified')
-                                    <td>{{ 'Pending' }}</td>
-                                @break
-
-                                @case('approved')
-                                    <td>{{ 'Approved' }}</td>
+                                @case('approver')
+                                    @if ($pensioner->status === 'floated')
+                                        <td>{{ 'On Initiator desk' }}</td>
+                                    @endif
+                                    @if ($pensioner->status === 'initiated')
+                                        <td>{{ 'On Certifier desk' }}</td>
+                                    @endif
+                                    @if ($pensioner->status === 'certified')
+                                        <td>{{ 'Pending' }}</td>
+                                    @endif
+                                    @if ($pensioner->status === 'approved')
+                                        <td>{{ 'Approved' }}</td>
+                                    @endif
                                 @break
 
                                 @default
                             @endswitch
                             <td>
-                                {{-- <div class="row">
-                                    <i class="bi bi-trash col-6 pensioner-delete-buttons" data-bs-toggle="modal"
-                                        data-bs-target="#pensionerDeleteActionModal" data-name="{{ $pensioner->name }}"
-                                        data-index="{{ $pensioner->id }}"></i>
-                                    <i class="bi bi-pen col-6 pensioner-update-buttons" data-bs-toggle="modal"
-                                        data-bs-target="#pensionerUpdateActionModal" data-name="{{ $pensioner->name }}"
-                                        data-index="{{ $pensioner->id }}"></i>
-                                </div> --}}
 
                                 @if ($officer_role === 'initiator')
-                                    @if ($pensioners_type === 'floated')
-                                        <div class="d-flex justify-content-center gap-2">
-                                            <div class="pensioner-delete-button" data-pensioner-id="{{ $pensioner->id }}">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        @if ($pensioner->status === 'floated')
+                                            <div class="pensioner-delete-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'false' }}">
                                             </div>
-                                            <div class="pensioner-update-button" data-pensioner-id="{{ $pensioner->id }}">
+                                            <div class="pensioner-update-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'false' }}">
                                             </div>
-                                            <div class="pensioner-forward-button" data-pensioner-id="{{ $pensioner->id }}">
+                                            <div class="pensioner-forward-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'false' }}">
                                             </div>
-                                        </div>
-                                    @endif
+                                        @else
+                                            <div class="pensioner-delete-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'true' }}">
+                                            </div>
+                                            <div class="pensioner-update-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'true' }}">
+                                            </div>
+                                            <div class="pensioner-forward-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'true' }}">
+                                            </div>
+                                        @endif
+                                    </div>
                                 @endif
                                 @if ($officer_role === 'certifier')
-                                    @if ($pensioners_type === 'initiated')
-                                        <div
-                                            class="d-flex
-                                                justify-content-center gap-2">
-                                            <div id="pensioner-return-button"></div>
-                                            <div id="pensioner-forward-button"></div>
-                                        </div>
-                                    @endif
+                                    <div class="d-flex justify-content-center gap-2">
+                                        @if ($pensioner->status === 'floated')
+                                            <div class="pensioner-delete-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'false' }}">
+                                            </div>
+                                            <div class="pensioner-update-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'false' }}">
+                                            </div>
+                                            <div class="pensioner-forward-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'false' }}">
+                                            </div>
+                                        @else
+                                            <div class="pensioner-delete-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'true' }}">
+                                            </div>
+                                            <div class="pensioner-update-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'true' }}">
+                                            </div>
+                                            <div class="pensioner-forward-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'true' }}">
+                                            </div>
+                                        @endif
+                                    </div>
                                 @endif
                                 @if ($officer_role === 'approver')
-                                    @if ($pensioners_type === 'certified')
-                                        <div class="d-flex justify-content-center gap-2">
-                                            <div id="pensioner-return-button"></div>
-                                            <div id="pensioner-approve-button"></div>
-                                        </div>
-                                    @endif
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <div id="pensioner-return-button"></div>
+                                        <div id="pensioner-approve-button"></div>
+                                    </div>
                                 @endif
                             </td>
                         </tr>
@@ -117,7 +176,7 @@
                 </table>
 
                 <!--Delete Action Modal -->
-                <div class="modal fade" id="pensionerDeleteActionModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                {{-- <div class="modal fade" id="pensionerDeleteActionModal" data-bs-backdrop="static" data-bs-keyboard="false"
                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -135,10 +194,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <!--Update Action Modal -->
-                <div class="modal fade" id="pensionerUpdateActionModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                {{-- <div class="modal fade" id="pensionerUpdateActionModal" data-bs-backdrop="static" data-bs-keyboard="false"
                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -156,7 +215,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Action Buttons -->
