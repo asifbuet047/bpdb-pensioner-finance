@@ -58,12 +58,12 @@ class ApplicationController extends Controller
                     case "certifier":
                         $officer_office_id = $officer->office->id;
                         $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
-                        $pensionerCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'floated')->count();
                         $officers = Officer::where('office_id', $officer_office_id)->get();
                         $officerCount = $officers->count();
                         $unitOffices = Office::where('payment_office_code', $officer->office->office_code)->get();
                         $unitofficeCount = $unitOffices->count();
-                        return view('dashboard', compact('pensionerCount', 'officerCount', 'unitofficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                        $initiatedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'initiated')->count();
+                        return view('dashboard', compact('initiatedPensionersCount', 'officerCount', 'unitofficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
                         break;
                     case "initiator":
                         $officer_office_id = $officer->office->id;

@@ -153,23 +153,11 @@
 
             @if (isset($officer_role) && $officer_role === 'certifier')
                 <div class="row g-3 justify-content-center">
-                    <!-- Certify Pensioner Button -->
-                    <div class="col-12 col-md-4 scale-animate">
-                        <div class="info-box" style="background: linear-gradient(135deg, #6a11cb, #2575fc);">
-                            <div>
-                                <h3>Certify Pensioner</h3>
-                                <a href="{{ route('add.pensioner.section') }}">More info <i
-                                        class="bi bi-arrow-right"></i></a>
-                            </div>
-                            <div class="icon"><i class="bi bi-person-fill-add"></i></div>
-                        </div>
-                    </div>
-
                     <!-- View All Pensioner Button -->
                     <div class="col-12 col-md-4 scale-animate">
                         <div class="info-box" style="background: linear-gradient(135deg, #ff7e5f, #feb47b);">
                             <div>
-                                <h3>{{ $pensionerCount }} pensioner</h3>
+                                <h3>{{ $initiatedPensionersCount }} pending pensioner</h3>
                                 <h3>View All Pensioners</h3>
                                 <a href="{{ route('show.pensioners.variant.section') }}">More info <i
                                         class="bi bi-arrow-right"></i></a>
@@ -206,7 +194,7 @@
                     <div class="col-12 col-md-4 scale-animate">
                         <div class="info-box" style="background: linear-gradient(135deg, #f7671e, #ffd200);">
                             <div>
-                                <h3>{{ $pensionerCount }} pensioners</h3>
+                                <h3>{{ $initiatedPensionersCount }} pensioners</h3>
                                 <h3>Generate Pension</h3>
                                 <a href="{{ route('home.page') }}">More info <i class="bi bi-arrow-right"></i></a>
                             </div>

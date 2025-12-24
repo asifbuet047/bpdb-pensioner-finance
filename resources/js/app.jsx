@@ -57,7 +57,11 @@ document.querySelectorAll(".pensioner-forward-button").forEach((el) => {
 
 document.querySelectorAll(".pensioner-return-button").forEach((el) => {
     createRoot(el).render(
-        <ReturnButtonComponent pensionerId={el.dataset.pensionerId} />
+        <ReturnButtonComponent
+            pensionerId={el.dataset.pensionerId}
+            pensionerName={el.dataset.pensionerName}
+            buttonStatus={el.dataset.buttonStatus}
+        />
     );
 });
 

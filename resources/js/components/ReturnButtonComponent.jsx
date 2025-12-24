@@ -4,8 +4,13 @@ import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import axios from "axios";
 
-export default function ReturnButtonComponent({ pensionerId, pensionerName }) {
+export default function ReturnButtonComponent({
+    pensionerId,
+    pensionerName,
+    buttonStatus,
+}) {
     const modalInstance = useRef(null);
+    const button_status = buttonStatus === "true";
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -43,6 +48,9 @@ export default function ReturnButtonComponent({ pensionerId, pensionerName }) {
                 setSnackbarMessage(response.data.message);
                 setSnackbarSeverity("success");
                 setSnackbarOpen(true);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1200);
             }
         } catch (error) {
             closeModal();
@@ -58,6 +66,7 @@ export default function ReturnButtonComponent({ pensionerId, pensionerName }) {
                 type="button"
                 className="custom-button-fill"
                 onClick={openModal}
+                disabled={button_status}
             >
                 <Tooltip title="Forward Pensioner">
                     <ArrowBackIcon fontSize="small" />

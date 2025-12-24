@@ -128,12 +128,8 @@
                                 @endif
                                 @if ($officer_role === 'certifier')
                                     <div class="d-flex justify-content-center gap-2">
-                                        @if ($pensioner->status === 'floated')
-                                            <div class="pensioner-delete-button" data-pensioner-id="{{ $pensioner->id }}"
-                                                data-pensioner-name="{{ $pensioner->name }}"
-                                                data-button-status="{{ 'false' }}">
-                                            </div>
-                                            <div class="pensioner-update-button" data-pensioner-id="{{ $pensioner->id }}"
+                                        @if ($pensioner->status === 'initiated')
+                                            <div class="pensioner-return-button" data-pensioner-id="{{ $pensioner->id }}"
                                                 data-pensioner-name="{{ $pensioner->name }}"
                                                 data-button-status="{{ 'false' }}">
                                             </div>
@@ -142,11 +138,7 @@
                                                 data-button-status="{{ 'false' }}">
                                             </div>
                                         @else
-                                            <div class="pensioner-delete-button" data-pensioner-id="{{ $pensioner->id }}"
-                                                data-pensioner-name="{{ $pensioner->name }}"
-                                                data-button-status="{{ 'true' }}">
-                                            </div>
-                                            <div class="pensioner-update-button" data-pensioner-id="{{ $pensioner->id }}"
+                                            <div class="pensioner-return-button" data-pensioner-id="{{ $pensioner->id }}"
                                                 data-pensioner-name="{{ $pensioner->name }}"
                                                 data-button-status="{{ 'true' }}">
                                             </div>

@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Add Pensioner')
+@section('title', 'All Pensioners')
 
 @section('content')
 
@@ -31,12 +31,12 @@
                 @endif
 
                 @if ($officer_role === 'certifier')
-                    <!-- Pending Pensioners card -->
+                    <!-- Initiated Pensioners card -->
                     <div class="col-12 col-md-4 scale-animate">
                         <div class="info-box rounded shadow text-white"
                             style="background: linear-gradient(135deg, #6a11cb, #2575fc);">
                             <div>
-                                <h3>{{ $initiatedPensionersCount }} pending pensioners</h3>
+                                <h3>{{ $initiatedPensionersCount }} pending tasks</h3>
                                 <h3 class="mb-3">Show all</h3>
                                 <a href="{{ route('show.pensioner.section', ['type' => 'initiated']) }}"
                                     class="text-white fw-bold text-decoration-none">
