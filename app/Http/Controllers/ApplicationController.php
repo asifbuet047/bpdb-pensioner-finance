@@ -48,12 +48,14 @@ class ApplicationController extends Controller
                         return view('dashboard', compact('pensionerCount'));
                         break;
                     case "approver":
-                        $officeCount = Office::count();
-                        $officerCount = Officer::count();
-                        $pensionerCount = Pensioner::count();
-                        $paymentOfficeCount = Office::where('is_payment_office', '=', true)->count();
-                        $designation = Officer::with('designation')->where('erp_id', $request->cookie('user_id'))->first();
-                        return view('dashboard', compact('officeCount', 'officerCount', 'pensionerCount', 'paymentOfficeCount', 'designation'));
+                        $officer_office_id = $officer->office->id;
+                        $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
+                        $officers = Officer::where('office_id', $officer_office_id)->get();
+                        $officerCount = $officers->count();
+                        $unitOffices = Office::where('payment_office_code', $officer->office->office_code)->get();
+                        $unitofficeCount = $unitOffices->count();
+                        $certifiedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'certified')->count();
+                        return view('dashboard', compact('certifiedPensionersCount', 'officerCount', 'unitofficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
                         break;
                     case "certifier":
                         $officer_office_id = $officer->office->id;

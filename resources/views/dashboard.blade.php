@@ -124,40 +124,11 @@
 
             @if (isset($officer_role) && $officer_role === 'approver')
                 <div class="row g-3 justify-content-center">
-                    <!-- Add Pensioner Button -->
-                    <div class="col-12 col-md-4 scale-animate">
-                        <div class="info-box" style="background: linear-gradient(135deg, #6a11cb, #2575fc);">
-                            <div>
-                                <h3>Add Pensioner</h3>
-                                <a href="{{ route('add.pensioner.section') }}">More info <i
-                                        class="bi bi-arrow-right"></i></a>
-                            </div>
-                            <div class="icon"><i class="bi bi-person-fill-add"></i></div>
-                        </div>
-                    </div>
-
                     <!-- View All Pensioner Button -->
                     <div class="col-12 col-md-4 scale-animate">
                         <div class="info-box" style="background: linear-gradient(135deg, #ff7e5f, #feb47b);">
                             <div>
-                                <h3>{{ $pensionerCount }} pensioner</h3>
-                                <h3>View All Pensioners</h3>
-                                <a href="{{ route('show.pensioner.section') }}">More info <i
-                                        class="bi bi-arrow-right"></i></a>
-                            </div>
-                            <div class="icon"><i class="bi bi-people-fill"></i></div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-            @if (isset($officer_role) && $officer_role === 'certifier')
-                <div class="row g-3 justify-content-center">
-                    <!-- View All Pensioner Button -->
-                    <div class="col-12 col-md-4 scale-animate">
-                        <div class="info-box" style="background: linear-gradient(135deg, #ff7e5f, #feb47b);">
-                            <div>
-                                <h3>{{ $initiatedPensionersCount }} pending pensioner</h3>
+                                <h3>{{ $certifiedPensionersCount }} pending pensioner</h3>
                                 <h3>View All Pensioners</h3>
                                 <a href="{{ route('show.pensioners.variant.section') }}">More info <i
                                         class="bi bi-arrow-right"></i></a>
@@ -165,7 +136,6 @@
                             <div class="icon"><i class="bi bi-people-fill"></i></div>
                         </div>
                     </div>
-
                     <!-- View All officers Button-->
                     <div class="col-12 col-md-4 scale-animate">
                         <div class="info-box" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
@@ -194,7 +164,6 @@
                     <div class="col-12 col-md-4 scale-animate">
                         <div class="info-box" style="background: linear-gradient(135deg, #f7671e, #ffd200);">
                             <div>
-                                <h3>{{ $initiatedPensionersCount }} pensioners</h3>
                                 <h3>Generate Pension</h3>
                                 <a href="{{ route('home.page') }}">More info <i class="bi bi-arrow-right"></i></a>
                             </div>
@@ -203,6 +172,59 @@
                     </div>
                 </div>
         </div>
+        @endif
+
+        @if (isset($officer_role) && $officer_role === 'certifier')
+            <div class="row g-3 justify-content-center">
+                <!-- View All Pensioner Button -->
+                <div class="col-12 col-md-4 scale-animate">
+                    <div class="info-box" style="background: linear-gradient(135deg, #ff7e5f, #feb47b);">
+                        <div>
+                            <h3>{{ $initiatedPensionersCount }} pending pensioner</h3>
+                            <h3>View All Pensioners</h3>
+                            <a href="{{ route('show.pensioners.variant.section') }}">More info <i
+                                    class="bi bi-arrow-right"></i></a>
+                        </div>
+                        <div class="icon"><i class="bi bi-people-fill"></i></div>
+                    </div>
+                </div>
+
+                <!-- View All officers Button-->
+                <div class="col-12 col-md-4 scale-animate">
+                    <div class="info-box" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
+                        <div>
+                            <h3>{{ $officerCount }} officer</h3>
+                            <h3>View All Officers</h3>
+                            <a href="{{ route('show.officers') }}">More info <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                        <div class="icon"><i class="bi bi-person-arms-up"></i></div>
+                    </div>
+                </div>
+
+                <!-- View All Unit Offices-->
+                <div class="col-12 col-md-4 scale-animate">
+                    <div class="info-box" style="background: linear-gradient(135deg, #f7971e, #ffd200);">
+                        <div>
+                            <h3>{{ $unitofficeCount }} office</h3>
+                            <h3>View All Unit Offices</h3>
+                            <a href="{{ route('show.offices') }}">More info <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                        <div class="icon"><i class="bi bi-building"></i></div>
+                    </div>
+                </div>
+
+                <!-- generate Pensions-->
+                <div class="col-12 col-md-4 scale-animate">
+                    <div class="info-box" style="background: linear-gradient(135deg, #f7671e, #ffd200);">
+                        <div>
+                            <h3>Generate Pension</h3>
+                            <a href="{{ route('home.page') }}">More info <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                        <div class="icon"><i class="bi bi-building"></i></div>
+                    </div>
+                </div>
+            </div>
+            </div>
         @endif
 
         @if (isset($officer_role) && $officer_role === 'initiator')

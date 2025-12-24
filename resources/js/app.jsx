@@ -67,7 +67,11 @@ document.querySelectorAll(".pensioner-return-button").forEach((el) => {
 
 document.querySelectorAll(".pensioner-approve-button").forEach((el) => {
     createRoot(el).render(
-        <ApproveButtonComponent pensionerId={el.dataset.pensionerId} />
+        <ApproveButtonComponent
+            pensionerId={el.dataset.pensionerId}
+            pensionerName={el.dataset.pensionerName}
+            buttonStatus={el.dataset.buttonStatus}
+        />
     );
 });
 
