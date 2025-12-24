@@ -66,6 +66,11 @@ class Pensioner extends Model
         return $this->hasOne(PensionerCredential::class);
     }
 
+    public function workflows()
+    {
+        return $this->hasMany(Pensionerworkflow::class);
+    }
+
     public function getMedicalAllowanceAttribute()
     {
         if (Carbon::parse($this->birth_date)->age >= 65) {
@@ -78,21 +83,21 @@ class Pensioner extends Model
     public function getBankNameAttribute()
     {
         if ($this->bank_routing_number) {
-            return Bank::where('routing_number', $this->bank_routing_number)->get()->value('bank_name');
+            return Bank::where('routing_number', $this->bank_routing_number)->get()->value('bank_name') ?? '';
         }
     }
 
     public function getBranchNameAttribute()
     {
         if ($this->bank_routing_number) {
-            return Bank::where('routing_number', $this->bank_routing_number)->get()->value('branch_name');
+            return Bank::where('routing_number', $this->bank_routing_number)->get()->value('branch_name') ?? '';
         }
     }
 
     public function getOfficeNameAttribute()
     {
         if ($this->office_id) {
-            return Office::where('id', $this->office_id)->get()->value('name_in_english');
+            return Office::where('id', $this->office_id)->get()->value('name_in_english') ?? '';
         }
     }
 }

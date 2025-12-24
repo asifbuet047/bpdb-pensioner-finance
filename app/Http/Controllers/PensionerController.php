@@ -563,7 +563,8 @@ class PensionerController extends Controller
                     ],
                 ]);
 
-                Pensioner::updateOrInsert(['erp_id' => $pensioner_erp_id], $pensioner_info);
+                $pensioner = Pensioner::where('erp_id', $pensioner_erp_id)->firstOrFail();
+                $pensioner->update($pensioner_info);
                 $success = true;
                 if ($pensioner_info) {
                     return view('updatepensioner', compact('success', 'pensioner_info', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
