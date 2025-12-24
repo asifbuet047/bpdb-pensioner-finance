@@ -33,13 +33,11 @@ export default function EditButtonComponent({ pensionerId }) {
 
             if (response.data.success) {
                 closeModal();
-                setSnackbarMessage(
-                    response.data.message || "Pensioner retrived successfully"
-                );
+                setSnackbarMessage(response.data.message);
                 setSnackbarSeverity("success");
                 setSnackbarOpen(true);
                 setTimeout(() => {
-                    window.location.href = `/pensioner/${pensionerId}`;
+                    window.location.href = `/pensioner/update/${pensionerId}`;
                 }, 1200);
             }
         } catch (error) {

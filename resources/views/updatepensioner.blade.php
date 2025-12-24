@@ -1,11 +1,12 @@
 @extends('layouts.layout')
 
-@section('title', 'Add Pensioner by ERP')
+@section('title', 'Update Pensioner ')
 
 @section('content')
 
     <section>
         <div class="container py-5">
+            <div id="update-success-snackbar"></div>
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-lg-9 col-xl-7">
                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
@@ -23,7 +24,9 @@
                                 </div>
                             @endif
 
-                            <form action="{{ route('add.pensioner.process') }}" method="POST">
+                            <form
+                                action="{{ route('update.pensioner.process', ['erp_id' => $pensioner_info['erp_id'] ?? '']) }}"
+                                method="POST">
                                 @csrf
                                 @foreach ($pensioner_info as $key => $value)
                                     <div class="mb-4">
@@ -36,11 +39,12 @@
                                                 $key === 'bank_name' ||
                                                 $key === 'bank_branch_name' ||
                                                 $key === 'service_life' ||
+                                                $key === 'erp_id' ||
                                                 $key === 'bank_branch_address')
                                             <input type="text" id="{{ $key }}"
                                                 class="form-control form-control-lg"
                                                 placeholder="Pensioner {{ ucwords(str_replace('_', ' ', $key)) }}"
-                                                value="{{ $value }}" {{ isset($success) ? 'disabled' : '' }}>
+                                                value="{{ $value }}" disabled>
                                         @else
                                             @if (
                                                 $key === 'is_self_pension' ||
@@ -82,10 +86,11 @@
                                                         @default
                                                     @endswitch
                                                 </select>
-                                                <input type="hidden" name="status" value="approved">
-                                                <input type="hidden" name="verified" value="approved">
-                                                <input type="hidden" name="biometric_verified" value="approved">
-                                                <input type="hidden" name="biometric_verification_type" value="approved">
+                                                <input type="hidden" name="status" value="floated">
+                                                <input type="hidden" name="verified" value="0">
+                                                <input type="hidden" name="biometric_verified" value="0">
+                                                <input type="hidden" name="biometric_verification_type"
+                                                    value="fingerprint">
                                             @else
                                                 <input type="text" id="{{ $key }}" name="{{ $key }}"
                                                     {{ $key === 'office_id' ? 'hidden' : '' }}
@@ -98,9 +103,11 @@
                                     </div>
                                 @endforeach
                                 @if (isset($success))
+                                    <script>
+                                        window.__PENSIONER_UPDATE_SUCCESS__ = true;
+                                    </script>
                                     <div class="mb-4 row">
-                                        <button class="btn btn-success" type="button">Addition successful. Add another
-                                            Pensioner?</button>
+                                        <button class="btn btn-success" type="button">Update successful</button>
                                     </div>
                                 @else
                                     <div class="mb-4 row">

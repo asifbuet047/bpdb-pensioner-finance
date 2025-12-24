@@ -398,7 +398,13 @@ class PensionerController extends Controller
 
     public function isPensionerExits(Request $request, $id)
     {
+
         $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        $officer_office_code = $officer->office->office_code;
+        $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
+        $pensioner = Pensioner::whereIn('office_id', $office_ids)->where('id', $id)->first();
+
         if (!$erp_id) {
             return response()->json(['message' => 'please login'], 401);
         }
@@ -413,7 +419,7 @@ class PensionerController extends Controller
         }
         $pensioner = Pensioner::find($id);
         if (!$pensioner) {
-            return response()->json(['message' => 'Pensioner not found'], 404);
+            return response()->json(['message' => 'Pensioner is not under Your RAO office'], 404);
         }
         return response()->json([
             'success' => true,
@@ -431,7 +437,6 @@ class PensionerController extends Controller
             $officer_office = $officer->office->name_in_english;
             $officer_designation = $officer->designation->description_english;
             if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
-
                 $pensioner = Pensioner::where('id', $id)->first();
                 if ($pensioner) {
                     $pensioner_payment_office_code = Office::where('name_in_english', 'LIKE', "%{$pensioner->office_name}%")->value('payment_office_code');
@@ -468,7 +473,7 @@ class PensionerController extends Controller
                             'bank_name' => Bank::where('routing_number', $pensioner->bank_routing_number)->value('bank_name') ?? '',
                             'bank_branch_name' => Bank::where('routing_number', $pensioner->bank_routing_number)->value('branch_name') ?? '',
                             'bank_branch_address' => Bank::where('routing_number', $pensioner->bank_routing_number)->value('branch_address') ?? '',
-                            'bank_routing_number' => $pensioner->bank_routing_numbe ?? '',
+                            'bank_routing_number' => $pensioner->bank_routing_number ?? '',
                             'account_number' => $pensioner->account_number ?? '',
 
                             // Family info (partially available)
@@ -510,7 +515,67 @@ class PensionerController extends Controller
 
 
 
-    public function updatePensionerIntoDB(Request $request) {}
+    public function updatePensionerIntoDB(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $pensioner_erp_id = $request->query('erp_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
+                $pensioner_info = $request->validate([
+                    'name' => 'required|string|max:255',
+                    'name_bangla' => 'required|string|max:255',
+                    'register_no' => 'required|string|max:50',
+                    'last_basic_salary' => 'required|integer|min:0',
+                    'account_number' => 'required|string|max:255',
+                    'office_id' => [
+                        'required',
+                        'integer',
+                        Rule::exists('offices', 'id'),
+                    ],
+                    'designation' => 'required|string|max:255',
+                    'pension_payment_order' => 'required|integer|min:1',
+                    'father_name' => 'required|string|max:255',
+                    'mother_name' => 'required|string|max:255',
+                    'spouse_name' => 'required|string|max:255',
+                    'birth_date' => 'required|date|before:today',
+                    'joining_date' => 'required|date|after:birth_date',
+                    'prl_start_date' => 'required|date|after_or_equal:joining_date',
+                    'prl_end_date' => 'required|date|after:prl_start_date',
+                    'is_self_pension' => 'required|boolean',
+                    'phone_number' => 'required|string|max:20',
+                    'email' => 'required|email|max:255',
+                    'nid' => 'required|string|max:20',
+                    'bank_routing_number' => 'required|string|max:20',
+                    'status' => [
+                        'required',
+                        Rule::in(['floated', 'initiated', 'certified', 'approved']),
+                    ],
+                    'verified' => 'required|boolean',
+                    'biometric_verified' => 'required|boolean',
+                    'biometric_verification_type' => [
+                        'required',
+                        Rule::in(['face', 'fingerprint']),
+                    ],
+                ]);
+
+                Pensioner::updateOrInsert(['erp_id' => $pensioner_erp_id], $pensioner_info);
+                $success = true;
+                if ($pensioner_info) {
+                    return view('updatepensioner', compact('success', 'pensioner_info', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                } else {
+                }
+            } else {
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            }
+        } else {
+            return view('login');
+        }
+    }
 
     public function exportPensioners(Request $request)
     {

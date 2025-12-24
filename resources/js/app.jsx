@@ -10,6 +10,7 @@ import EditButtonComponent from "./components/EditButtonComponent";
 import ForwardButtonComponent from "./components/ForwardButtonComponent";
 import ReturnButtonComponent from "./components/ReturnButtonComponent";
 import ApproveButtonComponent from "./components/ApproveButtonComponent";
+import UpdateSuccessSnackbar from "./components/UpdateSuccessSnackbar";
 import * as bootstrap from "bootstrap";
 
 axios.defaults.withCredentials = true;
@@ -53,3 +54,9 @@ document.querySelectorAll(".pensioner-approve-button").forEach((el) => {
         <ApproveButtonComponent pensionerId={el.dataset.pensionerId} />
     );
 });
+
+const snackbarEl = document.getElementById("update-success-snackbar");
+
+if (snackbarEl) {
+    createRoot(snackbarEl).render(<UpdateSuccessSnackbar />);
+}

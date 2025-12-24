@@ -82,10 +82,10 @@
                                                         @default
                                                     @endswitch
                                                 </select>
-                                                <input type="hidden" name="status" value="approved">
-                                                <input type="hidden" name="verified" value="approved">
-                                                <input type="hidden" name="biometric_verified" value="approved">
-                                                <input type="hidden" name="biometric_verification_type" value="approved">
+                                                <input type="hidden" name="status" value="floated">
+                                                <input type="hidden" name="verified" value="0">
+                                                <input type="hidden" name="biometric_verified" value="0">
+                                                <input type="hidden" name="biometric_verification_type" value="fingerprint">
                                             @else
                                                 <input type="text" id="{{ $key }}" name="{{ $key }}"
                                                     {{ $key === 'office_id' ? 'hidden' : '' }}
