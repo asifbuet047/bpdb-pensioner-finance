@@ -6,6 +6,7 @@ use App\Exports\OfficersExport;
 use App\Models\Designation;
 use App\Models\Office;
 use App\Models\Officer;
+use App\Models\Pensioner;
 use App\Models\Role;
 use Carbon\Carbon;
 use GuzzleHttp\Cookie\CookieJar;
@@ -228,6 +229,41 @@ class OfficerController extends Controller
         } else {
             return view('login');
         }
+    }
+
+    public function getOfficerPendingTaskCount(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        $officer_office_code = $officer->office->office_code;
+        $officer_role_name = $officer->role->role_name;
+        $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
+        $pendingTasks = 0;
+        switch ($officer_role_name) {
+            case 'initiator':
+                $pendingTasks = Pensioner::whereIn('office_id', $office_ids)->where('status', 'floated')->count();
+                break;
+            case 'certifier':
+                $pendingTasks = Pensioner::whereIn('office_id', $office_ids)->where('status', 'initiated')->count();
+                break;
+            case 'approver':
+                $pendingTasks = Pensioner::whereIn('office_id', $office_ids)->where('status', 'certified')->count();
+                break;
+        }
+
+        if (!$erp_id) {
+            return response()->json(['success' => false, 'message' => 'please login'], 401);
+        }
+
+        if (!$officer) {
+            return response()->json(['success' => false, 'message' => 'no valid officer'], 402);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Pending tasks successfully retrived',
+            'data' => $pendingTasks
+        ], 200);
     }
 
     public function updateOfficerIntoDB(Request $request)

@@ -85,6 +85,8 @@ Route::get('/officers/export/template', [OfficerController::class, 'downloadOffi
 
 Route::get('/search-offices', [OfficeController::class, 'search']);
 
+Route::get('/api/officer/pending', [OfficerController::class, 'getOfficerPendingTaskCount']);
+
 
 Route::get('/office/new', [ApplicationController::class, 'showAddofficeSection'])->name('add.office.section');
 

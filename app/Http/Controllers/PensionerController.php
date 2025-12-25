@@ -579,7 +579,6 @@ class PensionerController extends Controller
 
     public function isPensionerExits(Request $request, $id)
     {
-
         $erp_id = $request->cookie('user_id');
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         $officer_office_code = $officer->office->office_code;
