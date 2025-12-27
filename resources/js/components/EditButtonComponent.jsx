@@ -60,7 +60,7 @@ export default function EditButtonComponent({
         <>
             <button
                 type="button"
-                className="custom-button-fill"
+                className="update-button"
                 onClick={openModal}
                 disabled={button_status}
             >

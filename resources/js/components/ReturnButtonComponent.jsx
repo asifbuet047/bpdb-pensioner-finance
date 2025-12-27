@@ -64,7 +64,7 @@ export default function ReturnButtonComponent({
         <>
             <button
                 type="button"
-                className="custom-button-fill"
+                className="return-button"
                 onClick={openModal}
                 disabled={button_status}
             >

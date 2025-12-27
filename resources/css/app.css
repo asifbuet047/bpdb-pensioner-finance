@@ -129,52 +129,357 @@
     border: 2px solid black !important;
 }
 
-.custom-button-fill {
+.delete-button {
     position: relative;
     width: 40px;
     height: 40px;
-    border: 2px solid #1e40af;
-    background: transparent;
-    color: #000000;
-    border-radius: 6px;
-    display: flex;
+    border: 1.5px solid #dc2626; /* red-600 */
+    background: #ffffff;
+    color: #dc2626;
+    border-radius: 8px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     overflow: hidden;
-    z-index: 0;
-    transition: color 0.3s ease;
+    font-size: 16px;
+    transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
 }
 
-.custom-button-fill::before {
+/* Animated fill */
+.delete-button::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 0%;
-    height: 100%;
-    background: #1e40af;
-    z-index: -1;
-    transition: width 0.35s ease;
+    inset: 0;
+    background: #dc2626;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+    z-index: 0;
 }
 
-.custom-button-fill:hover {
+/* Hover */
+.delete-button:hover::before {
+    transform: scaleX(1);
+}
+
+.delete-button:hover {
     color: #ffffff;
+    box-shadow: 0 6px 14px rgba(220, 38, 38, 0.35);
 }
 
-.custom-button-fill:hover::before {
-    width: 100%;
+/* Active (click feedback) */
+.delete-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 10px rgba(220, 38, 38, 0.25);
 }
 
-.custom-button-fill:not(:disabled):hover {
-    color: #ffffff;
+/* Icon stays above fill */
+.delete-button > * {
+    position: relative;
+    z-index: 1;
 }
 
-.custom-button-fill:not(:disabled):hover::before {
-    width: 100%;
+/* Focus (keyboard accessibility) */
+.delete-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.35);
 }
 
-.custom-button-fill:disabled {
-    opacity: 0.5;
+/* Disabled */
+.delete-button:disabled {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    color: #9ca3af;
+    opacity: 1;
     cursor: not-allowed;
+    box-shadow: none;
+}
+
+.delete-button:disabled::before {
+    display: none;
+}
+
+.update-button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border: 1.5px solid #2563eb; /* blue-600 */
+    background: #ffffff;
+    color: #2563eb;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    font-size: 16px;
+    transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+}
+
+/* Animated fill */
+.update-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #2563eb;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+    z-index: 0;
+}
+
+/* Hover */
+.update-button:hover::before {
+    transform: scaleX(1);
+}
+
+.update-button:hover {
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(37, 99, 235, 0.35);
+}
+
+/* Active (click feedback) */
+.update-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+}
+
+/* Icon above fill */
+.update-button > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Focus (keyboard accessibility) */
+.update-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.35);
+}
+
+/* Disabled */
+.update-button:disabled {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    color: #9ca3af;
+    opacity: 1;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.update-button:disabled::before {
+    display: none;
+}
+
+.forward-button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border: 1.5px solid #16a34a; /* green-600 */
+    background: #ffffff;
+    color: #16a34a;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    font-size: 16px;
+    transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+}
+
+/* Animated fill */
+.forward-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #16a34a;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+    z-index: 0;
+}
+
+/* Hover */
+.forward-button:hover::before {
+    transform: scaleX(1);
+}
+
+.forward-button:hover {
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(22, 163, 74, 0.35);
+}
+
+/* Active (click feedback) */
+.forward-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 10px rgba(22, 163, 74, 0.25);
+}
+
+/* Icon above fill */
+.forward-button > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Focus (keyboard accessibility) */
+.forward-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.35);
+}
+
+/* Disabled */
+.forward-button:disabled {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    color: #9ca3af;
+    opacity: 1;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.forward-button:disabled::before {
+    display: none;
+}
+
+.return-button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border: 1.5px solid #f59e0b; /* amber-500 */
+    background: #ffffff;
+    color: #f59e0b;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    font-size: 16px;
+    transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+}
+
+/* Animated fill */
+.return-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #f59e0b;
+    transform: scaleX(0);
+    transform-origin: right; /* return flows backward */
+    transition: transform 0.35s ease;
+    z-index: 0;
+}
+
+/* Hover */
+.return-button:hover::before {
+    transform: scaleX(1);
+}
+
+.return-button:hover {
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(245, 158, 11, 0.35);
+}
+
+/* Active */
+.return-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.25);
+}
+
+/* Icon above fill */
+.return-button > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Focus */
+.return-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.35);
+}
+
+/* Disabled */
+.return-button:disabled {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    color: #9ca3af;
+    opacity: 1;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.return-button:disabled::before {
+    display: none;
+}
+
+.approve-button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border: 1.5px solid #15803d; /* green-700 */
+    background: #ffffff;
+    color: #15803d;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    font-size: 16px;
+    transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+}
+
+/* Animated fill */
+.approve-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #15803d;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+    z-index: 0;
+}
+
+/* Hover */
+.approve-button:hover::before {
+    transform: scaleX(1);
+}
+
+.approve-button:hover {
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(21, 128, 61, 0.35);
+}
+
+/* Active */
+.approve-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 10px rgba(21, 128, 61, 0.25);
+}
+
+/* Icon above fill */
+.approve-button > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Focus */
+.approve-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.35);
+}
+
+/* Disabled */
+.approve-button:disabled {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    color: #9ca3af;
+    opacity: 1;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.approve-button:disabled::before {
+    display: none;
 }

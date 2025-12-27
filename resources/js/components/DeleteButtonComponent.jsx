@@ -60,7 +60,7 @@ export default function DeleteButtonComponent({
         <>
             <button
                 type="button"
-                className="custom-button-fill"
+                className="delete-button"
                 onClick={openModal}
                 disabled={button_status}
             >

@@ -64,7 +64,7 @@ export default function ForwardButtonComponent({
         <>
             <button
                 type="button"
-                className="custom-button-fill"
+                className="forward-button"
                 onClick={openModal}
                 disabled={button_status}
             >

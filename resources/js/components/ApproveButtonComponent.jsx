@@ -64,7 +64,7 @@ export default function ApproveButtonComponent({
         <>
             <button
                 type="button"
-                className="custom-button-fill"
+                className="approve-button"
                 onClick={openModal}
                 disabled={button_status}
             >
