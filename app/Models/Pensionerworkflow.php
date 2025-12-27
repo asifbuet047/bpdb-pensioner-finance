@@ -10,7 +10,8 @@ class Pensionerworkflow extends Model
         'pensioner_id',
         'officer_id',
         'status_from',
-        'status_to'
+        'status_to',
+        'message'
     ];
 
     public function pensioner()

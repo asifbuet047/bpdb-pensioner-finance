@@ -3,6 +3,7 @@ import { Tooltip, Snackbar, Alert } from "@mui/material";
 import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import axios from "axios";
+import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
 
 export default function ApproveButtonComponent({
     pensionerId,
@@ -10,6 +11,8 @@ export default function ApproveButtonComponent({
     buttonStatus,
 }) {
     const modalInstance = useRef(null);
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState(false);
     const button_status = buttonStatus === "true";
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -30,13 +33,14 @@ export default function ApproveButtonComponent({
         modalInstance.current?.hide();
     };
 
-    const handleForward = async () => {
+    const handleApprove = async () => {
         try {
             const response = await axios.post(
                 `/api/pensioner/workflow/`,
                 {
                     workflow: "approve",
                     id: pensionerId,
+                    message,
                 },
                 {
                     withCredentials: true,
@@ -58,6 +62,14 @@ export default function ApproveButtonComponent({
             setSnackbarSeverity("error");
             setSnackbarOpen(true);
         }
+    };
+
+    const handleSubmit = () => {
+        if (!message.trim()) {
+            setError(true);
+            return;
+        }
+        handleApprove();
     };
 
     return (
@@ -96,6 +108,21 @@ export default function ApproveButtonComponent({
                             <div className="modal-body">
                                 Are you sure you want to approve this pensioner
                                 <div className="fw-bold">{pensionerName}?</div>
+                                <div className="mt-2">
+                                    <WorkflowMessageFieldComponent
+                                        value={message}
+                                        onChange={(e) => {
+                                            setMessage(e.target.value);
+                                            setError(false);
+                                        }}
+                                        error={error}
+                                        helperText={
+                                            error
+                                                ? "Approval message is required"
+                                                : ""
+                                        }
+                                    />
+                                </div>
                             </div>
 
                             <div className="modal-footer">
@@ -107,7 +134,7 @@ export default function ApproveButtonComponent({
                                 </button>
                                 <button
                                     className="btn btn-success"
-                                    onClick={handleForward}
+                                    onClick={handleSubmit}
                                 >
                                     Yes, Approve
                                 </button>

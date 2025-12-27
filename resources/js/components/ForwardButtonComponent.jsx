@@ -1,8 +1,9 @@
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Tooltip, Snackbar, Alert } from "@mui/material";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import axios from "axios";
+import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
 
 export default function ForwardButtonComponent({
     pensionerId,
@@ -10,6 +11,8 @@ export default function ForwardButtonComponent({
     buttonStatus,
 }) {
     const modalInstance = useRef(null);
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState(false);
     const button_status = buttonStatus === "true";
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -37,6 +40,7 @@ export default function ForwardButtonComponent({
                 {
                     workflow: "forward",
                     id: pensionerId,
+                    message,
                 },
                 {
                     withCredentials: true,
@@ -58,6 +62,14 @@ export default function ForwardButtonComponent({
             setSnackbarSeverity("error");
             setSnackbarOpen(true);
         }
+    };
+
+    const handleSubmit = () => {
+        if (!message.trim()) {
+            setError(true);
+            return;
+        }
+        handleForward();
     };
 
     return (
@@ -94,6 +106,19 @@ export default function ForwardButtonComponent({
                             <div className="modal-body">
                                 Are you sure you want to forward this pensioner
                                 <div className="fw-bold">{pensionerName}?</div>
+                                <div className="mt-2">
+                                    <WorkflowMessageFieldComponent
+                                        value={message}
+                                        onChange={(e) => {
+                                            setMessage(e.target.value);
+                                            setError(false);
+                                        }}
+                                        error={error}
+                                        helperText={
+                                            error ? "Forward message is required" : ""
+                                        }
+                                    />
+                                </div>
                             </div>
 
                             <div className="modal-footer">
@@ -105,7 +130,7 @@ export default function ForwardButtonComponent({
                                 </button>
                                 <button
                                     className="btn btn-success"
-                                    onClick={handleForward}
+                                    onClick={handleSubmit}
                                 >
                                     Yes, Forward
                                 </button>

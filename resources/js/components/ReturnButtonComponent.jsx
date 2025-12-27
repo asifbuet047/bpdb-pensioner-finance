@@ -3,6 +3,7 @@ import { Tooltip, Snackbar, Alert } from "@mui/material";
 import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import axios from "axios";
+import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
 
 export default function ReturnButtonComponent({
     pensionerId,
@@ -10,6 +11,8 @@ export default function ReturnButtonComponent({
     buttonStatus,
 }) {
     const modalInstance = useRef(null);
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState(false);
     const button_status = buttonStatus === "true";
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -37,6 +40,7 @@ export default function ReturnButtonComponent({
                 {
                     workflow: "return",
                     id: pensionerId,
+                    message,
                 },
                 {
                     withCredentials: true,
@@ -58,6 +62,14 @@ export default function ReturnButtonComponent({
             setSnackbarSeverity("error");
             setSnackbarOpen(true);
         }
+    };
+
+    const handleSubmit = () => {
+        if (!message.trim()) {
+            setError(true);
+            return;
+        }
+        handleReturn();
     };
 
     return (
@@ -94,6 +106,19 @@ export default function ReturnButtonComponent({
                             <div className="modal-body">
                                 Are you sure you want to return this pensioner
                                 <div className="fw-bold">{pensionerName}?</div>
+                                <div className="mt-2">
+                                    <WorkflowMessageFieldComponent
+                                        value={message}
+                                        onChange={(e) => {
+                                            setMessage(e.target.value);
+                                            setError(false);
+                                        }}
+                                        error={error}
+                                        helperText={
+                                            error ? "Return message is required" : ""
+                                        }
+                                    />
+                                </div>
                             </div>
 
                             <div className="modal-footer">
@@ -105,7 +130,7 @@ export default function ReturnButtonComponent({
                                 </button>
                                 <button
                                     className="btn btn-success"
-                                    onClick={handleReturn}
+                                    onClick={handleSubmit}
                                 >
                                     Yes, Return
                                 </button>

@@ -12,6 +12,7 @@ import ReturnButtonComponent from "./components/ReturnButtonComponent";
 import ApproveButtonComponent from "./components/ApproveButtonComponent";
 import UpdateSuccessSnackbar from "./components/UpdateSuccessSnackbar";
 import * as bootstrap from "bootstrap";
+import WorkflowButtonComponent from "./components/WorkflowButtonComponent";
 
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
@@ -71,6 +72,15 @@ document.querySelectorAll(".pensioner-approve-button").forEach((el) => {
             pensionerId={el.dataset.pensionerId}
             pensionerName={el.dataset.pensionerName}
             buttonStatus={el.dataset.buttonStatus}
+        />
+    );
+});
+
+document.querySelectorAll(".pensioner-workflow-button").forEach((el) => {
+    createRoot(el).render(
+        <WorkflowButtonComponent
+            pensionerId={el.dataset.pensionerId}
+            pensionerName={el.dataset.pensionerName}
         />
     );
 });

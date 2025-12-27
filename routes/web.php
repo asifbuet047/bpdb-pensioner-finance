@@ -48,6 +48,10 @@ Route::post('/pensioner/update', [PensionerController::class, 'updatePensionerIn
 
 Route::post('/api/pensioner/workflow', [PensionerController::class, 'initiatePensionerWorkflow']);
 
+Route::get('/api/pensioner/workflow/{id}', [PensionerController::class, 'isPensionerWorkflowExits']);
+
+Route::get('/pensioner/workflow', [PensionerController::class, 'showPensionerWorkflow'])->name('show.pensioner.workflow');
+
 Route::get('/pensioners/export', [PensionerController::class, 'exportPensioners'])->name('download.pensioners');
 
 Route::get('/pensioners/export/template', [PensionerController::class, 'exportPensionersTemplate'])->name('download.template.pensioners');

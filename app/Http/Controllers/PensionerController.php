@@ -272,8 +272,7 @@ class PensionerController extends Controller
                 $officer_office_code = $officer->office->office_code;
                 $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
                 $pensioners = Pensioner::whereIn('office_id', $office_ids)->where('status', 'approved')->orderBy('id')->get();
-                $just_view = true;
-                return view('viewpensioner', compact('pensioners', 'just_view', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                return view('viewpensioner', compact('pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
             }
             switch ($officer_role) {
                 case 'super_admin':
@@ -419,6 +418,7 @@ class PensionerController extends Controller
         $erp_id = $request->cookie('user_id');
         $workflow_type = $request->input('workflow', 'forward');
         $id = $request->input('id', '1');
+        $message = $request->input('message');
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         $officer_office_code = $officer->office->office_code;
         $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
@@ -448,9 +448,10 @@ class PensionerController extends Controller
 
                     Pensionerworkflow::create([
                         'pensioner_id' => $pensioner->id,
-                        'officer_id'   => $officer->id,
-                        'status_from'  => 'floated',
-                        'status_to'    => 'initiated',
+                        'officer_id' => $officer->id,
+                        'status_from' => 'floated',
+                        'status_to' => 'initiated',
+                        'message' => $message
                     ]);
 
                     $pensioner->update(['status' => 'initiated']);
@@ -472,9 +473,10 @@ class PensionerController extends Controller
 
                     Pensionerworkflow::create([
                         'pensioner_id' => $pensioner->id,
-                        'officer_id'   => $officer->id,
-                        'status_from'  => 'initiated',
-                        'status_to'    => 'certified',
+                        'officer_id' => $officer->id,
+                        'status_from' => 'initiated',
+                        'status_to' => 'certified',
+                        'message' => $message
                     ]);
 
                     $pensioner->update(['status' => 'certified']);
@@ -502,9 +504,10 @@ class PensionerController extends Controller
 
                     Pensionerworkflow::create([
                         'pensioner_id' => $pensioner->id,
-                        'officer_id'   => $officer->id,
-                        'status_from'  => 'initiated',
-                        'status_to'    => 'floated',
+                        'officer_id' => $officer->id,
+                        'status_from' => 'initiated',
+                        'status_to' => 'floated',
+                        'message' => $message
                     ]);
 
                     $pensioner->update(['status' => 'floated']);
@@ -525,9 +528,10 @@ class PensionerController extends Controller
 
                     Pensionerworkflow::create([
                         'pensioner_id' => $pensioner->id,
-                        'officer_id'   => $officer->id,
-                        'status_from'  => 'certified',
-                        'status_to'    => 'initiated',
+                        'officer_id' => $officer->id,
+                        'status_from' => 'certified',
+                        'status_to' => 'initiated',
+                        'message' => $message
                     ]);
 
                     $pensioner->update(['status' => 'initiated']);
@@ -561,9 +565,10 @@ class PensionerController extends Controller
 
                 Pensionerworkflow::create([
                     'pensioner_id' => $pensioner->id,
-                    'officer_id'   => $officer->id,
-                    'status_from'  => 'certified',
-                    'status_to'    => 'approved',
+                    'officer_id' => $officer->id,
+                    'status_from' => 'certified',
+                    'status_to' => 'approved',
+                    'message' => $message
                 ]);
 
                 $pensioner->update(['status' => 'approved']);
@@ -574,6 +579,28 @@ class PensionerController extends Controller
                 ], 200);
 
                 break;
+        }
+    }
+
+    public function showPensionerWorkflow(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $pensioner_id = $request->query('id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            $pensioner_name = Pensioner::find($pensioner_id)->get()->value('name');
+            $pensioner_workflows = Pensionerworkflow::with(['officer', 'pensioner'])->where('pensioner_id', $pensioner_id)->orderBy('created_at', 'asc')->get();
+            if ($pensioner_workflows) {
+                return view('viewpensionerapprovalworkflow', compact('pensioner_workflows', 'pensioner_name', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            } else {
+                return view('login');
+            }
+        } else {
+            return view('login');
         }
     }
 
@@ -602,6 +629,40 @@ class PensionerController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Pensioner successfully retrived'
+        ], 200);
+    }
+    public function isPensionerWorkflowExits(Request $request, $id)
+    {
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        $officer_office_code = $officer->office->office_code;
+        $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
+        $pensioner = Pensioner::whereIn('office_id', $office_ids)->where('id', $id)->first();
+        $pensioner_workflow_count = Pensionerworkflow::where('pensioner_id', $id)->count();
+
+        if (!$erp_id) {
+            return response()->json(['message' => 'please login'], 401);
+        }
+
+        if (!$officer) {
+            return response()->json(['message' => 'no valid officer'], 402);
+        }
+
+        if (!$pensioner) {
+            return response()->json(['message' => 'Pensioner is not under Your RAO office'], 404);
+        }
+        if ($pensioner_workflow_count == 0) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Pensioner workflow number successfully retrived',
+                'data' => 0
+            ], 200);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Pensioner workflow number successfully retrived',
+            'data' => $pensioner_workflow_count
         ], 200);
     }
 

@@ -96,101 +96,103 @@
 
                                 @default
                             @endswitch
-                            @if (!isset($just_view))
-                                <td>
-                                    @if ($officer_role === 'initiator')
-                                        <div class="d-flex justify-content-center gap-2">
-                                            @if ($pensioner->status === 'floated')
-                                                <div class="pensioner-delete-button"
-                                                    data-pensioner-id="{{ $pensioner->id }}"
-                                                    data-pensioner-name="{{ $pensioner->name }}"
-                                                    data-button-status="{{ 'false' }}">
-                                                </div>
-                                                <div class="pensioner-update-button"
-                                                    data-pensioner-id="{{ $pensioner->id }}"
-                                                    data-pensioner-name="{{ $pensioner->name }}"
-                                                    data-button-status="{{ 'false' }}">
-                                                </div>
-                                                <div class="pensioner-forward-button"
-                                                    data-pensioner-id="{{ $pensioner->id }}"
-                                                    data-pensioner-name="{{ $pensioner->name }}"
-                                                    data-button-status="{{ 'false' }}">
-                                                </div>
-                                            @else
-                                                <div class="pensioner-delete-button"
-                                                    data-pensioner-id="{{ $pensioner->id }}"
-                                                    data-pensioner-name="{{ $pensioner->name }}"
-                                                    data-button-status="{{ 'true' }}">
-                                                </div>
-                                                <div class="pensioner-update-button"
-                                                    data-pensioner-id="{{ $pensioner->id }}"
-                                                    data-pensioner-name="{{ $pensioner->name }}"
-                                                    data-button-status="{{ 'true' }}">
-                                                </div>
-                                                <div class="pensioner-forward-button"
-                                                    data-pensioner-id="{{ $pensioner->id }}"
-                                                    data-pensioner-name="{{ $pensioner->name }}"
-                                                    data-button-status="{{ 'true' }}">
-                                                </div>
-                                            @endif
-                                        </div>
-                                    @endif
-                                    @if ($officer_role === 'certifier')
-                                        <div class="d-flex justify-content-center gap-2">
-                                            @if ($pensioner->status === 'initiated')
-                                                <div class="pensioner-return-button"
-                                                    data-pensioner-id="{{ $pensioner->id }}"
-                                                    data-pensioner-name="{{ $pensioner->name }}"
-                                                    data-button-status="{{ 'false' }}">
-                                                </div>
-                                                <div class="pensioner-forward-button"
-                                                    data-pensioner-id="{{ $pensioner->id }}"
-                                                    data-pensioner-name="{{ $pensioner->name }}"
-                                                    data-button-status="{{ 'false' }}">
-                                                </div>
-                                            @else
-                                                <div class="pensioner-return-button"
-                                                    data-pensioner-id="{{ $pensioner->id }}"
-                                                    data-pensioner-name="{{ $pensioner->name }}"
-                                                    data-button-status="{{ 'true' }}">
-                                                </div>
-                                                <div class="pensioner-forward-button"
-                                                    data-pensioner-id="{{ $pensioner->id }}"
-                                                    data-pensioner-name="{{ $pensioner->name }}"
-                                                    data-button-status="{{ 'true' }}">
-                                                </div>
-                                            @endif
-                                        </div>
-                                    @endif
-                                    @if ($officer_role === 'approver')
-                                        <div class="d-flex justify-content-center gap-2">
-                                            @if ($pensioner->status === 'certified')
-                                                <div class="pensioner-return-button"
-                                                    data-pensioner-id="{{ $pensioner->id }}"
-                                                    data-pensioner-name="{{ $pensioner->name }}"
-                                                    data-button-status="{{ 'false' }}">
-                                                </div>
-                                                <div class="pensioner-approve-button"
-                                                    data-pensioner-id="{{ $pensioner->id }}"
-                                                    data-pensioner-name="{{ $pensioner->name }}"
-                                                    data-button-status="{{ 'false' }}">
-                                                </div>
-                                            @else
-                                                <div class="pensioner-return-button"
-                                                    data-pensioner-id="{{ $pensioner->id }}"
-                                                    data-pensioner-name="{{ $pensioner->name }}"
-                                                    data-button-status="{{ 'true' }}">
-                                                </div>
-                                                <div class="pensioner-approve-button"
-                                                    data-pensioner-id="{{ $pensioner->id }}"
-                                                    data-pensioner-name="{{ $pensioner->name }}"
-                                                    data-button-status="{{ 'true' }}">
-                                                </div>
-                                            @endif
-                                        </div>
-                                    @endif
-                                </td>
-                            @endif
+                            <td>
+                                @if ($officer_role === 'initiator')
+                                    <div class="d-flex justify-content-center gap-2">
+                                        @if ($pensioner->status === 'floated')
+                                            <div class="pensioner-delete-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'false' }}">
+                                            </div>
+                                            <div class="pensioner-update-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'false' }}">
+                                            </div>
+                                            <div class="pensioner-forward-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'false' }}">
+                                            </div>
+                                            <div class="pensioner-workflow-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}">
+                                            </div>
+                                        @else
+                                            <div class="pensioner-delete-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'true' }}">
+                                            </div>
+                                            <div class="pensioner-update-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'true' }}">
+                                            </div>
+                                            <div class="pensioner-forward-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'true' }}">
+                                            </div>
+                                            <div class="pensioner-workflow-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}">
+                                            </div>
+                                        @endif
+                                    </div>
+                                @endif
+                                @if ($officer_role === 'certifier')
+                                    <div class="d-flex justify-content-center gap-2">
+                                        @if ($pensioner->status === 'initiated')
+                                            <div class="pensioner-return-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'false' }}">
+                                            </div>
+                                            <div class="pensioner-forward-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'false' }}">
+                                            </div>
+                                            <div class="pensioner-workflow-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}">
+                                            </div>
+                                        @else
+                                            <div class="pensioner-return-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'true' }}">
+                                            </div>
+                                            <div class="pensioner-forward-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'true' }}">
+                                            </div>
+                                            <div class="pensioner-workflow-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}">
+                                            </div>
+                                        @endif
+                                    </div>
+                                @endif
+                                @if ($officer_role === 'approver')
+                                    <div class="d-flex justify-content-center gap-2">
+                                        @if ($pensioner->status === 'certified')
+                                            <div class="pensioner-return-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'false' }}">
+                                            </div>
+                                            <div class="pensioner-approve-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'false' }}">
+                                            </div>
+                                            <div class="pensioner-workflow-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}">
+                                            </div>
+                                        @else
+                                            <div class="pensioner-return-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'true' }}">
+                                            </div>
+                                            <div class="pensioner-approve-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}"
+                                                data-button-status="{{ 'true' }}">
+                                            </div>
+                                            <div class="pensioner-workflow-button" data-pensioner-id="{{ $pensioner->id }}"
+                                                data-pensioner-name="{{ $pensioner->name }}">
+                                            </div>
+                                        @endif
+                                    </div>
+                                @endif
+                            </td>
                         </tr>
                         @empty
                             <tr>
