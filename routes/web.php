@@ -97,3 +97,6 @@ Route::get('/paymentoffices', [OfficeController::class, 'getAllPaymentOfficesFro
 Route::get('/unitoffices', [OfficeController::class, 'getAllUnitOfficesFromDB'])->name('show.unit.offices');
 
 Route::post('/office', [OfficeController::class, 'addOfficeIntoDB'])->name('add.office.process');
+
+
+Route::get('/send-mail', [ApplicationController::class, 'sendTestMail']);

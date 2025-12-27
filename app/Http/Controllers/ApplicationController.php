@@ -9,6 +9,7 @@ use App\Models\PensionerCredential;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class ApplicationController extends Controller
 {
@@ -378,5 +379,15 @@ class ApplicationController extends Controller
     public function showSetPasswordForPensionerPage(Request $request)
     {
         return view('setpasswordforpensioner');
+    }
+
+    public function sendTestMail()
+    {
+        Mail::raw('Hello, this is a test email', function ($message) {
+            $message->to('asifbpdb073@gmail.com')
+                ->subject('Test Mail');
+        });
+
+        return 'Email sent successfully!';
     }
 }
