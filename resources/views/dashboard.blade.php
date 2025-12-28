@@ -129,6 +129,7 @@
                         <div class="info-box" style="background: linear-gradient(135deg, #ff7e5f, #feb47b);">
                             <div>
                                 <h3>{{ $certifiedPensionersCount }} pending pensioner</h3>
+                                <h3>{{ $approvedPensionersCount }} approved pensioner</h3>
                                 <h3>View All Pensioners</h3>
                                 <a href="{{ route('show.pensioners.variant.section') }}">More info <i
                                         class="bi bi-arrow-right"></i></a>
@@ -181,6 +182,7 @@
                     <div class="info-box" style="background: linear-gradient(135deg, #ff7e5f, #feb47b);">
                         <div>
                             <h3>{{ $initiatedPensionersCount }} pending pensioner</h3>
+                            <h3>{{ $approvedPensionersCount }} approved pensioner</h3>
                             <h3>View All Pensioners</h3>
                             <a href="{{ route('show.pensioners.variant.section') }}">More info <i
                                     class="bi bi-arrow-right"></i></a>
@@ -246,6 +248,7 @@
                     <div class="info-box" style="background: linear-gradient(135deg, #ff7e5f, #feb47b);">
                         <div>
                             <h3>{{ $floatedPensionersCount }} pending pensioner</h3>
+                            <h3>{{ $approvedPensionersCount }} approved pensioner</h3>
                             <h3>Show All pending work</h3>
                             <a href="{{ route('show.pensioners.variant.section') }}">More info <i
                                     class="bi bi-arrow-right"></i></a>

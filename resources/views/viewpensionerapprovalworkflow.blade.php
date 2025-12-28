@@ -41,7 +41,7 @@
                     @forelse ($pensioner_workflows as $index => $workflow)
                         <tr class="{{ $index % 2 == 0 ? 'table-light' : '' }} fw-semibold hand-pointer">
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $pensioner_name }}</td>
+                            <td>{{ $workflow->pensioner->name }}</td>
                             <td>{{ $workflow->pensioner->erp_id }}</td>
                             <td>{{ $workflow->status_from }}</td>
                             <td>{{ $workflow->status_to }}</td>

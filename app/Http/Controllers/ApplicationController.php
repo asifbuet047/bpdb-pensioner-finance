@@ -56,7 +56,8 @@ class ApplicationController extends Controller
                         $unitOffices = Office::where('payment_office_code', $officer->office->office_code)->get();
                         $unitofficeCount = $unitOffices->count();
                         $certifiedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'certified')->count();
-                        return view('dashboard', compact('certifiedPensionersCount', 'officerCount', 'unitofficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                        $approvedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'approved')->count();
+                        return view('dashboard', compact('certifiedPensionersCount', 'approvedPensionersCount', 'officerCount', 'unitofficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
                         break;
                     case "certifier":
                         $officer_office_id = $officer->office->id;
@@ -66,7 +67,8 @@ class ApplicationController extends Controller
                         $unitOffices = Office::where('payment_office_code', $officer->office->office_code)->get();
                         $unitofficeCount = $unitOffices->count();
                         $initiatedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'initiated')->count();
-                        return view('dashboard', compact('initiatedPensionersCount', 'officerCount', 'unitofficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                        $approvedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'approved')->count();
+                        return view('dashboard', compact('initiatedPensionersCount', 'approvedPensionersCount', 'officerCount', 'unitofficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
                         break;
                     case "initiator":
                         $officer_office_id = $officer->office->id;
@@ -76,7 +78,8 @@ class ApplicationController extends Controller
                         $unitOffices = Office::where('payment_office_code', $officer->office->office_code)->get();
                         $unitofficeCount = $unitOffices->count();
                         $floatedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'floated')->count();
-                        return view('dashboard', compact('floatedPensionersCount', 'officerCount', 'unitofficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                        $approvedPensionersCount = Pensioner::whereIn('office_id', $office_ids)->where('status', 'approved')->count();
+                        return view('dashboard', compact('floatedPensionersCount', 'approvedPensionersCount', 'officerCount', 'unitofficeCount', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
                         break;
                     default:
                         return view('login');
