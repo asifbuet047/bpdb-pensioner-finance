@@ -12,7 +12,7 @@ class PensionerSeeder extends Seeder
 {
     public function run()
     {
-        $path = resource_path('assets/fake_pensioners.csv');
+        $path = resource_path('assets/pensioners.csv');
 
         if (!File::exists($path)) {
             $this->command->error('fake_pensioners.csv file is not found in assets folder');
@@ -68,11 +68,12 @@ class PensionerSeeder extends Seeder
                         'phone_number' => (string) $row[17] ?? '',
                         'email' => trim($row[18]) ?? '',
                         'nid' => sprintf('%.0f', $row[19]) ?? '',
-                        'bank_routing_number' => trim($row[20]) ?? '',
-                        'status' => trim($row[21]) ?? '',
-                        'verified' => (int) $row[22] ?? '',
-                        'biometric_verified' => (int) $row[23] ?? '',
-                        'biometric_verification_type' => trim($row[24]) ?? '',
+                        'religion' => (string) $row[20] ?? '',
+                        'bank_routing_number' => trim($row[21]) ?? '',
+                        'status' => trim($row[22]) ?? '',
+                        'verified' => (int) $row[23] ?? '',
+                        'biometric_verified' => (int) $row[24] ?? '',
+                        'biometric_verification_type' => trim($row[25]) ?? '',
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]

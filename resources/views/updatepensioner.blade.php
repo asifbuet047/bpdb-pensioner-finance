@@ -50,6 +50,7 @@
                                                 $key === 'is_self_pension' ||
                                                     $key === 'status' ||
                                                     $key === 'verified' ||
+                                                    $key === 'religion' ||
                                                     $key === 'biometric_verified' ||
                                                     $key === 'biometric_verification_type')
                                                 <select name="{{ $key }}" id="{{ $key }}"
@@ -59,6 +60,20 @@
                                                         @case('is_self_pension')
                                                             <option value="1" selected>Self</option>
                                                             <option value="0">Family</option>
+                                                        @break
+
+                                                        @case('religion')
+                                                            <option value="Islam" {{ $value == 'Islam' ? 'selected' : '' }}>Islam
+                                                            </option>
+                                                            <option value="Hinduism" {{ $value == 'Hinduism' ? 'selected' : '' }}>
+                                                                Hinduism</option>
+                                                            <option value="Christianity"
+                                                                {{ $value == 'Christians' ? 'selected' : '' }}>Christianity
+                                                            </option>
+                                                            <option value="Buddhists" {{ $value == 'Buddhism' ? 'selected' : '' }}>
+                                                                Buddhism</option>
+                                                            <option value="Other" {{ $value == 'Others' ? 'selected' : '' }}>
+                                                                Others</option>
                                                         @break
 
                                                         @case('status')

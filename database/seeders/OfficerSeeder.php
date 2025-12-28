@@ -35,6 +35,24 @@ class OfficerSeeder extends Seeder
                 'password' => Hash::make('admin@123'),
                 'office_id' => 30,
                 'designation_id' => 4,
+                'role_id' => 3,
+
+            ],
+            [
+                'erp_id' => 140043208,
+                'name' => 'Md. Rajib',
+                'password' => Hash::make('admin@123'),
+                'office_id' => 30,
+                'designation_id' => 6,
+                'role_id' => 2,
+
+            ],
+            [
+                'erp_id' => 140036577,
+                'name' => 'Md. Obaidul Islam',
+                'password' => Hash::make('admin@123'),
+                'office_id' => 30,
+                'designation_id' => 8,
                 'role_id' => 1,
 
             ],
@@ -47,6 +65,7 @@ class OfficerSeeder extends Seeder
                 'role_id' => 1,
 
             ],
+
         ];
 
         foreach ($super_admins as $admin) {

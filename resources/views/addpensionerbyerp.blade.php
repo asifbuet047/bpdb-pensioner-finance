@@ -39,7 +39,7 @@
                                                 $key === 'bank_branch_address')
                                             <input type="text" id="{{ $key }}"
                                                 class="form-control form-control-lg"
-                                                placeholder="Pensioner {{ ucwords(str_replace('_', ' ', $key)) }}"
+                                                placeholder="Enter {{ ucwords(str_replace('_', ' ', $key)) }}"
                                                 value="{{ $value }}" {{ isset($success) ? 'disabled' : '' }}>
                                         @else
                                             @if (
@@ -47,14 +47,28 @@
                                                     $key === 'status' ||
                                                     $key === 'verified' ||
                                                     $key === 'biometric_verified' ||
+                                                    $key === 'religion' ||
                                                     $key === 'biometric_verification_type')
                                                 <select name="{{ $key }}" id="{{ $key }}"
-                                                    class="form-select shadow-sm"
-                                                    {{ $key === 'is_self_pension' ? '' : 'disabled' }}>
+                                                    class="form-select shadow-sm" {{ isset($success) ? 'disabled' : '' }}>
                                                     @switch($key)
                                                         @case('is_self_pension')
                                                             <option value="1" selected>Self</option>
                                                             <option value="0">Family</option>
+                                                        @break
+
+                                                        @case('religion')
+                                                            <option value="Islam" {{ $value == 'Islam' ? 'selected' : '' }}>Islam
+                                                            </option>
+                                                            <option value="Hinduism" {{ $value == 'Hinduism' ? 'selected' : '' }}>
+                                                                Hinduism</option>
+                                                            <option value="Christianity"
+                                                                {{ $value == 'Christians' ? 'selected' : '' }}>Christianity
+                                                            </option>
+                                                            <option value="Buddhists" {{ $value == 'Buddhism' ? 'selected' : '' }}>
+                                                                Buddhism</option>
+                                                            <option value="Other" {{ $value == 'Others' ? 'selected' : '' }}>
+                                                                Others</option>
                                                         @break
 
                                                         @case('status')
@@ -82,21 +96,21 @@
                                                         @default
                                                     @endswitch
                                                 </select>
-                                                <input type="hidden" name="status" value="floated">
-                                                <input type="hidden" name="verified" value="0">
-                                                <input type="hidden" name="biometric_verified" value="0">
-                                                <input type="hidden" name="biometric_verification_type" value="fingerprint">
                                             @else
                                                 <input type="text" id="{{ $key }}" name="{{ $key }}"
                                                     {{ $key === 'office_id' ? 'hidden' : '' }}
                                                     class="form-control form-control-lg"
-                                                    placeholder="Pensioner {{ ucwords(str_replace('_', ' ', $key)) }}"
+                                                    placeholder="Enter {{ ucwords(str_replace('_', ' ', $key)) }}"
                                                     value="{{ $value }}" {{ isset($success) ? 'disabled' : '' }}>
                                             @endif
                                         @endif
-
                                     </div>
                                 @endforeach
+                                <input type="hidden" name="religion" value="{{ $pensioner_info['religion'] }}">
+                                <input type="hidden" name="status" value="floated">
+                                <input type="hidden" name="verified" value="0">
+                                <input type="hidden" name="biometric_verified" value="0">
+                                <input type="hidden" name="biometric_verification_type" value="fingerprint">
                                 @if (isset($success))
                                     <div class="mb-4 row">
                                         <button class="btn btn-success" type="button">Addition successful. Add another

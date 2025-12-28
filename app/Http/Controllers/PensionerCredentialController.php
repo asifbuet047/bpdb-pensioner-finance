@@ -29,13 +29,20 @@ class PensionerCredentialController extends Controller
             return redirect()->back()
                 ->withErrors(['erp_id' => 'Please talk to Your RAO office for registration as pensioner'])
                 ->withInput();
-        } else {
-            $pensioner_credentail = PensionerCredential::create([
-                'pensioner_id' => $pensioner->id,
-                'password' => Hash::make($validated['password'])
-            ]);
-
-            return redirect()->back()->with(['erp_id' => $request->input('erp_id'), 'password' => $pensioner_credentail['password']]);
         }
+
+        $approvedPensioner = Pensioner::where('erp_id', $validated['erp_id'])->where('status', 'approved')->first();
+
+        if (!$approvedPensioner) {
+            return redirect()->back()
+                ->withErrors(['erp_id' => 'Please talk to Your RAO office for forward Your application'])
+                ->withInput();
+        }
+        $pensioner_credentail = PensionerCredential::create([
+            'pensioner_id' => $pensioner->id,
+            'password' => Hash::make($validated['password'])
+        ]);
+
+        return redirect()->back()->with(['erp_id' => $request->input('erp_id'), 'password' => $pensioner_credentail['password']]);
     }
 }

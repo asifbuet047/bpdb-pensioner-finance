@@ -9,15 +9,6 @@
                 <div class="card shadow-sm border-0 rounded-4">
                     <div class="card-body text-center p-4">
                         @php
-                            $pensioner = (object) [
-                                'name' => 'Md. Asifuzzaman',
-                                'erp_id' => 'PEN-1023',
-                                'designation' => 'Retired Executive Engineer',
-                                'bank_name' => 'Sonali Bank Ltd.',
-                                'account_no' => '1234567890',
-                                'monthly_amount' => 34500.75,
-                                'is_active' => true,
-                            ];
                             $avatarUrl =
                                 'https://ui-avatars.com/api/?name=' .
                                 urlencode($pensionerDetails->name) .
@@ -56,28 +47,6 @@
             </div>
 
             <div class="col-lg-8">
-                @php
-                    $recentPayments = collect([
-                        (object) [
-                            'amount' => $pensionerDetails->basic_salary,
-                            'date' => '2025-09-01',
-                            'description' => 'September 2025 Pension',
-                            'status' => 'completed',
-                        ],
-                        (object) [
-                            'amount' => $pensionerDetails->basic_salary,
-                            'date' => '2025-08-01',
-                            'description' => 'August 2025 Pension',
-                            'status' => 'completed',
-                        ],
-                        (object) [
-                            'amount' => $pensionerDetails->basic_salary,
-                            'date' => '2025-07-01',
-                            'description' => 'July 2025 Pension',
-                            'status' => 'completed',
-                        ],
-                    ]);
-                @endphp
 
                 <!-- Stats Row -->
                 <div class="row g-3 mb-4">
@@ -118,13 +87,13 @@
                                 <strong>Name:</strong><br>{{ $pensionerDetails->name }}
                             </div>
                             <div class="col-md-6">
-                                <strong>Date of Birth:</strong><br>12 Jan, 1958
+                                <strong>Date of Birth:</strong><br>{{ $pensionerDetails->birth_date }}
                             </div>
                             <div class="col-md-6">
-                                <strong>NID / Passport:</strong><br>1234567890123
+                                <strong>NID / Passport:</strong><br>{{ $pensionerDetails->nid }}
                             </div>
                             <div class="col-md-6">
-                                <strong>Contact:</strong><br>+8801712345678
+                                <strong>Contact:</strong><br>{{ $pensionerDetails->phone_number }}
                             </div>
                             <div class="col-12">
                                 <strong>Address:</strong><br>Dhaka, Bangladesh
@@ -140,7 +109,7 @@
                         <a href="#" class="text-primary small text-decoration-none">View All</a>
                     </div>
                     <div class="card-body">
-                        @foreach ($recentPayments as $payment)
+                        {{-- @foreach ($recentPayments as $payment)
                             <div
                                 class="list-group-item d-flex justify-content-between align-items-center py-3 border-bottom">
                                 <div>
@@ -152,7 +121,7 @@
                                 </div>
                                 <span class="badge bg-light text-dark border">{{ ucfirst($payment->status) }}</span>
                             </div>
-                        @endforeach
+                        @endforeach --}}
                     </div>
                 </div>
             </div>

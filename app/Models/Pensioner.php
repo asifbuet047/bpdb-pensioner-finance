@@ -32,6 +32,7 @@ class Pensioner extends Model
         'phone_number',
         'email',
         'nid',
+        'religion',
         'bank_routing_number',
         'status',
         'verified',

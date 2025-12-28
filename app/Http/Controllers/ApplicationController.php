@@ -92,9 +92,22 @@ class ApplicationController extends Controller
             }
         } else if ($user_type === 'pensioner') {
             $erp_id = $request->cookie('user_id');
-            $name = $request->cookie('user_name');
-            $pensionerDetails = Pensioner::where('erp_id', $erp_id)->with('office')->first();
-            return view('dashboardpensioner', compact('erp_id', 'name', 'pensionerDetails'));
+            $user_type = 'pensioner';
+            $pensionerDetails = Pensioner::with(['office', 'workflows'])
+                ->where('erp_id', $erp_id)
+                ->firstOrFail();
+
+            $paymentOfficeDetails = Office::where(
+                'office_code',
+                $pensionerDetails->office->payment_office_code
+            )->first();
+
+            return view('dashboardpensioner', compact(
+                'erp_id',
+                'user_type',
+                'pensionerDetails',
+                'paymentOfficeDetails'
+            ));
         } else {
             return view('login');
         }
@@ -185,6 +198,7 @@ class ApplicationController extends Controller
                     'father_name' => '',
                     'mother_name' => '',
                     'spouse_name' => '',
+                    'religion' => '',
 
                     // Pension flags
                     'is_self_pension' => '',
@@ -358,6 +372,13 @@ class ApplicationController extends Controller
                     ->withErrors(['erp_id' => 'Please talk to Your RAO office for registration as pensioner'])
                     ->withInput();
             }
+            $approvedPensioner = Pensioner::where('erp_id', $validated['erp_id'])->where('status', 'approved')->first();
+
+            if (!$approvedPensioner) {
+                return redirect()->back()
+                    ->withErrors(['erp_id' => 'Please talk to Your RAO office for forward Your application'])
+                    ->withInput();
+            }
             $pensioner_credential = PensionerCredential::where('pensioner_id', $pensioner->id)->first();
 
             if ($pensioner_credential) {
@@ -369,7 +390,7 @@ class ApplicationController extends Controller
                     return redirect()->back()->with([
                         'erp_id' => $validated['erp_id'],
                         'password' => $validated['password']
-                    ])->withCookies([cookie('user_id', $pensioner->erp_id, 10, '/', null, false, true), cookie('user_type', 'pensioner', 10, '/', null, false, true), cookie('user_name', $pensioner->name, 10, '/', null, false, true), cookie('user_designation', $pensioner->designation, 10, '/', null, false, true)]);
+                    ])->withCookies([cookie('user_id', $pensioner->erp_id, 60, '/', null, false, true), cookie('user_type', 'pensioner', 60, '/', null, false, true)]);
                 }
             } else {
                 return redirect()->back()

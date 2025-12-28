@@ -63,6 +63,10 @@ class PensionerController extends Controller
                     'phone_number' => 'required|string|max:20',
                     'email' => 'required|email|max:255',
                     'nid' => 'required|string|max:20',
+                    'religion' =>  [
+                        'required',
+                        Rule::in(['Islam', 'Hinduism', 'Christianity', 'Buddhism', 'Others']),
+                    ],
                     'bank_routing_number' => 'required|string|max:20',
                     'status' => [
                         'required',
@@ -225,6 +229,7 @@ class PensionerController extends Controller
                             'father_name' => $pensioner_parent_information['Fathers_Name'] ?? '',
                             'mother_name' => $pensioner_parent_information['Mothers_Name'] ?? '',
                             'spouse_name' => $pensioner_spouse_inforamtion['Spouse_Name'] ?? '',
+                            'religion' => $pensioner_information['Religion'] ?? '',
 
                             // RAO specific code
                             'pension_payment_order' => '',
@@ -719,6 +724,7 @@ class PensionerController extends Controller
                             'father_name' => $pensioner->father_name ?? '',
                             'mother_name' => $pensioner->mother_name ?? '',
                             'spouse_name' => $pensioner->spouse_name ?? '',
+                            'religion' => $pensioner->religion ?? '',
 
                             // RAO specific code
                             'pension_payment_order' => $pensioner->pension_payment_order ?? '',
@@ -730,7 +736,6 @@ class PensionerController extends Controller
                             'verified' => $pensioner->verified ?? false,
                             'biometric_verified' => $pensioner->biometric_verified ?? false,
                             'biometric_verification_type' => $pensioner->biometric_verification_type ?? 'fingerprint',
-
                         ];
 
                         return view('updatepensioner', compact('pensioner_info', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
