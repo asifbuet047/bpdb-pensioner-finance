@@ -309,10 +309,6 @@ class PensionerController extends Controller
         } else {
             return view('login');
         }
-        if ($request->hasCookie('user_id')) {
-        } else {
-            return view('login');
-        }
     }
 
     public function showPensionersVariantSection(Request $request)

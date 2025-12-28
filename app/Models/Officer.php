@@ -34,8 +34,13 @@ class Officer extends Model
         return $this->belongsTo(Role::class);
     }
 
-    public function workflows()
+    public function pensionerworkflows()
     {
         return $this->hasMany(Pensionerworkflow::class);
+    }
+
+    public function pensionworkflows()
+    {
+        return $this->hasMany(Pensionworkflow::class);
     }
 }

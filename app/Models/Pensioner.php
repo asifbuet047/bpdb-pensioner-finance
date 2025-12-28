@@ -71,6 +71,11 @@ class Pensioner extends Model
     {
         return $this->hasMany(Pensionerworkflow::class);
     }
+    public function pensionerspensions()
+    {
+        return $this->hasMany(Pensionerspension::class);
+    }
+
 
     public function getMedicalAllowanceAttribute()
     {

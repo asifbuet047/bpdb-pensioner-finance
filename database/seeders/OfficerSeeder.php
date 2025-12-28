@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Hash;
 
 class OfficerSeeder extends Seeder
 {
-
     public function run(): void
     {
         $super_admins = [
@@ -27,7 +26,6 @@ class OfficerSeeder extends Seeder
                 'office_id' => 211,
                 'designation_id' => 5,
                 'role_id' => 5,
-
             ],
             [
                 'erp_id' => 140012234,
@@ -36,7 +34,6 @@ class OfficerSeeder extends Seeder
                 'office_id' => 30,
                 'designation_id' => 4,
                 'role_id' => 3,
-
             ],
             [
                 'erp_id' => 140043208,
@@ -45,7 +42,6 @@ class OfficerSeeder extends Seeder
                 'office_id' => 30,
                 'designation_id' => 6,
                 'role_id' => 2,
-
             ],
             [
                 'erp_id' => 140036577,
@@ -54,7 +50,6 @@ class OfficerSeeder extends Seeder
                 'office_id' => 30,
                 'designation_id' => 8,
                 'role_id' => 1,
-
             ],
             [
                 'erp_id' => 140036565,
@@ -63,11 +58,8 @@ class OfficerSeeder extends Seeder
                 'office_id' => 29,
                 'designation_id' => 4,
                 'role_id' => 1,
-
             ],
-
         ];
-
         foreach ($super_admins as $admin) {
             Officer::create($admin);
         }

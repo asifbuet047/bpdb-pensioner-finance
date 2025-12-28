@@ -30,4 +30,9 @@ class Office extends Model
     {
         return $this->hasMany(Pensioner::class);
     }
+
+    public function pensions()
+    {
+        return $this->hasMany(Pension::class);
+    }
 }

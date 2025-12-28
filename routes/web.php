@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OfficerController;
+use App\Http\Controllers\PensionController;
 use App\Http\Controllers\PensionerController;
 use App\Http\Controllers\PensionerCredentialController;
 use Illuminate\Support\Facades\Route;
@@ -66,6 +67,7 @@ Route::get('/pensioners/invoice', [PensionerController::class, 'showSelectedBank
 
 Route::get('pensioners/invoice/generate', [PensionerController::class, 'generateInvoice'])->name('generate.invoice');
 
+Route::get('/pension/generate', [PensionController::class, 'showGeneratePensionSection'])->name('show.generate.pension.section');
 
 Route::get('/officer/new', [ApplicationController::class, 'showAddOfficerSection'])->name('add.officer.section');
 

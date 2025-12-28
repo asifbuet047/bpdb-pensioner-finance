@@ -203,48 +203,6 @@
                         @endforelse
                     </tbody>
                 </table>
-
-                <!--Delete Action Modal -->
-                {{-- <div class="modal fade" id="pensionerDeleteActionModal" data-bs-backdrop="static" data-bs-keyboard="false"
-                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5">Are You sure?</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Do You really want to delete <span class="fw-bold" id="pensionerDeleteActionModalSpan"></span>?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-                                    id="pensionerDeleteButton">Yes</button>
-                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Not now</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
-
-                <!--Update Action Modal -->
-                {{-- <div class="modal fade" id="pensionerUpdateActionModal" data-bs-backdrop="static" data-bs-keyboard="false"
-                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5">Are You sure?</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Do You really want to update <span class="fw-bold" id="pensionerUpdateActionModalSpan"></span>?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                                    id="pensionerUpdateButton">Yes</button>
-                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Not now</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
 
             <!-- Action Buttons -->
