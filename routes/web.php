@@ -53,7 +53,7 @@ Route::post('/api/pensioner/workflow', [PensionerController::class, 'initiatePen
 
 Route::get('/api/pensioner/workflow/{id}', [PensionerController::class, 'isPensionerWorkflowExits']);
 
-Route::post('/api/pensioners/approved', [PensionerController::class, 'getApprovedPensioners']);
+Route::get('/api/pensioners/approved', [PensionerController::class, 'getApprovedPensioners']);
 
 Route::get('/pensioner/workflow', [PensionerController::class, 'showPensionerWorkflow'])->name('show.pensioner.workflow');
 

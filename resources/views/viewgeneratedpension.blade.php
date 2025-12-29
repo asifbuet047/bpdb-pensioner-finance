@@ -40,17 +40,19 @@
                         <th scope="col">
                             Special benifit
                         </th>
-                        <th scope="col">
-                            Bonus
-                        </th>
+                        @if ($bonuses['muslim_bonus'] || $bonuses['hindu_bonus'] || $bonuses['christian_bonus'] || $bonuses['buddhist_bonus'])
+                            <th scope="col">Festival bonus</th>
+                        @endif
+
+                        @if ($bonuses['bangla_new_year_bonus'])
+                            <th scope="col">bangla new year bonus</th>
+                        @endif
                         <th scope="col">
                             Total
                         </th>
                         <th scope="col">
                             Action
                         </th>
-
-
                     </tr>
                 </thead>
                 <tbody>
@@ -62,7 +64,14 @@
                             <td>{{ number_format($pensioner->net_pension, 2) }}</td>
                             <td>{{ number_format($pensioner->medical_allowance, 2) }}</td>
                             <td>{{ number_format($pensioner->special_benifit, 2) }}</td>
-                            <td>{{ number_format($pensioner->bonus, 2) }}</td>
+                            @if ($bonuses['muslim_bonus'] || $bonuses['hindu_bonus'] || $bonuses['christian_bonus'] || $bonuses['buddhist_bonus'])
+                                <td>{{ number_format($pensioner->festival_bonus, 2) }}</td>
+                            @endif
+
+                            @if ($bonuses['bangla_new_year_bonus'])
+                                <td>{{ number_format($pensioner->bangla_new_year_bonus, 2) }}</td>
+                            @endif
+
                             <td>{{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit + $pensioner->bonus, 2) }}
                             </td>
                             <td>

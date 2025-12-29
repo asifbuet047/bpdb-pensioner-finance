@@ -63,7 +63,8 @@ class Pensioner extends Model
         'office_name',
         'net_pension',
         'special_benifit',
-        'bonus'
+        'festival_bonus',
+        'bangla_new_year_bonus'
     ];
 
     public function office()
@@ -167,18 +168,17 @@ class Pensioner extends Model
         return round($this->net_pension * 0.10, 0);
     }
 
-    public function getBonusAttribute()
+    public function getFestivalBonusAttribute()
     {
         if ($this->religion === 'Islam') {
-            if (Carbon::now()->month()) {
-                # code...
-            } else {
-                # code...
-            }
-            
             return $this->net_pension;
         } else {
             return $this->net_pension * 2.0;
         }
+    }
+
+    public function getBanglaNewYearBonusAttribute()
+    {
+        return $this->net_pension * 0.20;
     }
 }
