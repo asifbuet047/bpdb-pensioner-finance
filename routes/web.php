@@ -35,6 +35,8 @@ Route::get('/pensioner/update/{id}', [ApplicationController::class, 'showUpdateP
 
 Route::get('/pensioners/all', [PensionerController::class, 'getAllPensionersFromDB'])->name('show.pensioner.section');
 
+Route::get('/view/pensioners/approved', [PensionerController::class, 'showGenratePensionPage'])->name('show.approved.pensioner.section');
+
 Route::get('/pensioners', [PensionerController::class, 'showPensionersVariantSection'])->name('show.pensioners.variant.section');
 
 Route::post('/pensioner', [PensionerController::class, 'addPensionerIntoDB'])->name('add.pensioner.process');
@@ -50,6 +52,8 @@ Route::post('/pensioner/update', [PensionerController::class, 'updatePensionerIn
 Route::post('/api/pensioner/workflow', [PensionerController::class, 'initiatePensionerWorkflow']);
 
 Route::get('/api/pensioner/workflow/{id}', [PensionerController::class, 'isPensionerWorkflowExits']);
+
+Route::post('/api/pensioners/approved', [PensionerController::class, 'getApprovedPensioners']);
 
 Route::get('/pensioner/workflow', [PensionerController::class, 'showPensionerWorkflow'])->name('show.pensioner.workflow');
 

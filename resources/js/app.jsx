@@ -13,6 +13,8 @@ import ApproveButtonComponent from "./components/ApproveButtonComponent";
 import UpdateSuccessSnackbar from "./components/UpdateSuccessSnackbar";
 import * as bootstrap from "bootstrap";
 import WorkflowButtonComponent from "./components/WorkflowButtonComponent";
+import BlockCheckboxComponent from "./components/BlockCheckboxComponent";
+import MonthlyGeneratePensionComponent from "./components/MonthlyGeneratePensionComponent";
 
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
@@ -85,8 +87,17 @@ document.querySelectorAll(".pensioner-workflow-button").forEach((el) => {
     );
 });
 
+document.querySelectorAll(".pensioner-block-checkbox").forEach((el) => {
+    createRoot(el).render(<BlockCheckboxComponent disabled={false} />);
+});
+
 const snackbarEl = document.getElementById("update-success-snackbar");
 
 if (snackbarEl) {
     createRoot(snackbarEl).render(<UpdateSuccessSnackbar />);
+}
+
+const monthlyPension = document.getElementById("monthly-pension-generation");
+if (monthlyPension) {
+    createRoot(monthlyPension).render(<MonthlyGeneratePensionComponent />);
 }

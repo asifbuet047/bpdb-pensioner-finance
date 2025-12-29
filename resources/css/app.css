@@ -483,3 +483,61 @@
 .approve-button:disabled::before {
     display: none;
 }
+
+/* ===============================
+   BlockCheckboxComponent Styles
+   =============================== */
+
+.tick-wrapper {
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Checkbox block */
+.tick-check {
+    position: relative; /* 🔴 REQUIRED */
+    width: 32px;
+    height: 32px;
+    border: 2px solid #adb5bd;
+    border-radius: 6px;
+    background-color: #ffffff;
+
+    transition: all 0.25s ease;
+}
+
+.tick-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+}
+
+.tick-icon svg {
+    display: block;
+}
+
+.tick-check:hover {
+    border-color: #198754;
+}
+
+.tick-check.checked {
+    background-color: #198754;
+    border-color: #198754;
+    border-width: 2px;
+}
+
+.tick-check.checked .tick-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.tick-check.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

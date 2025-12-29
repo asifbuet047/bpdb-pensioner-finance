@@ -311,6 +311,50 @@ class PensionerController extends Controller
         }
     }
 
+    public function showGenratePensionPage(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $pensioner_type = $request->query('type');
+        $month = $request->input('month');
+        $year = $request->input('year');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            switch ($officer_role) {
+                case 'super_admin':
+                    $officer_office_code = $officer->office->office_code;
+                    $pensioners = Pensioner::orderBy('erp_id')->get();
+                    return view('viewpensioner', compact('pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                case 'approver':
+                    $officer_office_code = $officer->office->office_code;
+                    $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
+                    $pensioners = Pensioner::whereIn('office_id', $office_ids)->whereIn('status', ['floated', 'initiated', 'certified'])->orderBy('id')->get();
+                    return view('viewpensioner', compact('pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    break;
+                case 'certifier':
+                    $officer_office_code = $officer->office->office_code;
+                    $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
+                    $pensioners = Pensioner::whereIn('office_id', $office_ids)->whereIn('status', ['floated', 'initiated', 'certified'])->orderBy('id')->get();
+                    return view('viewpensioner', compact('pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    break;
+                case 'initiator':
+                    $officer_office_code = $officer->office->office_code;
+                    $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
+                    $pensioners = Pensioner::whereIn('office_id', $office_ids)->where('status', 'approved')->orderBy('id')->get();
+                    return view('viewgeneratedpension', compact('pensioners', 'month', 'year', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    break;
+                default:
+                    return view('login');
+                    break;
+            }
+        } else {
+            return view('login');
+        }
+    }
+
     public function showPensionersVariantSection(Request $request)
     {
         $erp_id = $request->cookie('user_id');
@@ -632,6 +676,7 @@ class PensionerController extends Controller
             'message' => 'Pensioner successfully retrived'
         ], 200);
     }
+
     public function isPensionerWorkflowExits(Request $request, $id)
     {
         $erp_id = $request->cookie('user_id');
@@ -642,15 +687,27 @@ class PensionerController extends Controller
         $pensioner_workflow_count = Pensionerworkflow::where('pensioner_id', $id)->count();
 
         if (!$erp_id) {
-            return response()->json(['message' => 'please login'], 401);
+            return response()->json([
+                'success' => false,
+                'message' => 'Pleae login as valid officer',
+                'data' => []
+            ], 401);
         }
 
         if (!$officer) {
-            return response()->json(['message' => 'no valid officer'], 402);
+            return response()->json([
+                'success' => false,
+                'message' => 'No valid officer',
+                'data' => []
+            ], 402);
         }
 
         if (!$pensioner) {
-            return response()->json(['message' => 'Pensioner is not under Your RAO office'], 404);
+            return response()->json([
+                'success' => false,
+                'message' => 'No valid officer',
+                'data' => []
+            ], 403);
         }
         if ($pensioner_workflow_count == 0) {
             return response()->json([
@@ -664,6 +721,45 @@ class PensionerController extends Controller
             'success' => true,
             'message' => 'Pensioner workflow number successfully retrived',
             'data' => $pensioner_workflow_count
+        ], 200);
+    }
+
+    public function getApprovedPensioners(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        $officer_office_code = $officer->office->office_code;
+        $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
+        $approvedPensioners = Pensioner::whereIn('office_id', $office_ids)->where('status', 'approved')->get();
+
+        if (!$erp_id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Pleae login as valid officer',
+                'data' => []
+            ], 401);
+        }
+
+        if (!$officer) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No valid officer',
+                'data' => []
+            ], 402);
+        }
+
+        if ($approvedPensioners->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No approved pensioners found',
+                'data' => []
+            ], 403);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Total ' . $approvedPensioners->count() . ' Approved pensioners are successfully retrived',
+            'data' => $approvedPensioners
         ], 200);
     }
 

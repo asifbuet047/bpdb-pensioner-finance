@@ -13,11 +13,13 @@ class Pensionerspension extends Model
     protected $fillable = [
         'pensioner_id',
         'pension_id',
+        'is_block'
     ];
 
     protected $casts = [
         'pensioner_id' => 'integer',
         'pension_id' => 'integer',
+        'is_block' => 'boolean'
     ];
 
     public function pensioner()
