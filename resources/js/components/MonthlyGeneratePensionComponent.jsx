@@ -29,6 +29,7 @@ export default function MonthlyGeneratePensionComponent() {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const [snackbarSeverity, setSnackbarSeverity] = useState("error");
+    const [onlybonus, setOnlybonus] = useState(false);
 
     const [actions, setActions] = useState({
         muslim_bonus: false,
@@ -48,6 +49,11 @@ export default function MonthlyGeneratePensionComponent() {
 
     const openModal = (message) => {
         modalInstance.current?.show();
+        if (message === "generate_bonus") {
+            setOnlybonus(true);
+        } else {
+            setOnlybonus(false);
+        }
     };
     const closeModal = () => modalInstance.current?.hide();
 
@@ -68,12 +74,22 @@ export default function MonthlyGeneratePensionComponent() {
                 setSnackbarMessage(response.data?.message || "Success");
                 setSnackbarSeverity("success");
                 setSnackbarOpen(true);
-                const params = new URLSearchParams({
-                    month,
-                    year,
-                    ...actions,
-                }).toString();
-                window.location.href = `/view/pensioners/approved?${params}`;
+                if (onlybonus) {
+                    const params = new URLSearchParams({
+                        month,
+                        year,
+                        onlybonus,
+                        ...actions,
+                    }).toString();
+                    window.location.href = `/view/pensioners/approved?${params}`;
+                } else {
+                    const params = new URLSearchParams({
+                        month,
+                        year,
+                        ...actions,
+                    }).toString();
+                    window.location.href = `/view/pensioners/approved?${params}`;
+                }
             } else {
                 window.location.href = `/`;
             }

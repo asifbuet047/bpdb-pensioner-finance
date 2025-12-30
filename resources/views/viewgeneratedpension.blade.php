@@ -86,7 +86,7 @@
                                 <td>{{ number_format($pensioner->bangla_new_year_bonus, 2) }}</td>
                             @endif
 
-                            @if ($bonuses['muslim_bonus'] || $bonuses['hindu_bonus'] || $bonuses['christian_bonus'] || $bonuses['buddhist_bonus'])
+                            @if ($isFestivalBonus)
                                 @if ($bonuses['bangla_new_year_bonus'])
                                     <td>{{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit + $pensioner->festival_bonus + $pensioner->bangla_new_year_bonus, 2) }}
                                     </td>
@@ -103,7 +103,6 @@
                                     </td>
                                 @endif
                             @endif
-
 
                             <td>
                                 <div class="d-flex justify-content-center gap-2">

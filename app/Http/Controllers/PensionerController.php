@@ -316,6 +316,7 @@ class PensionerController extends Controller
         $erp_id = $request->cookie('user_id');
         $month = $request->query('month');
         $year  = $request->query('year');
+        $onlybonus = $request->boolean('onlybonus');
 
         $bonuses = [
             'muslim_bonus' => $request->boolean('muslim_bonus'),
