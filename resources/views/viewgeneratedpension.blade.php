@@ -80,33 +80,64 @@
                                 };
                             @endphp
 
-                            @if ($isFestivalBonus)
-                                @if ($banglanewyearbonus)
-                                    <td>{{ number_format($pensioner->festival_bonus, 2) }}</td>
-                                    <td>{{ number_format($pensioner->bangla_new_year_bonus, 2) }}</td>
-                                    <td>{{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit + $pensioner->festival_bonus + $pensioner->bangla_new_year_bonus, 2) }}
-                                    </td>
+                            @if (!$onlybonus)
+                                @if ($isFestivalBonus)
+                                    @if ($banglanewyearbonus)
+                                        <td>{{ number_format($pensioner->festival_bonus, 2) }}</td>
+                                        <td>{{ number_format($pensioner->bangla_new_year_bonus, 2) }}</td>
+                                        <td>{{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit + $pensioner->festival_bonus + $pensioner->bangla_new_year_bonus, 2) }}
+                                        </td>
+                                    @else
+                                        <td>{{ number_format($pensioner->festival_bonus, 2) }}</td>
+                                        <td>{{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit + $pensioner->festival_bonus, 2) }}
+                                        </td>
+                                    @endif
                                 @else
-                                    <td>{{ number_format($pensioner->festival_bonus, 2) }}</td>
-                                    <td>{{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit + $pensioner->festival_bonus, 2) }}
-                                    </td>
+                                    @if ($banglanewyearbonus)
+                                        @if (in_array(true, $festivalbonuses))
+                                            <td>{{ number_format(0.0, 2) }}</td>
+                                        @endif
+                                        <td>{{ number_format($pensioner->bangla_new_year_bonus, 2) }}</td>
+                                        <td>{{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit + $pensioner->bangla_new_year_bonus, 2) }}
+                                        </td>
+                                    @else
+                                        @if (in_array(true, $festivalbonuses))
+                                            <td>{{ number_format(0.0, 2) }}</td>
+                                        @endif
+                                        <td>{{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit, 2) }}
+                                        </td>
+                                    @endif
                                 @endif
                             @else
-                                @if ($banglanewyearbonus)
-                                    @if (in_array(true, $festivalbonuses))
-                                        <td>{{ number_format(0.0, 2) }}</td>
+                                @if ($isFestivalBonus)
+                                    @if ($banglanewyearbonus)
+                                        <td>{{ number_format($pensioner->festival_bonus, 2) }}</td>
+                                        <td>{{ number_format($pensioner->bangla_new_year_bonus, 2) }}</td>
+                                        <td>{{ number_format($pensioner->festival_bonus + $pensioner->bangla_new_year_bonus, 2) }}
+                                        </td>
+                                    @else
+                                        <td>{{ number_format($pensioner->festival_bonus, 2) }}</td>
+                                        <td>{{ number_format($pensioner->festival_bonus, 2) }}
+                                        </td>
                                     @endif
-                                    <td>{{ number_format($pensioner->bangla_new_year_bonus, 2) }}</td>
-                                    <td>{{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit + $pensioner->bangla_new_year_bonus, 2) }}
-                                    </td>
                                 @else
-                                    @if (in_array(true, $festivalbonuses))
-                                        <td>{{ number_format(0.0, 2) }}</td>
+                                    @if ($banglanewyearbonus)
+                                        @if (in_array(true, $festivalbonuses))
+                                            <td>{{ number_format(0.0, 2) }}</td>
+                                        @endif
+                                        <td>{{ number_format($pensioner->bangla_new_year_bonus, 2) }}</td>
+                                        <td>{{ number_format($pensioner->bangla_new_year_bonus, 2) }}
+                                        </td>
+                                    @else
+                                        @if (in_array(true, $festivalbonuses))
+                                            <td>{{ number_format(0.0, 2) }}</td>
+                                        @endif
+                                        <td>{{ number_format(0.0, 2) }}
+                                        </td>
                                     @endif
-                                    <td>{{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit, 2) }}
-                                    </td>
                                 @endif
                             @endif
+
 
                             <td>
                                 <div class="d-flex justify-content-center gap-2">
