@@ -36,7 +36,6 @@ export default function MonthlyGeneratePensionComponent() {
         christian_bonus: false,
         buddhist_bonus: false,
         bangla_new_year_bonus: false,
-        all_bonus: false,
     });
 
     const modalInstance = useRef(null);
@@ -65,17 +64,19 @@ export default function MonthlyGeneratePensionComponent() {
             const response = await axios.get("/api/pensioners/approved", {
                 withCredentials: true,
             });
-
-            setSnackbarMessage(response.data?.message || "Success");
-            setSnackbarSeverity("success");
-            setSnackbarOpen(true);
-            const params = new URLSearchParams({
-                month,
-                year,
-                ...actions,
-            }).toString();
-
-            window.location.href = `/view/pensioners/approved?${params}`;
+            if (response.data.success) {
+                setSnackbarMessage(response.data?.message || "Success");
+                setSnackbarSeverity("success");
+                setSnackbarOpen(true);
+                const params = new URLSearchParams({
+                    month,
+                    year,
+                    ...actions,
+                }).toString();
+                window.location.href = `/view/pensioners/approved?${params}`;
+            } else {
+                window.location.href = `/`;
+            }
         } catch (error) {
             setSnackbarMessage(
                 error.response?.data?.message || "Something went wrong"

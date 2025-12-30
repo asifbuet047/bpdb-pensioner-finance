@@ -314,7 +314,6 @@ class PensionerController extends Controller
     public function showGenratePensionPage(Request $request)
     {
         $erp_id = $request->cookie('user_id');
-        $pensioner_type = $request->query('type');
         $month = $request->query('month');
         $year  = $request->query('year');
 
