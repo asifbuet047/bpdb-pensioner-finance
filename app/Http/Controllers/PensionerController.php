@@ -333,27 +333,30 @@ class PensionerController extends Controller
             $officer_office = $officer->office->name_in_english;
             $officer_designation = $officer->designation->description_english;
             switch ($officer_role) {
-                // case 'super_admin':
-                //     $officer_office_code = $officer->office->office_code;
-                //     $pensioners = Pensioner::orderBy('erp_id')->get();
-                //     return view('viewpensioner', compact('pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
-                // case 'approver':
-                //     $officer_office_code = $officer->office->office_code;
-                //     $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
-                //     $pensioners = Pensioner::whereIn('office_id', $office_ids)->whereIn('status', ['floated', 'initiated', 'certified'])->orderBy('id')->get();
-                //     return view('viewpensioner', compact('pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
-                //     break;
-                // case 'certifier':
-                //     $officer_office_code = $officer->office->office_code;
-                //     $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
-                //     $pensioners = Pensioner::whereIn('office_id', $office_ids)->whereIn('status', ['floated', 'initiated', 'certified'])->orderBy('id')->get();
-                //     return view('viewpensioner', compact('pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
-                //     break;
                 case 'initiator':
                     $officer_office_code = $officer->office->office_code;
                     $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
                     $pensioners = Pensioner::whereIn('office_id', $office_ids)->where('status', 'approved')->orderBy('id')->get();
-                    return view('viewgeneratedpension', compact('pensioners', 'month', 'year', 'festivalbonuses', 'banglanewyearbonus', 'onlybonus', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+
+                    $sumOfNetpension = $pensioners->sum(fn($pensioner) => $pensioner->net_pension);
+                    $sumOfMedicalAllowance = $pensioners->sum(fn($pensioner) => $pensioner->medical_allowance);
+                    $sumOfSpecialbenifit = $pensioners->sum(fn($pensioner) => $pensioner->special_benifit);
+
+                    $religionBonusMap = [
+                        'Islam' => $festivalbonuses['muslim_bonus']    ?? false,
+                        'Hinduism' => $festivalbonuses['hindu_bonus']     ?? false,
+                        'Christianity' => $festivalbonuses['christian_bonus'] ?? false,
+                        'Buddhism' => $festivalbonuses['buddhist_bonus']  ?? false,
+                    ];
+
+                    $sumOfFestivalbonus = $pensioners->sum(function ($pensioner) use ($religionBonusMap) {
+                        if ($religionBonusMap[$pensioner->religion] ?? false) {
+                            return $pensioner->festival_bonus;
+                        }
+                        return 0;
+                    });
+                    $sumOfbanglaNewYearBonus = $banglanewyearbonus ? $pensioners->sum(fn($pensioner) => $pensioner->bangla_new_year_bonus) : 0.0;
+                    return view('viewgeneratedpension', compact('pensioners', 'month', 'year', 'festivalbonuses', 'sumOfNetpension', 'sumOfSpecialbenifit', 'sumOfMedicalAllowance', 'sumOfFestivalbonus', 'sumOfbanglaNewYearBonus', 'banglanewyearbonus', 'onlybonus', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
                     break;
                 default:
                     return view('login');
