@@ -13,13 +13,24 @@ class Pensionerspension extends Model
     protected $fillable = [
         'pensioner_id',
         'pension_id',
-        'is_block'
+        'net_pension',
+        'medical_allowance',
+        'special_allowance',
+        'festival_bonus',
+        'bangla_new_year_bonus',
+        'is_block',
+        'message',
     ];
 
     protected $casts = [
         'pensioner_id' => 'integer',
         'pension_id' => 'integer',
-        'is_block' => 'boolean'
+        'net_pension' => 'integer',
+        'medical_allowance' => 'integer',
+        'special_allowance' => 'integer',
+        'festival_bonus' => 'integer',
+        'bangla_new_year_bonus' => 'integer',
+        'is_block' => 'boolean',
     ];
 
     public function pensioner()

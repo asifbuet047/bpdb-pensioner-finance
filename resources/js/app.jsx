@@ -4,6 +4,8 @@ import axios from "axios";
 import "./helper";
 import "../css/app.css";
 import { createRoot } from "react-dom/client";
+import * as bootstrap from "bootstrap";
+
 import NotificationComponent from "./components/NotificationComponent";
 import DeleteButtonComponent from "./components/DeleteButtonComponent";
 import EditButtonComponent from "./components/EditButtonComponent";
@@ -11,10 +13,10 @@ import ForwardButtonComponent from "./components/ForwardButtonComponent";
 import ReturnButtonComponent from "./components/ReturnButtonComponent";
 import ApproveButtonComponent from "./components/ApproveButtonComponent";
 import UpdateSuccessSnackbar from "./components/UpdateSuccessSnackbar";
-import * as bootstrap from "bootstrap";
 import WorkflowButtonComponent from "./components/WorkflowButtonComponent";
 import BlockCheckboxComponent from "./components/BlockCheckboxComponent";
 import MonthlyGeneratePensionComponent from "./components/MonthlyGeneratePensionComponent";
+import GeneratePensionButtonComponent from "./components/GeneratePensionButtonComponent";
 
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
@@ -100,4 +102,13 @@ if (snackbarEl) {
 const monthlyPension = document.getElementById("monthly-pension-generation");
 if (monthlyPension) {
     createRoot(monthlyPension).render(<MonthlyGeneratePensionComponent />);
+}
+
+const generatePensionButton = document.getElementById(
+    "generate-pension-button"
+);
+if (generatePensionButton) {
+    createRoot(generatePensionButton).render(
+        <GeneratePensionButtonComponent />
+    );
 }

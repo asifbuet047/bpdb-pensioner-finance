@@ -40,7 +40,7 @@
                                 Medical Allowance
                             </th>
                             <th scope="col">
-                                Special benifit
+                                Special Allowance
                             </th>
                         @endif
 
@@ -146,6 +146,7 @@
                                 <div class="d-flex justify-content-center gap-2">
                                     <div class="pensioner-block-checkbox">
                                     </div>
+                                </div>
                             </td>
                         </tr>
                         @if ($loop->last)
@@ -186,14 +187,7 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="text-center mt-4">
-            <a class="btn btn-primary btn-lg me-2 shadow-sm" href="{{ route('add.pensioner.section') }}">
-                Generate Pension
-            </a>
-            <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('show.pensioner.section') }}">
-                Refresh List
-            </a>
-        </div>
+        <div id="generate-pension-button"></div>
     </section>
 
 @endsection

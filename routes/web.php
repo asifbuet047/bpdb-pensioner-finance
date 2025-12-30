@@ -35,7 +35,7 @@ Route::get('/pensioner/update/{id}', [ApplicationController::class, 'showUpdateP
 
 Route::get('/pensioners/all', [PensionerController::class, 'getAllPensionersFromDB'])->name('show.pensioner.section');
 
-Route::get('/view/pensioners/approved', [PensionerController::class, 'showGenratePensionPage'])->name('show.approved.pensioner.section');
+Route::get('/view/pensioners/approved', [PensionController::class, 'showGenratePensionPage'])->name('show.approved.pensioner.section');
 
 Route::get('/pensioners', [PensionerController::class, 'showPensionersVariantSection'])->name('show.pensioners.variant.section');
 
