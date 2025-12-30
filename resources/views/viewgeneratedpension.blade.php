@@ -32,20 +32,23 @@
                         <th scope="col">
                             Name
                         </th>
-                        <th scope="col">
-                            Net pension
-                        </th>
-                        <th scope="col">
-                            Medical Allowance
-                        </th>
-                        <th scope="col">
-                            Special benifit
-                        </th>
-                        @if ($bonuses['muslim_bonus'] || $bonuses['hindu_bonus'] || $bonuses['christian_bonus'] || $bonuses['buddhist_bonus'])
+                        @if (!$onlybonus)
+                            <th scope="col">
+                                Net pension
+                            </th>
+                            <th scope="col">
+                                Medical Allowance
+                            </th>
+                            <th scope="col">
+                                Special benifit
+                            </th>
+                        @endif
+
+                        @if (in_array(true, $festivalbonuses))
                             <th scope="col">Festival bonus</th>
                         @endif
 
-                        @if ($bonuses['bangla_new_year_bonus'])
+                        @if ($banglanewyearbonus)
                             <th scope="col">bangla new year bonus</th>
                         @endif
                         <th scope="col">
@@ -62,43 +65,44 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $pensioner->erp_id }}</td>
                             <td>{{ $pensioner->name }}</td>
-                            <td>{{ number_format($pensioner->net_pension, 2) }}</td>
-                            <td>{{ number_format($pensioner->medical_allowance, 2) }}</td>
-                            <td>{{ number_format($pensioner->special_benifit, 2) }}</td>
-
+                            @if (!$onlybonus)
+                                <td>{{ number_format($pensioner->net_pension, 2) }}</td>
+                                <td>{{ number_format($pensioner->medical_allowance, 2) }}</td>
+                                <td>{{ number_format($pensioner->special_benifit, 2) }}</td>
+                            @endif
                             @php
                                 $isFestivalBonus = match ($pensioner->religion) {
-                                    'Islam' => $bonuses['muslim_bonus'] ?? false,
-                                    'Hinduism' => $bonuses['hindu_bonus'] ?? false,
-                                    'Christianity' => $bonuses['christian_bonus'] ?? false,
-                                    'Buddhism' => $bonuses['buddhist_bonus'] ?? false,
+                                    'Islam' => $festivalbonuses['muslim_bonus'] ?? false,
+                                    'Hinduism' => $festivalbonuses['hindu_bonus'] ?? false,
+                                    'Christianity' => $festivalbonuses['christian_bonus'] ?? false,
+                                    'Buddhism' => $festivalbonuses['buddhist_bonus'] ?? false,
                                     default => false,
                                 };
                             @endphp
 
                             @if ($isFestivalBonus)
-                                <td>{{ number_format($pensioner->festival_bonus, 2) }}</td>
-                            @else
-                                <td>{{ number_format(0.0, 2) }}</td>
-                            @endif
-
-                            @if ($bonuses['bangla_new_year_bonus'])
-                                <td>{{ number_format($pensioner->bangla_new_year_bonus, 2) }}</td>
-                            @endif
-
-                            @if ($isFestivalBonus)
-                                @if ($bonuses['bangla_new_year_bonus'])
+                                @if ($banglanewyearbonus)
+                                    <td>{{ number_format($pensioner->festival_bonus, 2) }}</td>
+                                    <td>{{ number_format($pensioner->bangla_new_year_bonus, 2) }}</td>
                                     <td>{{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit + $pensioner->festival_bonus + $pensioner->bangla_new_year_bonus, 2) }}
                                     </td>
                                 @else
+                                    <td>{{ number_format($pensioner->festival_bonus, 2) }}</td>
                                     <td>{{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit + $pensioner->festival_bonus, 2) }}
                                     </td>
                                 @endif
                             @else
-                                @if ($bonuses['bangla_new_year_bonus'])
+                                @if ($banglanewyearbonus)
+                                    @if (in_array(true, $festivalbonuses))
+                                        <td>{{ number_format(0.0, 2) }}</td>
+                                    @endif
+                                    <td>{{ number_format($pensioner->bangla_new_year_bonus, 2) }}</td>
                                     <td>{{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit + $pensioner->bangla_new_year_bonus, 2) }}
                                     </td>
                                 @else
+                                    @if (in_array(true, $festivalbonuses))
+                                        <td>{{ number_format(0.0, 2) }}</td>
+                                    @endif
                                     <td>{{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit, 2) }}
                                     </td>
                                 @endif

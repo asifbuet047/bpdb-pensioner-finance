@@ -55,47 +55,52 @@ export default function MonthlyGeneratePensionComponent() {
             setOnlybonus(false);
         }
     };
-    const closeModal = () => modalInstance.current?.hide();
+    const closeModal = () => {
+        modalInstance.current?.hide();
+    };
 
     const toggleBonus = (key) => {
         const temp = { ...actions };
         temp[key] = !temp[key];
-        console.log(temp);
         setActions(temp);
     };
 
     const handleSubmit = async () => {
         closeModal();
+
+        // Early validation
+        if (onlybonus && !Object.values(actions).some(Boolean)) {
+            setSnackbarMessage("Please select at least one bonus");
+            setSnackbarSeverity("error");
+            setSnackbarOpen(true);
+            return;
+        }
+
         try {
-            const response = await axios.get("/api/pensioners/approved", {
+            const { data } = await axios.get("/api/pensioners/approved", {
                 withCredentials: true,
             });
-            if (response.data.success) {
-                setSnackbarMessage(response.data?.message || "Success");
-                setSnackbarSeverity("success");
-                setSnackbarOpen(true);
-                if (onlybonus) {
-                    const params = new URLSearchParams({
-                        month,
-                        year,
-                        onlybonus,
-                        ...actions,
-                    }).toString();
-                    window.location.href = `/view/pensioners/approved?${params}`;
-                } else {
-                    const params = new URLSearchParams({
-                        month,
-                        year,
-                        ...actions,
-                    }).toString();
-                    window.location.href = `/view/pensioners/approved?${params}`;
-                }
-            } else {
-                window.location.href = `/`;
+
+            if (!data?.success) {
+                window.location.href = "/";
+                return;
             }
+
+            setSnackbarMessage(data.message || "Success");
+            setSnackbarSeverity("success");
+            setSnackbarOpen(true);
+
+            const params = new URLSearchParams({
+                month,
+                year,
+                onlybonus,
+                ...actions,
+            });
+
+            window.location.href = `/view/pensioners/approved?${params.toString()}`;
         } catch (error) {
             setSnackbarMessage(
-                error.response?.data?.message || "Something went wrong"
+                error?.response?.data?.message || "Something went wrong"
             );
             setSnackbarSeverity("error");
             setSnackbarOpen(true);

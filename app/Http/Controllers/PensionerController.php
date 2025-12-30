@@ -318,13 +318,13 @@ class PensionerController extends Controller
         $year  = $request->query('year');
         $onlybonus = $request->boolean('onlybonus');
 
-        $bonuses = [
+        $festivalbonuses = [
             'muslim_bonus' => $request->boolean('muslim_bonus'),
             'hindu_bonus' => $request->boolean('hindu_bonus'),
             'christian_bonus' => $request->boolean('christian_bonus'),
             'buddhist_bonus' => $request->boolean('buddhist_bonus'),
-            'bangla_new_year_bonus' => $request->boolean('bangla_new_year_bonus'),
         ];
+        $banglanewyearbonus = $request->boolean('bangla_new_year_bonus');
 
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
@@ -353,7 +353,7 @@ class PensionerController extends Controller
                     $officer_office_code = $officer->office->office_code;
                     $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
                     $pensioners = Pensioner::whereIn('office_id', $office_ids)->where('status', 'approved')->orderBy('id')->get();
-                    return view('viewgeneratedpension', compact('pensioners', 'month', 'year', 'bonuses', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    return view('viewgeneratedpension', compact('pensioners', 'month', 'year', 'festivalbonuses', 'banglanewyearbonus', 'onlybonus', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
                     break;
                 default:
                     return view('login');
