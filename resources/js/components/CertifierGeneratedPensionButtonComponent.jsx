@@ -7,7 +7,6 @@ import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
 
 export default function CertifierGeneratedPensionButtonComponent({
     pensionId,
-    officerId,
 }) {
     const modalInstance = useRef(null);
     const [message, setMessage] = useState("");

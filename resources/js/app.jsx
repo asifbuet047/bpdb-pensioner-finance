@@ -119,7 +119,6 @@ if (certifierPensionButton) {
     createRoot(certifierPensionButton).render(
         <CertifierGeneratedPensionButtonComponent
             pensionId={certifierPensionButton.dataset.pensionId}
-            officerId={certifierPensionButton.dataset.officerId}
         />
     );
 }
@@ -131,7 +130,6 @@ if (initiatorPensionButton) {
     createRoot(initiatorPensionButton).render(
         <InitiatorGeneratedPensionButtonComponent
             pensionId={initiatorPensionButton.dataset.pensionId}
-            officerId={initiatorPensionButton.dataset.officerId}
         />
     );
 }
@@ -144,7 +142,6 @@ if (approverPensionButton) {
     createRoot(approverPensionButton).render(
         <ApproverGeneratedPensionButtonComponent
             pensionId={approverPensionButton.dataset.pensionId}
-            officerId={approverPensionButton.dataset.officerId}
         />
     );
 }

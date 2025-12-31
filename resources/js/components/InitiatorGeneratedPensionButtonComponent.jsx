@@ -7,7 +7,6 @@ import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
 
 export default function InitiatorGeneratedPensionButtonComponent({
     pensionId,
-    officerId,
 }) {
     const modalInstance = useRef(null);
     const [message, setMessage] = useState("");
@@ -34,10 +33,10 @@ export default function InitiatorGeneratedPensionButtonComponent({
     const handleForward = async () => {
         try {
             const response = await axios.post(
-                `/api/pensioner/workflow/`,
+                `/api/pension/workflow/`,
                 {
-                    workflow: "approve",
-                    id: pensionerId,
+                    workflow: "forward",
+                    pension_id: pensionId,
                     message,
                 },
                 {

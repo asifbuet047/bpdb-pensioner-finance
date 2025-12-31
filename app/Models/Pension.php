@@ -20,6 +20,7 @@ class Pension extends Model
         'sum_of_festival_bonus',
         'sum_of_bangla_new_year_bonus',
         'number_of_pensioners',
+        'status'
     ];
 
     protected $casts = [

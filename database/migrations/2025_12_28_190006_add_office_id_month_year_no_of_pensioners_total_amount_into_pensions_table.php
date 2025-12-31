@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('sum_of_festival_bonus', false)->unsigned();
             $table->integer('sum_of_bangla_new_year_bonus', false)->unsigned();
             $table->smallInteger('number_of_pensioners', false)->unsigned();
+            $table->enum('status', ['floated', 'initiated', 'certified', 'approved']);
         });
     }
 
@@ -36,6 +37,7 @@ return new class extends Migration
                 'sum_of_festival_bonus',
                 'sum_of_bangla_new_year_bonus',
                 'number_of_pensioners',
+                'status'
             ]);
         });
     }

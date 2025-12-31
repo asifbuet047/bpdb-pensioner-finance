@@ -5,10 +5,7 @@ import { createPortal } from "react-dom";
 import axios from "axios";
 import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
 
-export default function ApproverGeneratedPensionButtonComponent({
-    pensionId,
-    officerId,
-}) {
+export default function ApproverGeneratedPensionButtonComponent({ pensionId }) {
     const modalInstance = useRef(null);
     const [message, setMessage] = useState("");
     const [error, setError] = useState(false);

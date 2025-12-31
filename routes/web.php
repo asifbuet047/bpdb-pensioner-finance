@@ -89,9 +89,13 @@ Route::get('/view/pensioners/approved', [PensionController::class, 'showGenrateP
 
 Route::get('/pension/generate', [PensionController::class, 'showGeneratePensionSection'])->name('show.generate.pension.section');
 
+Route::get('/pensions/all', [PensionController::class, 'showAllGeneratedPensions'])->name('show.all.generated.pensions');
+
+Route::post('/api/pension/workflow', [PensionController::class, 'initiatePensionWorkflow']);
 
 
-Route::post('/api/pensioner/pension/block',[PensionerspensionController::class,'savePensionBlockingStatus']);
+Route::post('/api/pensioner/pension/block', [PensionerspensionController::class, 'savePensionBlockingStatus']);
+
 
 
 Route::get('/officers', [OfficerController::class, 'getAllOfficersFromDB'])->name('show.officers');
