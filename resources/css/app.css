@@ -484,18 +484,106 @@
     display: none;
 }
 
-/* ===============================
-   BlockCheckboxComponent Styles
-   =============================== */
+.block-button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border: 1.5px solid #15803d; /* green-700 */
+    background: #ffffff;
+    color: #15803d;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    font-size: 16px;
+    transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+}
+
+/* Animated fill */
+.block-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #15803d;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+    z-index: 0;
+}
+
+/* Hover */
+.block-button:hover::before {
+    transform: scaleX(1);
+}
+
+.block-button:hover {
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(21, 128, 61, 0.35);
+}
+
+/* Active */
+.block-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 10px rgba(21, 128, 61, 0.25);
+}
+
+/* Icon above fill */
+.block-button > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Focus */
+.block-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.35);
+}
+
+/* MUI icon support */
+.block-button .material-icons,
+.block-button .material-symbols-outlined {
+    font-size: 20px;
+    color: inherit;
+    line-height: 1;
+}
+
+/* ========================= */
+/* Disabled state            */
+/* ========================= */
+.block-button:disabled {
+    background: #f3f4f6; /* gray-100 */
+    border-color: #d1d5db; /* gray-300 */
+    color: #9ca3af; /* gray-400 */
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Disable fill animation */
+.block-button:disabled::before {
+    display: none;
+}
+
+/* Disable hover effects */
+.block-button:disabled:hover {
+    color: #9ca3af;
+    box-shadow: none;
+}
+
+/* Disable active press */
+.block-button:disabled:active {
+    transform: none;
+}
 
 .tick-wrapper {
     cursor: pointer;
     user-select: none;
 }
 
-/* Checkbox block */
 .tick-check {
-    position: relative; /* 🔴 REQUIRED */
+    position: relative;
     width: 32px;
     height: 32px;
     border: 2px solid #adb5bd;

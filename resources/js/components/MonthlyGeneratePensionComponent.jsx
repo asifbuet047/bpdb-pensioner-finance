@@ -20,7 +20,7 @@ export default function MonthlyGeneratePensionComponent() {
         "December",
     ];
 
-    const currentMonth = months[new Date().getMonth()];
+    const currentMonth = new Date().getMonth() + 1;
     const currentYear = new Date().getFullYear();
 
     const [month, setMonth] = useState(currentMonth);
@@ -68,7 +68,6 @@ export default function MonthlyGeneratePensionComponent() {
     const handleSubmit = async () => {
         closeModal();
 
-        // Early validation
         if (onlybonus && !Object.values(actions).some(Boolean)) {
             setSnackbarMessage("Please select at least one bonus");
             setSnackbarSeverity("error");
@@ -137,8 +136,11 @@ export default function MonthlyGeneratePensionComponent() {
                                                     setMonth(e.target.value)
                                                 }
                                             >
-                                                {months.map((m) => (
-                                                    <option key={m} value={m}>
+                                                {months.map((m, k) => (
+                                                    <option
+                                                        key={m}
+                                                        value={k + 1}
+                                                    >
                                                         {m}
                                                     </option>
                                                 ))}

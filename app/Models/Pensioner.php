@@ -62,7 +62,7 @@ class Pensioner extends Model
         'branch_name',
         'office_name',
         'net_pension',
-        'special_benifit',
+        'special_allowance',
         'festival_bonus',
         'bangla_new_year_bonus'
     ];
@@ -160,7 +160,7 @@ class Pensioner extends Model
     }
 
 
-    public function getSpecialBenifitAttribute()
+    public function getSpecialAllowanceAttribute()
     {
         if ($this->net_pension < 17389) {
             return round(max($this->net_pension * 0.15, 750), 0);

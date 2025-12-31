@@ -6,6 +6,7 @@ use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\PensionController;
 use App\Http\Controllers\PensionerController;
 use App\Http\Controllers\PensionerCredentialController;
+use App\Http\Controllers\PensionerspensionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ApplicationController::class, 'showHomePage'])->name('home.page');
@@ -16,10 +17,7 @@ Route::post('/login', [ApplicationController::class, 'login'])->name('login.proc
 
 Route::get('/set', [ApplicationController::class, 'showSetPasswordForPensionerPage'])->name('set.password.page');
 
-Route::post('/set', [PensionerCredentialController::class, 'addPensionerCredentialIntoDB'])->name('set.password.process');
-
 Route::get('/logout', [ApplicationController::class, 'logout'])->name('logout');
-
 
 Route::get('/pensioner/new', [ApplicationController::class, 'showAddPensionerVariantSection'])->name('add.pensioner.section');
 
@@ -27,15 +25,29 @@ Route::get('/pensioner/add/erp', [ApplicationController::class, 'showAddPensione
 
 Route::get('/pensioner/search', [ApplicationController::class, 'showPensionerSearchSection'])->name('search.pensioner.section');
 
-Route::post('/pensioner/search', [PensionerController::class, 'searchPensionerByErp'])->name('search.pensioner.erp.process');
-
 Route::get('/pensioner/add/form', [ApplicationController::class, 'showAddPensionerByFillingFormSection'])->name('add.pensioner.form.section');
 
 Route::get('/pensioner/update/{id}', [ApplicationController::class, 'showUpdatePensionerSection'])->name('update.pensioner.section');
 
-Route::get('/pensioners/all', [PensionerController::class, 'getAllPensionersFromDB'])->name('show.pensioner.section');
+Route::get('/officer/new', [ApplicationController::class, 'showAddOfficerSection'])->name('add.officer.section');
 
-Route::get('/view/pensioners/approved', [PensionController::class, 'showGenratePensionPage'])->name('show.approved.pensioner.section');
+Route::get('/officer/search', [ApplicationController::class, 'showOfficerSearchSection'])->name('search.officer.section');
+
+Route::get('/officer/update/{id}', [ApplicationController::class, 'showUpdateOfficerSection'])->name('update.officer.section');
+
+Route::get('/office/new', [ApplicationController::class, 'showAddofficeSection'])->name('add.office.section');
+
+Route::get('/send-mail', [ApplicationController::class, 'sendTestMail']);
+
+
+
+Route::post('/set', [PensionerCredentialController::class, 'addPensionerCredentialIntoDB'])->name('set.password.process');
+
+
+
+Route::post('/pensioner/search', [PensionerController::class, 'searchPensionerByErp'])->name('search.pensioner.erp.process');
+
+Route::get('/pensioners/all', [PensionerController::class, 'getAllPensionersFromDB'])->name('show.pensioner.section');
 
 Route::get('/pensioners', [PensionerController::class, 'showPensionersVariantSection'])->name('show.pensioners.variant.section');
 
@@ -71,9 +83,16 @@ Route::get('/pensioners/invoice', [PensionerController::class, 'showSelectedBank
 
 Route::get('pensioners/invoice/generate', [PensionerController::class, 'generateInvoice'])->name('generate.invoice');
 
+
+
+Route::get('/view/pensioners/approved', [PensionController::class, 'showGenratePensionPage'])->name('show.approved.pensioner.section');
+
 Route::get('/pension/generate', [PensionController::class, 'showGeneratePensionSection'])->name('show.generate.pension.section');
 
-Route::get('/officer/new', [ApplicationController::class, 'showAddOfficerSection'])->name('add.officer.section');
+
+
+Route::post('/api/pensioner/pension/block',[PensionerspensionController::class,'savePensionBlockingStatus']);
+
 
 Route::get('/officers', [OfficerController::class, 'getAllOfficersFromDB'])->name('show.officers');
 
@@ -81,13 +100,9 @@ Route::post('/officer', [OfficerController::class, 'registerOfficerIntoDB'])->na
 
 Route::post('/officer/search', [OfficerController::class, 'getSpecificOfficerFromDB'])->name('get.specific.officers');
 
-Route::get('/officer/search', [ApplicationController::class, 'showOfficerSearchSection'])->name('search.officer.section');
-
 Route::post('/officer/remove', [OfficerController::class, 'removeOfficerFromDB'])->name('remove.officer.process');
 
 Route::post('/officer/update', [OfficerController::class, 'updateOfficerIntoDB'])->name('update.officer.process');
-
-Route::get('/officer/update/{id}', [ApplicationController::class, 'showUpdateOfficerSection'])->name('update.officer.section');
 
 Route::get('/officers/export', [OfficerController::class, 'exportOfficers'])->name('download.officers');
 
@@ -98,7 +113,6 @@ Route::get('/search-offices', [OfficeController::class, 'search']);
 Route::get('/api/officer/pending', [OfficerController::class, 'getOfficerPendingTaskCount']);
 
 
-Route::get('/office/new', [ApplicationController::class, 'showAddofficeSection'])->name('add.office.section');
 
 Route::get('/offices', [OfficeController::class, 'getAllOfficesFromDB'])->name('show.offices');
 
@@ -107,6 +121,3 @@ Route::get('/paymentoffices', [OfficeController::class, 'getAllPaymentOfficesFro
 Route::get('/unitoffices', [OfficeController::class, 'getAllUnitOfficesFromDB'])->name('show.unit.offices');
 
 Route::post('/office', [OfficeController::class, 'addOfficeIntoDB'])->name('add.office.process');
-
-
-Route::get('/send-mail', [ApplicationController::class, 'sendTestMail']);

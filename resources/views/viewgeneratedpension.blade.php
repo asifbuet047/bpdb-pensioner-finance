@@ -2,11 +2,11 @@
 
 @section('title', 'Generate pension')
 
-
 @section('content')
     <section class="container-fluid py-5">
-        <h2 class="mb-4 text-center fw-bold text-primary">All Approved Pensioners for Generate Pension</h2>
         <h1 class="mb-4 text-center fw-bold text-primary">বাংলাদেশ বিদ্যুৎ উন্নয়ন বোর্ড</h1>
+        <h2 class="mb-4 text-center fw-bold text-primary">All Approved Pensioners for Generate Pension</h2>
+        <h2 class="mb-4 text-center fw-bold text-primary">Pension is generated and Pension no is {{ $pensionId }}</h2>
         <div class="table-responsive shadow rounded p-2">
             <div class="row justify-content-center mb-4">
                 <div class="col-md-6">
@@ -144,7 +144,8 @@
                             @endif
                             <td>
                                 <div class="d-flex justify-content-center gap-2">
-                                    <div class="pensioner-block-checkbox">
+                                    <div class="pensioner-block-checkbox" data-pension-id={{ $pensionId }}
+                                        data-pensioner-id={{ $pensioner->id }} data-pensioner-name={{ $pensioner->name }}>
                                     </div>
                                 </div>
                             </td>
@@ -155,7 +156,7 @@
                                 @if (!$onlybonus)
                                     <td class="text-end">{{ number_format($sumOfNetpension, 2) }}</td>
                                     <td class="text-end">{{ number_format($sumOfMedicalAllowance, 2) }}</td>
-                                    <td class="text-end">{{ number_format($sumOfSpecialbenifit, 2) }}</td>
+                                    <td class="text-end">{{ number_format($sumOfSpecialAllowance, 2) }}</td>
                                 @endif
 
                                 @if (in_array(true, $festivalbonuses))
@@ -167,7 +168,7 @@
                                 @endif
                                 <td class="text-end">
                                     @if (!$onlybonus)
-                                        {{ number_format($sumOfNetpension + $sumOfMedicalAllowance + $sumOfSpecialbenifit + $sumOfFestivalbonus + $sumOfbanglaNewYearBonus, 2) }}
+                                        {{ number_format($sumOfNetpension + $sumOfMedicalAllowance + $sumOfSpecialAllowance + $sumOfFestivalbonus + $sumOfbanglaNewYearBonus, 2) }}
                                     @else
                                         {{ number_format($sumOfFestivalbonus + $sumOfbanglaNewYearBonus, 2) }}
                                     @endif
@@ -187,7 +188,21 @@
         </div>
 
         <!-- Action Buttons -->
-        <div id="generate-pension-button"></div>
+        @switch($officer_role)
+            @case('initiator')
+                <div id="initiator-pension-button" data-pension-id={{ $pensionId }} data-officer-id={{ $officer_id }}></div>
+            @break
+
+            @case('certifier')
+                <div id="certifier-pension-button" data-pension-id={{ $pensionId }} data-officer-id={{ $officer_id }}></div>
+            @break
+
+            @case('approver')
+                <div id="approver-pension-button" data-pension-id={{ $pensionId }} data-officer-id={{ $officer_id }}></div>
+            @break
+
+            @default
+        @endswitch
     </section>
 
 @endsection

@@ -14,9 +14,11 @@ import ReturnButtonComponent from "./components/ReturnButtonComponent";
 import ApproveButtonComponent from "./components/ApproveButtonComponent";
 import UpdateSuccessSnackbar from "./components/UpdateSuccessSnackbar";
 import WorkflowButtonComponent from "./components/WorkflowButtonComponent";
-import BlockCheckboxComponent from "./components/BlockCheckboxComponent";
 import MonthlyGeneratePensionComponent from "./components/MonthlyGeneratePensionComponent";
-import GeneratePensionButtonComponent from "./components/GeneratePensionButtonComponent";
+import PensionersPensionBlockButtonComponent from "./components/PensionersPensionBlockButtonComponent";
+import CertifierGeneratedPensionButtonComponent from "./components/CertifierGeneratedPensionButtonComponent";
+import InitiatorGeneratedPensionButtonComponent from "./components/InitiatorGeneratedPensionButtonComponent";
+import ApproverGeneratedPensionButtonComponent from "./components/ApproverGeneratedPensionButtonComponent";
 
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
@@ -90,7 +92,13 @@ document.querySelectorAll(".pensioner-workflow-button").forEach((el) => {
 });
 
 document.querySelectorAll(".pensioner-block-checkbox").forEach((el) => {
-    createRoot(el).render(<BlockCheckboxComponent disabled={false} />);
+    createRoot(el).render(
+        <PensionersPensionBlockButtonComponent
+            pensionId={el.dataset.pensionId}
+            pensionerId={el.dataset.pensionerId}
+            pensionerName={el.dataset.pensionerName}
+        />
+    );
 });
 
 const snackbarEl = document.getElementById("update-success-snackbar");
@@ -104,11 +112,39 @@ if (monthlyPension) {
     createRoot(monthlyPension).render(<MonthlyGeneratePensionComponent />);
 }
 
-const generatePensionButton = document.getElementById(
-    "generate-pension-button"
+const certifierPensionButton = document.getElementById(
+    "certifier-pension-button"
 );
-if (generatePensionButton) {
-    createRoot(generatePensionButton).render(
-        <GeneratePensionButtonComponent />
+if (certifierPensionButton) {
+    createRoot(certifierPensionButton).render(
+        <CertifierGeneratedPensionButtonComponent
+            pensionId={certifierPensionButton.dataset.pensionId}
+            officerId={certifierPensionButton.dataset.officerId}
+        />
+    );
+}
+
+const initiatorPensionButton = document.getElementById(
+    "initiator-pension-button"
+);
+if (initiatorPensionButton) {
+    createRoot(initiatorPensionButton).render(
+        <InitiatorGeneratedPensionButtonComponent
+            pensionId={initiatorPensionButton.dataset.pensionId}
+            officerId={initiatorPensionButton.dataset.officerId}
+        />
+    );
+}
+
+const approverPensionButton = document.getElementById(
+    "approver-pension-button"
+);
+
+if (approverPensionButton) {
+    createRoot(approverPensionButton).render(
+        <ApproverGeneratedPensionButtonComponent
+            pensionId={approverPensionButton.dataset.pensionId}
+            officerId={approverPensionButton.dataset.officerId}
+        />
     );
 }

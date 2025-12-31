@@ -16,7 +16,7 @@ return new class extends Migration
             $table->mediumInteger('festival_bonus', false)->unsigned();
             $table->mediumInteger('bangla_new_year_bonus', false)->unsigned();
             $table->boolean('is_block')->default(false);
-            $table->text('message');
+            $table->text('message')->nullable();
         });
     }
 

@@ -1,13 +1,18 @@
-import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
+import BlockIcon from "@mui/icons-material/Block";
 import { Tooltip, Snackbar, Alert } from "@mui/material";
 import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import axios from "axios";
 import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
 
-export default function GeneratePensionButtonComponent() {
+export default function PensionersPensionBlockButtonComponent({
+    pensionId,
+    pensionerId,
+    pensionerName,
+}) {
     const modalInstance = useRef(null);
     const [message, setMessage] = useState("");
+    const [block, setBlock] = useState(false);
     const [error, setError] = useState(false);
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -28,13 +33,14 @@ export default function GeneratePensionButtonComponent() {
         modalInstance.current?.hide();
     };
 
-    const handleForward = async () => {
+    const handleBlocking = async () => {
         try {
             const response = await axios.post(
-                `/api/pensioner/workflow/`,
+                `/api/pensioner/pension/block`,
                 {
-                    workflow: "approve",
-                    id: pensionerId,
+                    pension_id: pensionId,
+                    pensioner_id: pensionerId,
+                    block: true,
                     message,
                 },
                 {
@@ -47,9 +53,6 @@ export default function GeneratePensionButtonComponent() {
                 setSnackbarMessage(response.data.message);
                 setSnackbarSeverity("success");
                 setSnackbarOpen(true);
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1200);
             }
         } catch (error) {
             closeModal();
@@ -64,25 +67,20 @@ export default function GeneratePensionButtonComponent() {
             setError(true);
             return;
         }
-        handleForward();
+        setBlock(true);
+        handleBlocking();
     };
-
     return (
-        <div className="text-center mt-4">
+        <>
             <button
                 type="button"
-                className="btn btn-primary btn-lg me-2 shadow-sm"
+                className="block-button"
                 onClick={openModal}
+                disabled={block}
             >
-                Generate Pension
-            </button>
-
-            <button
-                type="button"
-                className="btn btn-outline-primary btn-lg shadow-sm"
-                onClick={() => window.location.reload()}
-            >
-                Refresh List
+                <Tooltip title="Block Pension">
+                    <BlockIcon fontSize="small" />
+                </Tooltip>
             </button>
 
             {createPortal(
@@ -95,7 +93,7 @@ export default function GeneratePensionButtonComponent() {
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Confirm Forward</h5>
+                                <h5 className="modal-title">Confirm Block</h5>
                                 <button
                                     type="button"
                                     className="btn-close"
@@ -104,7 +102,8 @@ export default function GeneratePensionButtonComponent() {
                             </div>
 
                             <div className="modal-body">
-                                Are you sure you want to forward this pension?
+                                Are you sure you want to block the pension of
+                                <div className="fw-bold">{pensionerName}?</div>
                                 <div className="mt-2">
                                     <WorkflowMessageFieldComponent
                                         value={message}
@@ -115,7 +114,7 @@ export default function GeneratePensionButtonComponent() {
                                         error={error}
                                         helperText={
                                             error
-                                                ? "Forward message is required"
+                                                ? "Block message is required"
                                                 : ""
                                         }
                                     />
@@ -133,7 +132,7 @@ export default function GeneratePensionButtonComponent() {
                                     className="btn btn-success"
                                     onClick={handleSubmit}
                                 >
-                                    Yes, Forward
+                                    Yes, Block
                                 </button>
                             </div>
                         </div>
@@ -156,6 +155,6 @@ export default function GeneratePensionButtonComponent() {
                     {snackbarMessage}
                 </Alert>
             </Snackbar>
-        </div>
+        </>
     );
 }
