@@ -68,7 +68,14 @@
                                 <td class="text-end">{{ number_format($pension->sum_of_festival_bonus, 2) }}</td>
                                 <td class="text-end">{{ number_format($pension->sum_of_bangla_new_year_bonus, 2) }}</td>
                                 <td class="text-end">
-                                    {{ number_format($pension->sum_of_net_pension + $pension->sum_of_medical_allowance + $pension->sum_of_special_allowance + $pension->sum_of_festival_bonus + $pension->sum_of_bangla_new_year_bonus, 2) }}
+                                    {{ number_format(
+                                        $pension->sum_of_net_pension +
+                                            $pension->sum_of_medical_allowance +
+                                            $pension->sum_of_special_allowance +
+                                            $pension->sum_of_festival_bonus +
+                                            $pension->sum_of_bangla_new_year_bonus,
+                                        2,
+                                    ) }}
                                 </td>
 
                             </tr>

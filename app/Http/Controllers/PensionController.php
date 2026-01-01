@@ -131,7 +131,7 @@ class PensionController extends Controller
 
                 $sumOfNetpension = $onlybonus ? 0 : (int)round($pensioners->sum(fn($pensioner) => $pensioner->net_pension));
                 $sumOfMedicalAllowance = $onlybonus ? 0 : (int)round($pensioners->sum(fn($pensioner) => $pensioner->medical_allowance));
-                $sumOfSpecialAllowance = $onlybonus ? 0 : (int)round($pensioners->sum(fn($pensioner) => $pensioner->special_benifit));
+                $sumOfSpecialAllowance = $onlybonus ? 0 : (int)round($pensioners->sum(fn($pensioner) => $pensioner->special_allowance));
 
                 $sumOfFestivalbonus = $pensioners->sum(function ($pensioner) use ($religionBonusMap) {
                     if ($religionBonusMap[$pensioner->religion] ?? false) {
