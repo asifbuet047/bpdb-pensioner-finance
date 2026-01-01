@@ -36,7 +36,7 @@ export default function InitiatorGeneratedPensionButtonComponent({
                 `/api/pension/workflow/`,
                 {
                     workflow: "forward",
-                    pension_id: pensionId,
+                    id: pensionId,
                     message,
                 },
                 {
