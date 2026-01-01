@@ -100,8 +100,8 @@ class PensionController extends Controller
     public function calculatePensionAndInitiateWorkflow(Request $request)
     {
         $erp_id = $request->cookie('user_id');
-        $month = $request->query('month');
-        $year  = $request->query('year');
+        $month = $request->input('month');
+        $year  = $request->input('year');
         $onlybonus = $request->boolean('onlybonus');
         $festivalbonuses = [
             'muslim_bonus' => $request->boolean('muslim_bonus'),
@@ -144,6 +144,7 @@ class PensionController extends Controller
 
                 $numberOfpensioners = $pensioners->count();
                 $officerOfficeId = $officer->office->id;
+                $officerId = $officer->id;
 
                 DB::beginTransaction();
                 try {
@@ -172,7 +173,7 @@ class PensionController extends Controller
                         $is_block = false;
                         $message = null;
 
-                        $eachPensionerspension = Pensionerspension::create([
+                        Pensionerspension::create([
                             'pension_id' => $pension_id,
                             'pensioner_id' => $pensioner_id,
                             'net_pension' => $net_pension,
@@ -185,7 +186,11 @@ class PensionController extends Controller
                         ]);
                     }
                     DB::commit();
-                    return view('viewpension', compact('pensioners', 'month', 'year', 'festivalbonuses', 'sumOfNetpension', 'sumOfSpecialAllowance', 'sumOfMedicalAllowance', 'sumOfFestivalbonus', 'sumOfbanglaNewYearBonus', 'banglanewyearbonus', 'onlybonus', 'officer_name', 'officer_office', 'officer_designation', 'officer_role', 'officer_id'));
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Pension id is generated ' . $pensionId . ' and pensioners pension id is generated',
+                        'data' => $pension
+                    ], 200);
                 } catch (Throwable $e) {
                     DB::rollBack();
                     return response()->json([
@@ -220,5 +225,33 @@ class PensionController extends Controller
         } else {
             return view('login');
         }
+    }
+
+
+    public function deletePensionFromDB(Request $request, $id)
+    {
+        $erp_id = $request->cookie('user_id');
+        if (!$erp_id) {
+            return response()->json(['status' => false, 'message' => 'please login', 'data' => []], 401);
+        }
+        $officer = Officer::with('role')
+            ->where('erp_id', $erp_id)
+            ->first();
+        if (!$officer) {
+            return response()->json(['status' => false, 'message' => 'no valid officer', 'data' => []], 402);
+        }
+        if ($officer->role->role_name !== 'initiator') {
+            return response()->json(['status' => false, 'message' => 'Forbidden request', 'data' => []], 403);
+        }
+        $pension = Pension::find($id);
+        if (!$pension) {
+            return response()->json(['status' => false, 'message' => 'Pension not found', 'data' => []], 404);
+        }
+        $pension->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Pension deleted successfully',
+            'data' => $pension
+        ], 200);
     }
 }

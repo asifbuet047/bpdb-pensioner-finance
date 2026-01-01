@@ -64,7 +64,7 @@
                             @if (!$onlybonus)
                                 <td class="text-end">{{ number_format($pensioner->net_pension, 2) }}</td>
                                 <td class="text-end">{{ number_format($pensioner->medical_allowance, 2) }}</td>
-                                <td class="text-end">{{ number_format($pensioner->special_benifit, 2) }}</td>
+                                <td class="text-end">{{ number_format($pensioner->special_allowance, 2) }}</td>
                             @endif
                             @php
                                 $isFestivalBonus = match ($pensioner->religion) {
@@ -82,12 +82,12 @@
                                         <td class="text-end">{{ number_format($pensioner->festival_bonus, 2) }}</td>
                                         <td class="text-end">{{ number_format($pensioner->bangla_new_year_bonus, 2) }}</td>
                                         <td class="text-end">
-                                            {{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit + $pensioner->festival_bonus + $pensioner->bangla_new_year_bonus, 2) }}
+                                            {{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_allowance + $pensioner->festival_bonus + $pensioner->bangla_new_year_bonus, 2) }}
                                         </td>
                                     @else
                                         <td class="text-end">{{ number_format($pensioner->festival_bonus, 2) }}</td>
                                         <td class="text-end">
-                                            {{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit + $pensioner->festival_bonus, 2) }}
+                                            {{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_allowance + $pensioner->festival_bonus, 2) }}
                                         </td>
                                     @endif
                                 @else
@@ -97,14 +97,14 @@
                                         @endif
                                         <td class="text-end">{{ number_format($pensioner->bangla_new_year_bonus, 2) }}</td>
                                         <td class="text-end">
-                                            {{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit + $pensioner->bangla_new_year_bonus, 2) }}
+                                            {{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_allowance + $pensioner->bangla_new_year_bonus, 2) }}
                                         </td>
                                     @else
                                         @if (in_array(true, $festivalbonuses))
                                             <td class="text-end">{{ number_format(0.0, 2) }}</td>
                                         @endif
                                         <td class="text-end">
-                                            {{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_benifit, 2) }}
+                                            {{ number_format($pensioner->net_pension + $pensioner->medical_allowance + $pensioner->special_allowance, 2) }}
                                         </td>
                                     @endif
                                 @endif
@@ -118,7 +118,9 @@
                                         </td>
                                     @else
                                         <td class="text-end">{{ number_format($pensioner->festival_bonus, 2) }}</td>
-                                        <td class="text-end">{{ number_format($pensioner->festival_bonus, 2) }}
+                                        </td>
+                                        <td class="text-end">
+                                            {{ number_format($pensioner->bangla_new_year_bonus, 2) }}
                                         </td>
                                     @endif
                                 @else

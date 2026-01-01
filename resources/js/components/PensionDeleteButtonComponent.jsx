@@ -1,16 +1,16 @@
-import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Tooltip, Snackbar, Alert } from "@mui/material";
 import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import axios from "axios";
-import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
 
-export default function InitiatorGeneratedPensionButtonComponent({
-    pensionData,
+export default function PensionDeleteButtonComponent({
+    pensionId,
+    totalAmount,
+    buttonStatus,
 }) {
     const modalInstance = useRef(null);
-    console.log(JSON.parse(pensionData));
-    const pension_data = JSON.parse(pensionData);
+    const button_status = buttonStatus === "true";
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -30,28 +30,11 @@ export default function InitiatorGeneratedPensionButtonComponent({
         modalInstance.current?.hide();
     };
 
-    const handleAddPension = async () => {
+    const handleDelete = async () => {
         try {
-            const response = await axios.post(
-                `/api/pensioners/pension/approved`,
-                {
-                    month: pension_data.month,
-                    year: pension_data.year,
-                    onlybonus: pension_data.onlybonus,
-                    banglanewyearbonus: pension_data.banglanewyearbonus,
-                    muslim_bonus: pension_data.muslim_bonus,
-                    hindu_bonus: pension_data.hindu_bonus,
-                    christian_bonus: pension_data.christian_bonus,
-                    buddhist_bonus: pension_data.buddhist_bonus,
-                },
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json",
-                    },
-                    withCredentials: true,
-                }
-            );
+            const response = await axios.delete(`/pension/${pensionId}`, {
+                withCredentials: true,
+            });
 
             if (response.data.success) {
                 closeModal();
@@ -59,33 +42,31 @@ export default function InitiatorGeneratedPensionButtonComponent({
                 setSnackbarSeverity("success");
                 setSnackbarOpen(true);
                 setTimeout(() => {
-                    window.location.href = `/pensions/all`;
+                    window.location.reload();
                 }, 1200);
             }
         } catch (error) {
             closeModal();
-            setSnackbarMessage(error.response?.data?.message);
+
+            setSnackbarMessage(
+                error.response?.data?.message || "Failed to delete pension"
+            );
             setSnackbarSeverity("error");
             setSnackbarOpen(true);
         }
     };
 
     return (
-        <div className="text-center mt-4">
+        <>
             <button
                 type="button"
-                className="btn btn-primary btn-lg me-2 shadow-sm"
+                className="delete-button"
                 onClick={openModal}
+                disabled={button_status}
             >
-                Initialize Generated Pension
-            </button>
-
-            <button
-                type="button"
-                className="btn btn-outline-primary btn-lg shadow-sm"
-                onClick={() => window.location.reload()}
-            >
-                Refresh List
+                <Tooltip title="Delete Pensioner">
+                    <DeleteIcon fontSize="small" />
+                </Tooltip>
             </button>
 
             {createPortal(
@@ -98,9 +79,7 @@ export default function InitiatorGeneratedPensionButtonComponent({
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">
-                                    Confirm Pension Generation
-                                </h5>
+                                <h5 className="modal-title">Confirm Delete</h5>
                                 <button
                                     type="button"
                                     className="btn-close"
@@ -109,7 +88,9 @@ export default function InitiatorGeneratedPensionButtonComponent({
                             </div>
 
                             <div className="modal-body">
-                                Are you sure you want to generate this pension?
+                                Are you sure you want to delete this pension
+                                which total amount is name is
+                                <div className="fw-bold">{totalAmount}?</div>
                             </div>
 
                             <div className="modal-footer">
@@ -120,10 +101,10 @@ export default function InitiatorGeneratedPensionButtonComponent({
                                     Cancel
                                 </button>
                                 <button
-                                    className="btn btn-success"
-                                    onClick={handleAddPension}
+                                    className="btn btn-danger"
+                                    onClick={handleDelete}
                                 >
-                                    Yes, Generate Pension
+                                    Yes, Delete
                                 </button>
                             </div>
                         </div>
@@ -146,6 +127,6 @@ export default function InitiatorGeneratedPensionButtonComponent({
                     {snackbarMessage}
                 </Alert>
             </Snackbar>
-        </div>
+        </>
     );
 }

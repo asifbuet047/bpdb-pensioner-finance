@@ -136,9 +136,7 @@ Route::get('/pensions/all', [PensionController::class, 'showAllGeneratedPensions
 
 Route::post('/api/pensioners/pension/approved', [PensionController::class, 'calculatePensionAndInitiateWorkflow']);
 
-Route::post('/api/pensioner/pension/block', [PensionerspensionblockmessageController::class, 'savePensionersPensionBlockingStatus']);
-
-Route::get('/api/pensioner/pension/block', [PensionerspensionblockmessageController::class, 'getPensionersPensionBlockingStatus']);
+Route::delete('/pension/{id}', [PensionController::class, 'deletePensionFromDB']);
 
 /*
 |--------------------------------------------------------------------------

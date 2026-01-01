@@ -393,25 +393,26 @@ class PensionerController extends Controller
     {
         $erp_id = $request->cookie('user_id');
         if (!$erp_id) {
-            return response()->json(['message' => 'please login'], 401);
+            return response()->json(['status' => false, 'message' => 'please login', 'data' => []], 401);
         }
         $officer = Officer::with('role')
             ->where('erp_id', $erp_id)
             ->first();
         if (!$officer) {
-            return response()->json(['message' => 'no valid officer'], 402);
+            return response()->json(['status' => false, 'message' => 'no valid officer', 'data' => []], 402);
         }
         if ($officer->role->role_name !== 'initiator') {
-            return response()->json(['message' => 'Forbidden request'], 403);
+            return response()->json(['status' => false, 'message' => 'Forbidden request', 'data' => []], 403);
         }
         $pensioner = Pensioner::find($id);
         if (!$pensioner) {
-            return response()->json(['message' => 'Pensioner not found'], 404);
+            return response()->json(['status' => false, 'message' => 'Pensioner not found', 'data' => []], 404);
         }
         $pensioner->delete();
         return response()->json([
             'success' => true,
-            'message' => 'Pensioner deleted successfully'
+            'message' => 'Pensioner deleted successfully',
+            'data' => $pensioner
         ], 200);
     }
 

@@ -19,6 +19,10 @@ import PensionersPensionBlockButtonComponent from "./components/PensionersPensio
 import CertifierGeneratedPensionButtonComponent from "./components/CertifierGeneratedPensionButtonComponent";
 import InitiatorGeneratedPensionButtonComponent from "./components/InitiatorGeneratedPensionButtonComponent";
 import ApproverGeneratedPensionButtonComponent from "./components/ApproverGeneratedPensionButtonComponent";
+import PensionDeleteButtonComponent from "./components/PensionDeleteButtonComponent";
+import PensionForwardButtonComponent from "./components/PensionForwardButtonComponent";
+import PensionReturnButtonComponent from "./components/PensionDeleteButtonComponent";
+import PensionApproveButtonComponent from "./components/PensionApproveButtonComponent";
 
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
@@ -144,3 +148,43 @@ if (approverPensionButton) {
         />
     );
 }
+
+document.querySelectorAll(".pension-delete-button").forEach((el) => {
+    createRoot(el).render(
+        <PensionDeleteButtonComponent
+            pensionId={el.dataset.pensionId}
+            totalAmount={el.dataset.totalAmount}
+            buttonStatus={el.dataset.buttonStatus}
+        />
+    );
+});
+
+document.querySelectorAll(".pension-forward-button").forEach((el) => {
+    createRoot(el).render(
+        <PensionForwardButtonComponent
+            pensionId={el.dataset.pensionId}
+            totalAmount={el.dataset.totalAmount}
+            buttonStatus={el.dataset.buttonStatus}
+        />
+    );
+});
+
+document.querySelectorAll(".pension-return-button").forEach((el) => {
+    createRoot(el).render(
+        <PensionReturnButtonComponent
+            pensionId={el.dataset.pensionId}
+            totalAmount={el.dataset.totalAmount}
+            buttonStatus={el.dataset.buttonStatus}
+        />
+    );
+});
+
+document.querySelectorAll(".pension-approve-button").forEach((el) => {
+    createRoot(el).render(
+        <PensionApproveButtonComponent
+            pensionId={el.dataset.pensionId}
+            totalAmount={el.dataset.totalAmount}
+            buttonStatus={el.dataset.buttonStatus}
+        />
+    );
+});
