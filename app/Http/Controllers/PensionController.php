@@ -210,18 +210,20 @@ class PensionController extends Controller
     public function showAllGeneratedPensions(Request $request)
     {
         $erp_id = $request->cookie('user_id');
+        $pension_type = $request->query('type');
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
             $officer_role = $officer->role->role_name;
             $officer_name = $officer->name;
             $officer_office = $officer->office->name_in_english;
             $officer_designation = $officer->designation->description_english;
-            if ($officer_role === 'initiator') {
-                $pensions = Pension::where('office_id', $officer->office->id)->get();
+            if ($pension_type) {
+                $pensions = Pension::where('office_id', $officer->office->id)->where('status', $pension_type)->get();
                 return view('viewpension', compact('pensions', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
-            } else {
-                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
             }
+
+            $pensions = Pension::where('office_id', $officer->office->id)->get();
+            return view('viewpension', compact('pensions', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
         } else {
             return view('login');
         }
@@ -253,5 +255,52 @@ class PensionController extends Controller
             'message' => 'Pension deleted successfully',
             'data' => $pension
         ], 200);
+    }
+
+
+    public function showPensionsVariantSection(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            $officer_office_code = $officer->office->office_code;
+            switch ($officer_role) {
+                case 'super_admin':
+                    $initiatedPensionsCount = Pension::where('status', 'initiated')->count();
+                    $certifiedPensionsCount = Pension::where('status', 'certified')->count();
+                    $approvedPensionsCount = Pension::where('status', 'approved')->count();
+                    return view('showpensionsvariant', compact('initiatedPensionsCount', 'certifiedPensionsCount', 'approvedPensionsCount', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    break;
+                case 'approver':
+                    $certifiedPensionsCount = Pension::where('status', 'certified')->count();
+                    $approvedPensionsCount = Pension::where('status', 'approved')->count();
+                    return view('showpensionsvariant', compact('certifiedPensionsCount', 'approvedPensionsCount', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    break;
+                case 'certifier':
+                    $initiatedPensionsCount = Pension::where('status', 'initiated')->count();
+                    $approvedPensionsCount = Pension::where('status', 'approved')->count();
+                    return view('showpensionsvariant', compact('initiatedPensionsCount', 'approvedPensionsCount', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    break;
+                case 'initiator':
+                    $floatedPensionsCount = Pension::where('status', 'floated')->count();
+                    $approvedPensionsCount = Pension::where('status', 'approved')->count();
+                    return view('showpensionsvariant', compact('floatedPensionsCount', 'approvedPensionsCount', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    break;
+
+                default:
+
+                    break;
+            }
+        } else {
+            return view('login');
+        }
+        if ($request->hasCookie('user_id')) {
+        } else {
+            return view('login');
+        }
     }
 }

@@ -161,12 +161,13 @@
                         </div>
                     </div>
 
-                    <!-- generate Pensions-->
+                    <!-- previous generated Pensions-->
                     <div class="col-12 col-md-4 scale-animate">
                         <div class="info-box" style="background: linear-gradient(135deg, #f7671e, #ffd200);">
                             <div>
-                                <h3>Generate Pension</h3>
-                                <a href="{{ route('home.page') }}">More info <i class="bi bi-arrow-right"></i></a>
+                                <h3>All Generated Pension</h3>
+                                <a href="{{ route('show.pensions.variant.section') }}">More info <i
+                                        class="bi bi-arrow-right"></i></a>
                             </div>
                             <div class="icon"><i class="bi bi-building"></i></div>
                         </div>
@@ -215,12 +216,13 @@
                     </div>
                 </div>
 
-                <!-- generate Pensions-->
+                <!-- previous generated Pensions-->
                 <div class="col-12 col-md-4 scale-animate">
                     <div class="info-box" style="background: linear-gradient(135deg, #f7671e, #ffd200);">
                         <div>
-                            <h3>Generate Pension</h3>
-                            <a href="{{ route('home.page') }}">More info <i class="bi bi-arrow-right"></i></a>
+                            <h3>All Generated Pension</h3>
+                            <a href="{{ route('show.pensions.variant.section') }}">More info <i
+                                    class="bi bi-arrow-right"></i></a>
                         </div>
                         <div class="icon"><i class="bi bi-building"></i></div>
                     </div>
@@ -298,7 +300,7 @@
                     <div class="info-box" style="background: linear-gradient(135deg, #f7671e, #ffd200);">
                         <div>
                             <h3>All Generated Pension</h3>
-                            <a href="{{ route('show.all.generated.pensions') }}">More info <i
+                            <a href="{{ route('show.pensions.variant.section') }}">More info <i
                                     class="bi bi-arrow-right"></i></a>
                         </div>
                         <div class="icon"><i class="bi bi-building"></i></div>

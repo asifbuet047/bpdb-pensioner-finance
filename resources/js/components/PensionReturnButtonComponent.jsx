@@ -6,14 +6,15 @@ import axios from "axios";
 import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
 
 export default function PensionReturnButtonComponent({
-    pensionerId,
-    pensionerName,
+    pensionId,
+    totalAmount,
     buttonStatus,
 }) {
     const modalInstance = useRef(null);
     const [message, setMessage] = useState("");
     const [error, setError] = useState(false);
     const button_status = buttonStatus === "true";
+    console.log("Return");
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -36,10 +37,10 @@ export default function PensionReturnButtonComponent({
     const handleReturn = async () => {
         try {
             const response = await axios.post(
-                `/api/pensioner/workflow/`,
+                `/api/pension/workflow/`,
                 {
                     workflow: "return",
-                    id: pensionerId,
+                    id: pensionId,
                     message,
                 },
                 {
@@ -105,7 +106,7 @@ export default function PensionReturnButtonComponent({
 
                             <div className="modal-body">
                                 Are you sure you want to return this pensioner
-                                <div className="fw-bold">{pensionerName}?</div>
+                                <div className="fw-bold">{totalAmount}?</div>
                                 <div className="mt-2">
                                     <WorkflowMessageFieldComponent
                                         value={message}
@@ -115,7 +116,9 @@ export default function PensionReturnButtonComponent({
                                         }}
                                         error={error}
                                         helperText={
-                                            error ? "Return message is required" : ""
+                                            error
+                                                ? "Return message is required"
+                                                : ""
                                         }
                                     />
                                 </div>

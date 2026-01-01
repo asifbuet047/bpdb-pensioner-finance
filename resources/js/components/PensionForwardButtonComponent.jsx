@@ -6,8 +6,8 @@ import axios from "axios";
 import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
 
 export default function PensionForwardButtonComponent({
-    pensionerId,
-    pensionerName,
+    pensionId,
+    totalAmount,
     buttonStatus,
 }) {
     const modalInstance = useRef(null);
@@ -36,10 +36,10 @@ export default function PensionForwardButtonComponent({
     const handleForward = async () => {
         try {
             const response = await axios.post(
-                `/api/pensioner/workflow/`,
+                `/api/pension/workflow/`,
                 {
                     workflow: "forward",
-                    id: pensionerId,
+                    id: pensionId,
                     message,
                 },
                 {
@@ -104,8 +104,9 @@ export default function PensionForwardButtonComponent({
                             </div>
 
                             <div className="modal-body">
-                                Are you sure you want to forward this pensioner
-                                <div className="fw-bold">{pensionerName}?</div>
+                                Are you sure you want to forward this pension
+                                which total amount is
+                                <div className="fw-bold">{totalAmount}?</div>
                                 <div className="mt-2">
                                     <WorkflowMessageFieldComponent
                                         value={message}
@@ -115,7 +116,9 @@ export default function PensionForwardButtonComponent({
                                         }}
                                         error={error}
                                         helperText={
-                                            error ? "Forward message is required" : ""
+                                            error
+                                                ? "Forward message is required"
+                                                : ""
                                         }
                                     />
                                 </div>

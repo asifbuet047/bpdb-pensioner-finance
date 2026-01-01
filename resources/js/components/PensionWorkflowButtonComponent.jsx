@@ -5,8 +5,8 @@ import { createPortal } from "react-dom";
 import axios from "axios";
 
 export default function PensionWorkflowButtonComponent({
-    pensionerId,
-    pensionerName,
+    pensionId,
+    totalAmount,
 }) {
     const modalInstance = useRef(null);
 
@@ -26,14 +26,14 @@ export default function PensionWorkflowButtonComponent({
     const closeModal = () => modalInstance.current?.hide();
 
     useEffect(() => {
-        if (!pensionerId) return;
+        if (!pensionId) return;
 
         const controller = new AbortController();
 
         const fetchWorkflow = async () => {
             try {
                 const response = await axios.get(
-                    `/api/pensioner/workflow/${pensionerId}`,
+                    `/api/pension/workflow/${pensionId}`,
                     {
                         withCredentials: true,
                         signal: controller.signal,
@@ -55,10 +55,10 @@ export default function PensionWorkflowButtonComponent({
         fetchWorkflow();
 
         return () => controller.abort();
-    }, [pensionerId]);
+    }, [pensionId]);
 
     const handleSubmit = () => {
-        window.location.href = `/pensioner/workflow?id=${pensionerId}`;
+        window.location.href = `/pension/workflow?id=${pensionId}`;
     };
 
     return (
@@ -97,8 +97,8 @@ export default function PensionWorkflowButtonComponent({
                             </div>
 
                             <div className="modal-body">
-                                Are you sure you want to view{" "}
-                                <strong>{pensionerName}</strong>'s approval
+                                Are you sure you want to view pension no{" "}
+                                <strong>{pensionId}</strong>'s approval
                                 workflow?
                             </div>
 

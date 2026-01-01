@@ -6,8 +6,8 @@ import axios from "axios";
 import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
 
 export default function PensionApproveButtonComponent({
-    pensionerId,
-    pensionerName,
+    pensionId,
+    totalAmount,
     buttonStatus,
 }) {
     const modalInstance = useRef(null);
@@ -36,10 +36,10 @@ export default function PensionApproveButtonComponent({
     const handleApprove = async () => {
         try {
             const response = await axios.post(
-                `/api/pensioner/workflow/`,
+                `/api/pension/workflow/`,
                 {
                     workflow: "approve",
-                    id: pensionerId,
+                    id: pensionId,
                     message,
                 },
                 {
@@ -106,8 +106,8 @@ export default function PensionApproveButtonComponent({
                             </div>
 
                             <div className="modal-body">
-                                Are you sure you want to approve this pensioner
-                                <div className="fw-bold">{pensionerName}?</div>
+                                Are you sure you want to approve this pension{" "}
+                                <div className="fw-bold">{totalAmount}?</div>
                                 <div className="mt-2">
                                     <WorkflowMessageFieldComponent
                                         value={message}
@@ -136,7 +136,7 @@ export default function PensionApproveButtonComponent({
                                     className="btn btn-success"
                                     onClick={handleSubmit}
                                 >
-                                    Yes, Approve
+                                    Yes, Approve Pension
                                 </button>
                             </div>
                         </div>

@@ -25,7 +25,7 @@ class PensionworkflowController extends Controller
 
             $pension_workflows = Pensionworkflow::with(['pension', 'officer'])->where('pension_id', $pension_id)->orderBy('created_at', 'asc')->get();
             if ($pension_workflows) {
-                return view('viewpensionapprovalworkflow', compact('pension_workflows', '$pension_id', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                return view('viewpensionapprovalworkflow', compact('pension_workflows', 'pension_id', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
             } else {
                 return view('login');
             }
@@ -42,7 +42,7 @@ class PensionworkflowController extends Controller
         $message = $request->input('message');
 
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
-        $pension = Pension::find($id)->get();
+        $pension = Pension::find($id);
 
         if (!$erp_id) {
             return response()->json(['status' => false, 'message' => 'please login', 'data' => []], 401);
@@ -91,7 +91,7 @@ class PensionworkflowController extends Controller
                         ], 403);
                     }
 
-                    Pensionerworkflow::create([
+                    Pensionworkflow::create([
                         'pension_id' => $id,
                         'officer_id' => $officer->id,
                         'status_from' => 'initiated',
@@ -122,7 +122,7 @@ class PensionworkflowController extends Controller
                         ], 403);
                     }
 
-                    Pensionerworkflow::create([
+                    Pensionworkflow::create([
                         'pension_id' => $id,
                         'officer_id' => $officer->id,
                         'status_from' => 'initiated',
@@ -146,7 +146,7 @@ class PensionworkflowController extends Controller
                         ], 403);
                     }
 
-                    Pensionerworkflow::create([
+                    Pensionworkflow::create([
                         'pension_id' => $id,
                         'officer_id' => $officer->id,
                         'status_from' => 'certified',
@@ -183,7 +183,7 @@ class PensionworkflowController extends Controller
                     ], 403);
                 }
 
-                Pensionerworkflow::create([
+                Pensionworkflow::create([
                     'pension_id' => $id,
                     'officer_id' => $officer->id,
                     'status_from' => 'certified',
