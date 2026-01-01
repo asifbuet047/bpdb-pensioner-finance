@@ -96,7 +96,7 @@ export default function MonthlyGeneratePensionComponent() {
                 ...actions,
             });
 
-            window.location.href = `/view/pensioners/approved?${params.toString()}`;
+            window.location.href = `/view/pensioners/pension/approved?${params.toString()}`;
         } catch (error) {
             setSnackbarMessage(
                 error?.response?.data?.message || "Something went wrong"

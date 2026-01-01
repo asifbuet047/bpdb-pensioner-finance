@@ -6,11 +6,10 @@ import axios from "axios";
 import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
 
 export default function InitiatorGeneratedPensionButtonComponent({
-    pensionId,
+    pensionData,
 }) {
     const modalInstance = useRef(null);
-    const [message, setMessage] = useState("");
-    const [error, setError] = useState(false);
+    console.log(pensionData);
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -30,14 +29,19 @@ export default function InitiatorGeneratedPensionButtonComponent({
         modalInstance.current?.hide();
     };
 
-    const handleForward = async () => {
+    const handleAddPension = async () => {
         try {
             const response = await axios.post(
-                `/api/pension/workflow/`,
+                `/api/pensioners/pension/approved`,
                 {
-                    workflow: "forward",
-                    id: pensionId,
-                    message,
+                    month: pensionData.month,
+                    year: pensionData.year,
+                    onlybonus: pensionData.onlybonus,
+                    banglanewyearbonus: pensionData.banglanewyearbonus,
+                    muslim_bonus: pensionData.muslim_bonus,
+                    hindu_bonus: pensionData.hindu_bonus,
+                    christian_bonus: pensionData.christian_bonus,
+                    buddhist_bonus: pensionData.buddhist_bonus,
                 },
                 {
                     withCredentials: true,
@@ -61,12 +65,11 @@ export default function InitiatorGeneratedPensionButtonComponent({
         }
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!message.trim()) {
             setError(true);
             return;
         }
-        handleForward();
     };
 
     return (
@@ -76,7 +79,7 @@ export default function InitiatorGeneratedPensionButtonComponent({
                 className="btn btn-primary btn-lg me-2 shadow-sm"
                 onClick={openModal}
             >
-                Forward Generated Pension
+                Initialize Generated Pension
             </button>
 
             <button
@@ -97,7 +100,9 @@ export default function InitiatorGeneratedPensionButtonComponent({
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Confirm Forward</h5>
+                                <h5 className="modal-title">
+                                    Confirm Pension Generation
+                                </h5>
                                 <button
                                     type="button"
                                     className="btn-close"
@@ -106,22 +111,7 @@ export default function InitiatorGeneratedPensionButtonComponent({
                             </div>
 
                             <div className="modal-body">
-                                Are you sure you want to forward this pension?
-                                <div className="mt-2">
-                                    <WorkflowMessageFieldComponent
-                                        value={message}
-                                        onChange={(e) => {
-                                            setMessage(e.target.value);
-                                            setError(false);
-                                        }}
-                                        error={error}
-                                        helperText={
-                                            error
-                                                ? "Forward message is required"
-                                                : ""
-                                        }
-                                    />
-                                </div>
+                                Are you sure you want to generate this pension?
                             </div>
 
                             <div className="modal-footer">
@@ -135,7 +125,7 @@ export default function InitiatorGeneratedPensionButtonComponent({
                                     className="btn btn-success"
                                     onClick={handleSubmit}
                                 >
-                                    Yes, Forward
+                                    Yes, Generate Pension
                                 </button>
                             </div>
                         </div>

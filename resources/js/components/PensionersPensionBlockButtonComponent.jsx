@@ -38,9 +38,7 @@ export default function PensionersPensionBlockButtonComponent({
             const response = await axios.post(
                 `/api/pensioner/pension/block`,
                 {
-                    pension_id: pensionId,
                     pensioner_id: pensionerId,
-                    block: true,
                     message,
                 },
                 {

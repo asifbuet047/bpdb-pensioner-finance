@@ -6,9 +6,11 @@ use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\PensionController;
 use App\Http\Controllers\PensionerController;
 use App\Http\Controllers\PensionerCredentialController;
+use App\Http\Controllers\PensionerspensionblockmessageController;
 use App\Http\Controllers\PensionerspensionController;
 use App\Http\Controllers\PensionerworkflowController;
 use App\Http\Controllers\PensionworkflowController;
+use App\Models\Pensionerspensionblockmessage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -126,15 +128,17 @@ Route::get('pensioners/invoice/generate', [PensionerController::class, 'generate
 |--------------------------------------------------------------------------
 */
 
-Route::get('/view/pensioners/approved', [PensionController::class, 'showGenratePensionPage'])->name('show.approved.pensioner.section');
+Route::get('/view/pensioners/pension/approved', [PensionController::class, 'showGenratePensionPage'])->name('show.approved.pensioner.section');
 
 Route::get('/pension/generate', [PensionController::class, 'showGeneratePensionSection'])->name('show.generate.pension.section');
 
 Route::get('/pensions/all', [PensionController::class, 'showAllGeneratedPensions'])->name('show.all.generated.pensions');
 
-Route::post('/api/pension/workflow', [PensionController::class, 'initiatePensionWorkflow']);
+Route::post('/api/pensioners/pension/approved', [PensionController::class, 'calculatePensionAndInitiateWorkflow']);
 
-Route::post('/api/pensioner/pension/block', [PensionerspensionController::class, 'savePensionBlockingStatus']);
+Route::post('/api/pensioner/pension/block', [PensionerspensionblockmessageController::class, 'savePensionersPensionBlockingStatus']);
+
+Route::get('/api/pensioner/pension/block', [PensionerspensionblockmessageController::class, 'getPensionersPensionBlockingStatus']);
 
 /*
 |--------------------------------------------------------------------------

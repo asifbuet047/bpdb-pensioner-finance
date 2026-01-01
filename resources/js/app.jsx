@@ -94,7 +94,6 @@ document.querySelectorAll(".pensioner-workflow-button").forEach((el) => {
 document.querySelectorAll(".pensioner-block-checkbox").forEach((el) => {
     createRoot(el).render(
         <PensionersPensionBlockButtonComponent
-            pensionId={el.dataset.pensionId}
             pensionerId={el.dataset.pensionerId}
             pensionerName={el.dataset.pensionerName}
         />
@@ -129,7 +128,7 @@ const initiatorPensionButton = document.getElementById(
 if (initiatorPensionButton) {
     createRoot(initiatorPensionButton).render(
         <InitiatorGeneratedPensionButtonComponent
-            pensionId={initiatorPensionButton.dataset.pensionId}
+            pensionData={initiatorPensionButton.dataset.pensionData}
         />
     );
 }

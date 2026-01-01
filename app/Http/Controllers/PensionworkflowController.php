@@ -25,7 +25,7 @@ class PensionworkflowController extends Controller
 
             $pension_workflows = Pensionworkflow::with(['pension', 'officer'])->where('pension_id', $pension_id)->orderBy('created_at', 'asc')->get();
             if ($pension_workflows) {
-                return view('viewpensionerapprovalworkflow', compact('pension_workflows', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                return view('viewpensionapprovalworkflow', compact('pension_workflows', '$pension_id', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
             } else {
                 return view('login');
             }
@@ -206,7 +206,6 @@ class PensionworkflowController extends Controller
     {
         $erp_id = $request->cookie('user_id');
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
-        $officer_office_code = $officer->office->office_code;
         $pension = Pension::find($id)->get();
         $pension_workflow_count = Pensionworkflow::where('pension_id', $id)->count();
 
