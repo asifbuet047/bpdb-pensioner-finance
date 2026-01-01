@@ -73,8 +73,8 @@ Route::get('/pensions/all', [PensionController::class, 'showAllGeneratedPensions
 Route::post('/api/pensioners/pension/approved', [PensionController::class, 'calculatePensionAndInitiateWorkflow']);
 Route::delete('/pension/{id}', [PensionController::class, 'deletePensionFromDB']);
 Route::get('/pensions', [PensionController::class, 'showPensionsVariantSection'])->name('show.pensions.variant.section');
-
-
+Route::get('/pension/dashboard/{id}', [PensionController::class, 'showPensionDashboard'])->name('show.pension.dashboard');
+Route::get('/api/pension',[PensionController::class,'isPensionExits']);
 
 
 Route::get('/pension/workflow', [PensionworkflowController::class, 'showPensionWorkflow'])->name('show.pension.workflow');

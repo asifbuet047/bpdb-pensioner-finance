@@ -303,4 +303,69 @@ class PensionController extends Controller
             return view('login');
         }
     }
+
+
+    public function isPensionExits(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $id = $request->query('id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        $pension = Pension::find($id);
+
+        if (!$erp_id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Pleae login as valid officer',
+                'data' => []
+            ], 401);
+        }
+
+        if (!$officer) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No valid officer',
+                'data' => []
+            ], 402);
+        }
+
+        if (!$pension) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No valid pension',
+                'data' => []
+            ], 403);
+        }
+
+        if ($pension->office_id != $officer->office->id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You dont have permission',
+                'data' => []
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Pension is successfully retrived',
+            'data' => $pension
+        ], 200);
+    }
+
+    public function showPensionDashboard(Request $request, $id)
+    {
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            $officer_office_code = $officer->office->office_code;
+            $pension = Pension::find($id);
+            $pensionerspensions = Pensionerspension::with(['pensioner'])->where('pension_id', $id)->get();
+            return view('viewpensiondashboard', compact('pension', 'pensionerspensions', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+        } else {
+            return view('login');
+        }
+    }
 }

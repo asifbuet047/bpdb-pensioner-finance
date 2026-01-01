@@ -24,6 +24,7 @@ import PensionForwardButtonComponent from "./components/PensionForwardButtonComp
 import PensionReturnButtonComponent from "./components/PensionReturnButtonComponent";
 import PensionApproveButtonComponent from "./components/PensionApproveButtonComponent";
 import PensionWorkflowButtonComponent from "./components/PensionWorkflowButtonComponent";
+import PensionDashboardButtonComponent from "./components/PensionDashboardButtonComponent";
 
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
@@ -196,5 +197,11 @@ document.querySelectorAll(".pension-workflow-button").forEach((el) => {
             pensionId={el.dataset.pensionId}
             totalAmount={el.dataset.totalAmount}
         />
+    );
+});
+
+document.querySelectorAll(".pension-dashboard-button").forEach((el) => {
+    createRoot(el).render(
+        <PensionDashboardButtonComponent pensionId={el.dataset.pensionId} />
     );
 });

@@ -134,6 +134,8 @@
                                             <div class="pension-workflow-button" data-pension-id="{{ $pension->id }}"
                                                 data-total-amount="{{ $totalAmount }}">
                                             </div>
+                                            <div class="pension-dashboard-button" data-pension-id="{{ $pension->id }}">
+                                            </div>
                                         @else
                                             <div class="pension-delete-button" data-pension-id="{{ $pension->id }}"
                                                 data-total-amount="{{ $totalAmount }}"
@@ -145,6 +147,8 @@
                                             </div>
                                             <div class="pension-workflow-button" data-pension-id="{{ $pension->id }}"
                                                 data-total-amount="{{ $totalAmount }}">
+                                            </div>
+                                            <div class="pension-dashboard-button" data-pension-id="{{ $pension->id }}">
                                             </div>
                                         @endif
                                     </div>
@@ -163,6 +167,8 @@
                                             <div class="pension-workflow-button" data-pension-id="{{ $pension->id }}"
                                                 data-total-amount="{{ $totalAmount }}">
                                             </div>
+                                            <div class="pension-dashboard-button" data-pension-id="{{ $pension->id }}">
+                                            </div>
                                         @else
                                             <div class="pension-return-button" data-pension-id="{{ $pension->id }}"
                                                 data-total-amount="{{ $totalAmount }}"
@@ -174,6 +180,8 @@
                                             </div>
                                             <div class="pension-workflow-button" data-pension-id="{{ $pension->id }}"
                                                 data-total-amount="{{ $totalAmount }}">
+                                            </div>
+                                            <div class="pension-dashboard-button" data-pension-id="{{ $pension->id }}">
                                             </div>
                                         @endif
                                     </div>
@@ -192,6 +200,8 @@
                                             <div class="pension-workflow-button" data-pension-id="{{ $pension->id }}"
                                                 data-total-amount="{{ $totalAmount }}">
                                             </div>
+                                            <div class="pension-dashboard-button" data-pension-id="{{ $pension->id }}">
+                                            </div>
                                         @else
                                             <div class="pension-return-button" data-pension-id="{{ $pension->id }}"
                                                 data-total-amount="{{ $totalAmount }}"
@@ -203,6 +213,8 @@
                                             </div>
                                             <div class="pension-workflow-button" data-pension-id="{{ $pension->id }}"
                                                 data-total-amount="{{ $totalAmount }}">
+                                            </div>
+                                            <div class="pension-dashboard-button" data-pension-id="{{ $pension->id }}">
                                             </div>
                                         @endif
                                     </div>
