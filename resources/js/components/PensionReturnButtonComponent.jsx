@@ -1,24 +1,20 @@
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Tooltip, Snackbar, Alert } from "@mui/material";
-import { useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import axios from "axios";
-import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Tooltip, Snackbar, Alert } from '@mui/material';
+import { useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import axios from 'axios';
+import WorkflowMessageFieldComponent from './WorkflowMessageFieldComponent';
 
-export default function PensionReturnButtonComponent({
-    pensionId,
-    totalAmount,
-    buttonStatus,
-}) {
+export default function PensionReturnButtonComponent({ pensionId, totalAmount, buttonStatus }) {
     const modalInstance = useRef(null);
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState('');
     const [error, setError] = useState(false);
-    const button_status = buttonStatus === "true";
-    console.log("Return");
+    const button_status = buttonStatus === 'true';
+    console.log('Return');
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState("");
-    const [snackbarSeverity, setSnackbarSeverity] = useState("error");
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('error');
 
     const setModalRef = (node) => {
         if (node && !modalInstance.current && window.bootstrap) {
@@ -39,19 +35,19 @@ export default function PensionReturnButtonComponent({
             const response = await axios.post(
                 `/api/pension/workflow/`,
                 {
-                    workflow: "return",
+                    workflow: 'return',
                     id: pensionId,
                     message,
                 },
                 {
                     withCredentials: true,
-                }
+                },
             );
 
             if (response.data.success) {
                 closeModal();
                 setSnackbarMessage(response.data.message);
-                setSnackbarSeverity("success");
+                setSnackbarSeverity('success');
                 setSnackbarOpen(true);
                 setTimeout(() => {
                     window.location.reload();
@@ -60,7 +56,7 @@ export default function PensionReturnButtonComponent({
         } catch (error) {
             closeModal();
             setSnackbarMessage(error.response?.data?.message);
-            setSnackbarSeverity("error");
+            setSnackbarSeverity('error');
             setSnackbarOpen(true);
         }
     };
@@ -87,12 +83,7 @@ export default function PensionReturnButtonComponent({
             </button>
 
             {createPortal(
-                <div
-                    className="modal fade"
-                    ref={setModalRef}
-                    tabIndex="-1"
-                    aria-hidden="true"
-                >
+                <div className="modal fade" ref={setModalRef} tabIndex="-1" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -115,40 +106,30 @@ export default function PensionReturnButtonComponent({
                                             setError(false);
                                         }}
                                         error={error}
-                                        helperText={
-                                            error
-                                                ? "Return message is required"
-                                                : ""
-                                        }
+                                        helperText={error ? 'Return message is required' : ''}
                                     />
                                 </div>
                             </div>
 
                             <div className="modal-footer">
-                                <button
-                                    className="btn btn-secondary"
-                                    onClick={closeModal}
-                                >
+                                <button className="btn btn-secondary" onClick={closeModal}>
                                     Cancel
                                 </button>
-                                <button
-                                    className="btn btn-success"
-                                    onClick={handleSubmit}
-                                >
+                                <button className="btn btn-success" onClick={handleSubmit}>
                                     Yes, Return
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>,
-                document.body
+                document.body,
             )}
 
             <Snackbar
                 open={snackbarOpen}
                 autoHideDuration={4000}
                 onClose={() => setSnackbarOpen(false)}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             >
                 <Alert
                     onClose={() => setSnackbarOpen(false)}

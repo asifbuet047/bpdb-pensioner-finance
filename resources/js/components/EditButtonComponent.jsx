@@ -1,20 +1,16 @@
-import EditIcon from "@mui/icons-material/Edit";
-import { Tooltip, Snackbar, Alert } from "@mui/material";
-import { useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import axios from "axios";
+import EditIcon from '@mui/icons-material/Edit';
+import { Tooltip, Snackbar, Alert } from '@mui/material';
+import { useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import axios from 'axios';
 
-export default function EditButtonComponent({
-    pensionerId,
-    pensionerName,
-    buttonStatus,
-}) {
+export default function EditButtonComponent({ pensionerId, pensionerName, buttonStatus }) {
     const modalInstance = useRef(null);
-    const button_status = buttonStatus === "true";
+    const button_status = buttonStatus === 'true';
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState("");
-    const [snackbarSeverity, setSnackbarSeverity] = useState("error");
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('error');
 
     const setModalRef = (node) => {
         if (node && !modalInstance.current && window.bootstrap) {
@@ -39,7 +35,7 @@ export default function EditButtonComponent({
             if (response.data.success) {
                 closeModal();
                 setSnackbarMessage(response.data.message);
-                setSnackbarSeverity("success");
+                setSnackbarSeverity('success');
                 setSnackbarOpen(true);
                 setTimeout(() => {
                     window.location.href = `/pensioner/update/${pensionerId}`;
@@ -48,10 +44,8 @@ export default function EditButtonComponent({
         } catch (error) {
             closeModal();
 
-            setSnackbarMessage(
-                error.response?.data?.message || "Failed to update pensioner"
-            );
-            setSnackbarSeverity("error");
+            setSnackbarMessage(error.response?.data?.message || 'Failed to update pensioner');
+            setSnackbarSeverity('error');
             setSnackbarOpen(true);
         }
     };
@@ -70,12 +64,7 @@ export default function EditButtonComponent({
             </button>
 
             {createPortal(
-                <div
-                    className="modal fade"
-                    ref={setModalRef}
-                    tabIndex="-1"
-                    aria-hidden="true"
-                >
+                <div className="modal fade" ref={setModalRef} tabIndex="-1" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -88,36 +77,29 @@ export default function EditButtonComponent({
                             </div>
 
                             <div className="modal-body">
-                                Are you sure you want to update this pensioner
-                                name is
+                                Are you sure you want to update this pensioner name is
                                 <div className="fw-bold">{pensionerName}?</div>
                             </div>
 
                             <div className="modal-footer">
-                                <button
-                                    className="btn btn-secondary"
-                                    onClick={closeModal}
-                                >
+                                <button className="btn btn-secondary" onClick={closeModal}>
                                     Cancel
                                 </button>
-                                <button
-                                    className="btn btn-danger"
-                                    onClick={handleUpdate}
-                                >
+                                <button className="btn btn-danger" onClick={handleUpdate}>
                                     Yes, Update
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>,
-                document.body
+                document.body,
             )}
 
             <Snackbar
                 open={snackbarOpen}
                 autoHideDuration={4000}
                 onClose={() => setSnackbarOpen(false)}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             >
                 <Alert
                     onClose={() => setSnackbarOpen(false)}

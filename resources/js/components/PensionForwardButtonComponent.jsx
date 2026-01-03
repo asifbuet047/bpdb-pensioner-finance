@@ -1,23 +1,19 @@
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Tooltip, Snackbar, Alert } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import axios from "axios";
-import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Tooltip, Snackbar, Alert } from '@mui/material';
+import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import axios from 'axios';
+import WorkflowMessageFieldComponent from './WorkflowMessageFieldComponent';
 
-export default function PensionForwardButtonComponent({
-    pensionId,
-    totalAmount,
-    buttonStatus,
-}) {
+export default function PensionForwardButtonComponent({ pensionId, totalAmount, buttonStatus }) {
     const modalInstance = useRef(null);
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState('');
     const [error, setError] = useState(false);
-    const button_status = buttonStatus === "true";
+    const button_status = buttonStatus === 'true';
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState("");
-    const [snackbarSeverity, setSnackbarSeverity] = useState("error");
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('error');
 
     const setModalRef = (node) => {
         if (node && !modalInstance.current && window.bootstrap) {
@@ -38,19 +34,19 @@ export default function PensionForwardButtonComponent({
             const response = await axios.post(
                 `/api/pension/workflow/`,
                 {
-                    workflow: "forward",
+                    workflow: 'forward',
                     id: pensionId,
                     message,
                 },
                 {
                     withCredentials: true,
-                }
+                },
             );
 
             if (response.data.success) {
                 closeModal();
                 setSnackbarMessage(response.data.message);
-                setSnackbarSeverity("success");
+                setSnackbarSeverity('success');
                 setSnackbarOpen(true);
                 setTimeout(() => {
                     window.location.reload();
@@ -59,7 +55,7 @@ export default function PensionForwardButtonComponent({
         } catch (error) {
             closeModal();
             setSnackbarMessage(error.response?.data?.message);
-            setSnackbarSeverity("error");
+            setSnackbarSeverity('error');
             setSnackbarOpen(true);
         }
     };
@@ -86,12 +82,7 @@ export default function PensionForwardButtonComponent({
             </button>
 
             {createPortal(
-                <div
-                    className="modal fade"
-                    ref={setModalRef}
-                    tabIndex="-1"
-                    aria-hidden="true"
-                >
+                <div className="modal fade" ref={setModalRef} tabIndex="-1" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -104,8 +95,7 @@ export default function PensionForwardButtonComponent({
                             </div>
 
                             <div className="modal-body">
-                                Are you sure you want to forward this pension
-                                which total amount is
+                                Are you sure you want to forward this pension which total amount is
                                 <div className="fw-bold">{totalAmount}?</div>
                                 <div className="mt-2">
                                     <WorkflowMessageFieldComponent
@@ -115,40 +105,30 @@ export default function PensionForwardButtonComponent({
                                             setError(false);
                                         }}
                                         error={error}
-                                        helperText={
-                                            error
-                                                ? "Forward message is required"
-                                                : ""
-                                        }
+                                        helperText={error ? 'Forward message is required' : ''}
                                     />
                                 </div>
                             </div>
 
                             <div className="modal-footer">
-                                <button
-                                    className="btn btn-secondary"
-                                    onClick={closeModal}
-                                >
+                                <button className="btn btn-secondary" onClick={closeModal}>
                                     Cancel
                                 </button>
-                                <button
-                                    className="btn btn-success"
-                                    onClick={handleSubmit}
-                                >
+                                <button className="btn btn-success" onClick={handleSubmit}>
                                     Yes, Forward
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>,
-                document.body
+                document.body,
             )}
 
             <Snackbar
                 open={snackbarOpen}
                 autoHideDuration={4000}
                 onClose={() => setSnackbarOpen(false)}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             >
                 <Alert
                     onClose={() => setSnackbarOpen(false)}

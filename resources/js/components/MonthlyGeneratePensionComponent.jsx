@@ -1,23 +1,23 @@
-import axios from "axios";
-import { useRef, useState } from "react";
-import { Snackbar, Alert } from "@mui/material";
-import { createPortal } from "react-dom";
-import BeautifulCheckboxComponent from "./BeautifulCheckboxComponent";
+import axios from 'axios';
+import { useRef, useState } from 'react';
+import { Snackbar, Alert } from '@mui/material';
+import { createPortal } from 'react-dom';
+import BeautifulCheckboxComponent from './BeautifulCheckboxComponent';
 
 export default function MonthlyGeneratePensionComponent() {
     const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
     ];
 
     const currentMonth = new Date().getMonth() + 1;
@@ -27,8 +27,8 @@ export default function MonthlyGeneratePensionComponent() {
     const [year, setYear] = useState(currentYear);
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState("");
-    const [snackbarSeverity, setSnackbarSeverity] = useState("error");
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('error');
     const [onlybonus, setOnlybonus] = useState(false);
 
     const [actions, setActions] = useState({
@@ -49,7 +49,7 @@ export default function MonthlyGeneratePensionComponent() {
 
     const openModal = (message) => {
         modalInstance.current?.show();
-        if (message === "generate_bonus") {
+        if (message === 'generate_bonus') {
             setOnlybonus(true);
         } else {
             setOnlybonus(false);
@@ -69,24 +69,24 @@ export default function MonthlyGeneratePensionComponent() {
         closeModal();
 
         if (onlybonus && !Object.values(actions).some(Boolean)) {
-            setSnackbarMessage("Please select at least one bonus");
-            setSnackbarSeverity("error");
+            setSnackbarMessage('Please select at least one bonus');
+            setSnackbarSeverity('error');
             setSnackbarOpen(true);
             return;
         }
 
         try {
-            const { data } = await axios.get("/api/pensioners/approved", {
+            const { data } = await axios.get('/api/pensioners/approved', {
                 withCredentials: true,
             });
 
             if (!data?.success) {
-                window.location.href = "/";
+                window.location.href = '/';
                 return;
             }
 
-            setSnackbarMessage(data.message || "Success");
-            setSnackbarSeverity("success");
+            setSnackbarMessage(data.message || 'Success');
+            setSnackbarSeverity('success');
             setSnackbarOpen(true);
 
             const params = new URLSearchParams({
@@ -98,10 +98,8 @@ export default function MonthlyGeneratePensionComponent() {
 
             window.location.href = `/view/pensioners/pension/approved?${params.toString()}`;
         } catch (error) {
-            setSnackbarMessage(
-                error?.response?.data?.message || "Something went wrong"
-            );
-            setSnackbarSeverity("error");
+            setSnackbarMessage(error?.response?.data?.message || 'Something went wrong');
+            setSnackbarSeverity('error');
             setSnackbarOpen(true);
         }
     };
@@ -132,15 +130,10 @@ export default function MonthlyGeneratePensionComponent() {
                                             <select
                                                 className="form-select"
                                                 value={month}
-                                                onChange={(e) =>
-                                                    setMonth(e.target.value)
-                                                }
+                                                onChange={(e) => setMonth(e.target.value)}
                                             >
                                                 {months.map((m, k) => (
-                                                    <option
-                                                        key={m}
-                                                        value={k + 1}
-                                                    >
+                                                    <option key={m} value={k + 1}>
                                                         {m}
                                                     </option>
                                                 ))}
@@ -154,23 +147,17 @@ export default function MonthlyGeneratePensionComponent() {
                                         <select
                                             className="form-select"
                                             value={year}
-                                            onChange={(e) =>
-                                                setYear(e.target.value)
-                                            }
+                                            onChange={(e) => setYear(e.target.value)}
                                         >
                                             {Array.from(
                                                 {
-                                                    length:
-                                                        currentYear - 2020 + 1,
+                                                    length: currentYear - 2020 + 1,
                                                 },
                                                 (_, i) => (
-                                                    <option
-                                                        key={i}
-                                                        value={currentYear - i}
-                                                    >
+                                                    <option key={i} value={currentYear - i}>
                                                         {currentYear - i}
                                                     </option>
-                                                )
+                                                ),
                                             )}
                                         </select>
                                     </div>
@@ -178,17 +165,13 @@ export default function MonthlyGeneratePensionComponent() {
 
                                 <div className="col-md-3 d-flex align-items-center">
                                     <div className="w-100 text-center p-4 rounded-3 border bg-white shadow-sm">
-                                        <div className="text-muted small mb-1">
-                                            Selected Period
-                                        </div>
+                                        <div className="text-muted small mb-1">Selected Period</div>
                                         <div
                                             className={`fw-bold fs-5 ${
-                                                isValid
-                                                    ? "text-primary"
-                                                    : "text-secondary"
+                                                isValid ? 'text-primary' : 'text-secondary'
                                             }`}
                                         >
-                                            {isValid ? `${month} ${year}` : "—"}
+                                            {isValid ? `${month} ${year}` : '—'}
                                         </div>
                                     </div>
                                 </div>
@@ -196,14 +179,10 @@ export default function MonthlyGeneratePensionComponent() {
                                 <div className="col-md-5 d-flex flex-column gap-2 align-items-center justify-content-center">
                                     <button
                                         className={`btn btn-lg w-100 rounded-3 ${
-                                            isValid
-                                                ? "btn-success"
-                                                : "btn-outline-secondary"
+                                            isValid ? 'btn-success' : 'btn-outline-secondary'
                                         }`}
                                         disabled={!isValid}
-                                        onClick={() =>
-                                            openModal("generate_pension")
-                                        }
+                                        onClick={() => openModal('generate_pension')}
                                     >
                                         <i className="bi bi-gear-wide-connected me-2"></i>
                                         Generate Pension
@@ -211,14 +190,10 @@ export default function MonthlyGeneratePensionComponent() {
 
                                     <button
                                         className={`btn btn-lg w-100 rounded-3 ${
-                                            isValid
-                                                ? "btn-success"
-                                                : "btn-outline-secondary"
+                                            isValid ? 'btn-success' : 'btn-outline-secondary'
                                         }`}
                                         disabled={!isValid}
-                                        onClick={() =>
-                                            openModal("generate_bonus")
-                                        }
+                                        onClick={() => openModal('generate_bonus')}
                                     >
                                         <i className="bi bi-gift me-2"></i>
                                         Generate Bonus Only
@@ -228,20 +203,14 @@ export default function MonthlyGeneratePensionComponent() {
                         </div>
 
                         <div className="card-footer text-muted small text-center bg-light rounded-bottom-4">
-                            Pension will be generated for the selected month and
-                            year
+                            Pension will be generated for the selected month and year
                         </div>
                     </div>
                 </div>
             </div>
 
             {createPortal(
-                <div
-                    className="modal fade"
-                    ref={setModalRef}
-                    tabIndex="-1"
-                    aria-hidden="true"
-                >
+                <div className="modal fade" ref={setModalRef} tabIndex="-1" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header bg-primary text-white">
@@ -260,7 +229,7 @@ export default function MonthlyGeneratePensionComponent() {
                                 <p className="text-muted small mb-3">
                                     Please select what you want to generate for
                                     <strong>
-                                        {" "}
+                                        {' '}
                                         {month} {year}
                                     </strong>
                                     .
@@ -273,9 +242,7 @@ export default function MonthlyGeneratePensionComponent() {
                                         description="Include Eid-Ul-Fiter or Eid-Ul-Azha bonus for"
                                         religion="Muslim"
                                         checked={actions.muslim_bonus}
-                                        onChange={() =>
-                                            toggleBonus("muslim_bonus")
-                                        }
+                                        onChange={() => toggleBonus('muslim_bonus')}
                                     />
 
                                     <BeautifulCheckboxComponent
@@ -284,9 +251,7 @@ export default function MonthlyGeneratePensionComponent() {
                                         description="Include Durga Puja bonus for"
                                         religion="Hindu"
                                         checked={actions.hindu_bonus}
-                                        onChange={() =>
-                                            toggleBonus("hindu_bonus")
-                                        }
+                                        onChange={() => toggleBonus('hindu_bonus')}
                                     />
                                     <BeautifulCheckboxComponent
                                         id="witBonus"
@@ -294,9 +259,7 @@ export default function MonthlyGeneratePensionComponent() {
                                         description="Include Chrismas bonus for"
                                         religion="Christian"
                                         checked={actions.christian_bonus}
-                                        onChange={() =>
-                                            toggleBonus("christian_bonus")
-                                        }
+                                        onChange={() => toggleBonus('christian_bonus')}
                                     />
                                     <BeautifulCheckboxComponent
                                         id="witBonus"
@@ -304,9 +267,7 @@ export default function MonthlyGeneratePensionComponent() {
                                         description="Include Boddho Purnima bonus for"
                                         religion="Budddist"
                                         checked={actions.buddhist_bonus}
-                                        onChange={() =>
-                                            toggleBonus("buddhist_bonus")
-                                        }
+                                        onChange={() => toggleBonus('buddhist_bonus')}
                                     />
 
                                     <BeautifulCheckboxComponent
@@ -315,9 +276,7 @@ export default function MonthlyGeneratePensionComponent() {
                                         description="Include Bangla New Year bonus for"
                                         religion="All"
                                         checked={actions.bangla_new_year_bonus}
-                                        onChange={() =>
-                                            toggleBonus("bangla_new_year_bonus")
-                                        }
+                                        onChange={() => toggleBonus('bangla_new_year_bonus')}
                                     />
                                 </div>
 
@@ -328,17 +287,11 @@ export default function MonthlyGeneratePensionComponent() {
                             </div>
 
                             <div className="modal-footer">
-                                <button
-                                    className="btn btn-outline-secondary"
-                                    onClick={closeModal}
-                                >
+                                <button className="btn btn-outline-secondary" onClick={closeModal}>
                                     Cancel
                                 </button>
 
-                                <button
-                                    className="btn btn-success px-4"
-                                    onClick={handleSubmit}
-                                >
+                                <button className="btn btn-success px-4" onClick={handleSubmit}>
                                     <i className="bi bi-check-circle me-1"></i>
                                     Yes, Generate
                                 </button>
@@ -346,14 +299,14 @@ export default function MonthlyGeneratePensionComponent() {
                         </div>
                     </div>
                 </div>,
-                document.body
+                document.body,
             )}
 
             <Snackbar
                 open={snackbarOpen}
                 autoHideDuration={4000}
                 onClose={() => setSnackbarOpen(false)}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             >
                 <Alert
                     onClose={() => setSnackbarOpen(false)}

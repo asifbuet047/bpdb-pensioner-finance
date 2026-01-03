@@ -1,20 +1,18 @@
-import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
-import { Tooltip, Snackbar, Alert } from "@mui/material";
-import { useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import axios from "axios";
-import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
+import { Tooltip, Snackbar, Alert } from '@mui/material';
+import { useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import axios from 'axios';
+import WorkflowMessageFieldComponent from './WorkflowMessageFieldComponent';
 
-export default function CertifierGeneratedPensionButtonComponent({
-    pensionId,
-}) {
+export default function CertifierGeneratedPensionButtonComponent({ pensionId }) {
     const modalInstance = useRef(null);
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState('');
     const [error, setError] = useState(false);
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState("");
-    const [snackbarSeverity, setSnackbarSeverity] = useState("error");
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('error');
 
     const setModalRef = (node) => {
         if (node && !modalInstance.current && window.bootstrap) {
@@ -35,19 +33,19 @@ export default function CertifierGeneratedPensionButtonComponent({
             const response = await axios.post(
                 `/api/pensioner/workflow/`,
                 {
-                    workflow: "approve",
+                    workflow: 'approve',
                     id: pensionerId,
                     message,
                 },
                 {
                     withCredentials: true,
-                }
+                },
             );
 
             if (response.data.success) {
                 closeModal();
                 setSnackbarMessage(response.data.message);
-                setSnackbarSeverity("success");
+                setSnackbarSeverity('success');
                 setSnackbarOpen(true);
                 setTimeout(() => {
                     window.location.reload();
@@ -56,7 +54,7 @@ export default function CertifierGeneratedPensionButtonComponent({
         } catch (error) {
             closeModal();
             setSnackbarMessage(error.response?.data?.message);
-            setSnackbarSeverity("error");
+            setSnackbarSeverity('error');
             setSnackbarOpen(true);
         }
     };
@@ -88,12 +86,7 @@ export default function CertifierGeneratedPensionButtonComponent({
             </button>
 
             {createPortal(
-                <div
-                    className="modal fade"
-                    ref={setModalRef}
-                    tabIndex="-1"
-                    aria-hidden="true"
-                >
+                <div className="modal fade" ref={setModalRef} tabIndex="-1" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -115,40 +108,30 @@ export default function CertifierGeneratedPensionButtonComponent({
                                             setError(false);
                                         }}
                                         error={error}
-                                        helperText={
-                                            error
-                                                ? "Forward message is required"
-                                                : ""
-                                        }
+                                        helperText={error ? 'Forward message is required' : ''}
                                     />
                                 </div>
                             </div>
 
                             <div className="modal-footer">
-                                <button
-                                    className="btn btn-secondary"
-                                    onClick={closeModal}
-                                >
+                                <button className="btn btn-secondary" onClick={closeModal}>
                                     Cancel
                                 </button>
-                                <button
-                                    className="btn btn-success"
-                                    onClick={handleSubmit}
-                                >
+                                <button className="btn btn-success" onClick={handleSubmit}>
                                     Yes, Forward
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>,
-                document.body
+                document.body,
             )}
 
             <Snackbar
                 open={snackbarOpen}
                 autoHideDuration={4000}
                 onClose={() => setSnackbarOpen(false)}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             >
                 <Alert
                     onClose={() => setSnackbarOpen(false)}

@@ -1,19 +1,16 @@
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import { Tooltip, Snackbar, Alert } from "@mui/material";
-import { useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import axios from "axios";
-import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import { Tooltip, Snackbar, Alert } from '@mui/material';
+import { useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import axios from 'axios';
+import WorkflowMessageFieldComponent from './WorkflowMessageFieldComponent';
 
-export default function PensionDashboardButtonComponent({
-    pensionId,
-    totalAmount,
-}) {
+export default function PensionDashboardButtonComponent({ pensionId, totalAmount }) {
     const modalInstance = useRef(null);
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState("");
-    const [snackbarSeverity, setSnackbarSeverity] = useState("error");
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('error');
 
     const setModalRef = (node) => {
         if (node && !modalInstance.current && window.bootstrap) {
@@ -38,7 +35,7 @@ export default function PensionDashboardButtonComponent({
             if (response.data.success) {
                 closeModal();
                 setSnackbarMessage(response.data.message);
-                setSnackbarSeverity("success");
+                setSnackbarSeverity('success');
                 setSnackbarOpen(true);
                 setTimeout(() => {
                     window.location.href = `/pension/dashboard/${pensionId}`;
@@ -47,36 +44,25 @@ export default function PensionDashboardButtonComponent({
         } catch (error) {
             closeModal();
             setSnackbarMessage(error.response?.data?.message);
-            setSnackbarSeverity("error");
+            setSnackbarSeverity('error');
             setSnackbarOpen(true);
         }
     };
 
     return (
         <>
-            <button
-                type="button"
-                className="approve-button"
-                onClick={openModal}
-            >
+            <button type="button" className="approve-button" onClick={openModal}>
                 <Tooltip title="Dashboard of Pension">
                     <DashboardIcon fontSize="small" />
                 </Tooltip>
             </button>
 
             {createPortal(
-                <div
-                    className="modal fade"
-                    ref={setModalRef}
-                    tabIndex="-1"
-                    aria-hidden="true"
-                >
+                <div className="modal fade" ref={setModalRef} tabIndex="-1" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">
-                                    Want to View Pension?
-                                </h5>
+                                <h5 className="modal-title">Want to View Pension?</h5>
                                 <button
                                     type="button"
                                     className="btn-close"
@@ -85,35 +71,29 @@ export default function PensionDashboardButtonComponent({
                             </div>
 
                             <div className="modal-body">
-                                Are you sure you want to view this pension{" "}
+                                Are you sure you want to view this pension{' '}
                                 <div className="fw-bold">{totalAmount}?</div>
                             </div>
 
                             <div className="modal-footer">
-                                <button
-                                    className="btn btn-secondary"
-                                    onClick={closeModal}
-                                >
+                                <button className="btn btn-secondary" onClick={closeModal}>
                                     Cancel
                                 </button>
-                                <button
-                                    className="btn btn-success"
-                                    onClick={handleDashboadView}
-                                >
+                                <button className="btn btn-success" onClick={handleDashboadView}>
                                     Yes, View Pension
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>,
-                document.body
+                document.body,
             )}
 
             <Snackbar
                 open={snackbarOpen}
                 autoHideDuration={4000}
                 onClose={() => setSnackbarOpen(false)}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             >
                 <Alert
                     onClose={() => setSnackbarOpen(false)}

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default function BeautifulCheckboxComponent({
     id,
@@ -6,14 +6,14 @@ export default function BeautifulCheckboxComponent({
     description,
     checked,
     onChange,
-    religion = "Islam",
+    religion = 'Islam',
     disabled = false,
     error = false,
 }) {
     return (
         <div className="form-check p-3 rounded-3 border border-2 shadow-sm bg-white">
             <input
-                className={`form-check-input ${error ? "is-invalid" : ""}`}
+                className={`form-check-input ${error ? 'is-invalid' : ''}`}
                 type="checkbox"
                 id={id}
                 checked={checked}
@@ -27,15 +27,12 @@ export default function BeautifulCheckboxComponent({
 
             {description && (
                 <div className="text-muted small mt-1 ms-4">
-                    {description}{" "}
-                    <span className="fw-bold">{religion} pensioners</span>
+                    {description} <span className="fw-bold">{religion} pensioners</span>
                 </div>
             )}
 
             {error && (
-                <div className="invalid-feedback d-block mt-1 ms-4">
-                    This field is required
-                </div>
+                <div className="invalid-feedback d-block mt-1 ms-4">This field is required</div>
             )}
         </div>
     );

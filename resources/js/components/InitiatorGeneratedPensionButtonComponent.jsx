@@ -1,20 +1,18 @@
-import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
-import { Tooltip, Snackbar, Alert } from "@mui/material";
-import { useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import axios from "axios";
-import WorkflowMessageFieldComponent from "./WorkflowMessageFieldComponent";
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
+import { Tooltip, Snackbar, Alert } from '@mui/material';
+import { useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import axios from 'axios';
+import WorkflowMessageFieldComponent from './WorkflowMessageFieldComponent';
 
-export default function InitiatorGeneratedPensionButtonComponent({
-    pensionData,
-}) {
+export default function InitiatorGeneratedPensionButtonComponent({ pensionData }) {
     const modalInstance = useRef(null);
     console.log(JSON.parse(pensionData));
     const pension_data = JSON.parse(pensionData);
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState("");
-    const [snackbarSeverity, setSnackbarSeverity] = useState("error");
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('error');
 
     const setModalRef = (node) => {
         if (node && !modalInstance.current && window.bootstrap) {
@@ -46,17 +44,17 @@ export default function InitiatorGeneratedPensionButtonComponent({
                 },
                 {
                     headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json",
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
                     },
                     withCredentials: true,
-                }
+                },
             );
 
             if (response.data.success) {
                 closeModal();
                 setSnackbarMessage(response.data.message);
-                setSnackbarSeverity("success");
+                setSnackbarSeverity('success');
                 setSnackbarOpen(true);
                 setTimeout(() => {
                     window.location.href = `/pensions/all`;
@@ -65,7 +63,7 @@ export default function InitiatorGeneratedPensionButtonComponent({
         } catch (error) {
             closeModal();
             setSnackbarMessage(error.response?.data?.message);
-            setSnackbarSeverity("error");
+            setSnackbarSeverity('error');
             setSnackbarOpen(true);
         }
     };
@@ -89,18 +87,11 @@ export default function InitiatorGeneratedPensionButtonComponent({
             </button>
 
             {createPortal(
-                <div
-                    className="modal fade"
-                    ref={setModalRef}
-                    tabIndex="-1"
-                    aria-hidden="true"
-                >
+                <div className="modal fade" ref={setModalRef} tabIndex="-1" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">
-                                    Confirm Pension Generation
-                                </h5>
+                                <h5 className="modal-title">Confirm Pension Generation</h5>
                                 <button
                                     type="button"
                                     className="btn-close"
@@ -113,30 +104,24 @@ export default function InitiatorGeneratedPensionButtonComponent({
                             </div>
 
                             <div className="modal-footer">
-                                <button
-                                    className="btn btn-secondary"
-                                    onClick={closeModal}
-                                >
+                                <button className="btn btn-secondary" onClick={closeModal}>
                                     Cancel
                                 </button>
-                                <button
-                                    className="btn btn-success"
-                                    onClick={handleAddPension}
-                                >
+                                <button className="btn btn-success" onClick={handleAddPension}>
                                     Yes, Generate Pension
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>,
-                document.body
+                document.body,
             )}
 
             <Snackbar
                 open={snackbarOpen}
                 autoHideDuration={4000}
                 onClose={() => setSnackbarOpen(false)}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             >
                 <Alert
                     onClose={() => setSnackbarOpen(false)}

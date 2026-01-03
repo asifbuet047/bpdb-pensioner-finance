@@ -1,11 +1,11 @@
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
 
 export default function WorkflowMessageFieldComponent({
     value,
     onChange,
     error = false,
-    helperText = "",
+    helperText = '',
 }) {
     return (
         <Box sx={{ mt: 2 }}>
@@ -19,10 +19,7 @@ export default function WorkflowMessageFieldComponent({
                 value={value}
                 onChange={onChange}
                 error={error}
-                helperText={
-                    helperText ||
-                    "This message will be saved in workflow history"
-                }
+                helperText={helperText || 'This message will be saved in workflow history'}
             />
         </Box>
     );

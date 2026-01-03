@@ -1,6 +1,6 @@
-import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
-import { Tooltip } from "@mui/material";
-import { useState } from "react";
+import TaskAltOutlinedIcon from '@mui/icons-material/TaskAltOutlined';
+import { Tooltip } from '@mui/material';
+import { useState } from 'react';
 
 export default function BlockCheckboxComponent({ disabled = false }) {
     const [checked, setChecked] = useState(true);
@@ -14,8 +14,8 @@ export default function BlockCheckboxComponent({ disabled = false }) {
         <div className="tick-wrapper d-inline-flex align-items-center">
             <div
                 className={`form-check tick-check 
-                    ${checked ? "checked" : ""} 
-                    ${disabled ? "disabled" : ""}`}
+                    ${checked ? 'checked' : ''} 
+                    ${disabled ? 'disabled' : ''}`}
                 onClick={handleToggle}
             >
                 <input
@@ -26,9 +26,7 @@ export default function BlockCheckboxComponent({ disabled = false }) {
                     checked
                 />
 
-                <Tooltip
-                    title={disabled ? "Action disabled" : "Mark as Blocked"}
-                >
+                <Tooltip title={disabled ? 'Action disabled' : 'Mark as Blocked'}>
                     <span className="tick-icon">
                         <TaskAltOutlinedIcon fontSize="small" />
                     </span>

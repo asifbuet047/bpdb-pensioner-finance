@@ -143,12 +143,15 @@
     cursor: pointer;
     overflow: hidden;
     font-size: 16px;
-    transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+    transition:
+        color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.15s ease;
 }
 
 /* Animated fill */
 .delete-button::before {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     background: #dc2626;
@@ -214,12 +217,15 @@
     cursor: pointer;
     overflow: hidden;
     font-size: 16px;
-    transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+    transition:
+        color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.15s ease;
 }
 
 /* Animated fill */
 .update-button::before {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     background: #2563eb;
@@ -285,12 +291,15 @@
     cursor: pointer;
     overflow: hidden;
     font-size: 16px;
-    transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+    transition:
+        color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.15s ease;
 }
 
 /* Animated fill */
 .forward-button::before {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     background: #16a34a;
@@ -356,12 +365,15 @@
     cursor: pointer;
     overflow: hidden;
     font-size: 16px;
-    transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+    transition:
+        color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.15s ease;
 }
 
 /* Animated fill */
 .return-button::before {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     background: #f59e0b;
@@ -427,12 +439,15 @@
     cursor: pointer;
     overflow: hidden;
     font-size: 16px;
-    transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+    transition:
+        color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.15s ease;
 }
 
 /* Animated fill */
 .approve-button::before {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     background: #15803d;
@@ -498,12 +513,15 @@
     cursor: pointer;
     overflow: hidden;
     font-size: 16px;
-    transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+    transition:
+        color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.15s ease;
 }
 
 /* Animated fill */
 .block-button::before {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     background: #15803d;
