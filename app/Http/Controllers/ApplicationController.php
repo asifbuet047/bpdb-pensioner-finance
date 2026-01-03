@@ -6,6 +6,7 @@ use App\Models\Office;
 use App\Models\Officer;
 use App\Models\Pensioner;
 use App\Models\PensionerCredential;
+use App\Models\Pensionerspension;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
@@ -20,6 +21,11 @@ class ApplicationController extends Controller
         } else {
             return view('loginpensioner');
         }
+    }
+
+    public function showPensionerPensionApplyForm(Request $request)
+    {
+        return view('pensionerform');
     }
 
 
@@ -93,7 +99,7 @@ class ApplicationController extends Controller
         } else if ($user_type === 'pensioner') {
             $erp_id = $request->cookie('user_id');
             $user_type = 'pensioner';
-            $pensionerDetails = Pensioner::with(['office', 'workflows'])
+            $pensionerDetails = Pensioner::with(['office', 'workflows', 'pensionerspensions'])
                 ->where('erp_id', $erp_id)
                 ->firstOrFail();
 
@@ -102,11 +108,14 @@ class ApplicationController extends Controller
                 $pensionerDetails->office->payment_office_code
             )->first();
 
+            $pensionerspension = Pensionerspension::where('pensioner_id', $pensionerDetails->id)->get();
+
             return view('dashboardpensioner', compact(
                 'erp_id',
                 'user_type',
                 'pensionerDetails',
-                'paymentOfficeDetails'
+                'paymentOfficeDetails',
+                'pensionerspension'
             ));
         } else {
             return view('login');

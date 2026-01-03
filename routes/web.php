@@ -34,6 +34,7 @@ Route::get('/officer/search', [ApplicationController::class, 'showOfficerSearchS
 Route::get('/officer/update/{id}', [ApplicationController::class, 'showUpdateOfficerSection'])->name('update.officer.section');
 Route::get('/office/new', [ApplicationController::class, 'showAddofficeSection'])->name('add.office.section');
 Route::get('/send-mail', [ApplicationController::class, 'sendTestMail']);
+Route::get('/pensioner/apply', [ApplicationController::class, 'showPensionerPensionApplyForm'])->name('pensioner.pension.apply.form');
 
 
 
@@ -73,8 +74,8 @@ Route::post('/api/pensioners/pension/approved', [PensionController::class, 'calc
 Route::delete('/pension/{id}', [PensionController::class, 'deletePensionFromDB']);
 Route::get('/pensions', [PensionController::class, 'showPensionsVariantSection'])->name('show.pensions.variant.section');
 Route::get('/pension/dashboard/{id}', [PensionController::class, 'showPensionDashboard'])->name('show.pension.dashboard');
-Route::get('/api/pension',[PensionController::class,'isPensionExits']);
-Route::get('/api/pension/isapproved',[PensionController::class,'isPensionApproved']);
+Route::get('/api/pension', [PensionController::class, 'isPensionExits']);
+Route::get('/api/pension/isapproved', [PensionController::class, 'isPensionApproved']);
 Route::get('/pension/export', [PensionController::class, 'exportPensionDashboard'])->name('download.pension');
 Route::get('/pension/invoice/generate', [PensionController::class, 'generateInvoice'])->name('generate.invoice');
 
