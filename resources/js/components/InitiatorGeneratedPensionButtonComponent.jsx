@@ -6,9 +6,24 @@ import axios from 'axios';
 import WorkflowMessageFieldComponent from './WorkflowMessageFieldComponent';
 
 export default function InitiatorGeneratedPensionButtonComponent({ pensionData }) {
+    const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+    ];
     const modalInstance = useRef(null);
     console.log(JSON.parse(pensionData));
     const pension_data = JSON.parse(pensionData);
+    pension_data.month = months.indexOf(pension_data.month);
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');

@@ -200,5 +200,5 @@ document.querySelectorAll('.pension-dashboard-button').forEach((el) => {
 });
 
 document.querySelectorAll('.print-button').forEach((el) => {
-    createRoot(el).render(<PrintButtonComponent />);
+    createRoot(el).render(<PrintButtonComponent pensionId={el.dataset.pensionId} />);
 });

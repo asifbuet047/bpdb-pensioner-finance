@@ -33,15 +33,16 @@
     <div>
         <h1>Bangladesh Power Development Board</h1>
         <h2 class="custom">বাংলাদেশ বিদ্যুৎ উন্নয়ন বোর্ড</h2>
-        <h3>Regional Account Office (POIN)</h3>
+        <h3>{{ $officer->office->name_in_english }}</h3>
+        <h3>{{ $officer->office->address }}</h3>
         <h4>Manager</h4>
-        <h4>{{ $bank_name }}</h4>
-        <p>Your bank is requested to take the necessary steps for the transfer of funds from Account No. 1612136001142
-            for Ahid, PNDCO, BUO, and the Dhaka office, corresponding to the total amount of Taka /= ( ). The monthly
-            pension allowances for the pensioners mentioned above for October 2022, according to the respective
-            bank-wise details, are to be transferred via your bank by issuing check no. ___ dated 01/11/2022, and the
-            charges for online submission of the mentioned bills shall be debited from the Electricity Development
-            Board's account.</p>
+        <h4>{{ $bank_details->bank_name }}</h4>
+        <h4>{{ $bank_details->bank_address }}</h4>
+        <p>Dear Sir,
+            You are kindly requested to transfer an amount of Tk. <span class="fw-bold">{{ $totalPension }}</span> from
+            Account No. <span class="fw-bold">{{ $paymentOfficeBank->account_number }}</span> maintained with your bank
+            in the name of <span class="fw-bold">{{ $paymentOfficeBank->account_name }}</span> in favor of the pensioners
+            as per the details described below.</p>
 
     </div>
 
@@ -49,42 +50,38 @@
         <thead>
             <tr>
                 <th scope="col">
-                    No
+                    SL NO
                 </th>
                 <th scope="col">
-                    ERP ID
+                    Pension Holder Name
                 </th>
                 <th scope="col">
-                    Name
+                    Bank Name
                 </th>
                 <th scope="col">
-                    Register No
+                    Branch
                 </th>
                 <th scope="col">
-                    Basic Salary
+                    Routing Number
                 </th>
                 <th scope="col">
-                    Medical Allowance
+                    Account number
                 </th>
                 <th scope="col">
-                    Incentive Bonus
-                </th>
-                <th scope="col">
-                    Account Number
+                    Amount
                 </th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($pensioners as $index => $pensioner)
+            @foreach ($pensionerspensions as $index => $pensionerspension)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $pensioner->erp_id }}</td>
-                    <td>{{ $pensioner->name }}</td>
-                    <td>{{ $pensioner->register_no }}</td>
-                    <td>{{ number_format($pensioner->basic_salary, 2) }}</td>
-                    <td>{{ number_format($pensioner->medical_allowance, 2) }}</td>
-                    <td>{{ number_format($pensioner->incentive_bonus, 2) }}</td>
-                    <td>{{ $pensioner->account_number }}</td>
+                    <td>{{ $pensionerspension->pensioner->name }}</td>
+                    <td>{{ $pensionerspension->pensioner->bank_name }}</td>
+                    <td>{{ $pensionerspension->pensioner->branch_name }}</td>
+                    <td>{{ $pensionerspension->pensioner->bank_routing_number }}</td>
+                    <td>{{ $pensionerspension->pensioner->account_number }}</td>
+                    <td>{{ number_format($pensionerspension->total_pension_amount, 2) }}</td>
                 </tr>
             @endforeach
         </tbody>

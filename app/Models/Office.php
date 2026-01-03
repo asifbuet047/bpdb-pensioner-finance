@@ -35,4 +35,9 @@ class Office extends Model
     {
         return $this->hasMany(Pension::class);
     }
+
+    public function bank()
+    {
+        return $this->hasOne(PaymentOfficesBank::class);
+    }
 }

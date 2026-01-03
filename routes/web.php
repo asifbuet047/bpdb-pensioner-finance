@@ -56,7 +56,6 @@ Route::get('/pensioners/import', [PensionerController::class, 'showImportPension
 Route::post('/pensioners/import', [PensionerController::class, 'importPensioner'])->name('import.pensioners');
 Route::get('/pensioners/bank', [PensionerController::class, 'showInvoiceBank'])->name('show.invoice.bank');
 Route::get('/pensioners/invoice', [PensionerController::class, 'showSelectedBankPensionersForInvoiceGeneration'])->name('show.invoice');
-Route::get('/pensioners/invoice/generate', [PensionerController::class, 'generateInvoice'])->name('generate.invoice');
 
 
 
@@ -75,7 +74,9 @@ Route::delete('/pension/{id}', [PensionController::class, 'deletePensionFromDB']
 Route::get('/pensions', [PensionController::class, 'showPensionsVariantSection'])->name('show.pensions.variant.section');
 Route::get('/pension/dashboard/{id}', [PensionController::class, 'showPensionDashboard'])->name('show.pension.dashboard');
 Route::get('/api/pension',[PensionController::class,'isPensionExits']);
+Route::get('/api/pension/isapproved',[PensionController::class,'isPensionApproved']);
 Route::get('/pension/export', [PensionController::class, 'exportPensionDashboard'])->name('download.pension');
+Route::get('/pension/invoice/generate', [PensionController::class, 'generateInvoice'])->name('generate.invoice');
 
 
 

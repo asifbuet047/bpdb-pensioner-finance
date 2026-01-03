@@ -27,17 +27,9 @@ export default function PrintButtonComponent({ pensionId }) {
 
     const handlePrint = async () => {
         try {
-            const response = await axios.post(
-                `/api/pensioner/workflow/`,
-                {
-                    workflow: 'approve',
-                    id: pensionerId,
-                    message,
-                },
-                {
-                    withCredentials: true,
-                },
-            );
+            const response = await axios.get(`/api/pension/isapproved?id=${pensionId}`, {
+                withCredentials: true,
+            });
 
             if (response.data.success) {
                 closeModal();
@@ -45,7 +37,7 @@ export default function PrintButtonComponent({ pensionId }) {
                 setSnackbarSeverity('success');
                 setSnackbarOpen(true);
                 setTimeout(() => {
-                    window.location.reload();
+                    window.location.href = `/pension/invoice/generate?id=${pensionId}`;
                 }, 1200);
             }
         } catch (error) {
@@ -69,7 +61,7 @@ export default function PrintButtonComponent({ pensionId }) {
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Confirm Approval</h5>
+                                <h5 className="modal-title">Confirm Invoice Print</h5>
                                 <button
                                     type="button"
                                     className="btn-close"
@@ -79,7 +71,7 @@ export default function PrintButtonComponent({ pensionId }) {
 
                             <div className="modal-body">
                                 Are you sure you want to print the Invoice of pension no{' '}
-                                <div className="fw-bold">{pensionId}?</div>
+                                <span className="fw-bold">{pensionId} </span>?
                             </div>
 
                             <div className="modal-footer">

@@ -35,6 +35,7 @@ class Pension extends Model
         'number_of_pensioners' => 'integer',
     ];
 
+
     public function office()
     {
         return $this->belongsTo(Office::class);

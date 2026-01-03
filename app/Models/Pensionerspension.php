@@ -33,6 +33,10 @@ class Pensionerspension extends Model
         'is_block' => 'boolean',
     ];
 
+    protected $appends = [
+        'total_pension_amount'
+    ];
+
     public function pensioner()
     {
         return $this->belongsTo(Pensioner::class);
@@ -40,5 +44,15 @@ class Pensionerspension extends Model
     public function pension()
     {
         return $this->belongsTo(Pension::class);
+    }
+
+    public function totalPensionerPensionAmount()
+    {
+        return $this->net_pension + $this->medical_allowance + $this->special_allowance + $this->festival_bonus + $this->bangla_new_year_bonus;
+    }
+
+    public function getTotalPensionAmountAttribute()
+    {
+        return ($this->net_pension ?? 0) + ($this->medical_allowance ?? 0) + ($this->special_allowance ?? 0) + ($this->festival_bonus ?? 0) + ($this->bangla_new_year_bonus ?? 0);
     }
 }

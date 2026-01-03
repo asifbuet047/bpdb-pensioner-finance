@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Exports\PensionDashboardExport;
+use App\Models\Bank;
 use App\Models\Office;
 use App\Models\Officer;
+use App\Models\PaymentOfficesBank;
 use App\Models\Pension;
 use App\Models\Pensioner;
 use App\Models\Pensionerspension;
@@ -12,6 +14,7 @@ use App\Models\Pensionworkflow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Throwable;
 
 class PensionController extends Controller
@@ -370,6 +373,61 @@ class PensionController extends Controller
         ], 200);
     }
 
+
+    public function isPensionApproved(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $id = $request->query('id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        $pension = Pension::find($id);
+
+        if (!$erp_id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Pleae login as valid officer',
+                'data' => []
+            ], 401);
+        }
+
+        if (!$officer) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No valid officer',
+                'data' => []
+            ], 402);
+        }
+
+        if (!$pension) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No valid pension',
+                'data' => []
+            ], 403);
+        }
+
+        if ($pension->status != 'approved') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Pension is not approved',
+                'data' => []
+            ], 404);
+        }
+
+        if ($pension->office_id != $officer->office->id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You dont have permission',
+                'data' => []
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Pension is successfully approved',
+            'data' => $pension
+        ], 200);
+    }
+
     public function showPensionDashboard(Request $request, $id)
     {
         $erp_id = $request->cookie('user_id');
@@ -393,5 +451,36 @@ class PensionController extends Controller
     {
         $id = $request->query('id');
         return Excel::download(new PensionDashboardExport($id), 'pension.xlsx');
+    }
+
+
+    public function generateInvoice(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $pensionid = $request->query('id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        $paymentOfficeBank = PaymentOfficesBank::with(['office'])->where('office_id', $officer->office->id)->first();
+        $bank_details = Bank::where('routing_number', $paymentOfficeBank->routing_number)->first();
+        if ($officer) {
+            $pension = Pension::find($pensionid);
+            $totalPension = $pension->totalPensionAmount();
+            $pensionerspension_info = [];
+            if ($pension) {
+                $pensionerspensions = Pensionerspension::with(['pensioner'])->where('pension_id', $pension->id)->get();
+
+                $pdf = PDF::loadView('viewpensionersinvoice', compact('totalPension', 'pensionerspensions', 'officer', 'bank_details', 'paymentOfficeBank'))
+                    ->setPaper('a4')->setOption('encoding', 'utf-8');
+                return $pdf->inline('invoice.pdf');
+            } else {
+                return view('login');
+            }
+
+            // $pdf = PDF::loadView('viewpensionersinvoice', compact('pensioners', 'bank_name'))
+            //     ->setPaper('a4')->setOption('encoding', 'utf-8');
+
+            // return $pdf->inline('invoice.pdf');
+        } else {
+            return view('login');
+        }
     }
 }
