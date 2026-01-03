@@ -140,61 +140,80 @@
                                 @if ($officer_role === 'initiator')
                                     <div class="d-flex justify-content-center gap-2">
                                         @if ($pension->status === 'floated')
-                                            <div class="pension-delete-button" data-pension-id="{{ $pension->id }}"
-                                                data-total-amount="{{ $totalAmount }}"
-                                                data-button-status="{{ 'false' }}">
-                                            </div>
-                                            <div class="pension-forward-button" data-pension-id="{{ $pension->id }}"
-                                                data-total-amount="{{ $totalAmount }}"
-                                                data-button-status="{{ 'false' }}">
-                                            </div>
+                                            @if ($action_buttons)
+                                                <div class="pension-delete-button" data-pension-id="{{ $pension->id }}"
+                                                    data-total-amount="{{ $totalAmount }}"
+                                                    data-button-status="{{ 'false' }}">
+                                                </div>
+                                                <div class="pension-forward-button" data-pension-id="{{ $pension->id }}"
+                                                    data-total-amount="{{ $totalAmount }}"
+                                                    data-button-status="{{ 'false' }}">
+                                                </div>
+                                            @endif
+
                                             <div class="pension-workflow-button" data-pension-id="{{ $pension->id }}"
                                                 data-total-amount="{{ $totalAmount }}">
                                             </div>
                                             <div class="pension-dashboard-button" data-pension-id="{{ $pension->id }}">
                                             </div>
                                         @else
-                                            <div class="pension-delete-button" data-pension-id="{{ $pension->id }}"
-                                                data-total-amount="{{ $totalAmount }}"
-                                                data-button-status="{{ 'true' }}">
-                                            </div>
-                                            <div class="pension-forward-button" data-pension-id="{{ $pension->id }}"
-                                                data-total-amount="{{ $totalAmount }}"
-                                                data-button-status="{{ 'true' }}">
-                                            </div>
-                                            <div class="pension-workflow-button" data-pension-id="{{ $pension->id }}"
-                                                data-total-amount="{{ $totalAmount }}">
-                                            </div>
-                                            <div class="pension-dashboard-button" data-pension-id="{{ $pension->id }}">
-                                            </div>
+                                            @if ($action_buttons)
+                                                <div class="pension-delete-button" data-pension-id="{{ $pension->id }}"
+                                                    data-total-amount="{{ $totalAmount }}"
+                                                    data-button-status="{{ 'true' }}">
+                                                </div>
+                                                <div class="pension-forward-button" data-pension-id="{{ $pension->id }}"
+                                                    data-total-amount="{{ $totalAmount }}"
+                                                    data-button-status="{{ 'true' }}">
+                                                </div>
+                                            @endif
+
+
+                                            @if ($print_button)
+                                                <div class="print-button" data-pension-id="{{ $pension->id }}">
+                                                </div>
+                                            @else
+                                                <div class="pension-workflow-button" data-pension-id="{{ $pension->id }}"
+                                                    data-total-amount="{{ $totalAmount }}">
+                                                </div>
+                                                <div class="pension-dashboard-button"
+                                                    data-pension-id="{{ $pension->id }}">
+                                                </div>
+                                            @endif
                                         @endif
                                     </div>
                                 @endif
                                 @if ($officer_role === 'certifier')
                                     <div class="d-flex justify-content-center gap-2">
                                         @if ($pension->status === 'initiated')
-                                            <div class="pension-return-button" data-pension-id="{{ $pension->id }}"
-                                                data-total-amount="{{ $totalAmount }}"
-                                                data-button-status="{{ 'false' }}">
-                                            </div>
-                                            <div class="pension-forward-button" data-pension-id="{{ $pension->id }}"
-                                                data-total-amount="{{ $totalAmount }}"
-                                                data-button-status="{{ 'false' }}">
-                                            </div>
+                                            @if ($action_buttons)
+                                                <div class="pension-return-button" data-pension-id="{{ $pension->id }}"
+                                                    data-total-amount="{{ $totalAmount }}"
+                                                    data-button-status="{{ 'false' }}">
+                                                </div>
+                                                <div class="pension-forward-button" data-pension-id="{{ $pension->id }}"
+                                                    data-total-amount="{{ $totalAmount }}"
+                                                    data-button-status="{{ 'false' }}">
+                                                </div>
+                                            @endif
+
                                             <div class="pension-workflow-button" data-pension-id="{{ $pension->id }}"
                                                 data-total-amount="{{ $totalAmount }}">
                                             </div>
                                             <div class="pension-dashboard-button" data-pension-id="{{ $pension->id }}">
                                             </div>
                                         @else
-                                            <div class="pension-return-button" data-pension-id="{{ $pension->id }}"
-                                                data-total-amount="{{ $totalAmount }}"
-                                                data-button-status="{{ 'true' }}">
-                                            </div>
-                                            <div class="pension-forward-button" data-pension-id="{{ $pension->id }}"
-                                                data-total-amount="{{ $totalAmount }}"
-                                                data-button-status="{{ 'true' }}">
-                                            </div>
+                                            @if ($action_buttons)
+                                                <div class="pension-return-button" data-pension-id="{{ $pension->id }}"
+                                                    data-total-amount="{{ $totalAmount }}"
+                                                    data-button-status="{{ 'true' }}">
+                                                </div>
+                                                <div class="pension-forward-button" data-pension-id="{{ $pension->id }}"
+                                                    data-total-amount="{{ $totalAmount }}"
+                                                    data-button-status="{{ 'true' }}">
+                                                </div>
+                                            @endif
+
                                             <div class="pension-workflow-button" data-pension-id="{{ $pension->id }}"
                                                 data-total-amount="{{ $totalAmount }}">
                                             </div>
@@ -206,28 +225,34 @@
                                 @if ($officer_role === 'approver')
                                     <div class="d-flex justify-content-center gap-2">
                                         @if ($pension->status === 'certified')
-                                            <div class="pension-return-button" data-pension-id="{{ $pension->id }}"
-                                                data-total-amount="{{ $totalAmount }}"
-                                                data-button-status="{{ 'false' }}">
-                                            </div>
-                                            <div class="pension-approve-button" data-pension-id="{{ $pension->id }}"
-                                                data-total-amount="{{ $totalAmount }}"
-                                                data-button-status="{{ 'false' }}">
-                                            </div>
+                                            @if ($action_buttons)
+                                                <div class="pension-return-button" data-pension-id="{{ $pension->id }}"
+                                                    data-total-amount="{{ $totalAmount }}"
+                                                    data-button-status="{{ 'false' }}">
+                                                </div>
+                                                <div class="pension-approve-button" data-pension-id="{{ $pension->id }}"
+                                                    data-total-amount="{{ $totalAmount }}"
+                                                    data-button-status="{{ 'false' }}">
+                                                </div>
+                                            @endif
+
                                             <div class="pension-workflow-button" data-pension-id="{{ $pension->id }}"
                                                 data-total-amount="{{ $totalAmount }}">
                                             </div>
                                             <div class="pension-dashboard-button" data-pension-id="{{ $pension->id }}">
                                             </div>
                                         @else
-                                            <div class="pension-return-button" data-pension-id="{{ $pension->id }}"
-                                                data-total-amount="{{ $totalAmount }}"
-                                                data-button-status="{{ 'true' }}">
-                                            </div>
-                                            <div class="pension-approve-button" data-pension-id="{{ $pension->id }}"
-                                                data-total-amount="{{ $totalAmount }}"
-                                                data-button-status="{{ 'true' }}">
-                                            </div>
+                                            @if ($action_buttons)
+                                                <div class="pension-return-button" data-pension-id="{{ $pension->id }}"
+                                                    data-total-amount="{{ $totalAmount }}"
+                                                    data-button-status="{{ 'true' }}">
+                                                </div>
+                                                <div class="pension-approve-button" data-pension-id="{{ $pension->id }}"
+                                                    data-total-amount="{{ $totalAmount }}"
+                                                    data-button-status="{{ 'true' }}">
+                                                </div>
+                                            @endif
+
                                             <div class="pension-workflow-button" data-pension-id="{{ $pension->id }}"
                                                 data-total-amount="{{ $totalAmount }}">
                                             </div>

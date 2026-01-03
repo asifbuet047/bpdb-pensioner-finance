@@ -25,6 +25,7 @@ import PensionReturnButtonComponent from './components/PensionReturnButtonCompon
 import PensionApproveButtonComponent from './components/PensionApproveButtonComponent';
 import PensionWorkflowButtonComponent from './components/PensionWorkflowButtonComponent';
 import PensionDashboardButtonComponent from './components/PensionDashboardButtonComponent';
+import PrintButtonComponent from './components/PrintButtonComponent';
 
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -196,4 +197,8 @@ document.querySelectorAll('.pension-workflow-button').forEach((el) => {
 
 document.querySelectorAll('.pension-dashboard-button').forEach((el) => {
     createRoot(el).render(<PensionDashboardButtonComponent pensionId={el.dataset.pensionId} />);
+});
+
+document.querySelectorAll('.print-button').forEach((el) => {
+    createRoot(el).render(<PrintButtonComponent />);
 });

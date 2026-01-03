@@ -77,7 +77,7 @@
                         <div>
                             <h3>{{ $approvedPensionersCount }} pensioners</h3>
                             <h3 class="mb-3">Show all Approved Pensioners</h3>
-                            <a href="{{ route('show.pensioner.section', ['type' => 'approved']) }}"
+                            <a href="{{ route('show.pensioner.section', ['type' => 'approved', 'action' => 'false']) }}"
                                 class="text-white fw-bold text-decoration-none">
                                 More info <i class="bi bi-arrow-right"></i>
                             </a>

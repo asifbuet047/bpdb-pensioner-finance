@@ -228,6 +228,8 @@ class PensionController extends Controller
     {
         $erp_id = $request->cookie('user_id');
         $pension_type = $request->query('type');
+        $action_buttons = $request->boolean('action', true);
+        $print_button = $request->boolean('print', false);
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
             $officer_role = $officer->role->role_name;
@@ -236,11 +238,11 @@ class PensionController extends Controller
             $officer_designation = $officer->designation->description_english;
             if ($pension_type) {
                 $pensions = Pension::where('office_id', $officer->office->id)->where('status', $pension_type)->get();
-                return view('viewpension', compact('pensions', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                return view('viewpension', compact('print_button', 'pensions', 'officer_designation', 'action_buttons', 'officer_role', 'officer_name', 'officer_office'));
             }
 
             $pensions = Pension::where('office_id', $officer->office->id)->get();
-            return view('viewpension', compact('pensions', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            return view('viewpension', compact('print_button', 'pensions', 'officer_designation', 'action_buttons', 'officer_role', 'officer_name', 'officer_office'));
         } else {
             return view('login');
         }

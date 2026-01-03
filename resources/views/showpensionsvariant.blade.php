@@ -75,9 +75,9 @@
                     <div class="info-box rounded shadow text-white"
                         style="background: linear-gradient(135deg, #11998e, #38ef7d);">
                         <div>
-                            <h3>{{ $approvedPensionsCount }} pensioners</h3>
-                            <h3 class="mb-3">Show all Approved Pensioners</h3>
-                            <a href="{{ route('show.all.generated.pensions', ['type' => 'approved']) }}"
+                            <h3>{{ $approvedPensionsCount }} Months Approved Pensions</h3>
+                            <h3 class="mb-3">Show all Approved Pensions</h3>
+                            <a href="{{ route('show.all.generated.pensions', ['type' => 'approved', 'action' => 'false']) }}"
                                 class="text-white fw-bold text-decoration-none">
                                 More info <i class="bi bi-arrow-right"></i>
                             </a>
@@ -87,6 +87,25 @@
                         </div>
                     </div>
                 </div>
+
+                @if ($officer_role === 'initiator')
+                    <!-- Initiate Invoice -->
+                    <div class="col-12 col-md-4 scale-animate">
+                        <div class="info-box rounded shadow text-white"
+                            style="background: linear-gradient(135deg, #11998e, #38ef7d);">
+                            <div>
+                                <h3 class="mb-3">Print Invoice</h3>
+                                <a href="{{ route('show.all.generated.pensions', ['type' => 'approved', 'action' => 'false', 'print' => 'true']) }}"
+                                    class="text-white fw-bold text-decoration-none">
+                                    More info <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                            <div class="icon fs-1 mt-3">
+                                <i class="bi bi-person-fill-add"></i>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </section>
