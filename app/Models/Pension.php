@@ -49,4 +49,9 @@ class Pension extends Model
     {
         return $this->hasMany(Pensionerspension::class);
     }
+
+    public function totalPensionAmount()
+    {
+        return $this->sum_of_net_pension + $this->sum_of_medical_allowance + $this->sum_of_special_allowance + $this->sum_of_festival_bonus + $this->sum_of_bangla_new_year_bonus;
+    }
 }

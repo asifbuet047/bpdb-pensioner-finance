@@ -2,6 +2,23 @@
 
 @section('title', 'All Pensioner')
 
+@php
+    $months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+    ];
+
+@endphp
 
 @section('content')
     <section class="container-fluid py-5">
@@ -53,7 +70,7 @@
                     @forelse ($pensions as $index => $pension)
                         <tr class="{{ $index % 2 == 0 ? 'table-light' : '' }} fw-semibold hand-pointer">
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $pension->month }}</td>
+                            <td>{{ $months[$pension->month] }}</td>
                             <td>{{ $pension->year }}</td>
                             <td>{{ number_format($pension->sum_of_net_pension, 2) }}</td>
                             <td>{{ number_format($pension->sum_of_medical_allowance, 2) }}</td>
@@ -234,20 +251,12 @@
 
             <!-- Action Buttons -->
             <div class="text-center mt-4">
-                <a class="btn btn-primary btn-lg me-2 shadow-sm" href="{{ route('add.pensioner.section') }}">
-                    Add Pensioner
+                <a class="btn btn-primary btn-lg me-2 shadow-sm" href="{{ route('show.generate.pension.section') }}">
+                    Generate Pension
                 </a>
-                <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('show.pensioner.section') }}">
+                <a class="btn btn-outline-primary btn-lg shadow-sm"
+                    href="{{ route('show.all.generated.pensions', ['type' => 'approved']) }}">
                     Refresh List
-                </a>
-                <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('download.pensioners') }}">
-                    Download
-                </a>
-                <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('import.pentioners.section') }}">
-                    Import Pensioners
-                </a>
-                <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('download.template.pensioners') }}">
-                    Download Excel template
                 </a>
             </div>
         </section>

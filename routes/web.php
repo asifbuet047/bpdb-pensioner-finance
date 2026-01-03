@@ -75,6 +75,9 @@ Route::delete('/pension/{id}', [PensionController::class, 'deletePensionFromDB']
 Route::get('/pensions', [PensionController::class, 'showPensionsVariantSection'])->name('show.pensions.variant.section');
 Route::get('/pension/dashboard/{id}', [PensionController::class, 'showPensionDashboard'])->name('show.pension.dashboard');
 Route::get('/api/pension',[PensionController::class,'isPensionExits']);
+Route::get('/pension/export', [PensionController::class, 'exportPensionDashboard'])->name('download.pension');
+
+
 
 
 Route::get('/pension/workflow', [PensionworkflowController::class, 'showPensionWorkflow'])->name('show.pension.workflow');

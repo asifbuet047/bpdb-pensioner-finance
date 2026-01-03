@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PensionDashboardExport;
 use App\Models\Office;
 use App\Models\Officer;
 use App\Models\Pension;
@@ -10,6 +11,7 @@ use App\Models\Pensionerspension;
 use App\Models\Pensionworkflow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Throwable;
 
 class PensionController extends Controller
@@ -35,8 +37,23 @@ class PensionController extends Controller
 
     public function showGenratePensionPage(Request $request)
     {
+        $months = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December',
+        ];
         $erp_id = $request->cookie('user_id');
-        $month = $request->integer('month');
+        $month = $months[$request->integer('month')];
+        $erp_id = $request->cookie('user_id');
         $year  = $request->integer('year');
         $onlybonus = $request->boolean('onlybonus');
 
@@ -363,9 +380,16 @@ class PensionController extends Controller
             $officer_office_code = $officer->office->office_code;
             $pension = Pension::find($id);
             $pensionerspensions = Pensionerspension::with(['pensioner'])->where('pension_id', $id)->get();
-            return view('viewpensiondashboard', compact('pension', 'pensionerspensions', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+            return view('viewpensiondashboard', compact('pension', 'id', 'pensionerspensions', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
         } else {
             return view('login');
         }
+    }
+
+
+    public function exportPensionDashboard(Request $request)
+    {
+        $id = $request->query('id');
+        return Excel::download(new PensionDashboardExport($id), 'pension.xlsx');
     }
 }

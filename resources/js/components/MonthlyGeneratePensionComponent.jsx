@@ -20,7 +20,7 @@ export default function MonthlyGeneratePensionComponent() {
         'December',
     ];
 
-    const currentMonth = new Date().getMonth() + 1;
+    const currentMonth = months[new Date().getMonth()];
     const currentYear = new Date().getFullYear();
 
     const [month, setMonth] = useState(currentMonth);
@@ -64,7 +64,6 @@ export default function MonthlyGeneratePensionComponent() {
         temp[key] = !temp[key];
         setActions(temp);
     };
-
     const handleSubmit = async () => {
         closeModal();
 
@@ -89,8 +88,9 @@ export default function MonthlyGeneratePensionComponent() {
             setSnackbarSeverity('success');
             setSnackbarOpen(true);
 
+            const monthNo = months.indexOf(month);
             const params = new URLSearchParams({
-                month,
+                month: monthNo,
                 year,
                 onlybonus,
                 ...actions,
@@ -104,7 +104,7 @@ export default function MonthlyGeneratePensionComponent() {
         }
     };
 
-    const isValid = month && year;
+    const isValid = months.includes(month) && year >= 2000;
 
     return (
         <div className="container mt-5">
@@ -132,9 +132,9 @@ export default function MonthlyGeneratePensionComponent() {
                                                 value={month}
                                                 onChange={(e) => setMonth(e.target.value)}
                                             >
-                                                {months.map((m, k) => (
-                                                    <option key={m} value={k + 1}>
-                                                        {m}
+                                                {months.map((month, index) => (
+                                                    <option key={month} value={month}>
+                                                        {month}
                                                     </option>
                                                 ))}
                                             </select>
@@ -171,7 +171,7 @@ export default function MonthlyGeneratePensionComponent() {
                                                 isValid ? 'text-primary' : 'text-secondary'
                                             }`}
                                         >
-                                            {isValid ? `${month} ${year}` : '—'}
+                                            {isValid ? `${month}, ${year}` : '—'}
                                         </div>
                                     </div>
                                 </div>
@@ -216,7 +216,7 @@ export default function MonthlyGeneratePensionComponent() {
                             <div className="modal-header bg-primary text-white">
                                 <h5 className="modal-title d-flex align-items-center">
                                     <i className="bi bi-shield-check me-2"></i>
-                                    Approval Confirmation
+                                    Genrate Pension Confirmation
                                 </h5>
                                 <button
                                     type="button"
@@ -230,7 +230,7 @@ export default function MonthlyGeneratePensionComponent() {
                                     Please select what you want to generate for
                                     <strong>
                                         {' '}
-                                        {month} {year}
+                                        {month}, {year}
                                     </strong>
                                     .
                                 </p>
@@ -238,7 +238,7 @@ export default function MonthlyGeneratePensionComponent() {
                                 <div className="d-flex flex-column gap-3">
                                     <BeautifulCheckboxComponent
                                         id="generate"
-                                        label="EId Bonus"
+                                        label="Eid Bonus"
                                         description="Include Eid-Ul-Fiter or Eid-Ul-Azha bonus for"
                                         religion="Muslim"
                                         checked={actions.muslim_bonus}

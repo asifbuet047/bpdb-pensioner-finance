@@ -21,7 +21,7 @@ class PensionersExport implements FromCollection, WithHeadings
                 'NO' => $key + 1,
                 'NAME' => $pensioner->name,
                 'ERP_ID' => $pensioner->erp_id,
-                'BASIC_SALARY' => $pensioner->basic_salary,
+                'BASIC_SALARY' => $pensioner->last_basic_salary,
                 'MEDICAL_ALLOWANCE' => $pensioner->medical_allowance,
                 'INCENTIVE_BONUS' => $pensioner->incentive_bonus,
                 'REGISTER_NO' => $pensioner->register_no,
