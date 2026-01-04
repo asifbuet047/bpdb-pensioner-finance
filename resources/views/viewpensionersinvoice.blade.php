@@ -6,7 +6,7 @@
     <title>Pensioner List</title>
     <style>
         .custom {
-            font-family: 'Li Kobita Unicode', sans-serif;
+            font-family: Nikosh;
             font-size: 24px;
         }
 

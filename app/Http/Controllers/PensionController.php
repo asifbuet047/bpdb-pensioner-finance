@@ -467,18 +467,12 @@ class PensionController extends Controller
             $pensionerspension_info = [];
             if ($pension) {
                 $pensionerspensions = Pensionerspension::with(['pensioner'])->where('pension_id', $pension->id)->get();
-
                 $pdf = PDF::loadView('viewpensionersinvoice', compact('totalPension', 'pensionerspensions', 'officer', 'bank_details', 'paymentOfficeBank'))
                     ->setPaper('a4')->setOption('encoding', 'utf-8');
                 return $pdf->inline('invoice.pdf');
             } else {
                 return view('login');
             }
-
-            // $pdf = PDF::loadView('viewpensionersinvoice', compact('pensioners', 'bank_name'))
-            //     ->setPaper('a4')->setOption('encoding', 'utf-8');
-
-            // return $pdf->inline('invoice.pdf');
         } else {
             return view('login');
         }
