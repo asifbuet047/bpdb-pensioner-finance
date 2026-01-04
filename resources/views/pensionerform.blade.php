@@ -60,7 +60,8 @@
                                     <td width="40%">1. Name of Retired Officer / Employee</td>
                                     <td width="60%">
                                         <input type="text" name="retired_employee_name"
-                                            class="form-control border-0 border-bottom border-dark rounded-0 bg-transparent">
+                                            class="form-control border-0 border-bottom border-dark rounded-0 bg-transparent"
+                                            value="{{ $pensionerDetails->name }}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -204,19 +205,6 @@
                         </div>
 
                         <p class="fw-bold mb-5">Approved for payment through cheque.</p>
-
-                        {{-- ===== Authority Signatures ===== --}}
-                        <div class="row text-center mt-5">
-                            <div class="col-md-4">
-                                <div class="border-top pt-2 fw-semibold">AA</div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="border-top pt-2 fw-semibold">Accountant</div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="border-top pt-2 fw-semibold">AD / Senior AD</div>
-                            </div>
-                        </div>
 
                         {{-- ===== Submit Button ===== --}}
                         <div class="text-center mt-5">

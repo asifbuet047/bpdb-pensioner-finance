@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Office;
 use App\Models\Officer;
+use App\Models\Pension;
 use App\Models\Pensioner;
 use App\Models\PensionerCredential;
 use App\Models\Pensionerspension;
@@ -25,7 +26,16 @@ class ApplicationController extends Controller
 
     public function showPensionerPensionApplyForm(Request $request)
     {
-        return view('pensionerform');
+        $erp_id = $request->cookie('user_id');
+        $pensionerDetails = Pensioner::with(['office', 'workflows', 'pensionerspensions'])
+            ->where('erp_id', $erp_id)
+            ->firstOrFail();
+        $paymentOfficeDetails = Office::where(
+            'office_code',
+            $pensionerDetails->office->payment_office_code
+        )->first();
+
+        return view('pensionerform', compact('pensionerDetails', 'paymentOfficeDetails'));
     }
 
 
@@ -98,7 +108,7 @@ class ApplicationController extends Controller
             }
         } else if ($user_type === 'pensioner') {
             $erp_id = $request->cookie('user_id');
-            $user_type = 'pensioner';
+
             $pensionerDetails = Pensioner::with(['office', 'workflows', 'pensionerspensions'])
                 ->where('erp_id', $erp_id)
                 ->firstOrFail();
@@ -108,14 +118,26 @@ class ApplicationController extends Controller
                 $pensionerDetails->office->payment_office_code
             )->first();
 
-            $pensionerspension = Pensionerspension::where('pensioner_id', $pensionerDetails->id)->get();
+            $allApprovedPensionsByPensionersPaymentOffice = Pension::with(['pensionspensioner'])->where('office_id', $paymentOfficeDetails->id)->where('status', 'approved')->get();
+
+            $pensionerspensions = Pensionerspension::with(['pension'])
+                ->where('pensioner_id', $pensionerDetails->id)
+                ->whereHas('pension', function ($query) {
+                    $query->where('status', 'approved');
+                })->orderBy('created_at', 'asc')
+                ->get();
+
+            $total_recevied = $pensionerspensions->sum('total_pension_amount') ?? 0.0;
+            $last_payment_date = $pensionerspensions->last()?->created_at;
 
             return view('dashboardpensioner', compact(
                 'erp_id',
                 'user_type',
                 'pensionerDetails',
                 'paymentOfficeDetails',
-                'pensionerspension'
+                'pensionerspensions',
+                'total_recevied',
+                'last_payment_date'
             ));
         } else {
             return view('login');

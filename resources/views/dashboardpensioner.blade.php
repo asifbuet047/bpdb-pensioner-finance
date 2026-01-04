@@ -23,8 +23,9 @@
                         <p class="text-secondary small">{{ $pensionerDetails->office->officeName }}</p>
 
                         <div class="d-flex justify-content-center mt-3 gap-2">
-                            <a href="#" class="btn btn-primary btn-sm px-4">Edit Profile</a>
-                            <form method="POST" action="#">
+                            <a href="{{ route('pensioner.pension.apply.form') }}" class="btn btn-primary btn-sm px-4">Apply
+                                for Pension</a>
+                            <form method="POST" action="">
                                 @csrf
                                 <button type="button" class="btn btn-outline-secondary btn-sm px-4"><a
                                         class="dropdown-item" href="{{ route('logout') }}">Logout</a></button>
@@ -37,9 +38,9 @@
                             <p class="mb-2"><strong>Bank:</strong> {{ $pensionerDetails->bank_name }}</p>
                             <p class="mb-2"><strong>Account No:</strong> {{ $pensionerDetails->account_number }}</p>
                             <p class="mb-2"><strong>Monthly Pension:</strong> ৳
-                                {{ number_format($pensionerDetails->basic_salary, 2) }}</p>
+                                {{ number_format($pensionerDetails->net_pension, 2) }}</p>
                             <p class="mb-0"><strong>Status:</strong>
-                                <span class="badge bg-success">Active</span>
+                                <span class="badge bg-success">{{ $pensionerDetails->status }}</span>
                             </p>
                         </div>
                     </div>
@@ -53,7 +54,7 @@
                     <div class="col-md-4">
                         <div class="card text-center border-0 shadow-sm rounded-4 h-100">
                             <div class="card-body">
-                                <div class="fs-4 fw-semibold mb-1">৳ {{ number_format(103500, 2) }}</div>
+                                <div class="fs-4 fw-semibold mb-1">৳ {{ number_format($total_recevied, 2) }}</div>
                                 <div class="text-muted small">Total Received</div>
                             </div>
                         </div>
@@ -61,7 +62,8 @@
                     <div class="col-md-4">
                         <div class="card text-center border-0 shadow-sm rounded-4 h-100">
                             <div class="card-body">
-                                <div class="fs-5 fw-semibold mb-1">Sep 01, 2025</div>
+                                <div class="fs-5 fw-semibold mb-1">
+                                    {{ \Carbon\Carbon::parse($last_payment_date)->format('M d, Y') }}</div>
                                 <div class="text-muted small">Last Payment</div>
                             </div>
                         </div>
@@ -109,19 +111,21 @@
                         <a href="#" class="text-primary small text-decoration-none">View All</a>
                     </div>
                     <div class="card-body">
-                        {{-- @foreach ($recentPayments as $payment)
+                        @foreach ($pensionerspensions as $pensionerspension)
                             <div
                                 class="list-group-item d-flex justify-content-between align-items-center py-3 border-bottom">
                                 <div>
-                                    <div class="fw-semibold text-dark">৳ {{ number_format($payment->amount, 2) }}</div>
+                                    <div class="fw-semibold text-dark">৳
+                                        {{ number_format($pensionerspension->total_pension_amount, 2) }}</div>
                                     <div class="text-muted small">
-                                        {{ \Carbon\Carbon::parse($payment->date)->format('d M Y') }} ·
-                                        {{ $payment->description }}
+                                        {{ \Carbon\Carbon::parse($pensionerspension->created_at)->format('d M Y') }} ·
+                                        {{ $pensionerspension->net_pension }}
                                     </div>
                                 </div>
-                                <span class="badge bg-light text-dark border">{{ ucfirst($payment->status) }}</span>
+                                <span
+                                    class="badge bg-light text-dark border">{{ ucfirst($pensionerspension->pension->status) }}</span>
                             </div>
-                        @endforeach --}}
+                        @endforeach
                     </div>
                 </div>
             </div>
