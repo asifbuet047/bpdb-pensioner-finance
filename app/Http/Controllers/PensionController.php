@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
+use NumberFormatter;
 use Throwable;
 
 class PensionController extends Controller
@@ -465,9 +466,12 @@ class PensionController extends Controller
             $pension = Pension::find($pensionid);
             $totalPension = $pension->totalPensionAmount();
             $pensionerspension_info = [];
-            if ($pension) {
+            if ($pension->status === 'approved') {
                 $pensionerspensions = Pensionerspension::with(['pensioner'])->where('pension_id', $pension->id)->get();
-                $pdf = PDF::loadView('viewpensionersinvoice', compact('totalPension', 'pensionerspensions', 'officer', 'bank_details', 'paymentOfficeBank'))
+                $formatter = new NumberFormatter("en", NumberFormatter::SPELLOUT);
+                $amountInWords = ucfirst($formatter->format($totalPension)) . ' taka only';
+
+                $pdf = PDF::loadView('viewpensionersinvoice', compact('totalPension', 'amountInWords', 'pensionerspensions', 'officer', 'bank_details', 'paymentOfficeBank'))
                     ->setPaper('a4')->setOption('encoding', 'utf-8');
                 return $pdf->inline('invoice.pdf');
             } else {
