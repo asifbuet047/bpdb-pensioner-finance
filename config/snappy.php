@@ -33,13 +33,26 @@ return [
     |
     */
 
+    // 'pdf' => [
+    //     'enabled' => true,
+    //     'binary'  => '"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe"',
+    //     'timeout' => false,
+    //     'options' => [],
+    //     'env'     => [],
+    // ],
+
     'pdf' => [
         'enabled' => true,
-        'binary'  => '"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe"',
+        'binary'  => 'C:\PROGRA~1\WKHTML~1\bin\wkhtmltopdf.exe',
         'timeout' => false,
-        'options' => [],
-        'env'     => [],
+        'options' => [
+            'encoding' => 'UTF-8',
+            'enable-local-file-access' => true,
+            'disable-smart-shrinking' => true,
+        ],
+        'env' => [],
     ],
+
 
     'image' => [
         'enabled' => true,

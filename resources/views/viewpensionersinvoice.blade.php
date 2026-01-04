@@ -31,8 +31,8 @@
 
 <body>
     <div>
-        <h1>Bangladesh Power Development Board</h1>
-        <h2 class="custom">বাংলাদেশ বিদ্যুৎ উন্নয়ন বোর্ড</h2>
+        <h1 class="text-center">Bangladesh Power Development Board</h1>
+        <h2 class="custom text-center">বাংলাদেশ বিদ্যুৎ উন্নয়ন বোর্ড</h2>
         <h3>{{ $officer->office->name_in_english }}</h3>
         <h3>{{ $officer->office->address }}</h3>
         <h4>Manager</h4>
