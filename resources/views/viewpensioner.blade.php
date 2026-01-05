@@ -2,6 +2,14 @@
 
 @section('title', 'All Pensioner')
 
+@php
+    $eachPageContent = 5;
+    $total = $pensionersCount;
+    $pageCount = ceil($total / $eachPageContent);
+    $lastpageContent = $total % $eachPageContent ?: $eachPageContent;
+@endphp
+
+
 @section('content')
     <section class="container-fluid py-5">
         <h2 class="mb-4 text-center fw-bold text-primary">All Pensioners</h2>
@@ -227,6 +235,9 @@
                         @endforelse
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-center p-2 w-2">
+                    <div class="pagination-view-pensioner" data-page-count={{ $pageCount }}></div>
+                </div>
             </div>
 
             <!-- Action Buttons -->

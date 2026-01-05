@@ -268,6 +268,7 @@ class PensionerController extends Controller
         $erp_id = $request->cookie('user_id');
         $pensioner_type = $request->query('type');
         $action_buttons = $request->boolean('action', true);
+        $page = $request->integer('page', 1);
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
             $officer_role = $officer->role->role_name;
@@ -300,8 +301,10 @@ class PensionerController extends Controller
                 case 'initiator':
                     $officer_office_code = $officer->office->office_code;
                     $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
-                    $pensioners = Pensioner::whereIn('office_id', $office_ids)->whereIn('status', ['floated', 'initiated', 'certified', 'approved'])->orderBy('id')->get();
-                    return view('viewpensioner', compact('action_buttons', 'pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
+                    $pensionersQuery = Pensioner::whereIn('office_id', $office_ids)->whereIn('status', ['floated', 'initiated', 'certified', 'approved']);
+                    $pensionersCount = $pensionersQuery->count();
+                    $pensioners = $pensionersQuery->latest('id')->limit(5)->get();
+                    return view('viewpensioner', compact('pensionersCount', 'action_buttons', 'pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
                     break;
                 default:
                     return view('login');
