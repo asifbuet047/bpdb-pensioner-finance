@@ -281,35 +281,12 @@ class PensionerController extends Controller
                 $pensioners = Pensioner::whereIn('office_id', $office_ids)->where('status', $pensioner_type)->orderBy('id')->get();
                 return view('viewpensioner', compact('action_buttons', 'pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
             }
-            switch ($officer_role) {
-                case 'super_admin':
-                    $officer_office_code = $officer->office->office_code;
-                    $pensioners = Pensioner::orderBy('erp_id')->get();
-                    return view('viewpensioner', compact('action_buttons', 'pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
-                case 'approver':
-                    $officer_office_code = $officer->office->office_code;
-                    $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
-                    $pensioners = Pensioner::whereIn('office_id', $office_ids)->whereIn('status', ['floated', 'initiated', 'certified'])->orderBy('id')->get();
-                    return view('viewpensioner', compact('action_buttons', 'pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
-                    break;
-                case 'certifier':
-                    $officer_office_code = $officer->office->office_code;
-                    $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
-                    $pensioners = Pensioner::whereIn('office_id', $office_ids)->whereIn('status', ['floated', 'initiated', 'certified'])->orderBy('id')->get();
-                    return view('viewpensioner', compact('action_buttons', 'pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
-                    break;
-                case 'initiator':
-                    $officer_office_code = $officer->office->office_code;
-                    $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
-                    $pensionersQuery = Pensioner::whereIn('office_id', $office_ids)->whereIn('status', ['floated', 'initiated', 'certified', 'approved']);
-                    $pensionersCount = $pensionersQuery->count();
-                    $pensioners = $pensionersQuery->latest('id')->limit(5)->get();
-                    return view('viewpensioner', compact('pensionersCount', 'action_buttons', 'pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
-                    break;
-                default:
-                    return view('login');
-                    break;
-            }
+            $officer_office_code = $officer->office->office_code;
+            $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
+            $pensionersQuery = Pensioner::whereIn('office_id', $office_ids)->whereIn('status', ['floated', 'initiated', 'certified', 'approved']);
+            $pensionersCount = $pensionersQuery->count();
+            $pensioners = $pensionersQuery->latest('id')->limit(5)->get();
+            return view('viewpensioner', compact('pensionersCount', 'action_buttons', 'pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
         } else {
             return view('login');
         }
