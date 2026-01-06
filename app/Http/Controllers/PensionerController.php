@@ -278,7 +278,7 @@ class PensionerController extends Controller
             if ($pensioner_type) {
                 $officer_office_code = $officer->office->office_code;
                 $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
-                $pensionersQuery = Pensioner::whereIn('office_id', $office_ids)->whereIn('status', $pensioner_type);
+                $pensionersQuery = Pensioner::whereIn('office_id', $office_ids)->where('status', $pensioner_type);
                 $pensionersCount = $pensionersQuery->count();
                 $pensioners = $pensionersQuery->latest('id')->limit(5)->get();
                 return view('viewpensioner', compact('pensionersCount', 'action_buttons', 'pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
