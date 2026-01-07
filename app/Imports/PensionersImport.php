@@ -17,6 +17,7 @@ class PensionersImport implements ToModel, WithHeadingRow
     {
         return new Pensioner([
             // Basic Identity
+            'erp_id' => $row['erp_id'] ?? 0,
             'name' => $row['name'] ?? null,
             'name_bangla' => $row['name_bangla'] ?? null,
             'register_no' => $row['register_no'] ?? null,
