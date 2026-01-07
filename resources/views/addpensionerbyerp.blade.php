@@ -50,7 +50,8 @@
                                                     $key === 'religion' ||
                                                     $key === 'biometric_verification_type')
                                                 <select name="{{ $key }}" id="{{ $key }}"
-                                                    class="form-select shadow-sm" {{ isset($success) ? 'disabled' : '' }}>
+                                                    class="form-select shadow-sm" {{ isset($success) ? 'disabled' : '' }}
+                                                    {{ $key === 'is_self_pension' ? '' : 'disabled' }}>
                                                     @switch($key)
                                                         @case('is_self_pension')
                                                             <option value="1" selected>Self</option>

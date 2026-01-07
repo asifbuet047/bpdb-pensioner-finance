@@ -1,27 +1,35 @@
 @extends('layouts.layout')
 
-@section('title', 'View ALl Offices')
+@section('title', 'View All Offices')
 
 @section('content')
     <section class="container-fluid py-5">
-        <h2 class="mb-4 text-center fw-bold text-primary">All Offices</h2>
-        <div class="table-responsive shadow rounded p-2">
-            <table class="table table-hover align-middle custom-border">
-                <thead class="bg-gradient-primary text-white">
+
+        <h1 class="mb-3 text-center fw-bold text-primary">All Offices</h1>
+        <h5 class="mb-4 text-center text-secondary">
+            Total number of Offices: {{ $offices->total() }}
+        </h5>
+
+        <div class="table-responsive shadow rounded p-3 bg-white">
+            <table class="table table-hover align-middle text-center custom-border">
+                <thead class="table-primary">
                     <tr>
-                        <th scope="col" class="fw-bolder fs-4">No</th>
-                        <th scope="col" class="fw-bolder fs-4">Office name</th>
-                        <th scope="col" class="fw-bolder fs-4">Office name in Bangla</th>
-                        <th scope="col" class="fw-bolder fs-4">Office code in ERP</th>
-                        <th scope="col" class="fw-bolder fs-4">Office Address</th>
-                        <th scope="col" class="fw-bolder fs-4">Office contact no</th>
-                        <th scope="col" class="fw-bolder fs-4">Office email</th>
+                        <th scope="col" class="fw-bolder">No</th>
+                        <th scope="col" class="fw-bolder">Office Name</th>
+                        <th scope="col" class="fw-bolder">Office Name (Bangla)</th>
+                        <th scope="col" class="fw-bolder">Office Code (ERP)</th>
+                        <th scope="col" class="fw-bolder">Office Address</th>
+                        <th scope="col" class="fw-bolder">Contact No</th>
+                        <th scope="col" class="fw-bolder">Email</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     @forelse ($offices as $index => $office)
                         <tr class="{{ $index % 2 == 0 ? 'table-light' : '' }}">
-                            <td class="fw-semibold">{{ $index + 1 }}</td>
+                            <td class="fw-semibold">
+                                {{ $offices->firstItem() + $index }}
+                            </td>
                             <td class="fw-semibold">{{ $office->name_in_english }}</td>
                             <td class="fw-semibold">{{ $office->name_in_bangla }}</td>
                             <td class="fw-semibold">{{ $office->office_code }}</td>
@@ -31,13 +39,18 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="text-center text-muted fst-italic">
+                            <td colspan="7" class="text-center text-muted fst-italic py-4">
                                 No Office found.
                             </td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
+
+            <!-- Pagination -->
+            <div class="d-flex justify-content-center mt-3">
+                {{ $offices->links() }}
+            </div>
         </div>
 
         <!-- Action Buttons -->
@@ -49,5 +62,6 @@
                 Refresh List
             </a>
         </div>
+
     </section>
 @endsection

@@ -268,7 +268,6 @@ class PensionerController extends Controller
         $erp_id = $request->cookie('user_id');
         $pensioner_type = $request->query('type');
         $action_buttons = $request->boolean('action', true);
-        $page = $request->integer('page', 1);
         $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
         if ($officer) {
             $officer_role = $officer->role->role_name;
@@ -278,16 +277,14 @@ class PensionerController extends Controller
             if ($pensioner_type) {
                 $officer_office_code = $officer->office->office_code;
                 $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
-                $pensionersQuery = Pensioner::whereIn('office_id', $office_ids)->where('status', $pensioner_type);
-                $pensionersCount = $pensionersQuery->count();
-                $pensioners = $pensionersQuery->latest('id')->limit(5)->get();
+                $pensioners = Pensioner::whereIn('office_id', $office_ids)->where('status', $pensioner_type)->paginate(5);
+                $pensionersCount = $pensioners->count();
                 return view('viewpensioner', compact('pensionersCount', 'action_buttons', 'pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
             }
             $officer_office_code = $officer->office->office_code;
             $office_ids = Office::where('payment_office_code', $officer_office_code)->pluck('id');
-            $pensionersQuery = Pensioner::whereIn('office_id', $office_ids)->whereIn('status', ['floated', 'initiated', 'certified', 'approved']);
-            $pensionersCount = $pensionersQuery->count();
-            $pensioners = $pensionersQuery->latest('id')->limit(5)->get();
+            $pensioners = Pensioner::whereIn('office_id', $office_ids)->whereIn('status', ['floated', 'initiated', 'certified', 'approved'])->paginate(5);
+            $pensionersCount = $pensioners->count();
             return view('viewpensioner', compact('pensionersCount', 'action_buttons', 'pensioners', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
         } else {
             return view('login');
@@ -674,5 +671,171 @@ class PensionerController extends Controller
         } else {
             return view('login');
         }
+    }
+
+    public function showAddPensionerByFillingFormSection(Request $request)
+    {
+        $offices = Office::all();
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            $latest_erp = (int)Officer::latest()->first()->value('erp_id');
+            if (($officer_role === 'initiator') || ($officer_role === 'super_admin')) {
+                $offices = Office::get();
+                $pensioner_info = [
+                    // ERP / Identity
+                    'erp_id' => $latest_erp + 1,
+                    'name' => '',
+                    'name_bangla' => '',
+                    'register_no' => '',
+
+                    // Office & Designation
+                    'designation' => '',
+                    'office_id' => '',
+                    'office' => '',
+
+                    // Dates
+                    'birth_date' =>  '',
+                    'joining_date' =>  '',
+                    'prl_start_date' =>  '',
+                    'prl_end_date' =>  '',
+                    'service_life' => '',
+
+                    // Contact
+                    'phone_number' => '',
+                    'email' => '',
+                    'nid' =>  '',
+
+                    // Financial 
+                    'last_basic_salary' => '',
+                    // Bank info (NOT in response)
+                    'bank_name' => '',
+                    'bank_branch_name' => '',
+                    'bank_routing_number' => '',
+                    'account_number' =>  '',
+
+                    // Family info (partially available)
+                    'father_name' => '',
+                    'mother_name' => '',
+                    'spouse_name' => '',
+                    'religion' => '',
+
+                    // Pension flags
+                    'is_self_pension' => '',
+                    'status' => '',
+                    'verified' => '',
+                    'biometric_verified' => '',
+                    'biometric_verification_type' => '',
+
+                    'pension_payment_order' => '',
+                ];
+                return view('addpensionerbyform', compact('offices', 'pensioner_info', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            } else {
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            }
+        } else {
+            return view('login');
+        }
+    }
+
+    public function showAddPensionerVariantSection(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
+                return view('addpensioner', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            } else {
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            }
+        } else {
+            return view('login');
+        }
+    }
+
+    public function showPensionerSearchSection(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
+                return view('searchpensioner', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            } else {
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            }
+        } else {
+            return view('login');
+        }
+    }
+
+    public function showAddPensionerByErpSection(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            if (($officer_role === 'initiator' || ($officer_role === 'super_admin'))) {
+                return view('addpensionerbyerp', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            } else {
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            }
+        } else {
+            return view('login');
+        }
+    }
+
+    public function showUpdatePensionerSection(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        if ($officer) {
+            $officer_role = $officer->role->role_name;
+            $officer_name = $officer->name;
+            $officer_office = $officer->office->name_in_english;
+            $officer_designation = $officer->designation->description_english;
+            if ($officer_role === 'initiator') {
+                $id = (int)$request->route('id');
+                $pensioner = Pensioner::with('office')->find($id);
+                $offices = Office::orderBy('officeCode')->get();
+                if ($pensioner) {
+                    return view('updatepensioner', compact('pensioner', 'offices', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+                } else {
+                    return response()->json(['id' => $id]);
+                }
+            } else {
+                return view('accessdeniedpage', compact('officer_designation', 'officer_role', 'officer_name', 'officer_office'));
+            }
+        } else {
+            return view('login');
+        }
+    }
+
+    public function showPensionerPensionApplyForm(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $pensionerDetails = Pensioner::with(['office', 'workflows', 'pensionerspensions'])
+            ->where('erp_id', $erp_id)
+            ->firstOrFail();
+        $paymentOfficeDetails = Office::where(
+            'office_code',
+            $pensionerDetails->office->payment_office_code
+        )->first();
+
+        return view('pensionerform', compact('pensionerDetails', 'paymentOfficeDetails'));
     }
 }

@@ -3,7 +3,6 @@
 @section('title', 'Add Pensioner by filling form')
 
 @section('content')
-
     <section>
         <div class="container py-5">
             <div class="row justify-content-center align-items-center">
@@ -35,39 +34,41 @@
                                                 $key === 'bank_name' ||
                                                 $key === 'bank_branch_name' ||
                                                 $key === 'service_life' ||
+                                                $key === 'birth_date' ||
+                                                $key === 'joining_date' ||
+                                                $key === 'prl_start_date' ||
+                                                $key === 'prl_end_date' ||
                                                 $key === 'bank_branch_address')
-                                            <input type="text" id="{{ $key }}"
-                                                class="form-control form-control-lg"
-                                                placeholder="Enter {{ ucwords(str_replace('_', ' ', $key)) }}"
-                                                value="{{ $value }}" {{ isset($success) ? 'disabled' : '' }}>
+                                            @if (
+                                                $key === 'office' ||
+                                                    $key === 'birth_date' ||
+                                                    $key === 'joining_date' ||
+                                                    $key === 'prl_start_date' ||
+                                                    $key === 'prl_end_date')
+                                                @if ($key === 'office')
+                                                    <div class="select-office"></div>
+                                                @else
+                                                    <div class="date-picker" data-name={{ $key }}></div>
+                                                @endif
+                                            @else
+                                                <input type="text" id="{{ $key }}"
+                                                    class="form-control form-control-lg"
+                                                    placeholder="Enter {{ ucwords(str_replace('_', ' ', $key)) }}"
+                                                    value="{{ $value }}" {{ isset($success) ? 'disabled' : '' }}>
+                                            @endif
                                         @else
                                             @if (
-                                                $key === 'is_self_pension' ||
-                                                    $key === 'status' ||
+                                                $key === 'status' ||
+                                                    $key === 'is_self_pension' ||
                                                     $key === 'verified' ||
                                                     $key === 'biometric_verified' ||
-                                                    $key === 'religion' ||
                                                     $key === 'biometric_verification_type')
                                                 <select name="{{ $key }}" id="{{ $key }}"
-                                                    class="form-select shadow-sm" {{ isset($success) ? 'disabled' : '' }}>
+                                                    class="form-select shadow-sm" disabled>
                                                     @switch($key)
                                                         @case('is_self_pension')
                                                             <option value="1" selected>Self</option>
                                                             <option value="0">Family</option>
-                                                        @break
-
-                                                        @case('religion')
-                                                            <option value="Islam" {{ $value == 'Islam' ? 'selected' : '' }}>Islam
-                                                            </option>
-                                                            <option value="Hinduism" {{ $value == 'Hinduism' ? 'selected' : '' }}>
-                                                                Hinduism</option>
-                                                            <option value="Christianity"
-                                                                {{ $value == 'Christians' ? 'selected' : '' }}>Christianity
-                                                            </option>
-                                                            <option value="Buddhists" {{ $value == 'Buddhism' ? 'selected' : '' }}>
-                                                                Buddhism</option>
-                                                            <option value="Other" {{ $value == 'Others' ? 'selected' : '' }}>
-                                                                Others</option>
                                                         @break
 
                                                         @case('status')
@@ -96,11 +97,33 @@
                                                     @endswitch
                                                 </select>
                                             @else
-                                                <input type="text" id="{{ $key }}" name="{{ $key }}"
-                                                    {{ $key === 'office_id' ? 'hidden' : '' }}
-                                                    class="form-control form-control-lg"
-                                                    placeholder="Enter {{ ucwords(str_replace('_', ' ', $key)) }}"
-                                                    value="{{ $value }}" {{ isset($success) ? 'disabled' : '' }}>
+                                                @if ($key === 'religion')
+                                                    <select name="{{ $key }}" id="{{ $key }}"
+                                                        class="form-select shadow-sm">
+                                                        <option value="Islam" {{ $value == 'Islam' ? 'selected' : '' }}>
+                                                            Islam
+                                                        </option>
+                                                        <option value="Hinduism"
+                                                            {{ $value == 'Hinduism' ? 'selected' : '' }}>
+                                                            Hinduism</option>
+                                                        <option value="Christianity"
+                                                            {{ $value == 'Christians' ? 'selected' : '' }}>Christianity
+                                                        </option>
+                                                        <option value="Buddhists"
+                                                            {{ $value == 'Buddhism' ? 'selected' : '' }}>
+                                                            Buddhism</option>
+                                                        <option value="Other" {{ $value == 'Others' ? 'selected' : '' }}>
+                                                            Others</option>
+                                                    </select>
+                                                @else
+                                                    <input type="text" id="{{ $key }}"
+                                                        name="{{ $key }}"
+                                                        {{ $key === 'office_id' ? 'hidden' : '' }}
+                                                        class="form-control form-control-lg"
+                                                        placeholder="Enter {{ ucwords(str_replace('_', ' ', $key)) }}"
+                                                        value="{{ $value }}"
+                                                        {{ isset($success) ? 'disabled' : '' }}>
+                                                @endif
                                             @endif
                                         @endif
                                     </div>

@@ -241,11 +241,11 @@ class PensionController extends Controller
             $officer_office = $officer->office->name_in_english;
             $officer_designation = $officer->designation->description_english;
             if ($pension_type) {
-                $pensions = Pension::where('office_id', $officer->office->id)->where('status', $pension_type)->get();
+                $pensions = Pension::where('office_id', $officer->office->id)->where('status', $pension_type)->paginate(5);
                 return view('viewpension', compact('print_button', 'pensions', 'officer_designation', 'action_buttons', 'officer_role', 'officer_name', 'officer_office'));
             }
 
-            $pensions = Pension::where('office_id', $officer->office->id)->get();
+            $pensions = Pension::where('office_id', $officer->office->id)->paginate(5);
             return view('viewpension', compact('print_button', 'pensions', 'officer_designation', 'action_buttons', 'officer_role', 'officer_name', 'officer_office'));
         } else {
             return view('login');

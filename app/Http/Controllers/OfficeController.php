@@ -43,7 +43,7 @@ class OfficeController extends Controller
                     return view('viewoffices', compact('offices', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
                     break;
                 default:
-                    $offices = Office::where('payment_office_code', $officer->office->office_code)->get();
+                    $offices = Office::where('payment_office_code', $officer->office->office_code)->paginate(10);
                     return view('viewoffices', compact('offices', 'officer_designation', 'officer_role', 'officer_name', 'officer_office'));
                     break;
             }
@@ -105,5 +105,36 @@ class OfficeController extends Controller
         return Office::where('name_in_english', 'LIKE', "%{$q}%")
             ->limit(10)
             ->get(['id', 'name_in_english']);
+    }
+
+
+    public function getAllOffices(Request $request)
+    {
+        $erp_id = $request->cookie('user_id');
+        $id = $request->query('id');
+        $officer = Officer::with(['role', 'designation', 'office'])->where('erp_id', '=', $erp_id)->first();
+        $offices = Office::all();
+
+        if (!$erp_id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Please login as valid officer',
+                'data' => []
+            ], 401);
+        }
+
+        if (!$officer) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No valid officer',
+                'data' => []
+            ], 402);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Offices is successfully retrived',
+            'data' => $offices
+        ], 200);
     }
 }

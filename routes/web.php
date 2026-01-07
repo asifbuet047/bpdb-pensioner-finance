@@ -6,11 +6,8 @@ use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\PensionController;
 use App\Http\Controllers\PensionerController;
 use App\Http\Controllers\PensionerCredentialController;
-use App\Http\Controllers\PensionerspensionblockmessageController;
-use App\Http\Controllers\PensionerspensionController;
 use App\Http\Controllers\PensionerworkflowController;
 use App\Http\Controllers\PensionworkflowController;
-use App\Models\Pensionerspensionblockmessage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,17 +21,11 @@ Route::get('/login', [ApplicationController::class, 'showLoginpage'])->name('log
 Route::post('/login', [ApplicationController::class, 'login'])->name('login.process');
 Route::get('/logout', [ApplicationController::class, 'logout'])->name('logout');
 Route::get('/set', [ApplicationController::class, 'showSetPasswordForPensionerPage'])->name('set.password.page');
-Route::get('/pensioner/new', [ApplicationController::class, 'showAddPensionerVariantSection'])->name('add.pensioner.section');
-Route::get('/pensioner/add/erp', [ApplicationController::class, 'showAddPensionerByErpSection'])->name('add.pensioner.erp.section');
-Route::get('/pensioner/add/form', [ApplicationController::class, 'showAddPensionerByFillingFormSection'])->name('add.pensioner.form.section');
-Route::get('/pensioner/search', [ApplicationController::class, 'showPensionerSearchSection'])->name('search.pensioner.section');
-Route::get('/pensioner/update/{id}', [ApplicationController::class, 'showUpdatePensionerSection'])->name('update.pensioner.section');
 Route::get('/officer/new', [ApplicationController::class, 'showAddOfficerSection'])->name('add.officer.section');
 Route::get('/officer/search', [ApplicationController::class, 'showOfficerSearchSection'])->name('search.officer.section');
 Route::get('/officer/update/{id}', [ApplicationController::class, 'showUpdateOfficerSection'])->name('update.officer.section');
 Route::get('/office/new', [ApplicationController::class, 'showAddofficeSection'])->name('add.office.section');
 Route::get('/send-mail', [ApplicationController::class, 'sendTestMail']);
-Route::get('/pensioner/apply', [ApplicationController::class, 'showPensionerPensionApplyForm'])->name('pensioner.pension.apply.form');
 
 
 
@@ -57,6 +48,12 @@ Route::get('/pensioners/import', [PensionerController::class, 'showImportPension
 Route::post('/pensioners/import', [PensionerController::class, 'importPensioner'])->name('import.pensioners');
 Route::get('/pensioners/bank', [PensionerController::class, 'showInvoiceBank'])->name('show.invoice.bank');
 Route::get('/pensioners/invoice', [PensionerController::class, 'showSelectedBankPensionersForInvoiceGeneration'])->name('show.invoice');
+Route::get('/pensioner/add/form', [PensionerController::class, 'showAddPensionerByFillingFormSection'])->name('add.pensioner.form.section');
+Route::get('/pensioner/new', [PensionerController::class, 'showAddPensionerVariantSection'])->name('add.pensioner.section');
+Route::get('/pensioner/search', [PensionerController::class, 'showPensionerSearchSection'])->name('search.pensioner.section');
+Route::get('/pensioner/add/erp', [PensionerController::class, 'showAddPensionerByErpSection'])->name('add.pensioner.erp.section');
+Route::get('/pensioner/update/{id}', [PensionerController::class, 'showUpdatePensionerSection'])->name('update.pensioner.section');
+Route::get('/pensioner/apply', [PensionerController::class, 'showPensionerPensionApplyForm'])->name('pensioner.pension.apply.form');
 
 
 
@@ -103,3 +100,4 @@ Route::get('/paymentoffices', [OfficeController::class, 'getAllPaymentOfficesFro
 Route::get('/unitoffices', [OfficeController::class, 'getAllUnitOfficesFromDB'])->name('show.unit.offices');
 Route::get('/search-offices', [OfficeController::class, 'search']);
 Route::post('/office', [OfficeController::class, 'addOfficeIntoDB'])->name('add.office.process');
+Route::get('/api/offices', [OfficeController::class, 'getAllOffices']);

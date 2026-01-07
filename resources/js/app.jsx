@@ -27,6 +27,8 @@ import PensionWorkflowButtonComponent from './components/PensionWorkflowButtonCo
 import PensionDashboardButtonComponent from './components/PensionDashboardButtonComponent';
 import PrintButtonComponent from './components/PrintButtonComponent';
 import PaginationComponent from './components/PaginationComponent';
+import OfficeSelectionAutocompleteComponent from './components/OfficeSelectionAutocompleteComponent';
+import DatePickerComponent from './components/DatePickerComponent';
 
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -206,4 +208,13 @@ document.querySelectorAll('.print-button').forEach((el) => {
 
 document.querySelectorAll('.pagination-view-pensioner').forEach((el) => {
     createRoot(el).render(<PaginationComponent page={el.dataset.pageCount} />);
+});
+
+document.querySelectorAll('.select-office').forEach((el) => {
+    createRoot(el).render(<OfficeSelectionAutocompleteComponent />);
+});
+
+
+document.querySelectorAll('.date-picker').forEach((el) => {
+    createRoot(el).render(<DatePickerComponent name={el.dataset.name} />);
 });

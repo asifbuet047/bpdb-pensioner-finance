@@ -197,12 +197,12 @@ class OfficerController extends Controller
             $officer_designation = $officer->designation->description_english;
             switch ($officer_role) {
                 case 'super_admin':
-                    $officers = Officer::with(['office', 'designation', 'role'])->orderBy('name')->get();
+                    $officers = Officer::with(['office', 'designation', 'role'])->paginate(5);
                     return view('viewofficers', compact('officers', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
                     break;
                 default:
                     $officer_office_id = $officer->office->id;
-                    $officers = Officer::with(['office', 'designation', 'role'])->where('office_id', $officer_office_id)->get();
+                    $officers = Officer::with(['office', 'designation', 'role'])->where('office_id', $officer_office_id)->paginate(5);
                     return view('viewofficers', compact('officers', 'officer_name', 'officer_office', 'officer_designation', 'officer_role'));
                     break;
             }

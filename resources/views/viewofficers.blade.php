@@ -4,70 +4,82 @@
 
 @section('content')
     <section class="container-fluid py-5">
-        <h2 class="mb-4 text-center fw-bold text-primary">All Officers</h2>
-
-        <div class="table-responsive shadow rounded p-2">
-            <table class="table table-hover align-middle custom-border">
-                <thead class="bg-gradient-primary text-white">
+        <h2 class="mb-3 text-center fw-bold text-primary">All Officers</h2>
+        <h5 class="mb-4 text-center text-secondary">
+            Total number of Officers: {{ $officers->total() }}
+        </h5>
+        <div class="table-responsive shadow rounded p-3 bg-white">
+            <table class="table table-hover align-middle text-center custom-border">
+                <thead class="table-primary fw-bolder">
                     <tr>
-                        <th scope="col" class="fw-bolder fs-4">No</th>
-                        <th scope="col" class="fw-bolder fs-4">ERP ID</th>
-                        <th scope="col" class="fw-bolder fs-4">Name</th>
-                        <th scope="col" class="fw-bolder fs-4">Designation</th>
-                        <th scope="col" class="fw-bolder fs-4">Role</th>
-                        <th scope="col" class="fw-bolder fs-4">Office</th>
-                        <th scope="col"></th>
+                        <th>No</th>
+                        <th>ERP ID</th>
+                        <th>Name</th>
+                        <th>Designation</th>
+                        <th>Role</th>
+                        <th>Office</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     @forelse ($officers as $index => $officer)
-                        <tr class="{{ $index % 2 == 0 ? 'table-light' : '' }}">
-                            <td class="fw-semibold">{{ $index + 1 }}</td>
-                            <td class="fw-semibold">{{ $officer->erp_id }}</td>
-                            <td class="fw-semibold">{{ $officer->name }}</td>
-                            <td class="fw-semibold">{{ $officer->designation->description_english }}</td>
-                            @switch($officer->role->role_name)
-                                @case('initiator')
-                                    <td class="fw-semibold">{{ 'INITIATOR' }}</td>
-                                @break
-
-                                @case('certifier')
-                                    <td class="fw-semibold">{{ 'CERTIFIER' }}</td>
-                                @break
-
-                                @case('approver')
-                                    <td class="fw-semibold">{{ 'APPROVER' }}</td>
-                                @break
-
-                                @case('admin')
-                                    <td class="fw-semibold">{{ 'ADMIN' }}</td>
-                                @break
-
-                                @case('super_admin')
-                                    <td class="fw-semibold">{{ 'SUPER ADMIN' }}</td>
-                                @break
-
-                                @default
-                            @endswitch
-                            <td class="fw-semibold">{{ $officer->office->name_in_english }}</td>
+                        <tr class="{{ $index % 2 == 0 ? 'table-light' : '' }} fw-semibold">
                             <td>
-                                <div class="row justify-content-center">
-                                    <div class="col-6 d-flex justify-content-center">
-                                        <i class="bi bi-trash hand-pointer officer-delete-buttons" data-bs-toggle="modal"
-                                            data-bs-target="#officerDeleteActionModal" data-name="{{ $officer->name }}"
-                                            data-db-id="{{ $officer->id }}"></i>
-                                    </div>
-                                    <div class="col-6 d-flex justify-content-center">
-                                        <i class="bi bi-pen hand-pointer officer-update-buttons" data-bs-toggle="modal"
-                                            data-bs-target="#officerUpdateActionModal" data-name="{{ $officer->name }}"
-                                            data-db-id="{{ $officer->id }}"></i>
-                                    </div>
+                                @if (method_exists($officers, 'firstItem'))
+                                    {{ $officers->firstItem() + $index }}
+                                @else
+                                    {{ $index + 1 }}
+                                @endif
+                            </td>
+
+                            <td>{{ $officer->erp_id }}</td>
+                            <td>{{ $officer->name }}</td>
+                            <td>{{ $officer->designation->description_english }}</td>
+
+                            <!-- Role -->
+                            <td>
+                                @switch($officer->role->role_name)
+                                    @case('initiator')
+                                        INITIATOR
+                                    @break
+
+                                    @case('certifier')
+                                        CERTIFIER
+                                    @break
+
+                                    @case('approver')
+                                        APPROVER
+                                    @break
+
+                                    @case('admin')
+                                        ADMIN
+                                    @break
+
+                                    @case('super_admin')
+                                        SUPER ADMIN
+                                    @break
+                                @endswitch
+                            </td>
+
+                            <td>{{ $officer->office->name_in_english }}</td>
+
+                            <!-- Actions -->
+                            <td>
+                                <div class="d-flex justify-content-center gap-3">
+                                    <i class="bi bi-trash hand-pointer officer-delete-buttons" data-bs-toggle="modal"
+                                        data-bs-target="#officerDeleteActionModal" data-name="{{ $officer->name }}"
+                                        data-db-id="{{ $officer->id }}"></i>
+
+                                    <i class="bi bi-pen hand-pointer officer-update-buttons" data-bs-toggle="modal"
+                                        data-bs-target="#officerUpdateActionModal" data-name="{{ $officer->name }}"
+                                        data-db-id="{{ $officer->id }}"></i>
                                 </div>
                             </td>
                         </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center text-muted fst-italic">
+                                <td colspan="7" class="text-center text-muted fst-italic py-4">
                                     No Officer found.
                                 </td>
                             </tr>
@@ -75,46 +87,8 @@
                     </tbody>
                 </table>
 
-                <!--Delete Action Modal -->
-                <div class="modal fade" id="officerDeleteActionModal" data-bs-backdrop="static" data-bs-keyboard="false"
-                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5">Are You sure?</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Do You really want to delete <span class="fw-bold" id="officerDeleteActionModalSpan"></span>?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-                                    id="officerDeleteButton">Yes</button>
-                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Not now</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Update Action Modal -->
-                <div class="modal fade" id="officerUpdateActionModal" data-bs-backdrop="static" data-bs-keyboard="false"
-                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5">Are You sure?</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Do You really want to update <span class="fw-bold" id="officerUpdateActionModalSpan"></span>?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                                    id="officerUpdateButton">Yes</button>
-                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Not now</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="d-flex justify-content-center mt-3">
+                    {{ $officers->links() }}
                 </div>
             </div>
 
@@ -124,13 +98,13 @@
                     Add Officer
                 </a>
                 <a class="btn btn-outline-primary btn-lg me-2 shadow-sm" href="{{ route('search.officer.section') }}">
-                    Search specific Officer
+                    Search Specific Officer
                 </a>
-                <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('show.officers') }}">
+                <a class="btn btn-outline-primary btn-lg me-2 shadow-sm" href="{{ route('show.officers') }}">
                     Refresh List
                 </a>
                 <a class="btn btn-outline-primary btn-lg shadow-sm" href="{{ route('download.officers') }}">
-                    Downlaod
+                    Download
                 </a>
             </div>
         </section>
