@@ -30,14 +30,10 @@ class GpCmpSmsService
         return substr(Str::uuid()->getHex(), 0, 25);
     }
 
-    /**
-     * Send Single SMS with DB Logging
-     */
     public function sendSingle(string $msisdn, string $message, string $messageType = '1')
     {
         $clientTransId = $this->generateTransactionId();
 
-        // Create initial log
         $log = SmsLog::create([
             'clienttransid' => $clientTransId,
             'type' => 'single',
@@ -66,7 +62,6 @@ class GpCmpSmsService
         $response = Http::timeout(30)->post($this->url, $payload);
         $data = $response->json();
 
-        // Update log
         $log->update([
             'status_code' => $data['statusInfo']['statusCode'] ?? null,
             'error_description' => $data['statusInfo']['errordescription'] ?? null,
@@ -76,9 +71,6 @@ class GpCmpSmsService
         return $data;
     }
 
-    /**
-     * Send Bulk SMS with DB Logging
-     */
     public function sendBulk(array $msisdns, string $message, string $messageType = '1')
     {
         $clientTransId = $this->generateTransactionId();
@@ -120,9 +112,6 @@ class GpCmpSmsService
         return $data;
     }
 
-    /**
-     * Check Delivery Report and Update DB
-     */
     public function checkDelivery(array $msisdns, string $operatorTransId, string $messageType = '1')
     {
         $clientTransId = $this->generateTransactionId();
@@ -142,7 +131,6 @@ class GpCmpSmsService
         $response = Http::post($this->url, $payload);
         $data = $response->json();
 
-        // Update delivery status in DB
         if (!empty($data['statusInfo']['deliverystatus'])) {
             foreach ($data['statusInfo']['deliverystatus'] as $status) {
                 [$number, $state] = explode('-', $status);
@@ -157,9 +145,6 @@ class GpCmpSmsService
         return $data;
     }
 
-    /**
-     * Check Balance (No DB logging needed)
-     */
     public function checkBalance()
     {
         $payload = [

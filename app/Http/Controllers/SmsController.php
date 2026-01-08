@@ -48,7 +48,23 @@ class SmsController extends Controller
 
     public function checkBalance()
     {
-        return response()->json($this->sms->checkBalance());
+        $response = $this->sms->checkBalance();
+        if (($response['statusInfo']['statusCode'] === '1000') && ($response['statusInfo']['errordescription'] === 'Success')) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Check balance is successful',
+                'data' => [
+                    'tanxId' => $response['statusInfo']['clienttransid'],
+                    'balanceInTaka' => (float) $response['statusInfo']['availablebalance'] / 100.00
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Check balance is unsuccessful',
+                'data' => []
+            ]);
+        }
     }
 
     public function delivery()
