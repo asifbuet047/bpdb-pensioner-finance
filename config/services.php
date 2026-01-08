@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    'gp_cmp' => [
+        'url' => env('GP_CMP_URL'),
+        'username' => env('GP_CMP_USERNAME'),
+        'password' => env('GP_CMP_PASSWORD'),
+        'bill_msisdn' => env('GP_CMP_BILL_MSISDN'),
+        'rn_code' => env('GP_CMP_RN_CODE'),
+        'cli' => env('GP_CMP_CLI'),
+    ],
 ];

@@ -8,6 +8,7 @@ use App\Http\Controllers\PensionerController;
 use App\Http\Controllers\PensionerCredentialController;
 use App\Http\Controllers\PensionerworkflowController;
 use App\Http\Controllers\PensionworkflowController;
+use App\Http\Controllers\SmsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -101,3 +102,12 @@ Route::get('/unitoffices', [OfficeController::class, 'getAllUnitOfficesFromDB'])
 Route::get('/search-offices', [OfficeController::class, 'search']);
 Route::post('/office', [OfficeController::class, 'addOfficeIntoDB'])->name('add.office.process');
 Route::get('/api/offices', [OfficeController::class, 'getAllOffices']);
+
+
+
+
+Route::get('/api/sms/single', [SmsController::class, 'sendSingleSms']);
+Route::get('/api/sms/bulk', [SmsController::class, 'sendBulkSms']);
+Route::get('/api/sms/balance', [SmsController::class, 'checkBalance']);
+Route::get('/api/sms/delivery', [SmsController::class, 'delivery']);
+Route::get('/api/sms/logs', [SmsController::class, 'logs']);
